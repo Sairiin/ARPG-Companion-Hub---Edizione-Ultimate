@@ -94,6 +94,10 @@
         .close-btn:hover { color: white; }
         #modal-iframe { flex-grow: 1; width: 100%; border: none; background: white;}
 
+        /* Animazioni di Comparsa (Miglioria UI) */
+        .tab-content, .sub-tab-content { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
         /* Main Tabs */
         .tabs { display: flex; justify-content: center; margin-bottom: 10px; gap: 5px; flex-wrap: wrap; }
         .tab-btn { background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; cursor: pointer; font-size: 1em; border-radius: 5px 5px 0 0; transition: 0.2s; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 8px; flex-grow: 1; justify-content: center;}
@@ -146,6 +150,9 @@
         @media (min-width: 768px) { .section h3 { flex-direction: row; justify-content: space-between; align-items: center; font-size: 1.17em;} }
         .season-highlight { background: var(--bg-card); color: var(--accent-secondary); border: 1px solid var(--accent-secondary); padding: 2px 6px; border-radius: 4px; font-size: 0.75em; display: inline-block; margin-top: 5px; letter-spacing: 0.5px;}
         @media (min-width: 768px) { .season-highlight { font-size: 0.85em; padding: 4px 10px; margin-left: 15px; margin-top: 0;} }
+        
+        /* Input Filtro Build Salvate */
+        .filter-saved-input { padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 0.85em; width: 100%; max-width: 200px;}
         
         /* Dashboard Liste: AGGIUNTO SCROLL */
         .dash-list { list-style-type: none; padding: 0; margin: 0;}
@@ -405,9 +412,11 @@
                     </form>
                 </div>
 
-                <!-- MODIFICA QUI: Aggiunto pulsante annulla e ID ai form -->
                 <div class="section">
-                    <h3>💾 Le Mie Build Personali</h3>
+                    <h3>
+                        <div>💾 Le Mie Build Personali</div>
+                        <input type="text" id="filter-saved-poe1" class="filter-saved-input" placeholder="🔍 Filtra le tue build..." onkeyup="window.filterSavedBuilds('poe1')">
+                    </h3>
                     <form class="save-form" id="form-poe1" onsubmit="window.saveBuild(event, 'poe1')">
                         <input type="text" id="name-poe1" placeholder="Nome Build" required>
                         <input type="url" id="link-poe1" placeholder="Incolla URL" required>
@@ -421,14 +430,14 @@
 
                 <div class="section">
                     <h3>
-                        <div>🛡️ Top Build Endgame <span class="season-highlight">Generatore Smart</span></div>
+                        <div>🛡️ Top Build Endgame <span class="season-highlight">Lega 3.29 (Attuale)</span></div>
                     </h3>
                     <ul id="top-builds-poe1" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
                 
                 <div class="section">
                     <h3>
-                        <div>🚀 Top Build Leveling <span class="season-highlight">Generatore Smart</span></div>
+                        <div>🚀 Top Build Leveling <span class="season-highlight">Lega 3.29 (Attuale)</span></div>
                     </h3>
                     <ul id="top-leveling-poe1" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1152,9 +1161,11 @@
                     </form>
                 </div>
 
-                <!-- FORM POE 2 CON EDIT E ANNULLA -->
                 <div class="section">
-                    <h3>💾 Le Mie Build Personali</h3>
+                    <h3>
+                        <div>💾 Le Mie Build Personali</div>
+                        <input type="text" id="filter-saved-poe2" class="filter-saved-input" placeholder="🔍 Filtra le tue build..." onkeyup="window.filterSavedBuilds('poe2')">
+                    </h3>
                     <form class="save-form" id="form-poe2" onsubmit="window.saveBuild(event, 'poe2')">
                         <input type="text" id="name-poe2" placeholder="Nome Build" required>
                         <input type="url" id="link-poe2" placeholder="Incolla URL" required>
@@ -1168,14 +1179,14 @@
 
                 <div class="section">
                     <h3>
-                        <div>🛡️ Top Build Endgame <span class="season-highlight">Generatore Smart</span></div>
+                        <div>🛡️ Top Build Endgame <span class="season-highlight">Early Access 0.5.0</span></div>
                     </h3>
                     <ul id="top-builds-poe2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
                 
                 <div class="section">
                     <h3>
-                        <div>🚀 Top Build Leveling <span class="season-highlight">Generatore Smart</span></div>
+                        <div>🚀 Top Build Leveling <span class="season-highlight">Early Access 0.5.0</span></div>
                     </h3>
                     <ul id="top-leveling-poe2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1206,13 +1217,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Goldrim%22%7D%7D" target="_blank">Goldrim</a>
                             <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Rimane uno dei migliori elmi da leveling per sistemare le difese fin dai primi atti.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).[cite: 3]</span>
+                            <span class="desc">Rimane uno dei migliori elmi da leveling per sistemare le difese fin dai primi atti.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+25-35% a tutte le Resistenze Elementali[cite: 3]</div>
-                            <div class="stat-line">Aumenta Evasione[cite: 3]</div>
+                            <div class="stat-line">+25-35% a tutte le Resistenze Elementali</div>
+                            <div class="stat-line">Aumenta Evasione</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -1220,12 +1231,12 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Crown%20of%20the%20Victor%22%7D%7D" target="_blank">Crown of the Victor</a>
                             <div class="badges"><span class="level-req">📈 Liv: Variabile</span><span class="item-cost">💰 Raro</span></div>
-                            <span class="desc">Aumenta le abilità di base per ogni archetipo, fornendo enormi danni generici.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).[cite: 3]</span>
+                            <span class="desc">Aumenta le abilità di base per ogni archetipo, fornendo enormi danni generici.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello di tutte le Abilità[cite: 3]</div>
+                            <div class="stat-line">+1 al Livello di tutte le Abilità</div>
                         </div>
                     </li>
                     <li data-class="warrior,mercenary,ranger,huntress,monk">
@@ -1233,13 +1244,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thrillsteel%22%7D%7D" target="_blank">Thrillsteel</a>
                             <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Fornisce Assalto permanente, rendendolo perfetto per andare veloci a scapito delle difese.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Attacchi e Speedrunners.[cite: 3]</span>
+                            <span class="desc">Fornisce Assalto permanente, rendendolo perfetto per andare veloci a scapito delle difese.</span>
+                            <span class="class-rec">🎯 Classe/Build: Attacchi e Speedrunners.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Assalto (Onslaught) costante[cite: 3]</div>
-                            <div class="stat-line">+20% Velocità della Skill e +10% Velocità di Movimento[cite: 3]</div>
+                            <div class="stat-line">Assalto (Onslaught) costante</div>
+                            <div class="stat-line">+20% Velocità della Skill e +10% Velocità di Movimento</div>
                         </div>
                     </li>
                 </ul>
@@ -1251,14 +1262,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Enfolding%20Dawn%22%7D%7D" target="_blank">Enfolding Dawn</a>
                             <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Perfetta per build Evocazioni (Minions), fornisce quantità immani di Spirito.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Witch (Build Minion).[cite: 3]</span>
+                            <span class="desc">Perfetta per build Evocazioni (Minions), fornisce quantità immani di Spirito.</span>
+                            <span class="class-rec">🎯 Classe/Build: Witch (Build Minion).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+100 a Spirito (Spirit)[cite: 3]</div>
-                            <div class="stat-line">L'Intelligenza non fornisce più bonus naturali al Mana[cite: 3]</div>
-                            <div class="stat-line">50-100% Armatura e Scudo Energetico aumentati[cite: 3]</div>
+                            <div class="stat-line">+100 a Spirito (Spirit)</div>
+                            <div class="stat-line">L'Intelligenza non fornisce più bonus naturali al Mana</div>
+                            <div class="stat-line">50-100% Armatura e Scudo Energetico aumentati</div>
                         </div>
                     </li>
                     <li data-class="warrior">
@@ -1266,14 +1277,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Titanrot%20Cataphract%22%7D%7D" target="_blank">Titanrot Cataphract</a>
                             <div class="badges"><span class="level-req">📈 Liv: Variabile</span><span class="item-cost">💰 Raro</span></div>
-                            <span class="desc">Eccellente per bloccare gli attacchi fisici. Ottima sinergia per personaggi basati su Forza.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Warrior, classi basate sulla Forza (Strength).[cite: 3]</span>
+                            <span class="desc">Eccellente per bloccare gli attacchi fisici. Ottima sinergia per personaggi basati su Forza.</span>
+                            <span class="class-rec">🎯 Classe/Build: Warrior, classi basate sulla Forza (Strength).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Massiccio aumento dell'Armatura (Armour)[cite: 3]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Riduce Intelligenza e Destrezza del 10%[cite: 3]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Previene la rigenerazione passiva della Vita[cite: 3]</div>
+                            <div class="stat-line">Massiccio aumento dell'Armatura (Armour)</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Riduce Intelligenza e Destrezza del 10%</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Previene la rigenerazione passiva della Vita</div>
                         </div>
                     </li>
                 </ul>
@@ -1285,14 +1296,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Grip%20of%20Winter%22%7D%7D" target="_blank">Grip of Winter</a>
                             <div class="badges"><span class="level-req">📈 Liv: 11</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Perfetti per attacchi basati sul Freddo, congelano i nemici velocemente.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Ranger, Huntress (Attacchi Ghiaccio).[cite: 3]</span>
+                            <span class="desc">Perfetti per attacchi basati sul Freddo, congelano i nemici velocemente.</span>
+                            <span class="class-rec">🎯 Classe/Build: Ranger, Huntress (Attacchi Ghiaccio).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Base da Freddo agli Attacchi[cite: 3]</div>
-                            <div class="stat-line">40-50% Accumulo Congelamento (Freeze Buildup) aumentato[cite: 3]</div>
-                            <div class="stat-line">+20-30% Resistenza al Freddo[cite: 3]</div>
+                            <div class="stat-line">Aggiunge Danni Base da Freddo agli Attacchi</div>
+                            <div class="stat-line">40-50% Accumulo Congelamento (Freeze Buildup) aumentato</div>
+                            <div class="stat-line">+20-30% Resistenza al Freddo</div>
                         </div>
                     </li>
                 </ul>
@@ -1304,13 +1315,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Wanderlust%22%7D%7D" target="_blank">Wanderlust</a>
                             <div class="badges"><span class="level-req">📈 Liv: 11</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">La scelta più popolare fin dai primi atti. Offre protezione vitale e velocità.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).[cite: 3]</span>
+                            <span class="desc">La scelta più popolare fin dai primi atti. Offre protezione vitale e velocità.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">20% Velocità di Movimento (Movement Speed)[cite: 3]</div>
-                            <div class="stat-line">Immunità ai Rallentamenti (Slow Immunity)[cite: 3]</div>
+                            <div class="stat-line">20% Velocità di Movimento (Movement Speed)</div>
+                            <div class="stat-line">Immunità ai Rallentamenti (Slow Immunity)</div>
                         </div>
                     </li>
                     <li data-class="warrior,mercenary">
@@ -1318,13 +1329,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Bushwhack%22%7D%7D" target="_blank">Bushwhack</a>
                             <div class="badges"><span class="level-req">📈 Liv: 33</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Aumenta drasticamente la velocità per quel range di livello.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi, in particolare ibridi Evasione/Armatura.[cite: 3]</span>
+                            <span class="desc">Aumenta drasticamente la velocità per quel range di livello.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le classi, in particolare ibridi Evasione/Armatura.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">15-25% Velocità di Movimento aumentata[cite: 3]</div>
-                            <div class="stat-line">I colpi fisici causano "Pinning" per 4 secondi senza dover usare skill utilitarie[cite: 3]</div>
+                            <div class="stat-line">15-25% Velocità di Movimento aumentata</div>
+                            <div class="stat-line">I colpi fisici causano "Pinning" per 4 secondi senza dover usare skill utilitarie</div>
                         </div>
                     </li>
                 </ul>
@@ -1336,13 +1347,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Surefooted%20Sigil%22%7D%7D" target="_blank">Surefooted Sigil</a>
                             <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Migliora profondamente la nuova meccanica di Dodge Roll. Spesso è più veloce rotolare che camminare.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).[cite: 3]</span>
+                            <span class="desc">Migliora profondamente la nuova meccanica di Dodge Roll. Spesso è più veloce rotolare che camminare.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 metro alla distanza del Dodge Roll[cite: 3]</div>
-                            <div class="stat-line">+40-60 alla Vita Massima e bonus Destrezza[cite: 3]</div>
+                            <div class="stat-line">+1 metro alla distanza del Dodge Roll</div>
+                            <div class="stat-line">+40-60 alla Vita Massima e bonus Destrezza</div>
                         </div>
                     </li>
                     <li data-class="witch,sorceress,monk">
@@ -1350,13 +1361,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22The%20Everlasting%20Gaze%22%7D%7D" target="_blank">The Everlasting Gaze</a>
                             <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Aggiunge tantissimo mana e lo converte in uno strato di Scudo Energetico.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Sorceress, Witch (Incantatori).[cite: 3]</span>
+                            <span class="desc">Aggiunge tantissimo mana e lo converte in uno strato di Scudo Energetico.</span>
+                            <span class="class-rec">🎯 Classe/Build: Sorceress, Witch (Incantatori).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+40-60 Mana Massimo e 40-60% Rigenerazione Mana[cite: 3]</div>
-                            <div class="stat-line">Guadagni il 4-6% del tuo Mana Massimo come Scudo Energetico Extra[cite: 3]</div>
+                            <div class="stat-line">+40-60 Mana Massimo e 40-60% Rigenerazione Mana</div>
+                            <div class="stat-line">Guadagni il 4-6% del tuo Mana Massimo come Scudo Energetico Extra</div>
                         </div>
                     </li>
                 </ul>
@@ -1368,13 +1379,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Blackheart%22%7D%7D" target="_blank">Blackheart</a>
                             <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Molto Comune</span></div>
-                            <span class="desc">Eccellente livello 1 per tutte le build d'attacco grazie ai danni Caos aggiunti.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le build Attacco.[cite: 3]</span>
+                            <span class="desc">Eccellente livello 1 per tutte le build d'attacco grazie ai danni Caos aggiunti.</span>
+                            <span class="class-rec">🎯 Classe/Build: Tutte le build Attacco.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Fisici e da Caos (Chaos Damage) agli Attacchi[cite: 3]</div>
-                            <div class="stat-line">25% di probabilità di Intimidire (Intimidate) i nemici per 4 secondi sul Colpo[cite: 3]</div>
+                            <div class="stat-line">Aggiunge Danni Fisici e da Caos (Chaos Damage) agli Attacchi</div>
+                            <div class="stat-line">25% di probabilità di Intimidire (Intimidate) i nemici per 4 secondi sul Colpo</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -1382,13 +1393,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thief%27s%20Torment%22%7D%7D" target="_blank">Thief's Torment</a>
                             <div class="badges"><span class="level-req">📈 Liv: 30</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Come in PoE 1, fantastico per abilità "Multi-hit" che colpiscono tanti bersagli.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Attacchi a raffica.[cite: 3]</span>
+                            <span class="desc">Come in PoE 1, fantastico per abilità "Multi-hit" che colpiscono tanti bersagli.</span>
+                            <span class="class-rec">🎯 Classe/Build: Attacchi a raffica.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Guadagni 25 Vita e 15 Mana all'istante per ogni Nemico Colpito dagli Attacchi[cite: 3]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Non puoi usare altri anelli contemporaneamente[cite: 3]</div>
+                            <div class="stat-line">Guadagni 25 Vita e 15 Mana all'istante per ogni Nemico Colpito dagli Attacchi</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Non puoi usare altri anelli contemporaneamente</div>
                         </div>
                     </li>
                 </ul>
@@ -1400,13 +1411,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Midnight%20Braid%22%7D%7D" target="_blank">Midnight Braid</a>
                             <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">La scelta definitiva per risolvere i problemi di Mana e sustain per incantatori.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Mana-stackers).[cite: 3]</span>
+                            <span class="desc">La scelta definitiva per risolvere i problemi di Mana e sustain per incantatori.</span>
+                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Mana-stackers).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">50% del Danno Subito viene recuperato (Recouped) come Mana[cite: 3]</div>
-                            <div class="stat-line">+30-50 Mana Massimo e bonus Recupero Vita dalle Fiaschette[cite: 3]</div>
+                            <div class="stat-line">50% del Danno Subito viene recuperato (Recouped) come Mana</div>
+                            <div class="stat-line">+30-50 Mana Massimo e bonus Recupero Vita dalle Fiaschette</div>
                         </div>
                     </li>
                 </ul>
@@ -1418,12 +1429,12 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lifesprig%22%7D%7D" target="_blank">Lifesprig</a>
                             <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Ritorna come in PoE 1, eccellente per iniziare campagne magiche.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Spells).[cite: 3]</span>
+                            <span class="desc">Ritorna come in PoE 1, eccellente per iniziare campagne magiche.</span>
+                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Spells).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Bonus iniziali ottimi per gli Incantesimi (Spells) e la sopravvivenza al livello 1.[cite: 3]</div>
+                            <div class="stat-line">Bonus iniziali ottimi per gli Incantesimi (Spells) e la sopravvivenza al livello 1.</div>
                         </div>
                     </li>
                     <li data-class="sorceress,druid">
@@ -1431,14 +1442,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Earthbound%22%7D%7D" target="_blank">Earthbound</a>
                             <div class="badges"><span class="level-req">📈 Liv: 2</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Eccezionale per i maghi di tipo Elettro; riempie lo schermo di scintille.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Sorceress (Danni da Fulmine).[cite: 3]</span>
+                            <span class="desc">Eccezionale per i maghi di tipo Elettro; riempie lo schermo di scintille.</span>
+                            <span class="class-rec">🎯 Classe/Build: Sorceress (Danni da Fulmine).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Garantisce le abilità Spark e Lightning Bolt innate nell'arma[cite: 3]</div>
-                            <div class="stat-line">Attiva (Trigger) Spark automaticamente uccidendo un nemico Scioccato (Shocked)[cite: 3]</div>
-                            <div class="stat-line">80-120% Danno Magico (Spell Damage) aumentato[cite: 3]</div>
+                            <div class="stat-line">Garantisce le abilità Spark e Lightning Bolt innate nell'arma</div>
+                            <div class="stat-line">Attiva (Trigger) Spark automaticamente uccidendo un nemico Scioccato (Shocked)</div>
+                            <div class="stat-line">80-120% Danno Magico (Spell Damage) aumentato</div>
                         </div>
                     </li>
                     <li data-class="mercenary,ranger">
@@ -1446,13 +1457,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Radiant%20Grief%22%7D%7D" target="_blank">Radiant Grief</a>
                             <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Balestra ottima per i Mercenari e arcieri. Usa le meccaniche di Ustione in modo passivo.[cite: 3]</span>
-                            <span class="class-rec">🎯 Classe/Build: Mercenary (Balestre).[cite: 3]</span>
+                            <span class="desc">Balestra ottima per i Mercenari e arcieri. Usa le meccaniche di Ustione in modo passivo.</span>
+                            <span class="class-rec">🎯 Classe/Build: Mercenary (Balestre).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Incendia (Ignite) automaticamente tutti i nemici a te vicini[cite: 3]</div>
-                            <div class="stat-line">Perfetto in sinergia con altre fonti che infliggono danni aggiuntivi a nemici in Ustione[cite: 3]</div>
+                            <div class="stat-line">Incendia (Ignite) automaticamente tutti i nemici a te vicini</div>
+                            <div class="stat-line">Perfetto in sinergia con altre fonti che infliggono danni aggiuntivi a nemici in Ustione</div>
                         </div>
                     </li>
                 </ul>
@@ -1529,9 +1540,11 @@
                     </form>
                 </div>
 
-                <!-- FORM LE CON EDIT E ANNULLA -->
                 <div class="section" style="border-left-color: var(--accent-le);">
-                    <h3 style="color: var(--accent-le);">💾 Le Mie Build Personali</h3>
+                    <h3 style="color: var(--accent-le);">
+                        <div>💾 Le Mie Build Personali</div>
+                        <input type="text" id="filter-saved-le" class="filter-saved-input" placeholder="🔍 Filtra le tue build..." onkeyup="window.filterSavedBuilds('le')" style="border-color: var(--accent-le);">
+                    </h3>
                     <form class="save-form" id="form-le" onsubmit="window.saveBuild(event, 'le')" style="border-color: var(--accent-le);">
                         <input type="text" id="name-le" placeholder="Nome Build" required style="border-color: var(--accent-le);">
                         <input type="url" id="link-le" placeholder="Incolla URL" required style="border-color: var(--accent-le);">
@@ -1545,14 +1558,14 @@
 
                 <div class="section" style="border-left-color: var(--accent-le);">
                     <h3 style="color: var(--accent-le);">
-                        <div>🛡️ Top Build Endgame <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Generatore Smart</span></div>
+                        <div>🛡️ Top Build Endgame <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Cycle 1.0 (Attuale)</span></div>
                     </h3>
                     <ul id="top-builds-le" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
                 
                 <div class="section" style="border-left-color: var(--accent-le);">
                     <h3 style="color: var(--accent-le);">
-                        <div>🚀 Top Build Leveling <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Generatore Smart</span></div>
+                        <div>🚀 Top Build Leveling <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Cycle 1.0 (Attuale)</span></div>
                     </h3>
                     <ul id="top-leveling-le" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1631,9 +1644,11 @@
                     </form>
                 </div>
 
-                <!-- FORM D2R CON EDIT E ANNULLA -->
                 <div class="section" style="border-left-color: var(--danger);">
-                    <h3 style="color: var(--danger);">💾 Le Mie Build Personali</h3>
+                    <h3 style="color: var(--danger);">
+                        <div>💾 Le Mie Build Personali</div>
+                        <input type="text" id="filter-saved-d2" class="filter-saved-input" placeholder="🔍 Filtra le tue build..." onkeyup="window.filterSavedBuilds('d2')" style="border-color: var(--danger);">
+                    </h3>
                     <form class="save-form" id="form-d2" onsubmit="window.saveBuild(event, 'd2')" style="border-color: var(--danger);">
                         <input type="text" id="name-d2" placeholder="Nome Build" required style="border-color: var(--danger);">
                         <input type="url" id="link-d2" placeholder="Incolla URL" required style="border-color: var(--danger);">
@@ -1647,14 +1662,14 @@
 
                 <div class="section" style="border-left-color: var(--danger);">
                     <h3 style="color: var(--danger);">
-                        <div>⚔️ Meta Endgame <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Generatore Smart</span></div>
+                        <div>⚔️ Meta Endgame <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Ladder Stagione 14</span></div>
                     </h3>
                     <ul id="top-builds-d2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
                 
                 <div class="section" style="border-left-color: var(--danger);">
                     <h3 style="color: var(--danger);">
-                        <div>🚀 Meta Leveling <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Generatore Smart</span></div>
+                        <div>🚀 Meta Leveling <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Ladder Stagione 14</span></div>
                     </h3>
                     <ul id="top-leveling-d2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1663,7 +1678,7 @@
             <!-- GUIDA PAROLE RUNICHE D2R (RIPRISTINATA) -->
             <div id="d2-guide" class="sub-tab-content d2-sub-content guide-section">
                 <h1 style="color:var(--guide-title); text-align:left; border-bottom: none; padding:0; margin-bottom:5px;">Guida D2R: Database Parole Runiche</h1>
-                <p style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune, aggiornate alle ultime Patch di Diablo 2 Resurrected. Assicurati di usare un oggetto base "Grigio" (Normale con Incavi) e di inserire le rune nell'ordine esatto![cite: 5]</em></p>
+                <p style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune, aggiornate alle ultime Patch di Diablo 2 Resurrected. Assicurati di usare un oggetto base "Grigio" (Normale con Incavi) e di inserire le rune nell'ordine esatto!</em></p>
                 
                 <div class="filter-container">
                     <label for="type-filter-d2">Filtra per Tipo Oggetto:</label>
@@ -1717,6 +1732,22 @@
                               JAVASCRIPT (Firebase + Logica)
     ======================================================== -->
     
+    <!-- Script Gestione Immagini di Fallback globale -->
+    <script>
+        document.addEventListener("error", function(e) {
+            // Controlla se l'elemento che ha dato errore è un'immagine
+            if (e.target.tagName.toLowerCase() === 'img') {
+                // Evita un loop infinito se l'immagine di fallback stessa non dovesse caricarsi
+                if (e.target.getAttribute('data-fallback-applied') === 'true') return;
+                e.target.setAttribute('data-fallback-applied', 'true');
+                
+                // Immagine di fallback con colori in stile app
+                e.target.src = 'https://placehold.co/100x100/1e1e24/ff9800?text=No+Image'; 
+                e.target.style.objectFit = 'contain';
+            }
+        }, true);
+    </script>
+
     <!-- Script Google Translate per Multilingua -->
     <script>
         function googleTranslateElementInit() {
@@ -1879,6 +1910,25 @@
             });
         };
 
+        // Nuova funzione per filtrare le build salvate (Miglioria consigliata)
+        window.filterSavedBuilds = function(game) {
+            let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
+            let ul = document.getElementById(`my-builds-${game}`);
+            let li = ul.getElementsByTagName("li");
+            
+            for (let i = 0; i < li.length; i++) {
+                // Salta il messaggio "Nessuna build salvata"
+                if (li[i].innerText.includes("Nessuna build salvata")) continue; 
+                
+                let text = li[i].textContent || li[i].innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        };
+
         window.editBuild = function(game, index) {
             const build = userBuilds[game][index];
             document.getElementById(`name-${game}`).value = build.name;
@@ -1927,12 +1977,22 @@
             
             await syncToFirebase();
             window.cancelEdit(game);
+            
+            // Pulisce il filtro dopo il salvataggio
+            const filterInput = document.getElementById(`filter-saved-${game}`);
+            if(filterInput) {
+                filterInput.value = "";
+                window.filterSavedBuilds(game);
+            }
         };
 
         window.deleteBuild = async function(game, index) {
             if(!confirm("Sicuro di voler eliminare questa build?")) return;
             userBuilds[game].splice(index, 1);
             await syncToFirebase();
+            
+            // Mantiene il filtro se attivo
+            window.filterSavedBuilds(game);
         };
 
         window.quickSave = async function(game, buildName, defaultVersion, buildUrl) {
@@ -2236,7 +2296,7 @@
             });
         };
 
-        // --- DATABASE RUNEWORDS D2 (Ripristinato perfettamente) ---
+        // --- DATABASE RUNEWORDS D2 ---
         const RUNE_IMG_BASE_URL = "https://d2runewizard.com/assets/runes/";
         const RUNE_IMG_EXT = ".webp";
         const runewordsData = [
