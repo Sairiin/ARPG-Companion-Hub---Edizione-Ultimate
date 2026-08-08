@@ -129,9 +129,17 @@
         @media (min-width: 768px) { button.action-btn { width: auto; padding: 10px 20px;} }
         button.action-btn:hover { filter: brightness(1.1); }
         button.update-btn { background: var(--accent-tertiary); } 
-        button.delete-btn { background: var(--danger); color: white; border: none; border-radius: 3px; cursor: pointer; padding: 5px 10px; font-weight: bold; margin-top: 5px;}
-        @media (min-width: 768px) { button.delete-btn { padding: 2px 8px; margin-top: 0;} }
         
+        /* Pulsanti Modifica e Cancella */
+        button.delete-btn, button.edit-btn { color: white; border: none; border-radius: 4px; cursor: pointer; padding: 6px 10px; font-weight: bold; margin-left: 5px; font-size: 0.9em; transition: 0.2s;}
+        button.delete-btn { background: var(--danger); }
+        button.delete-btn:hover { background: #d32f2f; }
+        button.edit-btn { background: var(--accent-primary); }
+        button.edit-btn:hover { background: #f57c00; }
+        
+        .cancel-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; padding: 10px; font-weight: bold; display: none; }
+        .cancel-btn:hover { background: var(--bg-hover); }
+
         /* Stile Titoli */
         .section { margin-bottom: 20px; background: var(--bg-main); padding: 15px; border-radius: 5px; border: 1px solid var(--border-color); border-left: 4px solid var(--accent-primary);}
         .section h3 { color: var(--accent-primary); margin-top: 0; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px; display: flex; flex-direction: column; gap: 10px; font-size: 1.1em;}
@@ -139,8 +147,12 @@
         .season-highlight { background: var(--bg-card); color: var(--accent-secondary); border: 1px solid var(--accent-secondary); padding: 2px 6px; border-radius: 4px; font-size: 0.75em; display: inline-block; margin-top: 5px; letter-spacing: 0.5px;}
         @media (min-width: 768px) { .season-highlight { font-size: 0.85em; padding: 4px 10px; margin-left: 15px; margin-top: 0;} }
         
-        /* Dashboard Liste */
+        /* Dashboard Liste: AGGIUNTO SCROLL */
         .dash-list { list-style-type: none; padding: 0; margin: 0;}
+        .saved-builds-list { max-height: 350px; overflow-y: auto; padding-right: 5px; }
+        .saved-builds-list::-webkit-scrollbar { width: 6px; }
+        .saved-builds-list::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 3px; }
+        
         .dash-list li { background: var(--bg-card); margin-bottom: 8px; padding: 10px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border-color);}
         @media (min-width: 768px) { .dash-list li { flex-direction: row; align-items: center; justify-content: space-between; gap: 0;} }
         
@@ -164,6 +176,7 @@
         .tool-link:hover { filter: brightness(1.2); }
         .overlay-btn { background: #607d8b; border: 1px solid #455a64; color: white; cursor: pointer; font-size: 0.8em; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-bottom: 5px;}
         .overlay-btn:hover { background: #455a64; }
+
         .smart-links-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; width: 100%; }
 
         /* === STILI GUIDE OFFLINE === */
@@ -392,22 +405,23 @@
                     </form>
                 </div>
 
+                <!-- MODIFICA QUI: Aggiunto pulsante annulla e ID ai form -->
                 <div class="section">
                     <h3>💾 Le Mie Build Personali</h3>
-                    <form class="save-form" onsubmit="window.saveBuild(event, 'poe1')">
+                    <form class="save-form" id="form-poe1" onsubmit="window.saveBuild(event, 'poe1')">
                         <input type="text" id="name-poe1" placeholder="Nome Build" required>
                         <input type="url" id="link-poe1" placeholder="Incolla URL" required>
                         <input type="text" id="version-poe1" class="input-small" placeholder="Ver. (3.29)" required>
                         <input type="text" id="note-poe1" placeholder="Note (Starter, MF...)">
-                        <button type="submit" class="action-btn">Salva</button>
+                        <button type="submit" id="submit-btn-poe1" class="action-btn">Salva</button>
+                        <button type="button" id="cancel-btn-poe1" class="cancel-btn" onclick="window.cancelEdit('poe1')">Annulla</button>
                     </form>
-                    <ul id="my-builds-poe1" class="dash-list"></ul>
+                    <ul id="my-builds-poe1" class="dash-list saved-builds-list"></ul>
                 </div>
 
                 <div class="section">
                     <h3>
                         <div>🛡️ Top Build Endgame <span class="season-highlight">Generatore Smart</span></div>
-                        <!-- Rimosso tasto Sincronizza: ora è automatico! -->
                     </h3>
                     <ul id="top-builds-poe1" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -445,14 +459,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Goldrim%22%7D%7D" target="_blank">Goldrim</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~2 C</span><span class="item-sockets">🕳️ Max 4</span></div>
-                            <span class="desc">La scelta predefinita per il leveling, sistema le difese dall'Atto 1.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">La scelta predefinita per il leveling, sistema le difese dall'Atto 1.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+30-40% a tutte le Resistenze Elementali[cite: 2]</div>
-                            <div class="stat-line">10% Rarità degli Oggetti trovati[cite: 2]</div>
-                            <div class="stat-line">Aumenta Evasione (Evasion)[cite: 2]</div>
+                            <div class="stat-line">+30-40% a tutte le Resistenze Elementali</div>
+                            <div class="stat-line">10% Rarità degli Oggetti trovati</div>
+                            <div class="stat-line">Aumenta Evasione (Evasion)</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist,marauder">
@@ -460,13 +474,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thrillsteel%22%7D%7D" target="_blank">Thrillsteel</a>
                             <div class="badges"><span class="level-req">📈 Liv. 18</span><span class="item-cost">💰 ~1 Alch</span><span class="item-sockets">🕳️ Max 4</span></div>
-                            <span class="desc">Molto amato dagli speed-runners, fornisce enormi buff alla velocità.[cite: 2]</span>
-                            <span class="class-rec">🎯 Ranger, Duelist, Marauder.[cite: 2]</span>
+                            <span class="desc">Molto amato dagli speed-runners, fornisce enormi buff alla velocità.</span>
+                            <span class="class-rec">🎯 Ranger, Duelist, Marauder.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Hai Assalto (Onslaught) costante[cite: 2]</div>
-                            <div class="stat-line">+20% Velocità di Movimento, Attacco e Lancio[cite: 2]</div>
+                            <div class="stat-line">Hai Assalto (Onslaught) costante</div>
+                            <div class="stat-line">+20% Velocità di Movimento, Attacco e Lancio</div>
                         </div>
                     </li>
                 </ul>
@@ -478,13 +492,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Tabula%20Rasa%22%7D%7D" target="_blank">Tabula Rasa</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~12 C</span><span class="item-sockets">🕳️ 6 Fissi</span></div>
-                            <span class="desc">L'armatura per eccellenza per livellare: un 6-Link bianco dal livello 1.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">L'armatura per eccellenza per livellare: un 6-Link bianco dal livello 1.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line" style="color:var(--text-muted)">Nessuna statistica difensiva[cite: 2]</div>
-                            <div class="stat-line">Possiede sempre 6 Incavi Bianchi tutti collegati (6-Link)[cite: 2]</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Nessuna statistica difensiva</div>
+                            <div class="stat-line">Possiede sempre 6 Incavi Bianchi tutti collegati (6-Link)</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -492,14 +506,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Skin%20of%20the%20Loyal%22%7D%7D" target="_blank">Skin of the Loyal</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~30 C</span><span class="item-sockets">🕳️ 6 Fissi</span></div>
-                            <span class="desc">Moltiplica a dismisura le difese e il danno base se hai i colori giusti.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Moltiplica a dismisura le difese e il danno base se hai i colori giusti.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello delle Gemme Incastonate[cite: 2]</div>
-                            <div class="stat-line">100% Difese Globali aumentate[cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">I colori dei castoni non possono essere modificati![cite: 2]</div>
+                            <div class="stat-line">+1 al Livello delle Gemme Incastonate</div>
+                            <div class="stat-line">100% Difese Globali aumentate</div>
+                            <div class="stat-line" style="color:var(--text-muted)">I colori dei castoni non possono essere modificati!</div>
                         </div>
                     </li>
                 </ul>
@@ -511,13 +525,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lochtonial%20Caress%22%7D%7D" target="_blank">Lochtonial Caress</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Forniscono ottime statistiche offensive e cariche passive.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Forniscono ottime statistiche offensive e cariche passive.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">10-15% Velocità di Attacco e Lancio[cite: 2]</div>
-                            <div class="stat-line">10% probabilità di Carica all'Uccisione[cite: 2]</div>
+                            <div class="stat-line">10-15% Velocità di Attacco e Lancio</div>
+                            <div class="stat-line">10% probabilità di Carica all'Uccisione</div>
                         </div>
                     </li>
                     <li data-class="shadow,ranger,witch">
@@ -525,14 +539,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Hrimsorrow%22%7D%7D" target="_blank">Hrimsorrow</a>
                             <div class="badges"><span class="level-req">📈 Liv. 9</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Spesso usati per build che vogliono convertire il danno fin da subito.[cite: 2]</span>
-                            <span class="class-rec">🎯 Shadow, Ranger, Witch.[cite: 2]</span>
+                            <span class="desc">Spesso usati per build che vogliono convertire il danno fin da subito.</span>
+                            <span class="class-rec">🎯 Shadow, Ranger, Witch.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">100% del Danno Fisico viene convertito in Danno da Freddo[cite: 2]</div>
-                            <div class="stat-line">+20-30 Forza[cite: 2]</div>
-                            <div class="stat-line">Aggiunge Danni Base da Freddo[cite: 2]</div>
+                            <div class="stat-line">100% del Danno Fisico viene convertito in Danno da Freddo</div>
+                            <div class="stat-line">+20-30 Forza</div>
+                            <div class="stat-line">Aggiunge Danni Base da Freddo</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist">
@@ -540,13 +554,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Sadima%27s%20Touch%22%7D%7D" target="_blank">Sadima's Touch</a>
                             <div class="badges"><span class="level-req">📈 Liv. 9</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Funzionano particolarmente bene per archi o attacchi elementali.[cite: 2]</span>
-                            <span class="class-rec">🎯 Ranger, Duelist.[cite: 2]</span>
+                            <span class="desc">Funzionano particolarmente bene per archi o attacchi elementali.</span>
+                            <span class="class-rec">🎯 Ranger, Duelist.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Base da Fuoco e Fulmine agli attacchi[cite: 2]</div>
-                            <div class="stat-line">12-16% Quantità (Quantity) di Oggetti trovati[cite: 2]</div>
+                            <div class="stat-line">Aggiunge Danni Base da Fuoco e Fulmine agli attacchi</div>
+                            <div class="stat-line">12-16% Quantità (Quantity) di Oggetti trovati</div>
                         </div>
                     </li>
                 </ul>
@@ -558,14 +572,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Wanderlust%22%7D%7D" target="_blank">Wanderlust</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">La scelta più accessibile. Evitano fastidiosissime morti per congelamento.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">La scelta più accessibile. Evitano fastidiosissime morti per congelamento.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Sei Immune al Congelamento[cite: 2]</div>
-                            <div class="stat-line">20% Velocità di Movimento[cite: 2]</div>
-                            <div class="stat-line">Rigenerazione Mana aumentata[cite: 2]</div>
+                            <div class="stat-line">Sei Immune al Congelamento</div>
+                            <div class="stat-line">20% Velocità di Movimento</div>
+                            <div class="stat-line">Rigenerazione Mana aumentata</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -573,13 +587,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Seven-League%20Step%22%7D%7D" target="_blank">Seven-League Step</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 Lusso</span></div>
-                            <span class="desc">Opzione di lusso per correre all'impazzata attraverso gli Atti.[cite: 2]</span>
-                            <span class="class-rec">🎯 Speedrunners.[cite: 2]</span>
+                            <span class="desc">Opzione di lusso per correre all'impazzata attraverso gli Atti.</span>
+                            <span class="class-rec">🎯 Speedrunners.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">50% Velocità di Movimento Massiccia[cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">(Nessuna altra statistica difensiva)[cite: 2]</div>
+                            <div class="stat-line">50% Velocità di Movimento Massiccia</div>
+                            <div class="stat-line" style="color:var(--text-muted)">(Nessuna altra statistica difensiva)</div>
                         </div>
                     </li>
                 </ul>
@@ -591,13 +605,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Sidhebreath%22%7D%7D" target="_blank">Sidhebreath</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~1 C</span></div>
-                            <span class="desc">La scelta definitiva dal livello 1 se intendi usare evocazioni.[cite: 2]</span>
-                            <span class="class-rec">🎯 Witch, Templar.[cite: 2]</span>
+                            <span class="desc">La scelta definitiva dal livello 1 se intendi usare evocazioni.</span>
+                            <span class="class-rec">🎯 Witch, Templar.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">I Minion hanno +10-15% Vita e Danno[cite: 2]</div>
-                            <div class="stat-line">I Minion hanno +10-15% Velocità di Movimento[cite: 2]</div>
+                            <div class="stat-line">I Minion hanno +10-15% Vita e Danno</div>
+                            <div class="stat-line">I Minion hanno +10-15% Velocità di Movimento</div>
                         </div>
                     </li>
                     <li data-class="templar,witch,scion">
@@ -605,13 +619,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Atziri%27s%20Foible%22%7D%7D" target="_blank">Atziri's Foible</a>
                             <div class="badges"><span class="level-req">📈 Liv. 16</span><span class="item-cost">💰 ~10 C</span></div>
-                            <span class="desc">Fornisce moltissimo Mana e risolve tutti i problemi di requisiti.[cite: 2]</span>
-                            <span class="class-rec">🎯 Templar, Witch, Scion.[cite: 2]</span>
+                            <span class="desc">Fornisce moltissimo Mana e risolve tutti i problemi di requisiti.</span>
+                            <span class="class-rec">🎯 Templar, Witch, Scion.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+100 Mana Massimo e Altissima Rigenerazione[cite: 2]</div>
-                            <div class="stat-line">I Requisiti degli Attributi di Gemme e Oggetti sono ridotti del 25%[cite: 2]</div>
+                            <div class="stat-line">+100 Mana Massimo e Altissima Rigenerazione</div>
+                            <div class="stat-line">I Requisiti degli Attributi di Gemme e Oggetti sono ridotti del 25%</div>
                         </div>
                     </li>
                     <li data-class="duelist,marauder">
@@ -619,14 +633,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Carnage%20Heart%22%7D%7D" target="_blank">Carnage Heart / Daresso's Salute</a>
                             <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 ~3 C</span></div>
-                            <span class="desc">Ottima scelta per i combattenti Melee che sfruttano il "Life Leech".[cite: 2]</span>
-                            <span class="class-rec">🎯 Duelist, Marauder.[cite: 2]</span>
+                            <span class="desc">Ottima scelta per i combattenti Melee che sfruttano il "Life Leech".</span>
+                            <span class="class-rec">🎯 Duelist, Marauder.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche (Carnage Heart)</strong>
-                            <div class="stat-line">+20-40 a tutti gli Attributi[cite: 2]</div>
-                            <div class="stat-line">50% Recupero Vita aumentato dal Leech[cite: 2]</div>
-                            <div class="stat-line">30-40% Danno Globale extra mentre Rubi Vita[cite: 2]</div>
+                            <div class="stat-line">+20-40 a tutti gli Attributi</div>
+                            <div class="stat-line">50% Recupero Vita aumentato dal Leech</div>
+                            <div class="stat-line">30-40% Danno Globale extra mentre Rubi Vita</div>
                         </div>
                     </li>
                     <li data-class="scion,templar">
@@ -634,12 +648,12 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Astramentis%22%7D%7D" target="_blank">Astramentis</a>
                             <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 ~20 C</span></div>
-                            <span class="desc">Ti permette di ignorare completamente i requisiti degli oggetti.[cite: 2]</span>
-                            <span class="class-rec">🎯 Scion, Inquisitor.[cite: 2]</span>
+                            <span class="desc">Ti permette di ignorare completamente i requisiti degli oggetti.</span>
+                            <span class="class-rec">🎯 Scion, Inquisitor.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+80-100 a TUTTI gli Attributi base[cite: 2]</div>
+                            <div class="stat-line">+80-100 a TUTTI gli Attributi base</div>
                         </div>
                     </li>
                     <li data-class="ranger,shadow">
@@ -647,13 +661,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Sacrificial%20Heart%22%7D%7D" target="_blank">Sacrificial Heart</a>
                             <div class="badges"><span class="level-req">📈 Liv. 32</span><span class="item-cost">💰 ~5 C</span></div>
-                            <span class="desc">Perfetto per caricare le potentissime abilità Vaal in un baleno.[cite: 2]</span>
-                            <span class="class-rec">🎯 Ranger, Shadow.[cite: 2]</span>
+                            <span class="desc">Perfetto per caricare le potentissime abilità Vaal in un baleno.</span>
+                            <span class="class-rec">🎯 Ranger, Shadow.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge massicci danni elementali extra agli attacchi[cite: 2]</div>
-                            <div class="stat-line">Guadagni Anime Vaal extra velocemente[cite: 2]</div>
+                            <div class="stat-line">Aggiunge massicci danni elementali extra agli attacchi</div>
+                            <div class="stat-line">Guadagni Anime Vaal extra velocemente</div>
                         </div>
                     </li>
                 </ul>
@@ -665,14 +679,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Berek%27s%20Grip%22%7D%7D" target="_blank">Berek's Grip / Pass / Respite</a>
                             <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 Da ~2c a ~60c</span></div>
-                            <span class="desc">La versione Grip (mostrata) è per il fulmine, Respite per fuoco, Pass per freddo.[cite: 2]</span>
-                            <span class="class-rec">🎯 Witch, Templar, Shadow.[cite: 2]</span>
+                            <span class="desc">La versione Grip (mostrata) è per il fulmine, Respite per fuoco, Pass per freddo.</span>
+                            <span class="class-rec">🎯 Witch, Templar, Shadow.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Danno Magico Elementale aumentato[cite: 2]</div>
-                            <div class="stat-line">Grip: Ruba Vita e Mana da nemici Congelati/Scioccati[cite: 2]</div>
-                            <div class="stat-line">Respite: Diffonde Ustioni (Ignite) ai nemici vicini alla morte[cite: 2]</div>
+                            <div class="stat-line">Danno Magico Elementale aumentato</div>
+                            <div class="stat-line">Grip: Ruba Vita e Mana da nemici Congelati/Scioccati</div>
+                            <div class="stat-line">Respite: Diffonde Ustioni (Ignite) ai nemici vicini alla morte</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -680,14 +694,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Le%20Heup%20of%20All%22%7D%7D" target="_blank">Le Heup of All</a>
                             <div class="badges"><span class="level-req">📈 Liv. 24</span><span class="item-cost">💰 ~4 C</span></div>
-                            <span class="desc">Un anello "coltellino svizzero" perfetto per tappare ogni buco nella build.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Un anello "coltellino svizzero" perfetto per tappare ogni buco nella build.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">10-30% Danno Globale aumentato[cite: 2]</div>
-                            <div class="stat-line">10-30% a Tutte le Resistenze Elementali[cite: 2]</div>
-                            <div class="stat-line">+10-30 a Tutti gli Attributi[cite: 2]</div>
+                            <div class="stat-line">10-30% Danno Globale aumentato</div>
+                            <div class="stat-line">10-30% a Tutte le Resistenze Elementali</div>
+                            <div class="stat-line">+10-30 a Tutti gli Attributi</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -695,13 +709,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Praxis%22%7D%7D" target="_blank">Praxis</a>
                             <div class="badges"><span class="level-req">📈 Liv. 22</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">Cancella per sempre i problemi di mana.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Cancella per sempre i problemi di mana.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Rimuove 4-8 Mana dal Costo Base delle Abilità[cite: 2]</div>
-                            <div class="stat-line">8% del Danno Subito viene recuperato passivamente come Mana[cite: 2]</div>
+                            <div class="stat-line">Rimuove 4-8 Mana dal Costo Base delle Abilità</div>
+                            <div class="stat-line">8% del Danno Subito viene recuperato passivamente come Mana</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist,shadow">
@@ -709,13 +723,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thief%27s%20Torment%22%7D%7D" target="_blank">Thief's Torment</a>
                             <div class="badges"><span class="level-req">📈 Liv. 30</span><span class="item-cost">💰 ~5 C</span></div>
-                            <span class="desc">Impedisce l'uso del secondo anello ma garantisce un "Life/Mana Gain on Hit" strepitoso.[cite: 2]</span>
-                            <span class="class-rec">🎯 Ranger, Duelist, Shadow.[cite: 2]</span>
+                            <span class="desc">Impedisce l'uso del secondo anello ma garantisce un "Life/Mana Gain on Hit" strepitoso.</span>
+                            <span class="class-rec">🎯 Ranger, Duelist, Shadow.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+40-60 Vita e +30 Mana guadagnati all'istante per ogni Nemico Colpito![cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Non puoi equipaggiare un altro Anello[cite: 2]</div>
+                            <div class="stat-line">+40-60 Vita e +30 Mana guadagnati all'istante per ogni Nemico Colpito!</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Non puoi equipaggiare un altro Anello</div>
                         </div>
                     </li>
                 </ul>
@@ -727,13 +741,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Darkness%20Enthroned%22%7D%7D" target="_blank">Darkness Enthroned</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-sockets">🕳️ 2 Abissali</span></div>
-                            <span class="desc">Aumenta massicciamente l'effetto dei Gioielli Abissali incastonati al suo interno.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Aumenta massicciamente l'effetto dei Gioielli Abissali incastonati al suo interno.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Possiede 2 Incavi Abissali (Abyssal Sockets)[cite: 2]</div>
-                            <div class="stat-line">L'Effetto dei Gioielli in questa cintura è aumentato del 50-100%[cite: 2]</div>
+                            <div class="stat-line">Possiede 2 Incavi Abissali (Abyssal Sockets)</div>
+                            <div class="stat-line">L'Effetto dei Gioielli in questa cintura è aumentato del 50-100%</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -741,13 +755,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22String%20of%20Servitude%22%7D%7D" target="_blank">String of Servitude</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">La variante con le "Resistenze Elementali" cap in automatico le difese per tutta la campagna.[cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">La variante con le "Resistenze Elementali" cap in automatico le difese per tutta la campagna.</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">I Modificatori Impliciti Corrotti sono Triplicati[cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">(Un roll base del +15% a tutte le resistenze diventerà un clamoroso +45%!)[cite: 2]</div>
+                            <div class="stat-line">I Modificatori Impliciti Corrotti sono Triplicati</div>
+                            <div class="stat-line" style="color:var(--text-muted)">(Un roll base del +15% a tutte le resistenze diventerà un clamoroso +45%!)</div>
                         </div>
                     </li>
                     <li data-class="marauder,duelist">
@@ -755,14 +769,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Meginord%27s%20Girdle%22%7D%7D" target="_blank">Meginord's Girdle</a>
                             <div class="badges"><span class="level-req">📈 Liv. 8</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Ottima spinta a Forza e Danno fisico per i primi livelli.[cite: 2]</span>
-                            <span class="class-rec">🎯 Marauder, Duelist.[cite: 2]</span>
+                            <span class="desc">Ottima spinta a Forza e Danno fisico per i primi livelli.</span>
+                            <span class="class-rec">🎯 Marauder, Duelist.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+25-50 Forza[cite: 2]</div>
-                            <div class="stat-line">Aggiunge Danni Fisici puri agli Attacchi[cite: 2]</div>
-                            <div class="stat-line">10% Vita Massima aumentata[cite: 2]</div>
+                            <div class="stat-line">+25-50 Forza</div>
+                            <div class="stat-line">Aggiunge Danni Fisici puri agli Attacchi</div>
+                            <div class="stat-line">10% Vita Massima aumentata</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist">
@@ -770,12 +784,12 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Prismweave%22%7D%7D" target="_blank">Prismweave</a>
                             <div class="badges"><span class="level-req">📈 Liv. 25</span><span class="item-cost">💰 ~1 C</span></div>
-                            <span class="desc">Perfetta per build che scalano i danni elementali sparando frecce o tramite attacchi.[cite: 2]</span>
-                            <span class="class-rec">🎯 Ranger, Duelist.[cite: 2]</span>
+                            <span class="desc">Perfetta per build che scalano i danni elementali sparando frecce o tramite attacchi.</span>
+                            <span class="class-rec">🎯 Ranger, Duelist.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge grandi quantità piatte di Danno Base (Fuoco, Freddo e Fulmine) ai tuoi Attacchi armati[cite: 2]</div>
+                            <div class="stat-line">Aggiunge grandi quantità piatte di Danno Base (Fuoco, Freddo e Fulmine) ai tuoi Attacchi armati</div>
                         </div>
                     </li>
                     <li data-class="witch,templar,shadow">
@@ -783,12 +797,12 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Replica%20Prismweave%22%7D%7D" target="_blank">Replica Prismweave</a>
                             <div class="badges"><span class="level-req">📈 Liv. 25</span><span class="item-cost">💰 ~10 C</span></div>
-                            <span class="desc">La controparte per i maghi. Dona un burst di danni elementali impressionante.[cite: 2]</span>
-                            <span class="class-rec">🎯 Witch, Templar, Shadow.[cite: 2]</span>
+                            <span class="desc">La controparte per i maghi. Dona un burst di danni elementali impressionante.</span>
+                            <span class="class-rec">🎯 Witch, Templar, Shadow.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge enormi quantità piatte di Danno da Fuoco, Freddo e Fulmine unicamente ai tuoi Incantesimi (Spells)[cite: 2]</div>
+                            <div class="stat-line">Aggiunge enormi quantità piatte di Danno da Fuoco, Freddo e Fulmine unicamente ai tuoi Incantesimi (Spells)</div>
                         </div>
                     </li>
                 </ul>
@@ -800,13 +814,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lifesprig%22%7D%7D" target="_blank">Lifesprig</a>
                             <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~1 Alch</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">Eccezionale bacchetta magica. Scala i danni immensamente grazie al livello extra gemme.[cite: 2]</span>
-                            <span class="class-rec">🎯 Witch, Templar, Shadow.[cite: 2]</span>
+                            <span class="desc">Eccezionale bacchetta magica. Scala i danni immensamente grazie al livello extra gemme.</span>
+                            <span class="class-rec">🎯 Witch, Templar, Shadow.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello delle Gemme Incantesimo incastonate in questo oggetto[cite: 2]</div>
-                            <div class="stat-line">Rigenera 8-12 Vita a ogni uso di Magia[cite: 2]</div>
+                            <div class="stat-line">+1 al Livello delle Gemme Incantesimo incastonate in questo oggetto</div>
+                            <div class="stat-line">Rigenera 8-12 Vita a ogni uso di Magia</div>
                         </div>
                     </li>
                     <li data-class="templar,witch,shadow">
@@ -814,13 +828,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Axiom%20Perpetuum%22%7D%7D" target="_blank">Axiom Perpetuum</a>
                             <div class="badges"><span class="level-req">📈 Liv. 10</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">Spesso impugnato doppio (Dual Wield), moltiplica la probabilità di colpo critico.[cite: 2]</span>
-                            <span class="class-rec">🎯 Inquisitor/Templar, Witch.[cite: 2]</span>
+                            <span class="desc">Spesso impugnato doppio (Dual Wield), moltiplica la probabilità di colpo critico.</span>
+                            <span class="class-rec">🎯 Inquisitor/Templar, Witch.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Fino a +110% Probabilità di Colpo Critico per gli Incantesimi[cite: 2]</div>
-                            <div class="stat-line">Aggiunge Base Danni da Fuoco e Freddo agli Incantesimi[cite: 2]</div>
+                            <div class="stat-line">Fino a +110% Probabilità di Colpo Critico per gli Incantesimi</div>
+                            <div class="stat-line">Aggiunge Base Danni da Fuoco e Freddo agli Incantesimi</div>
                         </div>
                     </li>
                     <li data-class="witch,shadow,ranger">
@@ -828,13 +842,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22The%20Poet%27s%20Pen%22%7D%7D" target="_blank">The Poet's Pen</a>
                             <div class="badges"><span class="level-req">📈 Liv. 12</span><span class="item-cost">💰 ~15 C</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">L'arma del level-clearing per eccellenza. Lancia magie in automatico ("Auto-Trigger") attaccando.[cite: 2]</span>
-                            <span class="class-rec">🎯 Build Trigger (es. Volatile Dead).[cite: 2]</span>
+                            <span class="desc">L'arma del level-clearing per eccellenza. Lancia magie in automatico ("Auto-Trigger") attaccando.</span>
+                            <span class="class-rec">🎯 Build Trigger (es. Volatile Dead).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Lancia le Magie incastonate nell'arma in automatico quando Attacchi[cite: 2]</div>
-                            <div class="stat-line">+1 al Livello delle Gemme in quest'arma per ogni 25 Livelli del Giocatore[cite: 2]</div>
+                            <div class="stat-line">Lancia le Magie incastonate nell'arma in automatico quando Attacchi</div>
+                            <div class="stat-line">+1 al Livello delle Gemme in quest'arma per ogni 25 Livelli del Giocatore</div>
                         </div>
                     </li>
                     <li data-class="witch,templar">
@@ -842,14 +856,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Cerberus%20Limb%22%7D%7D" target="_blank">Cerberus Limb</a>
                             <div class="badges"><span class="level-req">📈 Liv. 47</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">Da usare con uno Scudo corazzato per difese impareggiabili, o in dual-wield.[cite: 2]</span>
-                            <span class="class-rec">🎯 Witch, Templar/Inquisitor.[cite: 2]</span>
+                            <span class="desc">Da usare con uno Scudo corazzato per difese impareggiabili, o in dual-wield.</span>
+                            <span class="class-rec">🎯 Witch, Templar/Inquisitor.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">70-100% Danno Magico (Spell Damage) aumentato[cite: 2]</div>
-                            <div class="stat-line">Ruba Vita istantanea dagli Incantesimi se hai Bloccato un colpo di recente[cite: 2]</div>
-                            <div class="stat-line">+1 Scudo Energetico ogni 5 punti Armatura posseduti dallo Scudo[cite: 2]</div>
+                            <div class="stat-line">70-100% Danno Magico (Spell Damage) aumentato</div>
+                            <div class="stat-line">Ruba Vita istantanea dagli Incantesimi se hai Bloccato un colpo di recente</div>
+                            <div class="stat-line">+1 Scudo Energetico ogni 5 punti Armatura posseduti dallo Scudo</div>
                         </div>
                     </li>
                 </ul>
@@ -861,13 +875,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Oni-Goroshi%22%7D%7D" target="_blank">Oni-Goroshi</a>
                             <div class="badges"><span class="level-req">📈 Liv. 2</span><span class="item-cost">💰 ~1 Divine</span><span class="item-sockets">🕳️ 6 Fissi</span></div>
-                            <span class="desc">Spada rarissima: il suo danno base scala magicamente col tuo livello. Unica nel suo genere.[cite: 2]</span>
-                            <span class="class-rec">🎯 Duelist, Marauder, Shadow, Scion.[cite: 2]</span>
+                            <span class="desc">Spada rarissima: il suo danno base scala magicamente col tuo livello. Unica nel suo genere.</span>
+                            <span class="class-rec">🎯 Duelist, Marauder, Shadow, Scion.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Cade SEMPRE con 6 Incavi e 6 Collegamenti completi![cite: 2]</div>
-                            <div class="stat-line">Buff 'Her Embrace' quando infiammi i nemici: massicci Danni Fisici ed Elementali[cite: 2]</div>
+                            <div class="stat-line">Cade SEMPRE con 6 Incavi e 6 Collegamenti completi!</div>
+                            <div class="stat-line">Buff 'Her Embrace' quando infiammi i nemici: massicci Danni Fisici ed Elementali</div>
                         </div>
                     </li>
                     <li data-class="marauder,duelist,scion">
@@ -875,14 +889,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Limbsplit%22%7D%7D" target="_blank">Limbsplit</a>
                             <div class="badges"><span class="level-req">📈 Liv. 13</span><span class="item-cost">💰 ~1 Alch</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Un'ascia brutale per i primi livelli, ottima per distruggere i boss a bassa vita.[cite: 2]</span>
-                            <span class="class-rec">🎯 Marauder, Duelist (Melee Fisico).[cite: 2]</span>
+                            <span class="desc">Un'ascia brutale per i primi livelli, ottima per distruggere i boss a bassa vita.</span>
+                            <span class="class-rec">🎯 Marauder, Duelist (Melee Fisico).</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello delle Gemme Melee incastonate[cite: 2]</div>
-                            <div class="stat-line">Colpo di Grazia (Culling Strike): uccide all'istante i nemici con meno del 10% di vita[cite: 2]</div>
-                            <div class="stat-line">Ottimo Danno Fisico base[cite: 2]</div>
+                            <div class="stat-line">+1 al Livello delle Gemme Melee incastonate</div>
+                            <div class="stat-line">Colpo di Grazia (Culling Strike): uccide all'istante i nemici con meno del 10% di vita</div>
+                            <div class="stat-line">Ottimo Danno Fisico base</div>
                         </div>
                     </li>
                     <li data-class="shadow,ranger,duelist">
@@ -890,13 +904,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Edge%20of%20Madness%22%7D%7D" target="_blank">Edge of Madness</a>
                             <div class="badges"><span class="level-req">📈 Liv. 22</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Spada a due mani perfetta per build basate sul danno da Caos. Scala automaticamente col tuo livello![cite: 2]</span>
-                            <span class="class-rec">🎯 Shadow, Ranger, Duelist.[cite: 2]</span>
+                            <span class="desc">Spada a due mani perfetta per build basate sul danno da Caos. Scala automaticamente col tuo livello!</span>
+                            <span class="class-rec">🎯 Shadow, Ranger, Duelist.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1-2 Danni Base da Caos aggiunti per ogni Livello del Giocatore[cite: 2]</div>
-                            <div class="stat-line">1% Danno da Caos aumentato per ogni Livello del Giocatore[cite: 2]</div>
+                            <div class="stat-line">+1-2 Danni Base da Caos aggiunti per ogni Livello del Giocatore</div>
+                            <div class="stat-line">1% Danno da Caos aumentato per ogni Livello del Giocatore</div>
                         </div>
                     </li>
                     <li data-class="marauder,templar,duelist">
@@ -904,14 +918,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Geofri%27s%20Baptism%22%7D%7D" target="_blank">Geofri's Baptism</a>
                             <div class="badges"><span class="level-req">📈 Liv. 27</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Un martello devastante che risolve per sempre il problema della precisione (Accuracy) a inizio gioco.[cite: 2]</span>
-                            <span class="class-rec">🎯 Marauder, Templar, Duelist.[cite: 2]</span>
+                            <span class="desc">Un martello devastante che risolve per sempre il problema della precisione (Accuracy) a inizio gioco.</span>
+                            <span class="class-rec">🎯 Marauder, Templar, Duelist.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Tecnica Risoluta (Resolute Technique): I tuoi attacchi non mancano mai il bersaglio[cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Nota: Non puoi sferrare Colpi Critici[cite: 2]</div>
-                            <div class="stat-line">Massiccio Danno Fisico (+200% circa) e Stordimento aumentato[cite: 2]</div>
+                            <div class="stat-line">Tecnica Risoluta (Resolute Technique): I tuoi attacchi non mancano mai il bersaglio</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Nota: Non puoi sferrare Colpi Critici</div>
+                            <div class="stat-line">Massiccio Danno Fisico (+200% circa) e Stordimento aumentato</div>
                         </div>
                     </li>
                 </ul>
@@ -923,13 +937,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22type%22%3A%22Quicksilver%20Flask%22%7D%7D" target="_blank">Quicksilver Flask (Base)</a>
                             <div class="badges"><span class="level-req">📈 Liv. 4</span><span class="item-cost">💰 Gratis</span></div>
-                            <span class="desc">Anche se non è Unica, è l'oggetto più importante del gioco. Tienine sempre un paio attive![cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Anche se non è Unica, è l'oggetto più importante del gioco. Tienine sempre un paio attive!</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+40% Velocità di Movimento durante l'effetto[cite: 2]</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Consiglio: Cerca sempre modificatori "Adrenaline" per extra velocità![cite: 2]</div>
+                            <div class="stat-line">+40% Velocità di Movimento durante l'effetto</div>
+                            <div class="stat-line" style="color:var(--text-muted)">Consiglio: Cerca sempre modificatori "Adrenaline" per extra velocità!</div>
                         </div>
                     </li>
                     <li data-class="witch,templar,shadow,scion">
@@ -937,13 +951,13 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lavianga%27s%20Spirit%22%7D%7D" target="_blank">Lavianga's Spirit</a>
                             <div class="badges"><span class="level-req">📈 Liv. 31</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">La pozione definitiva per risolvere i problemi di Mana durante i lunghi combattimenti contro i boss.[cite: 2]</span>
-                            <span class="class-rec">🎯 Incantatori e build con abilità costose.[cite: 2]</span>
+                            <span class="desc">La pozione definitiva per risolvere i problemi di Mana durante i lunghi combattimenti contro i boss.</span>
+                            <span class="class-rec">🎯 Incantatori e build con abilità costose.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Le tue Abilità non costano Mana durante l'effetto della Fiaschetta[cite: 2]</div>
-                            <div class="stat-line">Recupera istantaneamente e abbondantemente Mana[cite: 2]</div>
+                            <div class="stat-line">Le tue Abilità non costano Mana durante l'effetto della Fiaschetta</div>
+                            <div class="stat-line">Recupera istantaneamente e abbondantemente Mana</div>
                         </div>
                     </li>
                     <li data-class="all">
@@ -951,14 +965,14 @@
                         <div class="item-details">
                             <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22The%20Wise%20Oak%22%7D%7D" target="_blank">The Wise Oak</a>
                             <div class="badges"><span class="level-req">📈 Liv. 8</span><span class="item-cost">💰 ~5 C</span></div>
-                            <span class="desc">Offre difese impenetrabili o danni mostruosi, a patto di saper bilanciare bene le resistenze elementali![cite: 2]</span>
-                            <span class="class-rec">🎯 Tutte le classi.[cite: 2]</span>
+                            <span class="desc">Offre difese impenetrabili o danni mostruosi, a patto di saper bilanciare bene le resistenze elementali!</span>
+                            <span class="class-rec">🎯 Tutte le classi.</span>
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+35% a Tutte le Resistenze Elementali durante l'effetto[cite: 2]</div>
-                            <div class="stat-line">Il tuo Danno Penetra la Resistenza corrispondente alla tua Resistenza massima più alta[cite: 2]</div>
-                            <div class="stat-line">Subisci meno Danno dall'Elemento corrispondente alla tua Resistenza più bassa[cite: 2]</div>
+                            <div class="stat-line">+35% a Tutte le Resistenze Elementali durante l'effetto</div>
+                            <div class="stat-line">Il tuo Danno Penetra la Resistenza corrispondente alla tua Resistenza massima più alta</div>
+                            <div class="stat-line">Subisci meno Danno dall'Elemento corrispondente alla tua Resistenza più bassa</div>
                         </div>
                     </li>
                 </ul>
@@ -1138,22 +1152,23 @@
                     </form>
                 </div>
 
+                <!-- FORM POE 2 CON EDIT E ANNULLA -->
                 <div class="section">
                     <h3>💾 Le Mie Build Personali</h3>
-                    <form class="save-form" onsubmit="window.saveBuild(event, 'poe2')">
+                    <form class="save-form" id="form-poe2" onsubmit="window.saveBuild(event, 'poe2')">
                         <input type="text" id="name-poe2" placeholder="Nome Build" required>
                         <input type="url" id="link-poe2" placeholder="Incolla URL" required>
                         <input type="text" id="version-poe2" class="input-small" placeholder="Ver. (0.5.0)" required>
                         <input type="text" id="note-poe2" placeholder="Note (Beta test...)">
-                        <button type="submit" class="action-btn">Salva</button>
+                        <button type="submit" id="submit-btn-poe2" class="action-btn">Salva</button>
+                        <button type="button" id="cancel-btn-poe2" class="cancel-btn" onclick="window.cancelEdit('poe2')">Annulla</button>
                     </form>
-                    <ul id="my-builds-poe2" class="dash-list"></ul>
+                    <ul id="my-builds-poe2" class="dash-list saved-builds-list"></ul>
                 </div>
 
                 <div class="section">
                     <h3>
                         <div>🛡️ Top Build Endgame <span class="season-highlight">Generatore Smart</span></div>
-                        <button class="action-btn update-btn" onclick="window.fetchAndDisplayBuilds('poe2', 'endgame', 'top-builds-poe2')">Sincronizza Meta</button>
                     </h3>
                     <ul id="top-builds-poe2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1161,7 +1176,6 @@
                 <div class="section">
                     <h3>
                         <div>🚀 Top Build Leveling <span class="season-highlight">Generatore Smart</span></div>
-                        <button class="action-btn update-btn" onclick="window.fetchAndDisplayBuilds('poe2', 'leveling', 'top-leveling-poe2')">Sincronizza Leveling</button>
                     </h3>
                     <ul id="top-leveling-poe2" class="dash-list"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
                 </div>
@@ -1515,16 +1529,18 @@
                     </form>
                 </div>
 
+                <!-- FORM LE CON EDIT E ANNULLA -->
                 <div class="section" style="border-left-color: var(--accent-le);">
                     <h3 style="color: var(--accent-le);">💾 Le Mie Build Personali</h3>
-                    <form class="save-form" onsubmit="window.saveBuild(event, 'le')" style="border-color: var(--accent-le);">
+                    <form class="save-form" id="form-le" onsubmit="window.saveBuild(event, 'le')" style="border-color: var(--accent-le);">
                         <input type="text" id="name-le" placeholder="Nome Build" required style="border-color: var(--accent-le);">
                         <input type="url" id="link-le" placeholder="Incolla URL" required style="border-color: var(--accent-le);">
                         <input type="text" id="version-le" class="input-small" placeholder="Ver. (1.0)" required style="border-color: var(--accent-le);">
                         <input type="text" id="note-le" placeholder="Note (Corruption 300+...)" style="border-color: var(--accent-le);">
-                        <button type="submit" class="action-btn" style="background: var(--accent-le);">Salva</button>
+                        <button type="submit" id="submit-btn-le" class="action-btn" style="background: var(--accent-le);">Salva</button>
+                        <button type="button" id="cancel-btn-le" class="cancel-btn" onclick="window.cancelEdit('le')">Annulla</button>
                     </form>
-                    <ul id="my-builds-le" class="dash-list"></ul>
+                    <ul id="my-builds-le" class="dash-list saved-builds-list"></ul>
                 </div>
 
                 <div class="section" style="border-left-color: var(--accent-le);">
@@ -1615,16 +1631,18 @@
                     </form>
                 </div>
 
+                <!-- FORM D2R CON EDIT E ANNULLA -->
                 <div class="section" style="border-left-color: var(--danger);">
                     <h3 style="color: var(--danger);">💾 Le Mie Build Personali</h3>
-                    <form class="save-form" onsubmit="window.saveBuild(event, 'd2')" style="border-color: var(--danger);">
+                    <form class="save-form" id="form-d2" onsubmit="window.saveBuild(event, 'd2')" style="border-color: var(--danger);">
                         <input type="text" id="name-d2" placeholder="Nome Build" required style="border-color: var(--danger);">
                         <input type="url" id="link-d2" placeholder="Incolla URL" required style="border-color: var(--danger);">
                         <input type="text" id="version-d2" class="input-small" placeholder="Ver. (S14)" required style="border-color: var(--danger);">
                         <input type="text" id="note-d2" placeholder="Note (MF Farm...)" style="border-color: var(--danger);">
-                        <button type="submit" class="action-btn" style="background: var(--danger);">Salva</button>
+                        <button type="submit" id="submit-btn-d2" class="action-btn" style="background: var(--danger);">Salva</button>
+                        <button type="button" id="cancel-btn-d2" class="cancel-btn" onclick="window.cancelEdit('d2')">Annulla</button>
                     </form>
-                    <ul id="my-builds-d2" class="dash-list"></ul>
+                    <ul id="my-builds-d2" class="dash-list saved-builds-list"></ul>
                 </div>
 
                 <div class="section" style="border-left-color: var(--danger);">
@@ -1642,10 +1660,10 @@
                 </div>
             </div>
 
-            <!-- GUIDA PAROLE RUNICHE D2R -->
+            <!-- GUIDA PAROLE RUNICHE D2R (RIPRISTINATA) -->
             <div id="d2-guide" class="sub-tab-content d2-sub-content guide-section">
                 <h1 style="color:var(--guide-title); text-align:left; border-bottom: none; padding:0; margin-bottom:5px;">Guida D2R: Database Parole Runiche</h1>
-                <p style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune. Assicurati di usare un oggetto base "Grigio" e inserisci le rune nell'ordine esatto![cite: 5]</em></p>
+                <p style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune, aggiornate alle ultime Patch di Diablo 2 Resurrected. Assicurati di usare un oggetto base "Grigio" (Normale con Incavi) e di inserire le rune nell'ordine esatto![cite: 5]</em></p>
                 
                 <div class="filter-container">
                     <label for="type-filter-d2">Filtra per Tipo Oggetto:</label>
@@ -1658,7 +1676,7 @@
                     </select>
                 </div>
 
-                <div id="runewords-container"></div>
+                <ul id="runewords-container" class="guide-list"></ul>
             </div>
 
             <!-- GUIDA MERCENARIO D2 -->
@@ -1696,7 +1714,7 @@
     </footer>
 
     <!-- =======================================================
-                              JAVASCRIPT 
+                              JAVASCRIPT (Firebase + Logica)
     ======================================================== -->
     
     <!-- Script Google Translate per Multilingua -->
@@ -1708,14 +1726,6 @@
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
     <script type="module">
-        // --- SCRIPT GLOBALE PLACEHOLDER IMMAGINI ---
-        document.addEventListener("error", function(e) {
-            if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'img') {
-                e.target.onerror = null; 
-                e.target.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODhhIiBzdHJva2Utd2lkdGg9IjIiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PGxpbmUgeDE9IjEyIiB5MT0iOCIgeDI9IjEyIiB5Mj0iMTIiLz48bGluZSB4MT0iMTIiIHkxPSIxNiIgeDI9IjEyLjAxIiB5Mj0iMTYiLz48L3N2Zz4=";
-            }
-        }, true);
-
         // ---------------------------------------------------------
         // 1. CONFIGURAZIONE FIREBASE
         // ---------------------------------------------------------
@@ -1746,6 +1756,7 @@
 
         let currentUser = null;
         let userBuilds = { poe1: [], poe2: [], d2: [], le: [] }; 
+        window.editingIndex = { poe1: null, poe2: null, d2: null, le: null }; // TRACK EDIT STATE
 
         // ---------------------------------------------------------
         // 2. FUNZIONI DI AUTENTICAZIONE E SINCRONIZZAZIONE
@@ -1860,11 +1871,43 @@
                                 <span class="build-note">- ${build.note || 'Nessuna nota'}</span>
                             </div>
                             <div class="dash-list-actions">
-                                <button class="delete-btn" aria-label="Elimina" onclick="window.deleteBuild('${game}', ${index})">X</button>
+                                <button class="edit-btn" aria-label="Modifica" onclick="window.editBuild('${game}', ${index})">✏️</button>
+                                <button class="delete-btn" aria-label="Elimina" onclick="window.deleteBuild('${game}', ${index})">❌</button>
                             </div>
                         </li>`;
                 });
             });
+        };
+
+        window.editBuild = function(game, index) {
+            const build = userBuilds[game][index];
+            document.getElementById(`name-${game}`).value = build.name;
+            document.getElementById(`link-${game}`).value = build.link;
+            document.getElementById(`version-${game}`).value = build.version;
+            document.getElementById(`note-${game}`).value = build.note === "Senza note" || build.note === "Salvata dal Generatore Smart" ? "" : build.note;
+            
+            window.editingIndex[game] = index;
+            
+            let submitBtn = document.getElementById(`submit-btn-${game}`);
+            submitBtn.textContent = "Aggiorna";
+            submitBtn.style.background = "var(--accent-tertiary)";
+            
+            document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
+            document.getElementById(`name-${game}`).focus();
+        };
+
+        window.cancelEdit = function(game) {
+            window.editingIndex[game] = null;
+            document.getElementById(`form-${game}`).reset();
+            
+            let submitBtn = document.getElementById(`submit-btn-${game}`);
+            submitBtn.textContent = "Salva";
+            
+            if(game === 'le') submitBtn.style.background = "var(--accent-le)";
+            else if(game === 'd2') submitBtn.style.background = "var(--danger)";
+            else submitBtn.style.background = "var(--accent-secondary)";
+            
+            document.getElementById(`cancel-btn-${game}`).style.display = "none";
         };
 
         window.saveBuild = async function(event, game) {
@@ -1875,10 +1918,15 @@
             let note = document.getElementById(`note-${game}`).value || "Senza note";
 
             if (!userBuilds[game]) userBuilds[game] = [];
-            userBuilds[game].push({ name, link, version, note });
+            
+            if (window.editingIndex[game] !== null) {
+                userBuilds[game][window.editingIndex[game]] = { name, link, version, note };
+            } else {
+                userBuilds[game].push({ name, link, version, note });
+            }
             
             await syncToFirebase();
-            event.target.reset();
+            window.cancelEdit(game);
         };
 
         window.deleteBuild = async function(game, index) {
@@ -2137,6 +2185,7 @@
             const ul = document.getElementById(elementId);
             if(!ul) return;
             
+            // Usiamo il database locale fallback
             const data = { version: smartLinksDB[game].version, builds: smartLinksDB[game][listType] };
             ul.innerHTML = '';
             
@@ -2187,7 +2236,7 @@
             });
         };
 
-        // --- DATABASE RUNEWORDS D2 (Ripristinato da Origine) ---
+        // --- DATABASE RUNEWORDS D2 (Ripristinato perfettamente) ---
         const RUNE_IMG_BASE_URL = "https://d2runewizard.com/assets/runes/";
         const RUNE_IMG_EXT = ".webp";
         const runewordsData = [
@@ -2215,18 +2264,6 @@
             { name: "Cure (Cura)", type: "elmo", emoji: "🪖", level: 35, sockets: 3, runes: ["Shael", "Io", "Tal"], base: "Qualsiasi Elmo a 3 incavi", desc: "Nuovo elmo 2.6. Insieme a Insight su un Mercenario (con aura Preghiera) crea una sinergia mostruosa di cura continua e pulizia veleni.", stats: ["<span style='color:#52d164'>Aura Purificazione (Cleansing) liv. 1 attiva</span>", "+20% Recupero dai Colpi (FHR)", "Aumenta la Vita Massima del 5%", "+40-60% Resistenza al Veleno"] }
         ];
 
-        const typeIcons = { "armatura": "👕 Armature (Body Armor)", "arma": "⚔️ Armi (Weapons)", "scudo": "🛡️ Scudi (Shields)", "elmo": "🪖 Elmi (Helms)" };
-
-        function generateRuneImages(runesArray) {
-            let html = '<div class="rune-images-container">';
-            runesArray.forEach(rune => {
-                let safeRune = rune.trim().toLowerCase();
-                let imgUrl = `${RUNE_IMG_BASE_URL}${safeRune}${RUNE_IMG_EXT}`;
-                html += `<div class="rune-block"><img src="${imgUrl}" alt="${rune}"><span>${rune}</span></div>`;
-            });
-            return html + '</div>';
-        }
-
         window.renderD2Runewords = function() {
             const selectedType = document.getElementById('type-filter-d2').value;
             const container = document.getElementById('runewords-container');
@@ -2241,7 +2278,7 @@
 
                 const h2 = document.createElement('h2');
                 h2.className = 'guide-title category-title';
-                h2.textContent = typeIcons[type] || type.toUpperCase();
+                h2.textContent = type === 'armatura' ? '👕 Armature (Body Armor)' : type === 'arma' ? '⚔️ Armi (Weapons)' : type === 'scudo' ? '🛡️ Scudi (Shields)' : '🪖 Elmi (Helms)';
                 container.appendChild(h2);
 
                 const ul = document.createElement('ul');
@@ -2249,9 +2286,15 @@
 
                 items.forEach(item => {
                     const li = document.createElement('li');
-                    li.className = 'runeword-card'; // Importante per la grafica D2R
+                    li.className = 'runeword-card';
                     const statsHtml = item.stats.map(stat => `<div class="stat-line">${stat}</div>`).join('');
-                    const runeImagesHtml = generateRuneImages(item.runes);
+                    let runeImagesHtml = '<div class="rune-images-container">';
+                    item.runes.forEach(rune => {
+                        let safeRune = rune.trim().toLowerCase();
+                        let imgUrl = `${RUNE_IMG_BASE_URL}${safeRune}${RUNE_IMG_EXT}`;
+                        runeImagesHtml += `<div class="rune-block"><img src="${imgUrl}" alt="${rune}"><span>${rune}</span></div>`;
+                    });
+                    runeImagesHtml += '</div>';
 
                     li.innerHTML = `
                         <div class="item-image-container">${item.emoji}</div>
