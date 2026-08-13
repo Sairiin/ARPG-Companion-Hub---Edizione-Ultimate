@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="it" data-theme="dark">
 <head>
- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     
@@ -10,7 +10,7 @@
     <link rel="icon" href="arpg_hub_logo_v2.jpg" type="image/jpeg">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
     
-    <!-- QUI RICHIAMIAMO IL NUOVO FILE CSS -->
+    <!-- COLLEGAMENTO AL NUOVO FILE CSS ESTERNO -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -45,7 +45,6 @@
                 <div style="text-align: center; color: var(--text-muted); margin: 10px 0;">— oppure —</div>
                 
                 <button onclick="window.loginWithGoogle()" class="auth-btn">
-                    <!-- Inline SVG Google Logo -->
                     <svg style="width:18px;height:18px;margin-right:8px;" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
                     Accedi con Google
                 </button>
@@ -53,34 +52,32 @@
         </div>
     </div>
 
+    <!-- LIGHTBOX PER ZOOM IMMAGINI -->
+    <div id="lightbox" class="lightbox" onclick="window.closeLightbox(event)">
+        <div class="lightbox-content" onclick="event.stopPropagation()">
+            <button class="lightbox-close" onclick="window.closeLightbox()">&times;</button>
+            <img id="lightbox-img" class="lightbox-img" src="" alt="Immagine ingrandita">
+        </div>
+    </div>
+
     <header class="header-container">
-        
-        <!-- HEADER LAYOUT (3 COLONNE) -->
         <div class="header-layout">
-            
-            <!-- SINISTRA: Classifica ARPG -->
             <div class="header-side header-left">
                 <div class="arpg-stats" id="arpg-live-stats">
                     <strong style="color: var(--accent-primary); display: block; margin-bottom: 8px; font-size: 1.1em; border-bottom: 1px dashed var(--border-color); padding-bottom: 4px;">📊 Top 10 ARPG Trend</strong>
-                    <!-- I dati verranno popolati in automatico dal JS -->
                 </div>
             </div>
 
-            <!-- CENTRO: Logo Banner -->
             <div class="header-center">
                 <img src="arpg_hub_banner_v2.jpg" alt="ARPG Companion Hub" class="banner-img">
             </div>
 
-            <!-- DESTRA: Auth, Google Translate, Discord e Temi -->
             <div class="header-side header-right">
                 <div class="top-right-controls">
-                    
-                    <!-- PULSANTE LOGIN CLOUD -->
                     <button id="auth-btn" class="auth-btn" onclick="window.openAuthModal()">
                         👤 Accedi al Cloud
                     </button>
 
-                    <!-- Google Translate Widget -->
                     <div id="google_translate_element"></div>
 
                     <a href="https://discord.gg/wqywvBx" target="_blank" class="discord-link">
@@ -92,18 +89,14 @@
                         <button class="theme-btn" onclick="window.setTheme('dark')">🌙</button>
                         <button class="theme-btn" onclick="window.setTheme('amoled')">🖤</button>
                         <button class="theme-btn" onclick="window.setTheme('light')">☀️</button>
-                        
                         <div class="divider"></div>
-                        
                         <button class="theme-btn" onclick="window.changeFontSize(-1)" title="Riduci Carattere">A-</button>
                         <button class="theme-btn" onclick="window.changeFontSize(1)" title="Ingrandisci Carattere">A+</button>
                     </div>
                 </div>
             </div>
-            
         </div>
 
-        <!-- TICKER NEWS SCORREVOLE ESTESO -->
         <div class="news-ticker-container">
             <div class="ticker-label">NEWS</div>
             <div class="ticker-wrapper">
@@ -134,23 +127,20 @@
                              PATH OF EXILE 1
         ======================================================== -->
         <section id="poe1" class="tab-content active">
-            
             <nav class="sub-tabs">
                 <button class="sub-tab-btn poe1-sub-btn active-sub" onclick="window.openSubTab(event, 'poe1-dash', 'poe1')">Dashboard Build</button>
                 <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-guide', 'poe1')">Unici Leveling</button>
-                <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-crafting', 'poe1')">Guida Crafting Completa</button>
+                <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-crafting', 'poe1')">Guida Crafting</button>
                 <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-lab', 'poe1')">Trial of Ascendancy</button>
+                <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-enciclopedia', 'poe1')">Meccaniche Ultimate</button>
             </nav>
 
             <div id="poe1-dash" class="sub-tab-content poe1-sub-content active-sub-content">
-                
                 <div class="section" style="background: transparent; border: none; padding: 0; margin-bottom: 10px;">
                     <a href="https://craftofexile.com" target="_blank" class="tool-link" style="background: var(--accent-secondary);">🛠️ Craft of Exile</a>
                     <a href="https://poe.ninja" target="_blank" class="tool-link" style="background: var(--accent-secondary);">📈 PoE Ninja</a>
-                    
                     <a href="https://pob.cool/" target="_blank" class="tool-link" style="background: var(--accent-secondary);">🖥️ PoB (Cool)</a>
                     <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
-                    
                     <a href="https://www.poebuilds.cc/" target="_blank" class="tool-link" style="background: var(--accent-secondary);">🌐 PoEBuilds.cc</a>
                     <a href="https://www.filterblade.xyz/" target="_blank" class="tool-link" style="background: #3f51b5;">🛡️ FilterBlade</a>
                 </div>
@@ -204,7 +194,6 @@
             <!-- GUIDA UNICI POE 1 -->
             <div id="poe1-guide" class="sub-tab-content poe1-sub-content guide-section">
                 <h1 style="color:var(--guide-title); text-align:left; border-bottom: none; padding:0; margin-bottom:5px;">Guida PoE 1: Oggetti Unici per Leveling</h1>
-                
                 <div class="filter-container">
                     <label for="class-filter-poe1">Filtra per Classe:</label>
                     <select id="class-filter-poe1" onchange="window.filterItemsStatic('poe1-guide', 'class-filter-poe1', 'data-class')">
@@ -218,7 +207,7 @@
                         <option value="witch">Witch</option>
                     </select>
                 </div>
-
+                <!-- Elmi -->
                 <h2 class="guide-title category-title">🛡️ Elmi (Helmets)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -233,7 +222,6 @@
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">+30-40% a tutte le Resistenze Elementali</div>
                             <div class="stat-line">10% Rarità degli Oggetti trovati</div>
-                            <div class="stat-line">Aumenta Evasione (Evasion)</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist,marauder">
@@ -251,7 +239,7 @@
                         </div>
                     </li>
                 </ul>
-
+                <!-- Armature -->
                 <h2 class="guide-title category-title">👕 Armature Torso (Chest)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -280,11 +268,10 @@
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">+1 al Livello delle Gemme Incastonate</div>
                             <div class="stat-line">100% Difese Globali aumentate</div>
-                            <div class="stat-line" style="color:var(--text-muted)">I colori dei castoni non possono essere modificati!</div>
                         </div>
                     </li>
                 </ul>
-
+                <!-- Guanti -->
                 <h2 class="guide-title category-title">🧤 Guanti (Gloves)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -311,27 +298,11 @@
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">100% del Danno Fisico viene convertito in Danno da Freddo</div>
-                            <div class="stat-line">+20-30 Forza</div>
-                            <div class="stat-line">Aggiunge Danni Base da Freddo</div>
-                        </div>
-                    </li>
-                    <li data-class="ranger,duelist">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Sadima%27s_Touch_inventory_icon.png" alt="Sadima's Touch" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Sadima%27s%20Touch%22%7D%7D" target="_blank">Sadima's Touch</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 9</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Funzionano particolarmente bene per archi o attacchi elementali.</span>
-                            <span class="class-rec">🎯 Ranger, Duelist.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Base da Fuoco e Fulmine agli attacchi</div>
-                            <div class="stat-line">12-16% Quantità (Quantity) di Oggetti trovati</div>
+                            <div class="stat-line">100% del Danno Fisico convertito in Freddo</div>
                         </div>
                     </li>
                 </ul>
-
+                <!-- Stivali -->
                  <h2 class="guide-title category-title">🥾 Stivali (Boots)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -346,25 +317,10 @@
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">Sei Immune al Congelamento</div>
                             <div class="stat-line">20% Velocità di Movimento</div>
-                            <div class="stat-line">Rigenerazione Mana aumentata</div>
-                        </div>
-                    </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Seven-League_Step_inventory_icon.png" alt="Seven-League Step" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Seven-League%20Step%22%7D%7D" target="_blank">Seven-League Step</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 Lusso</span></div>
-                            <span class="desc">Opzione di lusso per correre all'impazzata attraverso gli Atti.</span>
-                            <span class="class-rec">🎯 Speedrunners.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">50% Velocità di Movimento Massiccia</div>
-                            <div class="stat-line" style="color:var(--text-muted)">(Nessuna altra statistica difensiva)</div>
                         </div>
                     </li>
                 </ul>
-
+                <!-- Amuleti -->
                 <h2 class="guide-title category-title">📿 Amuleti (Amulets)</h2>
                 <ul class="guide-list">
                     <li data-class="witch,templar">
@@ -395,67 +351,10 @@
                             <div class="stat-line">I Requisiti degli Attributi di Gemme e Oggetti sono ridotti del 25%</div>
                         </div>
                     </li>
-                    <li data-class="duelist,marauder">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Carnage_Heart_inventory_icon.png" alt="Carnage Heart" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Carnage%20Heart%22%7D%7D" target="_blank">Carnage Heart / Daresso's Salute</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 ~3 C</span></div>
-                            <span class="desc">Ottima scelta per i combattenti Melee che sfruttano il "Life Leech".</span>
-                            <span class="class-rec">🎯 Duelist, Marauder.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche (Carnage Heart)</strong>
-                            <div class="stat-line">+20-40 a tutti gli Attributi</div>
-                            <div class="stat-line">50% Recupero Vita aumentato dal Leech</div>
-                            <div class="stat-line">30-40% Danno Globale extra mentre Rubi Vita</div>
-                        </div>
-                    </li>
-                    <li data-class="scion,templar">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Astramentis_inventory_icon.png" alt="Astramentis" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Astramentis%22%7D%7D" target="_blank">Astramentis</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 ~20 C</span></div>
-                            <span class="desc">Ti permette di ignorare completamente i requisiti degli oggetti.</span>
-                            <span class="class-rec">🎯 Scion, Inquisitor.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+80-100 a TUTTI gli Attributi base</div>
-                        </div>
-                    </li>
-                    <li data-class="ranger,shadow">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Sacrificial_Heart_inventory_icon.png" alt="Sacrificial Heart" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Sacrificial%20Heart%22%7D%7D" target="_blank">Sacrificial Heart</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 32</span><span class="item-cost">💰 ~5 C</span></div>
-                            <span class="desc">Perfetto per caricare le potentissime abilità Vaal in un baleno.</span>
-                            <span class="class-rec">🎯 Ranger, Shadow.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge massicci danni elementali extra agli attacchi</div>
-                            <div class="stat-line">Guadagni Anime Vaal extra velocemente</div>
-                        </div>
-                    </li>
                 </ul>
-
+                <!-- Anelli -->
                 <h2 class="guide-title category-title">💍 Anelli (Rings)</h2>
                 <ul class="guide-list">
-                    <li data-class="witch,templar,shadow">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Berek%27s_Grip_inventory_icon.png" alt="Berek's Rings" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Berek%27s%20Grip%22%7D%7D" target="_blank">Berek's Grip / Pass / Respite</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 20</span><span class="item-cost">💰 Da ~2c a ~60c</span></div>
-                            <span class="desc">La versione Grip (mostrata) è per il fulmine, Respite per fuoco, Pass per freddo.</span>
-                            <span class="class-rec">🎯 Witch, Templar, Shadow.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Danno Magico Elementale aumentato</div>
-                            <div class="stat-line">Grip: Ruba Vita e Mana da nemici Congelati/Scioccati</div>
-                            <div class="stat-line">Respite: Diffonde Ustioni (Ignite) ai nemici vicini alla morte</div>
-                        </div>
-                    </li>
                     <li data-class="all">
                         <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Le_Heup_of_All_inventory_icon.png" alt="Le Heup of All" loading="lazy"></div>
                         <div class="item-details">
@@ -469,20 +368,6 @@
                             <div class="stat-line">10-30% Danno Globale aumentato</div>
                             <div class="stat-line">10-30% a Tutte le Resistenze Elementali</div>
                             <div class="stat-line">+10-30 a Tutti gli Attributi</div>
-                        </div>
-                    </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Praxis_inventory_icon.png" alt="Praxis" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Praxis%22%7D%7D" target="_blank">Praxis</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 22</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">Cancella per sempre i problemi di mana.</span>
-                            <span class="class-rec">🎯 Tutte le classi.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Rimuove 4-8 Mana dal Costo Base delle Abilità</div>
-                            <div class="stat-line">8% del Danno Subito viene recuperato passivamente come Mana</div>
                         </div>
                     </li>
                     <li data-class="ranger,duelist,shadow">
@@ -500,7 +385,7 @@
                         </div>
                     </li>
                 </ul>
-
+                <!-- Cinture -->
                 <h2 class="guide-title category-title">🥋 Cinture (Belts)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -513,67 +398,11 @@
                         </div>
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Possiede 2 Incavi Abissali (Abyssal Sockets)</div>
                             <div class="stat-line">L'Effetto dei Gioielli in questa cintura è aumentato del 50-100%</div>
                         </div>
                     </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/String_of_Servitude_inventory_icon.png" alt="String of Servitude" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22String%20of%20Servitude%22%7D%7D" target="_blank">String of Servitude</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">La variante con le "Resistenze Elementali" cap in automatico le difese per tutta la campagna.</span>
-                            <span class="class-rec">🎯 Tutte le classi.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">I Modificatori Impliciti Corrotti sono Triplicati</div>
-                            <div class="stat-line" style="color:var(--text-muted)">(Un roll base del +15% a tutte le resistenze diventerà un clamoroso +45%!)</div>
-                        </div>
-                    </li>
-                    <li data-class="marauder,duelist">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Meginord%27s_Girdle_inventory_icon.png" alt="Meginord's Girdle" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Meginord%27s%20Girdle%22%7D%7D" target="_blank">Meginord's Girdle</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 8</span><span class="item-cost">💰 ~1 Alch</span></div>
-                            <span class="desc">Ottima spinta a Forza e Danno fisico per i primi livelli.</span>
-                            <span class="class-rec">🎯 Marauder, Duelist.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+25-50 Forza</div>
-                            <div class="stat-line">Aggiunge Danni Fisici puri agli Attacchi</div>
-                            <div class="stat-line">10% Vita Massima aumentata</div>
-                        </div>
-                    </li>
-                    <li data-class="ranger,duelist">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Prismweave_inventory_icon.png" alt="Prismweave" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Prismweave%22%7D%7D" target="_blank">Prismweave</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 25</span><span class="item-cost">💰 ~1 C</span></div>
-                            <span class="desc">Perfetta per build che scalano i danni elementali sparando frecce o tramite attacchi.</span>
-                            <span class="class-rec">🎯 Ranger, Duelist.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge grandi quantità piatte di Danno Base (Fuoco, Freddo e Fulmine) ai tuoi Attacchi armati</div>
-                        </div>
-                    </li>
-                    <li data-class="witch,templar,shadow">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Replica_Prismweave_inventory_icon.png" alt="Replica Prismweave" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Replica%20Prismweave%22%7D%7D" target="_blank">Replica Prismweave</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 25</span><span class="item-cost">💰 ~10 C</span></div>
-                            <span class="desc">La controparte per i maghi. Dona un burst di danni elementali impressionante.</span>
-                            <span class="class-rec">🎯 Witch, Templar, Shadow.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge enormi quantità piatte di Danno da Fuoco, Freddo e Fulmine unicamente ai tuoi Incantesimi (Spells)</div>
-                        </div>
-                    </li>
                 </ul>
-
+                <!-- Armi 1H -->
                 <h2 class="guide-title category-title">⚔️ Armi a Una Mano (One-Handed Weapons)</h2>
                 <ul class="guide-list">
                     <li data-class="witch,templar,shadow">
@@ -590,20 +419,6 @@
                             <div class="stat-line">Rigenera 8-12 Vita a ogni uso di Magia</div>
                         </div>
                     </li>
-                    <li data-class="templar,witch,shadow">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Axiom_Perpetuum_inventory_icon.png" alt="Axiom Perpetuum" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Axiom%20Perpetuum%22%7D%7D" target="_blank">Axiom Perpetuum</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 10</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">Spesso impugnato doppio (Dual Wield), moltiplica la probabilità di colpo critico.</span>
-                            <span class="class-rec">🎯 Inquisitor/Templar, Witch.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Fino a +110% Probabilità di Colpo Critico per gli Incantesimi</div>
-                            <div class="stat-line">Aggiunge Base Danni da Fuoco e Freddo agli Incantesimi</div>
-                        </div>
-                    </li>
                     <li data-class="witch,shadow,ranger">
                         <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/The_Poet%27s_Pen_inventory_icon.png" alt="The Poet's Pen" loading="lazy"></div>
                         <div class="item-details">
@@ -615,26 +430,10 @@
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">Lancia le Magie incastonate nell'arma in automatico quando Attacchi</div>
-                            <div class="stat-line">+1 al Livello delle Gemme in quest'arma per ogni 25 Livelli del Giocatore</div>
-                        </div>
-                    </li>
-                    <li data-class="witch,templar">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Cerberus_Limb_inventory_icon.png" alt="Cerberus Limb" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Cerberus%20Limb%22%7D%7D" target="_blank">Cerberus Limb</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 47</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 3</span></div>
-                            <span class="desc">Da usare con uno Scudo corazzato per difese impareggiabili, o in dual-wield.</span>
-                            <span class="class-rec">🎯 Witch, Templar/Inquisitor.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">70-100% Danno Magico (Spell Damage) aumentato</div>
-                            <div class="stat-line">Ruba Vita istantanea dagli Incantesimi se hai Bloccato un colpo di recente</div>
-                            <div class="stat-line">+1 Scudo Energetico ogni 5 punti Armatura posseduti dallo Scudo</div>
                         </div>
                     </li>
                 </ul>
-
+                <!-- Armi 2H -->
                 <h2 class="guide-title category-title">🪓 Armi a Due Mani (Two-Handed Weapons)</h2>
                 <ul class="guide-list">
                     <li data-class="duelist,marauder,shadow,scion">
@@ -651,52 +450,8 @@
                             <div class="stat-line">Buff 'Her Embrace' quando infiammi i nemici: massicci Danni Fisici ed Elementali</div>
                         </div>
                     </li>
-                    <li data-class="marauder,duelist,scion">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Limbsplit_inventory_icon.png" alt="Limbsplit" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Limbsplit%22%7D%7D" target="_blank">Limbsplit</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 13</span><span class="item-cost">💰 ~1 Alch</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Un'ascia brutale per i primi livelli, ottima per distruggere i boss a bassa vita.</span>
-                            <span class="class-rec">🎯 Marauder, Duelist (Melee Fisico).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello delle Gemme Melee incastonate</div>
-                            <div class="stat-line">Colpo di Grazia (Culling Strike): uccide all'istante i nemici con meno del 10% di vita</div>
-                            <div class="stat-line">Ottimo Danno Fisico base</div>
-                        </div>
-                    </li>
-                    <li data-class="shadow,ranger,duelist">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Edge_of_Madness_inventory_icon.png" alt="Edge of Madness" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Edge%20of%20Madness%22%7D%7D" target="_blank">Edge of Madness</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 22</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Spada a due mani perfetta per build basate sul danno da Caos. Scala automaticamente col tuo livello!</span>
-                            <span class="class-rec">🎯 Shadow, Ranger, Duelist.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1-2 Danni Base da Caos aggiunti per ogni Livello del Giocatore</div>
-                            <div class="stat-line">1% Danno da Caos aumentato per ogni Livello del Giocatore</div>
-                        </div>
-                    </li>
-                    <li data-class="marauder,templar,duelist">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Geofri%27s_Baptism_inventory_icon.png" alt="Geofri's Baptism" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Geofri%27s%20Baptism%22%7D%7D" target="_blank">Geofri's Baptism</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 27</span><span class="item-cost">💰 ~1 C</span><span class="item-sockets">🕳️ Max 6</span></div>
-                            <span class="desc">Un martello devastante che risolve per sempre il problema della precisione (Accuracy) a inizio gioco.</span>
-                            <span class="class-rec">🎯 Marauder, Templar, Duelist.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Tecnica Risoluta (Resolute Technique): I tuoi attacchi non mancano mai il bersaglio</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Nota: Non puoi sferrare Colpi Critici</div>
-                            <div class="stat-line">Massiccio Danno Fisico (+200% circa) e Stordimento aumentato</div>
-                        </div>
-                    </li>
                 </ul>
-
+                <!-- Fiaschette -->
                 <h2 class="guide-title category-title">🧪 Fiaschette (Flasks)</h2>
                 <ul class="guide-list">
                     <li data-class="all">
@@ -710,36 +465,6 @@
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">+40% Velocità di Movimento durante l'effetto</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Consiglio: Cerca sempre modificatori "Adrenaline" per extra velocità!</div>
-                        </div>
-                    </li>
-                    <li data-class="witch,templar,shadow,scion">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Lavianga%27s_Spirit_inventory_icon.png" alt="Lavianga's Spirit" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lavianga%27s%20Spirit%22%7D%7D" target="_blank">Lavianga's Spirit</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 31</span><span class="item-cost">💰 ~2 C</span></div>
-                            <span class="desc">La pozione definitiva per risolvere i problemi di Mana durante i lunghi combattimenti contro i boss.</span>
-                            <span class="class-rec">🎯 Incantatori e build con abilità costose.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Le tue Abilità non costano Mana durante l'effetto della Fiaschetta</div>
-                            <div class="stat-line">Recupera istantaneamente e abbondantemente Mana</div>
-                        </div>
-                    </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/The_Wise_Oak_inventory_icon.png" alt="The Wise Oak" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade/search/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22The%20Wise%20Oak%22%7D%7D" target="_blank">The Wise Oak</a>
-                            <div class="badges"><span class="level-req">📈 Liv. 8</span><span class="item-cost">💰 ~5 C</span></div>
-                            <span class="desc">Offre difese impenetrabili o danni mostruosi, a patto di saper bilanciare bene le resistenze elementali!</span>
-                            <span class="class-rec">🎯 Tutte le classi.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+35% a Tutte le Resistenze Elementali durante l'effetto</div>
-                            <div class="stat-line">Il tuo Danno Penetra la Resistenza corrispondente alla tua Resistenza massima più alta</div>
-                            <div class="stat-line">Subisci meno Danno dall'Elemento corrispondente alla tua Resistenza più bassa</div>
                         </div>
                     </li>
                 </ul>
@@ -761,11 +486,6 @@
                         <div class="stat-line"><strong>Step 4: Lo Spam di Alteration.</strong> Usa l'<strong>Orb of Alteration</strong> ripetutamente. Questo cambierà ogni volta i modificatori finché non trovi l'affisso che cerchi (ad esempio, +80 Vita Massima). Se trovi un solo modificatore buono, usa un <strong>Orb of Augmentation</strong> per aggiungerne un secondo casuale.</div>
                         <div class="stat-line"><strong>Step 5: Il Salto di Qualità (Regal).</strong> Ora hai un oggetto blu con ottime statistiche. Usa un <strong>Regal Orb</strong> per trasformarlo in Raro (Giallo). Questo aggiungerà un terzo modificatore casuale. (Incrocia le dita!)</div>
                         <div class="stat-line"><strong>Step 6: Master Crafting (Bench).</strong> Vai al tuo Hideout. Apri la Crafting Bench. Avendo l'oggetto solo 3 modificatori (su un massimo di 6 per i rari), avrai spazio per "forzare" un modificatore specifico che ti manca (es. +30% Resistenza al Fuoco) pagando in valuta base. Fatto!</div>
-                        
-                        <div style="margin-top: 15px; display:flex; gap:10px; flex-wrap:wrap;">
-                            <a href="https://www.youtube.com/watch?v=chqCExj3jTY" target="_blank" class="tool-link" style="background: var(--color-yt);">▶️ Guarda la Guida di Dalkan (ITA)</a>
-                            <a href="https://www.youtube.com/watch?v=TAkIrjRZxyo" target="_blank" class="tool-link" style="background: var(--color-yt);">▶️ Lezione di Crafting con Sam (ITA)</a>
-                        </div>
                     </li>
                 </ul>
 
@@ -786,13 +506,6 @@
                         </div>
                     </li>
                     <li>
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Orb_of_Augmentation_inventory_icon.png" alt="Orb of Augmentation" loading="lazy"></div>
-                        <div class="item-details">
-                            <span class="unique-item" style="color: #64b5f6;">Orb of Augmentation</span>
-                            <span class="desc">Aggiunge un nuovo modificatore a un oggetto Magico che ne ha solo uno.</span>
-                        </div>
-                    </li>
-                    <li>
                         <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Orb_of_Alchemy_inventory_icon.png" alt="Orb of Alchemy" loading="lazy"></div>
                         <div class="item-details">
                             <span class="unique-item" style="color: #ffff00;">Orb of Alchemy</span>
@@ -804,20 +517,6 @@
                         <div class="item-details">
                             <span class="unique-item" style="color: #ffff00;">Chaos Orb</span>
                             <span class="desc">Riforgia completamente un oggetto Raro. <strong>La valuta di scambio standard del gioco (i "Dollari").</strong></span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Regal_Orb_inventory_icon.png" alt="Regal Orb" loading="lazy"></div>
-                        <div class="item-details">
-                            <span class="unique-item" style="color: #ffff00;">Regal Orb</span>
-                            <span class="desc">Migliora un oggetto Magico in Raro, mantenendo i suoi modificatori e aggiungendone uno nuovo.</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Exalted_Orb_inventory_icon.png" alt="Exalted Orb" loading="lazy"></div>
-                        <div class="item-details">
-                            <span class="unique-item" style="color: #ffff00;">Exalted Orb</span>
-                            <span class="desc">Aggiunge un nuovo modificatore casuale a un oggetto Raro (se ha spazio). Valuta un tempo pregiatissima, ora usata nel late crafting.</span>
                         </div>
                     </li>
                     <li>
@@ -878,13 +577,160 @@
                     </li>
                 </ul>
             </div>
+
+            <!-- ==============================================
+                 ENCICLOPEDIA MECCANICHE POE 1 
+            ============================================== -->
+            <div id="poe1-enciclopedia" class="sub-tab-content poe1-sub-content guide-section">
+                
+                <header style="text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 3px solid var(--gold); border-radius: 10px;">
+                    <h1 style="color: var(--gold); font-size: 2.5em; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;">🧭 Enciclopedia Ultimate</h1>
+                    <p><em>La guida definitiva alle meccaniche di gioco, con strategie avanzate e segreti svelati.</em></p>
+                </header>
+
+                <div class="filter-nav">
+                    <button class="filter-btn active" onclick="window.filterSelection('all')">Tutte</button>
+                    <button class="filter-btn" onclick="window.filterSelection('master')">Maestri</button>
+                    <button class="filter-btn" onclick="window.filterSelection('inmap')">In-Map</button>
+                    <button class="filter-btn" onclick="window.filterSelection('outmap')">Out-of-Map</button>
+                </div>
+
+                <div class="mechanics-grid">
+                    <div class="card master" onclick="window.openEncModal('modal-alva')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/SxTazIehGapVSPNb.jpg" alt="Alva" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Alva (Incursion) <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Modifica il passato per razziare il Tempio di Atzoatl nel presente.</p>
+                        </div>
+                    </div>
+
+                    <div class="card master outmap" onclick="window.openEncModal('modal-niko')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/YHSbbbSvSNTBimHT.jpg" alt="Niko" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Niko (Delve) <span class="difficulty diff-med">Scalabile</span></h3>
+                            <p class="card-desc">Esplora una miniera infinita alla ricerca di fossili rari e oscurità.</p>
+                        </div>
+                    </div>
+
+                    <div class="card master" onclick="window.openEncModal('modal-jun')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kEADadBJKltkHwpY.jpg" alt="Jun" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Jun (Betrayal) <span class="difficulty diff-hard">Complessa</span></h3>
+                            <p class="card-desc">Smantella il Sindacato Immortale e svela i poteri degli oggetti Veiled.</p>
+                        </div>
+                    </div>
+
+                    <div class="card master" onclick="window.openEncModal('modal-einhar')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/QqeQkwWwMNDQrxZX.jpg" alt="Einhar" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Einhar (Bestiary) <span class="difficulty diff-easy">Bassa</span></h3>
+                            <p class="card-desc">Cattura creature leggendarie per craftare oggetti unici al Blood Altar.</p>
+                        </div>
+                    </div>
+
+                    <div class="card outmap" onclick="window.openEncModal('modal-heist')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/vhgQUhKezdeiFtZN.png" alt="Heist" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Heist <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Pianifica rapine ad alto rischio nel Rogue Harbour per ricompense enormi.</p>
+                        </div>
+                    </div>
+
+                    <div class="card outmap" onclick="window.openEncModal('modal-sanctum')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/johGiSdfxJIaBnkO.jpg" alt="Sanctum" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Sanctum <span class="difficulty diff-hard">Alta</span></h3>
+                            <p class="card-desc">Un'avventura roguelike dove la tua sanità mentale è la risorsa più preziosa.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-expedition')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/vLKdADEISMKvzyxK.jpg" alt="Expedition" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Expedition <span class="difficulty diff-hard">Alta</span></h3>
+                            <p class="card-desc">Fai esplodere siti archeologici per barattare manufatti antichi con i mercanti.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-harvest')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/XgZXSASNjdeWCIsU.jpg" alt="Harvest" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Harvest <span class="difficulty diff-easy">Bassa</span></h3>
+                            <p class="card-desc">Coltiva il Bosco Sacro per ottenere Forza Vitale e crafting deterministico.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-blight')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/RfnCiUnzxdDBEWfo.jpg" alt="Blight" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Blight <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Difendi la pompa di Cassia in un'intensa sfida Tower Defense.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-legion')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/HiWLuLlpVTOvpVpA.jpg" alt="Legion" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Legion <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Libera eserciti congelati nel tempo e affronta i loro generali leggendari.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-ultimatum')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/HJlsnlYrQDdmleEi.jpg" alt="Ultimatum" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Ultimatum <span class="difficulty diff-hard">Estrema</span></h3>
+                            <p class="card-desc">Rischia tutto in arene mortali per premi sempre più grandi. O scappa col bottino.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-delirium')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/gRHeWcgLhbnMxNJZ.jpg" alt="Delirium" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Delirium <span class="difficulty diff-hard">Alta</span></h3>
+                            <p class="card-desc">Attraversa lo specchio e affronta mostri potenziati da una nebbia letale.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-ritual')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/olQTUucrUTmYNDqf.jpg" alt="Ritual" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Ritual <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Combatti in arene sacrificali per ottenere tributi e comprare oggetti deferiti.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-abyss')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/fuHvfXGnTNXSDehE.jpg" alt="Abyss" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Abyss <span class="difficulty diff-med">Media</span></h3>
+                            <p class="card-desc">Insegui fenditure nel terreno per trovare gioielli abissali e i Lich del sottosuolo.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-breach')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/hocHXdWvaqsFnPpF.jpg" alt="Breach" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Breach <span class="difficulty diff-easy">Bassa</span></h3>
+                            <p class="card-desc">Apri portali dimensionali per farmare frammenti e sfidare i Breachlord.</p>
+                        </div>
+                    </div>
+
+                    <div class="card inmap" onclick="window.openEncModal('modal-essence')">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/LIcJBEiDJPEuxMDh.jpg" alt="Essence" class="card-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Essence <span class="difficulty diff-easy">Bassa</span></h3>
+                            <p class="card-desc">Libera mostri intrappolati nel ghiaccio per rubare i loro poteri elementali.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- =======================================================
                              PATH OF EXILE 2
         ======================================================== -->
         <section id="poe2" class="tab-content">
-            
             <nav class="sub-tabs">
                 <button class="sub-tab-btn poe2-sub-btn active-sub" onclick="window.openSubTab(event, 'poe2-dash', 'poe2')">Dashboard Build</button>
                 <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-guide', 'poe2')">Guida Unici Leveling</button>
@@ -892,14 +738,11 @@
             </nav>
 
             <div id="poe2-dash" class="sub-tab-content poe2-sub-content active-sub-content">
-                
                 <div class="section" style="background: transparent; border: none; padding: 0; margin-bottom: 10px;">
                     <a href="https://poe2db.tw" target="_blank" class="tool-link" style="background: var(--accent-secondary);">🛠️ PoE2DB</a>
                     <a href="https://poe.ninja" target="_blank" class="tool-link" style="background: var(--accent-secondary);">📈 PoE Ninja</a>
-                    
                     <a href="https://pob.cool/" target="_blank" class="tool-link" style="background: var(--accent-secondary);">🖥️ PoB (Cool)</a>
                     <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
-                    
                     <a href="https://www.pathofexile.com/trade2" target="_blank" class="tool-link" style="background: var(--accent-secondary);">⚖️ Trade Ufficiale</a>
                     <a href="https://www.filterblade.xyz/" target="_blank" class="tool-link" style="background: #3f51b5;">🛡️ FilterBlade</a>
                 </div>
@@ -950,6 +793,7 @@
                 </div>
             </div>
 
+            <!-- GUIDA UNICI POE 2 -->
             <div id="poe2-guide" class="sub-tab-content poe2-sub-content guide-section">
                 <h1 style="color:var(--guide-title); text-align:left; border-bottom: none; padding:0; margin-bottom:5px;">Guida PoE 2: Oggetti Unici Leveling</h1>
                 
@@ -981,34 +825,6 @@
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">+25-35% a tutte le Resistenze Elementali</div>
-                            <div class="stat-line">Aumenta Evasione</div>
-                        </div>
-                    </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Crown_of_Thorns_inventory_icon.png" alt="Crown of the Victor" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Crown%20of%20the%20Victor%22%7D%7D" target="_blank">Crown of the Victor</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Variabile</span><span class="item-cost">💰 Raro</span></div>
-                            <span class="desc">Aumenta le abilità di base per ogni archetipo, fornendo enormi danni generici.</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 al Livello di tutte le Abilità</div>
-                        </div>
-                    </li>
-                    <li data-class="warrior,mercenary,ranger,huntress,monk">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Thrillsteel_inventory_icon.png" alt="Thrillsteel" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thrillsteel%22%7D%7D" target="_blank">Thrillsteel</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Fornisce Assalto permanente, rendendolo perfetto per andare veloci a scapito delle difese.</span>
-                            <span class="class-rec">🎯 Classe/Build: Attacchi e Speedrunners.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Assalto (Onslaught) costante</div>
-                            <div class="stat-line">+20% Velocità della Skill e +10% Velocità di Movimento</div>
                         </div>
                     </li>
                 </ul>
@@ -1026,202 +842,6 @@
                         <div class="item-stats">
                             <strong>Statistiche dell'Oggetto</strong>
                             <div class="stat-line">+100 a Spirito (Spirit)</div>
-                            <div class="stat-line">L'Intelligenza non fornisce più bonus naturali al Mana</div>
-                            <div class="stat-line">50-100% Armatura e Scudo Energetico aumentati</div>
-                        </div>
-                    </li>
-                    <li data-class="warrior">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Titanrot_Cataphract_inventory_icon.png" alt="Titanrot Cataphract" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Titanrot%20Cataphract%22%7D%7D" target="_blank">Titanrot Cataphract</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Variabile</span><span class="item-cost">💰 Raro</span></div>
-                            <span class="desc">Eccellente per bloccare gli attacchi fisici. Ottima sinergia per personaggi basati su Forza.</span>
-                            <span class="class-rec">🎯 Classe/Build: Warrior, classi basate sulla Forza (Strength).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Massiccio aumento dell'Armatura (Armour)</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Riduce Intelligenza e Destrezza del 10%</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Previene la rigenerazione passiva della Vita</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">🧤 Guanti (Gloves)</h2>
-                <ul class="guide-list">
-                    <li data-class="ranger,huntress,mercenary">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Grip_of_Winter_inventory_icon.png" alt="Grip of Winter" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Grip%20of%20Winter%22%7D%7D" target="_blank">Grip of Winter</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 11</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Perfetti per attacchi basati sul Freddo, congelano i nemici velocemente.</span>
-                            <span class="class-rec">🎯 Classe/Build: Ranger, Huntress (Attacchi Ghiaccio).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Base da Freddo agli Attacchi</div>
-                            <div class="stat-line">40-50% Accumulo Congelamento (Freeze Buildup) aumentato</div>
-                            <div class="stat-line">+20-30% Resistenza al Freddo</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">🥾 Stivali (Boots)</h2>
-                <ul class="guide-list">
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Wanderlust_inventory_icon.png" alt="Wanderlust" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Wanderlust%22%7D%7D" target="_blank">Wanderlust</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 11</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">La scelta più popolare fin dai primi atti. Offre protezione vitale e velocità.</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">20% Velocità di Movimento (Movement Speed)</div>
-                            <div class="stat-line">Immunità ai Rallentamenti (Slow Immunity)</div>
-                        </div>
-                    </li>
-                    <li data-class="warrior,mercenary">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Lizardscale_Boots_inventory_icon.png" alt="Bushwhack" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Bushwhack%22%7D%7D" target="_blank">Bushwhack</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 33</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Aumenta drasticamente la velocità per quel range di livello.</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi, in particolare ibridi Evasione/Armatura.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">15-25% Velocità di Movimento aumentata</div>
-                            <div class="stat-line">I colpi fisici causano "Pinning" per 4 secondi senza dover usare skill utilitarie</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">📿 Amuleti (Amulets)</h2>
-                <ul class="guide-list">
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Jade_Amulet_inventory_icon.png" alt="Surefooted Sigil" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Surefooted%20Sigil%22%7D%7D" target="_blank">Surefooted Sigil</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Migliora profondamente la nuova meccanica di Dodge Roll. Spesso è più veloce rotolare che camminare.</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le classi (Universale).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+1 metro alla distanza del Dodge Roll</div>
-                            <div class="stat-line">+40-60 alla Vita Massima e bonus Destrezza</div>
-                        </div>
-                    </li>
-                    <li data-class="witch,sorceress,monk">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Azure_Amulet_inventory_icon.png" alt="The Everlasting Gaze" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22The%20Everlasting%20Gaze%22%7D%7D" target="_blank">The Everlasting Gaze</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Aggiunge tantissimo mana e lo converte in uno strato di Scudo Energetico.</span>
-                            <span class="class-rec">🎯 Classe/Build: Sorceress, Witch (Incantatori).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">+40-60 Mana Massimo e 40-60% Rigenerazione Mana</div>
-                            <div class="stat-line">Guadagni il 4-6% del tuo Mana Massimo come Scudo Energetico Extra</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">💍 Anelli (Rings)</h2>
-                <ul class="guide-list">
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Blackheart_inventory_icon.png" alt="Blackheart" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Blackheart%22%7D%7D" target="_blank">Blackheart</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Molto Comune</span></div>
-                            <span class="desc">Eccellente livello 1 per tutte le build d'attacco grazie ai danni Caos aggiunti.</span>
-                            <span class="class-rec">🎯 Classe/Build: Tutte le build Attacco.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Aggiunge Danni Fisici e da Caos (Chaos Damage) agli Attacchi</div>
-                            <div class="stat-line">25% di probabilità di Intimidire (Intimidate) i nemici per 4 secondi sul Colpo</div>
-                        </div>
-                    </li>
-                    <li data-class="all">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Thief%27s_Torment_inventory_icon.png" alt="Thief's Torment" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Thief%27s%20Torment%22%7D%7D" target="_blank">Thief's Torment</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 30</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Come in PoE 1, fantastico per abilità "Multi-hit" che colpiscono tanti bersagli.</span>
-                            <span class="class-rec">🎯 Classe/Build: Attacchi a raffica.</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Guadagni 25 Vita e 15 Mana all'istante per ogni Nemico Colpito dagli Attacchi</div>
-                            <div class="stat-line" style="color:var(--text-muted)">Non puoi usare altri anelli contemporaneamente</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">🥋 Cinture (Belts)</h2>
-                <ul class="guide-list">
-                    <li data-class="witch,sorceress">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Rawhide_Belt_inventory_icon.png" alt="Midnight Braid" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Midnight%20Braid%22%7D%7D" target="_blank">Midnight Braid</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">La scelta definitiva per risolvere i problemi di Mana e sustain per incantatori.</span>
-                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Mana-stackers).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">50% del Danno Subito viene recuperato (Recouped) come Mana</div>
-                            <div class="stat-line">+30-50 Mana Massimo e bonus Recupero Vita dalle Fiaschette</div>
-                        </div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">⚔️ Armi (Weapons)</h2>
-                <ul class="guide-list">
-                    <li data-class="witch,sorceress">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Lifesprig_inventory_icon.png" alt="Lifesprig" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Lifesprig%22%7D%7D" target="_blank">Lifesprig</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 1</span><span class="item-cost">💰 Comune</span></div>
-                            <span class="desc">Ritorna come in PoE 1, eccellente per iniziare campagne magiche.</span>
-                            <span class="class-rec">🎯 Classe/Build: Witch, Sorceress (Spells).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Bonus iniziali ottimi per gli Incantesimi (Spells) e la sopravvivenza al livello 1.</div>
-                        </div>
-                    </li>
-                    <li data-class="sorceress,druid">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Voltaic_Staff_inventory_icon.png" alt="Earthbound" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Earthbound%22%7D%7D" target="_blank">Earthbound</a>
-                            <div class="badges"><span class="level-req">📈 Liv: 2</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Eccezionale per i maghi di tipo Elettro; riempie lo schermo di scintille.</span>
-                            <span class="class-rec">🎯 Classe/Build: Sorceress (Danni da Fulmine).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Garantisce le abilità Spark e Lightning Bolt innate nell'arma</div>
-                            <div class="stat-line">Attiva (Trigger) Spark automaticamente uccidendo un nemico Scioccato (Shocked)</div>
-                            <div class="stat-line">80-120% Danno Magico (Spell Damage) aumentato</div>
-                        </div>
-                    </li>
-                    <li data-class="mercenary,ranger">
-                        <div class="item-image-container"><img src="https://pathofexile.fandom.com/wiki/Special:FilePath/Crossbow_inventory_icon.png" alt="Radiant Grief" loading="lazy"></div>
-                        <div class="item-details">
-                            <a class="unique-item" href="https://www.pathofexile.com/trade2/search/poe2/Standard?q=%7B%22query%22%3A%7B%22name%22%3A%22Radiant%20Grief%22%7D%7D" target="_blank">Radiant Grief</a>
-                            <div class="badges"><span class="level-req">📈 Liv: Basso</span><span class="item-cost">💰 Variabile</span></div>
-                            <span class="desc">Balestra ottima per i Mercenari e arcieri. Usa le meccaniche di Ustione in modo passivo.</span>
-                            <span class="class-rec">🎯 Classe/Build: Mercenary (Balestre).</span>
-                        </div>
-                        <div class="item-stats">
-                            <strong>Statistiche dell'Oggetto</strong>
-                            <div class="stat-line">Incendia (Ignite) automaticamente tutti i nemici a te vicini</div>
-                            <div class="stat-line">Perfetto in sinergia con altre fonti che infliggono danni aggiuntivi a nemici in Ustione</div>
                         </div>
                     </li>
                 </ul>
@@ -1237,27 +857,7 @@
                     <li class="text-only">
                         <span class="desc" style="margin-bottom:10px;">La novità più grande del combat system. Premi Spazio per eseguire un Dodge Roll.</span>
                         <div class="stat-line"><strong>Nessun Cooldown:</strong> Puoi usarlo a ripetizione, ma sarai limitato dall'animazione.</div>
-                        <div class="stat-line"><strong>Invincibilità Melee:</strong> Durante l'animazione di rotolata, gli attacchi in mischia (corpo a corpo) o i proiettili base non ti colpiranno.</div>
-                        <div class="stat-line"><strong>Annullamento (Cancel):</strong> Il Dodge Roll può cancellare le animazioni di quasi tutte le abilità, permettendoti di fuggire da una magia di un boss lanciata all'ultimo secondo.</div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">👻 Lo Spirito (Spirit)</h2>
-                <ul class="guide-list">
-                    <li class="text-only">
-                        <span class="desc" style="margin-bottom:10px;">L'Intelligenza non aumenta più il Mana, ma dà Energy Shield. Il Mana ora serve esclusivamente per lanciare magie attive. Cosa alimenta allora Aure e Minion? Lo <strong>Spirito</strong>.</span>
-                        <div class="stat-line">Tutti iniziano con 100 Spirito.</div>
-                        <div class="stat-line">Ogni Aura (es. Aura di Fuoco) o Buff Permanente non "riserva" più parte del tuo Mana, ma <strong>consuma stabilmente</strong> una quantità fissa di Spirito (es. 50 Spirito).</div>
-                        <div class="stat-line">L'Evocazione di Minion permanenti (Zombie, Scheletri) prenota a sua volta lo Spirito. Per fare il Necromante dovrai procurarti molto Spirito tramite il tuo equipaggiamento (es. Scettri o Armature specifiche).</div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">⚔️ Dual Specialization (Cambio Arma Perfetto)</h2>
-                <ul class="guide-list">
-                    <li class="text-only">
-                        <span class="desc" style="margin-bottom:10px;">Il sistema di cambio arma (Swap) è stato completamente rifatto per essere usato dinamicamente in combattimento.</span>
-                        <div class="stat-line">Se equipaggi una Spada nel Set 1 e un Arco nel Set 2, usare un'abilità con l'Arco scambierà istantaneamente le tue armi senza farti perdere tempo.</div>
-                        <div class="stat-line">Ancora più importante: <strong>L'albero delle abilità passive si divide in base all'arma</strong>. Puoi assegnare punti passivi specifici (es. danni colpo critico spada) che si attivano solo quando usi il Set 1, e altri punti che si attivano solo col Set 2. Questo permette build totalmente ibride e flessibili!</div>
+                        <div class="stat-line"><strong>Invincibilità Melee:</strong> Durante l'animazione di rotolata, gli attacchi in mischia o i proiettili base non ti colpiranno.</div>
                     </li>
                 </ul>
             </div>
@@ -1267,20 +867,16 @@
                              LAST EPOCH
         ======================================================== -->
         <section id="le" class="tab-content">
-            
             <nav class="sub-tabs">
                 <button class="sub-tab-btn le-sub-btn active-sub" onclick="window.openSubTab(event, 'le-dash', 'le')">Dashboard Build</button>
                 <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-crafting', 'le')">Guida Forgiatura (Crafting)</button>
             </nav>
 
             <div id="le-dash" class="sub-tab-content le-sub-content active-sub-content">
-                
                 <div class="section" style="background: transparent; border: none; padding: 0; margin-bottom: 10px;">
                     <a href="https://www.lastepochtools.com/" target="_blank" class="tool-link" style="background: var(--accent-le);">🛠️ Last Epoch Tools</a>
-                    
                     <a href="https://pob.cool/" target="_blank" class="tool-link" style="background: var(--accent-le);">🖥️ PoB (Cool)</a>
                     <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
-                    
                     <a href="https://www.lastepochtools.com/loot-filters/" target="_blank" class="tool-link" style="background: #3f51b5;">🛡️ LE Loot Filters</a>
                 </div>
 
@@ -1339,8 +935,6 @@
                     <li class="text-only">
                         <span class="desc" style="margin-bottom:10px;">Ogni oggetto nel gioco possiede un valore chiamato Forging Potential (FP). Aggiungere o migliorare un Affisso su un oggetto consuma FP.</span>
                         <div class="stat-line">Se un oggetto arriva a 0 FP, è "Bricked": non può più essere craftato.</div>
-                        <div class="stat-line">Gli oggetti Rari (Gialli) hanno circa 20-40 FP. Gli oggetti Eccelsi (Exalted - Viola) hanno spesso 40+ FP, rendendoli le basi migliori per il crafting.</div>
-                        <div class="stat-line" style="color: #4caf50;"><strong>Consiglio:</strong> Finché ti rimane anche solo 1 FP, puoi tentare un'ultima modifica!</div>
                     </li>
                 </ul>
 
@@ -1350,19 +944,6 @@
                         <span class="desc" style="margin-bottom:10px;">I glifi vengono inseriti nello slot inferiore durante un craft per influenzarne il risultato o il costo.</span>
                         <div class="stat-line"><strong>Glyph of Hope:</strong> Fornisce un 25% di probabilità che il craft NON consumi alcun Forging Potential. Usalo <em>sempre</em>!</div>
                         <div class="stat-line"><strong>Glyph of Chaos:</strong> Quando aggiorni un affisso, lo cambia casualmente in un altro affisso compatibile e ne aumenta il Tier.</div>
-                        <div class="stat-line"><strong>Glyph of Order:</strong> Previene la variazione casuale del roll numerico quando aggiorni il Tier di un affisso.</div>
-                        <div class="stat-line"><strong>Glyph of Despair:</strong> Ha una probabilità di "Sigillare" l'affisso. Un affisso sigillato viene spostato in un 5° slot bonus, permettendoti di creare oggetti con 5 statistiche (invece di 4).</div>
-                    </li>
-                </ul>
-
-                <h2 class="guide-title category-title">🪨 Le Rune (Runes) - Modificatori di Azione</h2>
-                <ul class="guide-list">
-                    <li class="text-only">
-                        <span class="desc" style="margin-bottom:10px;">Le rune eseguono azioni dirette sull'oggetto.</span>
-                        <div class="stat-line"><strong>Rune of Shattering:</strong> Distrugge l'oggetto. Recupererai una parte degli affissi sotto forma di "Frammenti" (Shards) per craftarli altrove. Ottimo modo per accumulare shard!</div>
-                        <div class="stat-line"><strong>Rune of Removal:</strong> Rimuove un affisso casuale dall'oggetto e te lo restituisce sotto forma di Frammenti.</div>
-                        <div class="stat-line"><strong>Rune of Ascendance:</strong> Converte un oggetto base in un Oggetto Unico o di Set casuale dello stesso identico tipo (es. trasforma una spada in una spada unica).</div>
-                        <div class="stat-line"><strong>Rune of Discovery:</strong> Aggiunge affissi casuali di Livello 1 (Tier 1) in tutti gli slot vuoti.</div>
                     </li>
                 </ul>
             </div>
@@ -1372,7 +953,6 @@
                              DIABLO 2 RESURRECTED
         ======================================================== -->
         <section id="d2" class="tab-content">
-            
             <nav class="sub-tabs">
                 <button class="sub-tab-btn d2-sub-btn active-sub" onclick="window.openSubTab(event, 'd2-dash', 'd2')">Dashboard Build</button>
                 <button class="sub-tab-btn d2-sub-btn" onclick="window.openSubTab(event, 'd2-guide', 'd2')">Guida Rune Words</button>
@@ -1380,12 +960,9 @@
             </nav>
 
             <div id="d2-dash" class="sub-tab-content d2-sub-content active-sub-content">
-                
                 <div class="section" style="background: transparent; border: none; padding: 0; margin-bottom: 10px;">
                     <a href="https://d2runewizard.com" target="_blank" class="tool-link" style="background: var(--danger);">🛠️ D2Runewizard</a>
-                    
                     <a href="https://maxroll.gg/d2/d2-drop-calculator" target="_blank" class="tool-link" style="background: var(--danger);">⚖️ Maxroll Drop Calc</a>
-
                     <a href="https://maxroll.gg/d2/d2planner" target="_blank" class="tool-link" style="background: var(--danger);">📈 D2 Planner</a>
                 </div>
 
@@ -1433,7 +1010,7 @@
                 </div>
             </div>
 
-            <!-- GUIDA PAROLE RUNICHE D2R (RIPRISTINATA) -->
+            <!-- GUIDA PAROLE RUNICHE D2R -->
             <div id="d2-guide" class="sub-tab-content d2-sub-content guide-section">
                 <h1 style="color:var(--guide-title); text-align:left; border-bottom: none; padding:0; margin-bottom:5px;">Guida D2R: Database Parole Runiche</h1>
                 <p style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune, aggiornate alle ultime Patch di Diablo 2 Resurrected. Assicurati di usare un oggetto base "Grigio" (Normale con Incavi) e di inserire le rune nell'ordine esatto!</em></p>
@@ -1474,32 +1051,584 @@
                         <div class="stat-line"><strong>L'Arma:</strong> Se hai problemi di Mana, usa la runeword <strong>"Insight"</strong> (Ral+Tir+Tal+Sol). Per l'Endgame elementale, <strong>"Infinity"</strong> (Ber+Mal+Ber+Ist) è vitale per abbattere le immunità nemiche.</div>
                         <div class="stat-line"><strong>L'Elmo:</strong> Cerca "Ruba Vita" (Life Leech). L'elmo unico <strong>"Andariel's Visage"</strong> è il migliore assoluto. Una fantastica opzione economica è la runeword <strong>"Bulwark"</strong> (Shael+Io+Sol).</div>
                         <div class="stat-line"><strong>L'Armatura Torso:</strong> La runeword <strong>"Treachery"</strong> (Shael+Thul+Lem) è spesso migliore di armature costose, perché aumenta enormemente la sua velocità di attacco. La runeword <strong>"Fortitude"</strong> (El+Sol+Dol+Lo) massimizza il suo danno grezzo.</div>
-                        <div class="stat-line" style="color: #4caf50;"><strong>Tip Pro:</strong> Usa basi "Eteree" (Ethereal) per il mercenario! Gli oggetti non perdono mai durabilità quando indossati da loro, ed essendo eterei hanno il 50% di statistiche base in più!</div>
                     </li>
                 </ul>
             </div>
         </section>
     </main>
 
+    <!-- ==============================================
+         MODALS ENCICLOPEDIA
+    ============================================== -->
+
+    <div id="modal-alva" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-alva')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/SxTazIehGapVSPNb.jpg" alt="Alva Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">⏳ Alva: Il Tempio di Atzoatl</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Alva ti permette di viaggiare nel passato durante le "Incursioni". Ogni tua azione nel passato determina quali stanze saranno presenti nel Tempio di Atzoatl nel presente. Dopo 11 incursioni, potrai entrare nel tempio completo per raccogliere il bottino.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Incontra Alva:</strong> Apparirà 3 volte per mappa. Parlale per vedere la struttura attuale del tempio.[cite: 2]</li>
+                    <li data-step="2"><strong>Scegli l'Architetto:</strong> In ogni incursione ci sono due architetti. Uccidi quello che vuoi <strong>cambiare</strong> o <strong>potenziare</strong> la stanza. L'architetto in alto a destra di solito potenzia il livello della stanza (Tier 1 -> 2 -> 3).[cite: 2]</li>
+                    <li data-step="3"><strong>Collega le Stanze:</strong> Raccogli le "Stone of Passage" dai nemici e clicca sulle porte rosse per sbloccare i collegamenti. Un tempio ben collegato ti permette di raggiungere le stanze più preziose.[cite: 2]</li>
+                    <li data-step="4"><strong>Il Grande Razzia:</strong> Una volta completate tutte le incursioni, Alva aprirà i portali per il Tempio nel presente.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/RiXMxHNfiHVruJfk.jpg" alt="Interfaccia Alva" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Interfaccia di scelta: Qui vedi i due architetti e le porte da collegare.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/qIxypNfMbcnQJUSH.png" alt="Mappa Tempio" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Mappa del Tempio: L'obiettivo è collegare le stanze fino al vertice (Apex).[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Punta sempre al Tier 3 delle stanze <strong>Locus of Corruption</strong> (per la doppia corruzione degli oggetti) e <strong>Doryani's Institute</strong> (per la doppia corruzione delle gemme). Sono le più redditizie in assoluto![cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-niko" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-niko')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/YHSbbbSvSNTBimHT.jpg" alt="Niko Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">⛏️ Niko: La Miniera di Azurite (Delve)</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Esplora una miniera infinita generata proceduralmente. Usa il Solfito raccolto nelle mappe per alimentare il Crawler (il carrello) e scendi sempre più in profondità per trovare ricompense migliori.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Fai il Pieno:</strong> Trova i depositi di Solfito Voltaxico (gialli) nelle mappe. Niko apparirà per raccoglierli.[cite: 2]</li>
+                    <li data-step="2"><strong>Scegli il Percorso:</strong> Vai all'accampamento e apri la Subterranean Chart. Clicca su un nodo adiacente per iniziare il viaggio.[cite: 2]</li>
+                    <li data-step="3"><strong>Segui la Luce:</strong> Il carrello emette luce che ti protegge dall'Oscurità (che uccide rapidamente). Rimani vicino ad esso![cite: 2]</li>
+                    <li data-step="4"><strong>Esplora i Lati:</strong> Lancia dei Flare (razzi) per esplorare i vicoli bui dove si nascondono i Muri Fratturati carichi di fossili preziosi.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/DOStTnfkIzoyKoSK.png" alt="Subterranean Chart" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Subterranean Chart: La tua mappa infinita del sottosuolo.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/fRpqswivChJDzTFD.jpg" alt="Generatore Voltaxico" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Generatore: Qui potenzi la tua resistenza all'oscurità e la capacità di solfito.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Priorità assoluta agli upgrade! Potenzia la <strong>Darkness Resistance</strong> e il <strong>Light Radius</strong> prima di scendere troppo. Se la resistenza è negativa, l'oscurità ti scioglierà in pochi secondi.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-jun" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-jun')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kEADadBJKltkHwpY.jpg" alt="Jun Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🕵️ Jun: Betrayal (Il Sindacato)</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Aiuta Jun a smantellare il Sindacato Immortale. Manipola le relazioni tra i membri (Amicizia, Rivalità, Tradimento) per ottenere Intelligence sui loro covi e sconfiggere la Mastermind.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Sconfiggi i Membri:</strong> Appariranno in mappe come Fortificazioni, Trasporti o Interventi.[cite: 2]</li>
+                    <li data-step="2"><strong>Prendi una Decisione:</strong> Dopo averli sconfitti, avrai due scelte. <strong>Interrogate</strong> dà intelligence ma abbassa il grado del membro. <strong>Execute</strong> aumenta il grado (stelle) del membro. <strong>Bargain</strong> o <strong>Betray</strong> creano relazioni complesse.[cite: 2]</li>
+                    <li data-step="3"><strong>Svela gli Oggetti (Unveiling):</strong> Raccogli gli oggetti "Veiled". Portali da Jun per scegliere tra 3 modificatori potenti da sbloccare per il tuo banco di crafting.[cite: 2]</li>
+                    <li data-step="4"><strong>Assalta la Safehouse:</strong> Quando la barra di intelligence di un dipartimento è piena, puoi assaltare il loro covo per ricompense specifiche basate su chi è presente.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/GuufgHeXYGaGFoTR.jpg" alt="Syndicate Board" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Il Tabellone: Gestisci le relazioni e i gradi dei membri del Sindacato.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/HlQDOwqQbZDOQiSs.jpg" alt="Unveiling UI" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Unveiling: Sblocca nuove ricette di crafting scegliendo i modificatori.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> I membri con 3 stelle (Rank 3) danno le ricompense migliori. Cerca di portare <strong>Aisling</strong> o <strong>Vorici</strong> in Research per i loro poteri di crafting unici (Veiled Slams e White Sockets).[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-einhar" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-einhar')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/QqeQkwWwMNDQrxZX.jpg" alt="Einhar Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🦁 Einhar: Il Bestiary</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Cattura creature selvagge usando le Bestiary Orbs. Ogni creatura viene registrata nel tuo Bestiary. Quando completi una ricetta (uccidendo 3 creature specifiche), sacrificale al Blood Altar per ottenere oggetti unici.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Cattura le Bestie:</strong> Sconfiggi i mostri speciali (hanno un'aura dorata). Einhar lancera una Bestiary Orb per catturarli.[cite: 2]</li>
+                    <li data-step="2"><strong>Registra nel Bestiary:</strong> Ogni creatura catturata viene aggiunta al catalogo con informazioni su rarità e ricette.[cite: 2]</li>
+                    <li data-step="3"><strong>Completa le Ricette:</strong> Il Bestiary suggerisce ricette quando hai catturato 2 delle 3 creature necessarie.[cite: 2]</li>
+                    <li data-step="4"><strong>Sacrifica al Blood Altar:</strong> Vai nel tuo Hideout e sacrifica le tre bestie per ottenere la ricompensa.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Le ricette del Bestiary sono estremamente redditizie! Alcune combinazioni producono oggetti unici rari come Farrul's Fur o The Aspect of the Hunt. Controlla sempre il Bestiary per vedere quali ricette valgono di più.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-heist" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-heist')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/vhgQUhKezdeiFtZN.png" alt="Heist Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">💰 Heist: I Grandi Colpi</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Diventa un ladro professionista. Entra in aree protette, ruba manufatti preziosi e scappa prima che l'allarme si chiuda definitivamente. Se muori durante la fuga, perdi tutto ciò che hai rubato![cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Rogue Harbour:</strong> Usa un Rogue's Marker per teletrasportarti nel porto dei ladri.[cite: 2]</li>
+                    <li data-step="2"><strong>Pianifica il Colpo:</strong> Usa i Contratti (Contract) per colpi singoli o i Blueprints per i "Grand Heists" che richiedono una squadra intera.[cite: 2]</li>
+                    <li data-step="3"><strong>Gestisci l'Allarme:</strong> Aprire forzieri aumenta la barra dell'allarme. Quando è piena, scatta il <strong>Lockdown</strong>.[cite: 2]</li>
+                    <li data-step="4"><strong>La Fuga:</strong> Una volta preso l'obiettivo finale, devi tornare all'uscita combattendo ondate di guardie.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/dnBQTBcshQviKICc.png" alt="Blueprint UI" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Grand Heist: Pianifica le ali e i membri della squadra per i colpi più grossi.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/DihJasGFbWaMGIFD.jpg" alt="Contract" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Contratto: Ogni missione richiede abilità specifiche (Lockpicking, Deception, ecc.).[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Equipaggia i tuoi ladri con oggetti che riducono la <strong>Alert Level</strong>. Questo ti permetterà di aprire molti più forzieri prima che scatti l'allarme.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-sanctum" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-sanctum')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/johGiSdfxJIaBnkO.jpg" alt="Sanctum Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🏛️ Sanctum: Il Labirinto Roguelike</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Una modalità roguelike all'interno di PoE. Devi attraversare 4 piani di un castello maledetto. Invece della vita, la tua risorsa principale è la <strong>Resolve</strong> (Sanità Mentale). Se scende a zero, la run finisce.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Entra nel Sanctum:</strong> Usa un Forbidden Tome al map device.[cite: 2]</li>
+                    <li data-step="2"><strong>Scegli la Stanza:</strong> Guarda la mappa del piano. Ogni stanza ha una ricompensa e potenziali pericoli.[cite: 2]</li>
+                    <li data-step="3"><strong>Boons e Afflictions:</strong> Lungo il percorso otterrai potenziamenti (Boons) o maledizioni (Afflictions) che durano per tutta la run.[cite: 2]</li>
+                    <li data-step="4"><strong>Gestione Resolve:</strong> Schiva ogni attacco! Anche se il tuo personaggio è resistente, ogni colpo subito riduce la Resolve. L'Inspiration funge da "scudo" per la Resolve.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/RMgbdFgkkuFYkawK.png" alt="Resolve Bar" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Barra Resolve: Monitora costantemente la tua sanità mentale e l'ispirazione.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/scbcZnxSwQaMDbDF.jpg" alt="Sanctum Map" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Mappa del Piano: Pianifica il percorso migliore evitando le Afflictions peggiori.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Le build che possono infliggere danni da lontano o mentre si muovono (come Totem, Brand o Minion) sono incredibilmente forti nel Sanctum perché permettono di concentrarsi totalmente sullo schivare.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-expedition" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-expedition')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/vLKdADEISMKvzyxK.jpg" alt="Expedition Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">💣 Expedition: Archeologia Esplosiva</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Piazza esplosivi per dissotterrare tesori e mostri. I manufatti raccolti possono essere scambiati con quattro mercanti speciali, ognuno con una meccanica di baratto unica (scommesse, negoziazione, crafting).[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Piazza le Cariche:</strong> Hai un numero limitato di esplosivi. Cerca di coprire quanti più "Remnants" (pali con testo) e forzieri possibile.[cite: 2]</li>
+                    <li data-step="2"><strong>L'Ordine è Fondamentale:</strong> Gli effetti dei Remnants si accumulano. Il primo esplosivo influenza tutti i successivi. Metti i Remnants con "Increased Quantity" per primi![cite: 2]</li>
+                    <li data-step="3"><strong>Attenzione alle Immunità:</strong> Leggi attentamente! Se un Remnant dice "Immune to Fire Damage" e tu fai solo danni da fuoco, non potrai uccidere quei mostri.[cite: 2]</li>
+                    <li data-step="4"><strong>Baratta con i Mercanti:</strong> Tujen (valuta), Rog (crafting), Gwennen (scommesse) e Dannig (manufatti generali).[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/TIqQuGvEyTIbwgvQ.jpg" alt="Remnant Text" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Remnants: Leggi sempre il testo giallo per evitare immunità letali alla tua build.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> **Tujen** è il miglior mercante per fare soldi sicuri. Non aver paura di negoziare duramente per abbassare il prezzo di Divine e Chaos Orb, ma non esagerare o si arrabbierà e ritirerà l'offerta![cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-harvest" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-harvest')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/XgZXSASNjdeWCIsU.jpg" alt="Harvest Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🌱 Harvest: Il Bosco Sacro</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Entra nel Bosco Sacro e coltiva Forza Vitale sconfiggendo mostri-pianta. Questa energia è la valuta più preziosa per il crafting deterministico, permettendoti di riforgiare oggetti con modificatori specifici.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Trova il Portale:</strong> Appare casualmente nelle mappe. Entra per trovare diversi appezzamenti di terreno.[cite: 2]</li>
+                    <li data-step="2"><strong>Scegli il Colore:</strong> Gli appezzamenti sono a coppie. Scegliendone uno, l'altro svanirà. Giallo (Vivid), Blu (Primal), Viola (Wild).[cite: 2]</li>
+                    <li data-step="3"><strong>Sconfiggi i Custodi:</strong> Clicca sull'estrattore e preparati al combattimento. Più rari sono i mostri, più Forza Vitale riceverai.[cite: 2]</li>
+                    <li data-step="4"><strong>Crafting Deterministico:</strong> Usa la Horticrafting Station nel tuo hideout per spendere la Forza Vitale raccolta.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/DtpDYtXTTjIPzImQ.png" alt="Harvest Plots" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Appezzamenti: I colori indicano il tipo di Forza Vitale e di craft disponibili.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/AgQiEbgFCYyZDCwJ.png" alt="Horticrafting UI" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Horticrafting Station: Il cuore del crafting avanzato di PoE.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> La Forza Vitale **Gialla** è solitamente la più costosa sul mercato perché viene usata per scommettere sul raddoppio delle carte divinatorie (Stack di Doctor o Apothecary).[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-blight" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-blight')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/RfnCiUnzxdDBEWfo.jpg" alt="Blight Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🍄 Blight: Tower Defense Infernale</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Aiuta Suor Cassia a purificare le mappe da una crescita fungina infettiva. Costruisci e potenzia torri per fermare ondate di mostri che seguono percorsi prestabiliti verso la pompa centrale.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Avvia la Pompa:</strong> Clicca sul fungo centrale per far apparire i rami della crescita.[cite: 2]</li>
+                    <li data-step="2"><strong>Costruisci Torri:</strong> Usa i punti accumulati per erigere torri. Esistono 6 tipi base: Fuoco, Freddo, Fulmine, Fisico, Minion e Supporto.[cite: 2]</li>
+                    <li data-step="3"><strong>Monitora le Immunità:</strong> Le icone sopra i portali mostrano a cosa sono immuni i mostri di quel percorso. Non costruire torri di fuoco se vedi l'icona del fuoco![cite: 2]</li>
+                    <li data-step="4"><strong>Ungi l'Equipaggiamento:</strong> Usa gli Oli (Oils) lasciati dai mostri per aggiungere poteri passivi (Anoints) ai tuoi anelli, amuleto e mappe.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/tPOxakcgLPKoHAib.png" alt="Tower UI" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Interfaccia Torri: Scegli attentamente come spendere i tuoi punti durante l'assedio.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/OsSboLcmqXIgVRiP.png" alt="Blight Cheat Sheet" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Strategia: Alcune combinazioni di torri (come Stun + Chill) sono insuperabili.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Per le mappe Blight-ravaged difficili, usa la combinazione **Stun Tower (Tier 3)** e **Empowering Tower (Tier 3)**. I mostri rimarranno letteralmente bloccati sul posto per sempre![cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-legion" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-legion')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/HiWLuLlpVTOvpVpA.jpg" alt="Legion Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">⚔️ Legion: L'Esercito Eterno</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Tocca il Monolite Timeless per rivelare due eserciti in conflitto, bloccati nel tempo. Hai pochi secondi per colpire quanti più nemici possibile per "liberarli". Una volta scaduto il tempo, i mostri liberati prenderanno vita per una battaglia epica.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Attiva il Monolite:</strong> Si trova solitamente in aree aperte della mappa.[cite: 2]</li>
+                    <li data-step="2"><strong>Fase di Liberazione:</strong> Corri velocemente e colpisci i nemici con icone sopra la testa (indicano ricompense speciali).[cite: 2]</li>
+                    <li data-step="3"><strong>Sconfiggi i Generali:</strong> Se sei fortunato, apparirà un Generale di fazione. Liberarlo garantisce frammenti di emblemi preziosi.[cite: 2]</li>
+                    <li data-step="4"><strong>Incubatori:</strong> Usa gli Incubators trovati sui tuoi pezzi di equipaggiamento. Dopo aver ucciso un certo numero di mostri, "si schiuderanno" rilasciando un premio.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/qHXkSepSuFFJClux.jpg" alt="Monolith" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Il Monolite: L'inizio della sfida. Preparati a muoverti velocemente.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/RHOkDkjcymqJZMEx.jpg" alt="Legion Loot" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Loot: Gli Emblemi Timeless servono per accedere al Domain of Timeless Conflict.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Le build con un'ampia area di effetto (AoE) o proiettili che rimbalzano (come Tornado Shot o Essence Drain) sono le migliori per pulire l'intera legione in pochi secondi.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ultimatum" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-ultimatum')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/HJlsnlYrQDdmleEi.jpg" alt="Ultimatum Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">⚖️ Ultimatum: La Prova del Trialmaster</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Il Trialmaster ti mette alla prova in un'arena a ondate. Dopo ogni ondata vinta, devi scegliere se prendere il premio e andartene o rischiare tutto per un premio migliore, aggiungendo però un modificatore di difficoltà cumulativo.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Inizia la Prova:</strong> Parla con il Trialmaster in mappa.[cite: 2]</li>
+                    <li data-step="2"><strong>Scegli il Malus:</strong> Ad ogni round, seleziona uno tra tre modificatori di difficoltà. Scegli quelli che influenzano meno la tua build![cite: 2]</li>
+                    <li data-step="3"><strong>Sopravvivi all'Arena:</strong> Gli obiettivi variano: uccidere mostri, sopravvivere per un tempo limite o restare in cerchi rituali.[cite: 2]</li>
+                    <li data-step="4"><strong>Double or Nothing:</strong> Se perdi un round, perdi TUTTI i premi accumulati fino a quel momento.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/SUDkgrtHEfAjiYUg.jpg" alt="Trialmaster UI" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Interfaccia Scelta: Qui decidi se rischiare o ritirarti col bottino.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/MHSuSFQHTxMkzNdz.png" alt="Rewards" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Ricompense: Più round superi, più i premi diventano rari e preziosi.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Impara quali modificatori la tua build può ignorare. Ad esempio, se hai molta rigenerazione vita, i modificatori che impediscono il recupero di mana potrebbero non essere un problema.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-delirium" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-delirium')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/gRHeWcgLhbnMxNJZ.jpg" alt="Delirium Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🌫️ Delirium: L'Incubo della Nebbia</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Attraversa lo Specchio del Delirio per avvolgere la mappa in una nebbia che potenzia i mostri e ne evoca di nuovi. Più ti addentri nella nebbia (lontano dallo specchio), più la sfida e le ricompense aumentano.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Tocca lo Specchio:</strong> Di solito si trova vicino all'inizio della mappa.[cite: 2]</li>
+                    <li data-step="2"><strong>Corri nella Nebbia:</strong> La nebbia si muove. Se rimani troppo indietro, il Delirio finirà.[cite: 2]</li>
+                    <li data-step="3"><strong>Riempi il Counter:</strong> In basso a sinistra vedrai un contatore che aumenta uccidendo mostri. Ogni livello garantisce più ricompense.[cite: 2]</li>
+                    <li data-step="4"><strong>Cluster Jewels:</strong> Questa meccanica è l'unica fonte di Cluster Jewels, fondamentali per personalizzare l'albero delle abilità passive.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/sdBqqmZGVBSuYdXr.jpg" alt="Mirror of Delirium" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Lo Specchio: L'ingresso nel tuo incubo peggiore.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kwxoIVujQWONwvso.jpg" alt="Rewards Counter" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Contatore: Indica il numero di premi che riceverai a fine evento.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Usa le **Delirium Orbs** sulle mappe per rendere l'effetto permanente e al 100% di intensità. È il modo migliore per farmare Simulacrum Splinters.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-ritual" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-ritual')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/olQTUucrUTmYNDqf.jpg" alt="Ritual Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🩸 Ritual: Altari e Tributi</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Attiva gli altari rituali sparsi per la mappa per combattere ondate di mostri all'interno di un cerchio chiuso. Ogni uccisione ti conferisce Tributi, che potrai spendere in una vetrina di oggetti a fine mappa.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Pulisci l'Altare:</strong> Uccidi i mostri intorno all'altare prima di attivarlo.[cite: 2]</li>
+                    <li data-step="2"><strong>Sopravvivi al Rituale:</strong> Una volta cliccato, i mostri rinasceranno potenziati. Non uscire dal cerchio![cite: 2]</li>
+                    <li data-step="3"><strong>Accumula Tributi:</strong> Più altari completi in una mappa, più tributi avrai. I mostri dei primi altari riappariranno in quelli successivi.[cite: 2]</li>
+                    <li data-step="4"><strong>Defer (Rimanda):</strong> Se un oggetto costa troppo, usa il pulsante "Defer". Riapparirà nelle mappe future a un prezzo scontato.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/FFVfnSBgUTjhSJwk.png" alt="Favour Window" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Vetrina Premi: Qui spendi i tuoi tributi per oggetti rari o valuta.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/fHhiJuQMKpLnvcEf.png" alt="Deferring" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Deferring: Una meccanica salvavita per non perdere oggetti costosi come i Mirror.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Non spendere mai tutti i tributi subito. Controlla sempre l'intera vetrina prima di comprare, per assicurarti di avere abbastanza punti per "deferrire" gli oggetti più rari.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-abyss" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-abyss')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/fuHvfXGnTNXSDehE.jpg" alt="Abyss Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🕳️ Abyss: Le Fenditure del Sottosuolo</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Segui una fenditura che si apre nel terreno. Questa si fermerà periodicamente creando dei "Pit" da cui usciranno ondate di mostri. Alla fine, potresti trovare un forziere o l'ingresso per le Abyssal Depths.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Calpesta la Fenditura:</strong> Inizia come un piccolo punto verde brillante.[cite: 2]</li>
+                    <li data-step="2"><strong>Inseguimento:</strong> La crepa si muove velocemente. Se non la segui, si chiuderà.[cite: 2]</li>
+                    <li data-step="3"><strong>Abyssal Jewels:</strong> I mostri rilasciano gioielli speciali che possono essere incastonati nell'albero delle passive o in equipaggiamento specifico.[cite: 2]</li>
+                    <li data-step="4"><strong>Stygian Vise:</strong> Sconfiggere i boss nelle Depths garantisce questa cintura, l'unica con un incavo per gioielli abissali.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/rIhDkOiZyDqkasLl.jpg" alt="Abyss Crack" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">La Fenditura: Seguila con attenzione attraverso la mappa.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/VNHZlFBxRScWWwff.png" alt="Stygian Vise" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Stygian Vise: L'oggetto più ambito di questa meccanica.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Se vedi che la fenditura crea un portale blu/nero alla fine, sei fortunato! Stai entrando nelle **Abyssal Depths** dove potrai sfidare un Lich per ricompense leggendarie.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-breach" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-breach')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/hocHXdWvaqsFnPpF.jpg" alt="Breach Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🌌 Breach: Invasione Dimensionale</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Tocca una Mano di Breach per aprire una fenditura temporanea in un'altra dimensione. Un cerchio viola si espanderà, rivelando mostri che devi uccidere rapidamente per mantenere la fenditura aperta il più a lungo possibile.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Tocca la Mano:</strong> Appare come un artiglio viola che spunta dal terreno.[cite: 2]</li>
+                    <li data-step="2"><strong>Espansione:</strong> Il cerchio si allarga. Uccidi i mostri all'interno per guadagnare tempo.[cite: 2]</li>
+                    <li data-step="3"><strong>Raccogli Frammenti:</strong> I mostri rilasciano "Splinters". Raccogline 100 dello stesso tipo per creare una Breachstone.[cite: 2]</li>
+                    <li data-step="4"><strong>Affronta il Boss:</strong> Usa la Breachstone nel map device per viaggiare nel dominio del Breachlord (Xoph, Tul, Esh, Uul-Netol o Chayula).[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/aXpunfRFSeJPZSuh.jpg" alt="Breach Hand" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">La Mano: L'innesco dell'invasione dimensionale.[cite: 2]</div>
+                    </div>
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/vTiJoQamGPZpUPyf.webp" alt="Breach Ring" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Espansione: Combatti all'interno del cerchio prima che collassi.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> **Chayula** è la fazione più rara e redditizia. Se investi nell'Atlas Tree per Breach, assicurati di prendere i nodi che aumentano la probabilità di trovare fenditure di Chayula.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-essence" class="modal-overlay" onclick="window.closeEncModal(event)">
+        <div class="modal-content-enc" onclick="event.stopPropagation()">
+            <button class="close-btn-enc" onclick="window.closeEncModalById('modal-essence')">&times;</button>
+            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/LIcJBEiDJPEuxMDh.jpg" alt="Essence Header" class="modal-header-img">
+            <h2 style="color: var(--gold); border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">🔮 Essence: Poteri Intrappolati</h2>
+            <div class="info-box">
+                <strong>Riassunto Rapido:</strong> Trova gruppi di mostri congelati in un cristallo azzurro. Cliccandoci sopra tre volte, li libererai. Sconfiggili per ottenere le Essenze, oggetti consumabili che garantiscono un modificatore specifico quando usati su un pezzo di equipaggiamento.[cite: 2]
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">📖 Guida ai Passaggi</h3>
+                <ul class="step-list">
+                    <li data-step="1"><strong>Individua il Monolite:</strong> Cerca l'icona sulla minimappa che indica un mostro imprigionato.[cite: 2]</li>
+                    <li data-step="2"><strong>Controlla le Essenze:</strong> Passa il mouse sopra per vedere quali poteri otterrai.[cite: 2]</li>
+                    <li data-step="3"><strong>Usa il Remnant:</strong> Se vedi essenze di tipo "MEDS" (Misery, Envy, Dread, Scorn), usa un **Remnant of Corruption** per avere la possibilità di mutarle in essenze speciali.[cite: 2]</li>
+                    <li data-step="4"><strong>Combatti:</strong> Una volta liberati, i mostri sono molto resistenti. Uccidili tutti per raccogliere il bottino.[cite: 2]</li>
+                </ul>
+            </div>
+            <div class="guide-section">
+                <h3 style="color: var(--gold-light);">🖼️ Visualizzazione Meccaniche</h3>
+                <div class="gallery" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                    <div style="border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; background: #000;">
+                        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kFFurotJkQnazPvy.jpg" alt="Essence Monolith" class="gallery-img" style="width: 100%; height: 200px; object-fit: contain;" onclick="window.openLightbox(this.src)">
+                        <div style="background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold);">Il Monolite: Tre clic per scatenare l'inferno elementale.[cite: 2]</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pro-tip">
+                <strong>🚀 Pro Tip:</strong> Le essenze sono il modo più economico e sicuro per iniziare a craftare il proprio equipaggiamento all'inizio di una League. Conserva le "Deafening" (il grado più alto) per gli oggetti di fine gioco.[cite: 2]
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
     <footer class="main-footer">
         &copy; 2026 Sairiin - ARPG Companion Hub<br>
         <a href="mailto:giordani.claudio@gmail.com" class="footer-link" style="margin-top: 10px; display: inline-block;">Contattami per supporto</a>
     </footer>
 
-    <!-- =======================================================
-                              JAVASCRIPT (Firebase + Logica)
-    ======================================================== -->
-    
+    <!-- SCRIPT FINALI -->
     <!-- Script Gestione Immagini di Fallback globale -->
     <script>
         document.addEventListener("error", function(e) {
-            // Controlla se l'elemento che ha dato errore è un'immagine
             if (e.target.tagName.toLowerCase() === 'img') {
-                // Evita un loop infinito se l'immagine di fallback stessa non dovesse caricarsi
                 if (e.target.getAttribute('data-fallback-applied') === 'true') return;
                 e.target.setAttribute('data-fallback-applied', 'true');
-                
-                // Immagine di fallback con colori in stile app
                 e.target.src = 'https://placehold.co/100x100/1e1e24/ff9800?text=No+Image'; 
                 e.target.style.objectFit = 'contain';
             }
@@ -1513,8 +1642,9 @@
         }
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- QUI RICHIAMIAMO IL NUOVO FILE JS (come modulo) -->
-    <script type="module" src="app.js"></script>
     
+    <!-- COLLEGAMENTO AL NUOVO FILE JAVASCRIPT COME MODULO -->
+    <script type="module" src="app.js"></script>
+
 </body>
 </html>
