@@ -33,3 +33,69 @@ try {
 
 // NOTA BENE: quando copi la tua funzione window.updateTicker e window.fetchAndDisplayBuilds, 
 // non avrai più bisogno di dichiarare newsData, smartLinksDB ecc. perché li abbiamo importati in cima!
+// --- FUNZIONI ENCICLOPEDIA MECCANICHE ---
+
+window.openLightbox = function(imgSrc) {
+    document.getElementById('lightbox').classList.add('active');
+    document.getElementById('lightbox-img').src = imgSrc;
+    document.body.style.overflow = 'hidden';
+};
+
+window.closeLightbox = function(event) {
+    // Chiude solo se si clicca fuori dall'immagine o sulla X
+    if (event && event.target.id !== 'lightbox' && !event.target.classList.contains('lightbox-close')) return;
+    document.getElementById('lightbox').classList.remove('active');
+    document.body.style.overflow = 'auto';
+};
+
+// Chiudi Lightbox con tasto ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const lb = document.getElementById('lightbox');
+        if(lb && lb.classList.contains('active')){
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    }
+});
+
+window.filterSelection = function(c) {
+    var x, i;
+    x = document.getElementsByClassName("card");
+    var btns = document.getElementsByClassName("filter-btn");
+    
+    // Rimuove la classe active da tutti i bottoni
+    for (i = 0; i < btns.length; i++) {
+        btns[i].classList.remove("active");
+    }
+    
+    // Aggiunge active al bottone cliccato
+    if (event && event.target && event.target.classList.contains('filter-btn')) {
+        event.target.classList.add("active");
+    }
+
+    if (c == "all") c = "";
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+        if (x[i].className.indexOf(c) > -1) {
+            x[i].style.display = "flex";
+        }
+    }
+};
+
+window.openEncModal = function(id) {
+    document.getElementById(id).style.display = 'flex';
+    document.body.style.overflow = 'hidden'; 
+};
+
+window.closeEncModalById = function(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.style.overflow = 'auto'; 
+};
+
+window.closeEncModal = function(event) {
+    if (event.target.classList.contains('modal-overlay')) {
+        event.target.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+};
