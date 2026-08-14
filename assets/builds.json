@@ -1,0 +1,767 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-08-14",
+  "maintenance": {
+    "mode": "editorial-review",
+    "defaultReviewCycleDays": 30,
+    "note": "Il catalogo è locale. Aggiornare manualmente patch, fonti, build e reviewedAt dopo ogni revisione editoriale."
+  },
+  "games": {
+    "poe1": {
+      "game": "Path of Exile 1",
+      "patch": "Lega 3.29",
+      "reviewedAt": null,
+      "reviewCycleDays": 30,
+      "requiresReview": true,
+      "reviewNote": "Catalogo iniziale migrato dalle liste esistenti: completa una revisione editoriale prima di contrassegnarlo come verificato.",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe/category/build-guides"
+        },
+        {
+          "label": "Icy Veins",
+          "url": "https://www.icy-veins.com/poe/builds"
+        },
+        {
+          "label": "Mobalytics",
+          "url": "https://mobalytics.gg/poe/builds"
+        }
+      ],
+      "builds": {
+        "endgame": [
+          {
+            "id": "poe1-endgame-1-lightning-strike",
+            "title": "Lightning Strike",
+            "class": "Duelist",
+            "specialization": "Champion",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-endgame-2-hexblast-mines",
+            "title": "Hexblast Mines",
+            "class": "Shadow",
+            "specialization": "Saboteur",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-endgame-3-detonate-dead",
+            "title": "Detonate Dead",
+            "class": "Witch",
+            "specialization": "Elementalist",
+            "tier": "OP",
+            "tierColor": "#9c27b0",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe/builds"
+          },
+          {
+            "id": "poe1-endgame-4-boneshatter",
+            "title": "Boneshatter",
+            "class": "Marauder",
+            "specialization": "Juggernaut",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-endgame-5-righteous-fire",
+            "title": "Righteous Fire",
+            "class": "Templar",
+            "specialization": "Inquisitor",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe/builds"
+          },
+          {
+            "id": "poe1-endgame-6-toxic-rain",
+            "title": "Toxic Rain",
+            "class": "Ranger",
+            "specialization": "Pathfinder",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe/builds"
+          }
+        ],
+        "leveling": [
+          {
+            "id": "poe1-leveling-1-rolling-magma",
+            "title": "Rolling Magma",
+            "class": "Witch",
+            "specialization": "Elementalist",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-leveling-2-splitting-steel",
+            "title": "Splitting Steel",
+            "class": "Duelist",
+            "specialization": "Champion",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-leveling-3-toxic-rain",
+            "title": "Toxic Rain",
+            "class": "Ranger",
+            "specialization": "Raider",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe/builds"
+          },
+          {
+            "id": "poe1-leveling-4-summon-raging-spirit-srs",
+            "title": "Summon Raging Spirit (SRS)",
+            "class": "Witch",
+            "specialization": "Necromancer",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe/builds"
+          },
+          {
+            "id": "poe1-leveling-5-frostblink-fire-trap",
+            "title": "Frostblink / Fire Trap",
+            "class": "Witch",
+            "specialization": "Elementalist",
+            "tier": "OP",
+            "tierColor": "#9c27b0",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          },
+          {
+            "id": "poe1-leveling-6-sunder",
+            "title": "Sunder",
+            "class": "Marauder",
+            "specialization": "Juggernaut",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe/category/build-guides"
+          }
+        ]
+      }
+    },
+    "poe2": {
+      "game": "Path of Exile 2",
+      "patch": "Early Access 0.5.0",
+      "reviewedAt": null,
+      "reviewCycleDays": 30,
+      "requiresReview": true,
+      "reviewNote": "Catalogo iniziale migrato dalle liste esistenti: completa una revisione editoriale prima di contrassegnarlo come verificato.",
+      "sources": [
+        {
+          "label": "Mobalytics",
+          "url": "https://mobalytics.gg/poe2/builds"
+        },
+        {
+          "label": "Icy Veins",
+          "url": "https://www.icy-veins.com/poe2/build-guides"
+        },
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe2/category/build-guides"
+        }
+      ],
+      "builds": {
+        "endgame": [
+          {
+            "id": "poe2-endgame-1-armor-break-slam",
+            "title": "Armor Break Slam",
+            "class": "Warrior",
+            "specialization": "N/A",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe2/builds"
+          },
+          {
+            "id": "poe2-endgame-2-ice-nova",
+            "title": "Ice Nova",
+            "class": "Sorceress",
+            "specialization": "N/A",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe2/build-guides"
+          },
+          {
+            "id": "poe2-endgame-3-spear-spin",
+            "title": "Spear Spin",
+            "class": "Huntress",
+            "specialization": "N/A",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe2/builds"
+          },
+          {
+            "id": "poe2-endgame-4-crossbow-burst",
+            "title": "Crossbow Burst",
+            "class": "Mercenary",
+            "specialization": "N/A",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe2/category/build-guides"
+          },
+          {
+            "id": "poe2-endgame-5-shapeshifter-bear",
+            "title": "Shapeshifter Bear",
+            "class": "Druid",
+            "specialization": "N/A",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe2/build-guides"
+          },
+          {
+            "id": "poe2-endgame-6-lightning-strike",
+            "title": "Lightning Strike",
+            "class": "Monk",
+            "specialization": "N/A",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe2/builds"
+          }
+        ],
+        "leveling": [
+          {
+            "id": "poe2-leveling-1-spark-nova",
+            "title": "Spark / Nova",
+            "class": "Sorceress",
+            "specialization": "N/A",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe2/build-guides"
+          },
+          {
+            "id": "poe2-leveling-2-slam-starter",
+            "title": "Slam Starter",
+            "class": "Warrior",
+            "specialization": "N/A",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe2/builds"
+          },
+          {
+            "id": "poe2-leveling-3-rapid-fire",
+            "title": "Rapid Fire",
+            "class": "Mercenary",
+            "specialization": "N/A",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/poe2/category/build-guides"
+          },
+          {
+            "id": "poe2-leveling-4-quarterstaff",
+            "title": "Quarterstaff",
+            "class": "Monk",
+            "specialization": "N/A",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe2/build-guides"
+          },
+          {
+            "id": "poe2-leveling-5-spear-starter",
+            "title": "Spear Starter",
+            "class": "Huntress",
+            "specialization": "N/A",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/poe2/builds"
+          },
+          {
+            "id": "poe2-leveling-6-summoner-starter",
+            "title": "Summoner Starter",
+            "class": "Witch",
+            "specialization": "N/A",
+            "tier": "B-Tier",
+            "tierColor": "#4caf50",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/poe2/build-guides"
+          }
+        ]
+      }
+    },
+    "d4": {
+      "game": "Diablo 4",
+      "patch": "Stagione corrente",
+      "reviewedAt": null,
+      "reviewCycleDays": 30,
+      "requiresReview": true,
+      "reviewNote": "Catalogo iniziale migrato dalle liste esistenti: completa una revisione editoriale prima di contrassegnarlo come verificato.",
+      "sources": [
+        {
+          "label": "Maxroll · Build",
+          "url": "https://maxroll.gg/d4/build-guides"
+        },
+        {
+          "label": "Maxroll · Livellamento",
+          "url": "https://maxroll.gg/d4/resources/leveling-guide"
+        },
+        {
+          "label": "Maxroll · Endgame",
+          "url": "https://maxroll.gg/d4/meta/endgame-progression"
+        }
+      ],
+      "builds": {
+        "endgame": [
+          {
+            "id": "d4-endgame-1-guida-barbarian",
+            "title": "Guida Barbarian",
+            "class": "Barbarian",
+            "specialization": "Endgame",
+            "tier": "Guida",
+            "tierColor": "#c0392b",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides"
+          },
+          {
+            "id": "d4-endgame-2-guida-sorcerer",
+            "title": "Guida Sorcerer",
+            "class": "Sorcerer",
+            "specialization": "Endgame",
+            "tier": "Guida",
+            "tierColor": "#c0392b",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides"
+          },
+          {
+            "id": "d4-endgame-3-guida-necromancer",
+            "title": "Guida Necromancer",
+            "class": "Necromancer",
+            "specialization": "Endgame",
+            "tier": "Guida",
+            "tierColor": "#c0392b",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides"
+          },
+          {
+            "id": "d4-endgame-4-guida-rogue",
+            "title": "Guida Rogue",
+            "class": "Rogue",
+            "specialization": "Endgame",
+            "tier": "Guida",
+            "tierColor": "#c0392b",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides"
+          },
+          {
+            "id": "d4-endgame-5-guida-druid",
+            "title": "Guida Druid",
+            "class": "Druid",
+            "specialization": "Endgame",
+            "tier": "Guida",
+            "tierColor": "#c0392b",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides"
+          }
+        ],
+        "leveling": [
+          {
+            "id": "d4-leveling-1-roadmap-di-livello",
+            "title": "Roadmap di livello",
+            "class": "Tutte le classi",
+            "specialization": "Livellamento",
+            "tier": "Metodo",
+            "tierColor": "#805c28",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/resources/leveling-guide"
+          },
+          {
+            "id": "d4-leveling-2-guida-difese",
+            "title": "Guida difese",
+            "class": "Tutte le classi",
+            "specialization": "Progressione",
+            "tier": "Metodo",
+            "tierColor": "#805c28",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/meta/endgame-progression"
+          },
+          {
+            "id": "d4-leveling-3-guida-endgame",
+            "title": "Guida endgame",
+            "class": "Tutte le classi",
+            "specialization": "Farming",
+            "tier": "Metodo",
+            "tierColor": "#805c28",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d4/meta/endgame-progression"
+          }
+        ]
+      }
+    },
+    "d2": {
+      "game": "Diablo II: Resurrected",
+      "patch": "Ladder S14",
+      "reviewedAt": null,
+      "reviewCycleDays": 30,
+      "requiresReview": true,
+      "reviewNote": "Catalogo iniziale migrato dalle liste esistenti: completa una revisione editoriale prima di contrassegnarlo come verificato.",
+      "sources": [
+        {
+          "label": "Icy Veins",
+          "url": "https://www.icy-veins.com/d2/classes-and-builds"
+        },
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/d2/category/guides"
+        },
+        {
+          "label": "Mobalytics",
+          "url": "https://mobalytics.gg/diablo-2/builds"
+        }
+      ],
+      "builds": {
+        "endgame": [
+          {
+            "id": "d2-endgame-1-blizzard",
+            "title": "Blizzard",
+            "class": "Sorceress",
+            "specialization": "Cold",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          },
+          {
+            "id": "d2-endgame-2-mosaic",
+            "title": "Mosaic",
+            "class": "Assassin",
+            "specialization": "Martial Arts",
+            "tier": "OP",
+            "tierColor": "#9c27b0",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d2/category/guides"
+          },
+          {
+            "id": "d2-endgame-3-hammerdin",
+            "title": "Hammerdin",
+            "class": "Paladin",
+            "specialization": "Combat",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Mobalytics",
+            "sourceUrl": "https://mobalytics.gg/diablo-2/builds"
+          },
+          {
+            "id": "d2-endgame-4-lightning-fury",
+            "title": "Lightning Fury",
+            "class": "Amazon",
+            "specialization": "Javazon",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          },
+          {
+            "id": "d2-endgame-5-nova",
+            "title": "Nova",
+            "class": "Sorceress",
+            "specialization": "Lightning",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d2/category/guides"
+          },
+          {
+            "id": "d2-endgame-6-smiter-uber-killer",
+            "title": "Smiter Uber Killer",
+            "class": "Paladin",
+            "specialization": "Combat",
+            "tier": "Boss Killer",
+            "tierColor": "#607d8b",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          }
+        ],
+        "leveling": [
+          {
+            "id": "d2-leveling-1-holy-fire",
+            "title": "Holy Fire",
+            "class": "Paladin",
+            "specialization": "Offensive Auras",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d2/category/guides"
+          },
+          {
+            "id": "d2-leveling-2-wake-of-fire",
+            "title": "Wake of Fire",
+            "class": "Assassin",
+            "specialization": "Traps",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          },
+          {
+            "id": "d2-leveling-3-fissure",
+            "title": "Fissure",
+            "class": "Druid",
+            "specialization": "Elemental",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d2/category/guides"
+          },
+          {
+            "id": "d2-leveling-4-nova-static",
+            "title": "Nova / Static",
+            "class": "Sorceress",
+            "specialization": "Lightning",
+            "tier": "OP",
+            "tierColor": "#9c27b0",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          },
+          {
+            "id": "d2-leveling-5-bone-spear",
+            "title": "Bone Spear",
+            "class": "Necromancer",
+            "specialization": "Poison & Bone",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/d2/classes-and-builds"
+          },
+          {
+            "id": "d2-leveling-6-singer-warcry",
+            "title": "Singer (Warcry)",
+            "class": "Barbarian",
+            "specialization": "Warcries",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/d2/category/guides"
+          }
+        ]
+      }
+    },
+    "le": {
+      "game": "Last Epoch",
+      "patch": "Cycle 1.0",
+      "reviewedAt": null,
+      "reviewCycleDays": 30,
+      "requiresReview": true,
+      "reviewNote": "Catalogo iniziale migrato dalle liste esistenti: completa una revisione editoriale prima di contrassegnarlo come verificato.",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/last-epoch/build-guides"
+        },
+        {
+          "label": "Last Epoch Tools",
+          "url": "https://www.lastepochtools.com/builds/"
+        },
+        {
+          "label": "Icy Veins",
+          "url": "https://www.icy-veins.com/last-epoch/builds"
+        }
+      ],
+      "builds": {
+        "endgame": [
+          {
+            "id": "le-endgame-1-dive-bomb",
+            "title": "Dive Bomb",
+            "class": "Rogue",
+            "specialization": "Falconer",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          },
+          {
+            "id": "le-endgame-2-chthonic-fissure",
+            "title": "Chthonic Fissure",
+            "class": "Acolyte",
+            "specialization": "Warlock",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Last Epoch Tools",
+            "sourceUrl": "https://www.lastepochtools.com/builds/"
+          },
+          {
+            "id": "le-endgame-3-frost-claw",
+            "title": "Frost Claw",
+            "class": "Mage",
+            "specialization": "Runemaster",
+            "tier": "OP",
+            "tierColor": "#9c27b0",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          },
+          {
+            "id": "le-endgame-4-healing-hands",
+            "title": "Healing Hands",
+            "class": "Sentinel",
+            "specialization": "Paladin",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/last-epoch/builds"
+          },
+          {
+            "id": "le-endgame-5-wraithlord",
+            "title": "Wraithlord",
+            "class": "Acolyte",
+            "specialization": "Necromancer",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Last Epoch Tools",
+            "sourceUrl": "https://www.lastepochtools.com/builds/"
+          },
+          {
+            "id": "le-endgame-6-shadow-daggers",
+            "title": "Shadow Daggers",
+            "class": "Rogue",
+            "specialization": "Bladedancer",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          }
+        ],
+        "leveling": [
+          {
+            "id": "le-leveling-1-void-cleave",
+            "title": "Void Cleave",
+            "class": "Sentinel",
+            "specialization": "Void Knight",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          },
+          {
+            "id": "le-leveling-2-glacier",
+            "title": "Glacier",
+            "class": "Mage",
+            "specialization": "Sorcerer",
+            "tier": "S-Tier",
+            "tierColor": "#f44336",
+            "difficulty": "Da verificare",
+            "sourceName": "Last Epoch Tools",
+            "sourceUrl": "https://www.lastepochtools.com/builds/"
+          },
+          {
+            "id": "le-leveling-3-bone-curse",
+            "title": "Bone Curse",
+            "class": "Acolyte",
+            "specialization": "Warlock",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          },
+          {
+            "id": "le-leveling-4-thorn-totem",
+            "title": "Thorn Totem",
+            "class": "Primalist",
+            "specialization": "Shaman",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Icy Veins",
+            "sourceUrl": "https://www.icy-veins.com/last-epoch/builds"
+          },
+          {
+            "id": "le-leveling-5-flurry",
+            "title": "Flurry",
+            "class": "Rogue",
+            "specialization": "Bladedancer",
+            "tier": "A-Tier",
+            "tierColor": "#ff9800",
+            "difficulty": "Da verificare",
+            "sourceName": "Last Epoch Tools",
+            "sourceUrl": "https://www.lastepochtools.com/builds/"
+          },
+          {
+            "id": "le-leveling-6-elemental-nova",
+            "title": "Elemental Nova",
+            "class": "Mage",
+            "specialization": "Runemaster",
+            "tier": "Top Meta",
+            "tierColor": "#2196F3",
+            "difficulty": "Da verificare",
+            "sourceName": "Maxroll",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides"
+          }
+        ]
+      }
+    }
+  }
+}
