@@ -67,3 +67,9 @@ La resa grafica è stata inoltre controllata su desktop e a **390×844 px**; non
 | `assets/patches.json` | Registro patch locale. |
 | `verify_game_museum.py` | Regressione dedicata alla struttura e agli asset Museum. |
 | `GAME_MUSEUM_VISUAL_BRIEF.md` | Brief visivo e registro dei controlli. |
+
+## Ricostruzione fedele della composizione
+
+L’ultima revisione non si limita agli asset: ricompone anche la geometria dell’home Museum. Il masthead è stato ridotto a una scena centrale con podio a cinque porte, la nav superiore è stata concentrata in pochi comandi principali e il menu “•••” conserva i controlli secondari. La piastra capitolo ora contiene Dashboard, Comunità e Risorse; i tre portali sono una galleria orizzontale incorniciata e l’Atlante espone quattro accessi scenografici.
+
+La suite aggiornata controlla inoltre questa struttura: **47/47** verifiche Game Museum, insieme a tutte le regressioni preesistenti superate.

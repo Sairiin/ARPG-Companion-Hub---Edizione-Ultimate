@@ -84,8 +84,13 @@ check('Tre portali principali presenti', portals == expected_portals and len(sou
 portal_assets = ('portal-build.jpg', 'portal-patches.jpg', 'portal-guide.jpg')
 check('Portali narrativi locali presenti', all((ROOT / 'assets' / 'museum' / 'portals' / asset).exists() and f'assets/museum/portals/{asset}' in HTML for asset in portal_assets))
 check('Piastra del capitolo presente', all(soup.find(id=item) is not None for item in ('museum-game-title', 'museum-game-subtitle', 'museum-current-section')))
+plaque_actions = soup.select('[data-museum-quick]')
+check('Piastra con tre azioni sceniche', {node.get('data-museum-quick') for node in plaque_actions} == {'dashboard', 'community', 'resources'})
 check('Sigillo archivio presente', soup.find(id='museum-archive-btn') is not None and soup.find(id='museum-archive-summary') is not None)
+check('Atlante con quattro accessi', len(soup.select('.museum-archive-links button')) == 4)
 check('Portali collegati al runtime', all(token in HTML for token in ('window.openMuseumPortal', 'museumOpenLocation', "document.getElementById('hub-patch-btn')?.click()")))
+check('Piastra collegata al runtime', all(token in HTML for token in ('window.openMuseumQuick', '[data-museum-quick]', '[data-museum-resource]')))
+check('Barra Museum compatta presente', all(token in HTML for token in ('museum-overflow', 'museum-overflow-panel', '#hub-patch-btn { display: none; }')))
 check('Piastra sincronizzata', all(token in HTML for token in ('const MUSEUM_GAMES', 'window.updateMuseumScene', 'window.updateMuseumSection', 'window.openMainTab = function')))
 
 for game_id, game in GAMES.items():
