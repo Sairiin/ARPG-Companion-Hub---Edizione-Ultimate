@@ -65,10 +65,24 @@ check('Insegna monumentale presente', 'GAME MUSEUM COMPLETO' in HTML and "conten
 check('Sfondo della sala locale', "url('assets/museum/museum_style_reference.jpg')" in HTML)
 check('Selettore giochi nel masthead', soup.select_one('.essential-header .tabs') is not None and len(soup.select('.essential-header .tabs .tab-btn')) == 5)
 check('Medaglioni CSS presenti', all(token in HTML for token in ('.tab-btn::before', 'border-radius: 50%', '.tab-btn.active-btn')))
+medallions = {
+    'poe1': 'poe1-sigil.png',
+    'poe2': 'poe2-sigil.png',
+    'le': 'last-epoch-sigil.png',
+    'd2': 'd2r-sigil.png',
+    'd4': 'd4-sigil.png',
+}
+for game_id, filename in medallions.items():
+    path = ROOT / 'assets' / 'museum' / 'medallions' / filename
+    check(f'{game_id}: medaglione locale presente', path.exists() and path.stat().st_size > 80_000 and f'assets/museum/medallions/{filename}' in HTML)
+check('Nessuna miniatura esterna nei medaglioni', all('http' not in (button.select_one('img') or {}).get('src', '') for button in soup.select('.tabs .tab-btn')))
+check('Sala monumentale locale completa', (ROOT / 'assets' / 'museum' / 'game-museum-grand-hall.jpg').exists() and "game-museum-grand-hall.jpg" in HTML)
 
 expected_portals = {'build', 'patch', 'guide'}
 portals = {node.get('data-museum-portal') for node in soup.select('[data-museum-portal]')}
 check('Tre portali principali presenti', portals == expected_portals and len(soup.select('.museum-portal')) == 3)
+portal_assets = ('portal-build.jpg', 'portal-patches.jpg', 'portal-guide.jpg')
+check('Portali narrativi locali presenti', all((ROOT / 'assets' / 'museum' / 'portals' / asset).exists() and f'assets/museum/portals/{asset}' in HTML for asset in portal_assets))
 check('Piastra del capitolo presente', all(soup.find(id=item) is not None for item in ('museum-game-title', 'museum-game-subtitle', 'museum-current-section')))
 check('Sigillo archivio presente', soup.find(id='museum-archive-btn') is not None and soup.find(id='museum-archive-summary') is not None)
 check('Portali collegati al runtime', all(token in HTML for token in ('window.openMuseumPortal', 'museumOpenLocation', "document.getElementById('hub-patch-btn')?.click()")))

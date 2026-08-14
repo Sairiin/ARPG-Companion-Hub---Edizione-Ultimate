@@ -1055,19 +1055,19 @@
 <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 <nav class="tabs" aria-label="Seleziona il capitolo di gioco">
 <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">
-<img alt="PoE 1" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&amp;s=10" width="26"/> Path of Exile 1
+<img alt="PoE 1" class="tab-icon" decoding="async" height="26" loading="lazy" src="assets/museum/medallions/poe1-sigil.png" width="26"/> Path of Exile 1
         </button>
 <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">
-<img alt="PoE 2" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLULAvVSpii6ietytRcFICav9snB2sdbmrsuX3Y5Brw&amp;s=10" width="26"/> Path of Exile 2
+<img alt="PoE 2" class="tab-icon" decoding="async" height="26" loading="lazy" src="assets/museum/medallions/poe2-sigil.png" width="26"/> Path of Exile 2
         </button>
 <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')">
-<img alt="Last Epoch" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://cdn2.steamgriddb.com/icon_thumb/1e8d0b1e07841cd90a347a8f26b41505.png" style="border-radius: 50%;" width="26"/> Last Epoch
+<img alt="Last Epoch" class="tab-icon" decoding="async" height="26" loading="lazy" src="assets/museum/medallions/last-epoch-sigil.png" style="border-radius: 50%;" width="26"/> Last Epoch
         </button>
 <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')">
-<img alt="D2R" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://diablo2.io/favicon.ico" width="26"/> Diablo 2: Resurrected
+<img alt="D2R" class="tab-icon" decoding="async" height="26" loading="lazy" src="assets/museum/medallions/d2r-sigil.png" width="26"/> Diablo 2: Resurrected
         </button>
 <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">
-<img alt="Logo Diablo 4" class="d4-logo" decoding="async" height="26" loading="eager" src="assets/diablo4-logo.png" width="26"/> Diablo 4
+<img alt="Medaglione Diablo 4" class="d4-logo" decoding="async" height="26" loading="eager" src="assets/museum/medallions/d4-sigil.png" width="26"/><span class="museum-d4-label"><img alt="Logo Diablo 4" class="museum-d4-official" decoding="async" height="16" loading="lazy" src="assets/diablo4-logo.png" width="16"/>Diablo 4</span>
         </button>
 </nav>
 </header>
@@ -1083,17 +1083,17 @@
   </div>
   <div class="museum-portal-grid" aria-label="Portali del capitolo">
     <button class="museum-portal museum-portal--build" data-museum-portal="build" type="button">
-      <img class="museum-portal-media" id="museum-build-image" src="assets/museum/poe1-museum-hero.jpg" alt="" decoding="async" loading="eager"/>
+      <img class="museum-portal-media" id="museum-build-image" src="assets/museum/portals/portal-build.jpg" alt="" decoding="async" loading="eager"/>
       <span class="museum-portal-scrim" aria-hidden="true"></span>
       <span class="museum-portal-copy"><span class="museum-portal-kicker">Esplora</span><strong>Build<br/>da esplorare</strong><span class="museum-portal-description">Idee, guide e strumenti per creare il tuo cammino.</span><span class="museum-portal-action">Esplora build <b aria-hidden="true">›</b></span></span>
     </button>
     <button class="museum-portal museum-portal--patch" data-museum-portal="patch" type="button">
-      <img class="museum-portal-media" id="museum-patch-image" src="assets/museum/museum_style_reference.jpg" alt="" decoding="async" loading="lazy"/>
+      <img class="museum-portal-media" id="museum-patch-image" src="assets/museum/portals/portal-patches.jpg" alt="" decoding="async" loading="lazy"/>
       <span class="museum-portal-scrim" aria-hidden="true"></span>
       <span class="museum-portal-copy"><span class="museum-portal-kicker">Archivio</span><strong>Registro<br/>patch</strong><span class="museum-portal-description">Cronologia delle modifiche e note di aggiornamento.</span><span class="museum-portal-action">Apri archivio <b aria-hidden="true">›</b></span></span>
     </button>
     <button class="museum-portal museum-portal--guide" data-museum-portal="guide" type="button">
-      <img class="museum-portal-media" id="museum-guide-image" src="assets/museum/poe1-museum-hero.jpg" alt="" decoding="async" loading="lazy"/>
+      <img class="museum-portal-media" id="museum-guide-image" src="assets/museum/portals/portal-guide.jpg" alt="" decoding="async" loading="lazy"/>
       <span class="museum-portal-scrim" aria-hidden="true"></span>
       <span class="museum-portal-copy"><span class="museum-portal-kicker">Conoscenza</span><strong>Guida<br/>essenziale</strong><span class="museum-portal-description">Comprendi il gioco, domina ogni sfida.</span><span class="museum-portal-action">Apri guida <b aria-hidden="true">›</b></span></span>
     </button>
@@ -3300,6 +3300,134 @@ html[data-theme="light"] main { color: var(--text-main); }
   .essential-utilities .utility-language { display: none; }
   .tab-btn:nth-child(4)::after { top: 20px; font-size: 1.85rem; }
 }
+
+/* === GAME MUSEUM · ASSET LOCALI COMPLETI === */
+.essential-header {
+  min-height: 654px;
+  background: #070806;
+}
+.essential-header::before {
+  background:
+    linear-gradient(90deg, rgba(2,3,2,.76) 0%, rgba(4,5,4,.24) 23%, rgba(3,4,3,.04) 50%, rgba(4,5,3,.22) 77%, rgba(1,2,1,.78) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.54) 0%, rgba(0,0,0,.05) 27%, rgba(0,0,0,.06) 58%, rgba(0,0,0,.78) 100%),
+    url('assets/museum/game-museum-grand-hall.jpg') center 50% / cover;
+}
+.essential-header::after {
+  border-color: rgba(236,211,153,.26);
+  background:
+    linear-gradient(90deg, transparent 0 3%, rgba(232,208,158,.22) 3.08% 3.17%, transparent 3.26% 96.74%, rgba(232,208,158,.22) 96.82% 96.9%, transparent 97%),
+    linear-gradient(180deg, rgba(232,208,158,.19), transparent 11%, transparent 89%, rgba(232,208,158,.18));
+}
+.essential-brand {
+  top: 84px;
+  width: min(560px, 48vw);
+  min-height: 205px;
+  border-color: rgba(238,208,141,.72);
+  background:
+    radial-gradient(circle at 50% 17%, rgba(240,209,137,.23), transparent 44%),
+    linear-gradient(145deg, rgba(42,40,30,.92), rgba(10,11,9,.95) 57%, rgba(47,40,23,.92));
+  box-shadow: inset 0 0 0 7px rgba(0,0,0,.42), inset 0 0 0 8px rgba(233,201,127,.31), 0 24px 44px rgba(0,0,0,.62), 0 0 40px rgba(198,141,48,.14);
+}
+.essential-brand::before { color: #f6df9c; text-shadow: 0 2px 0 #5d4420, 0 0 24px rgba(240,193,99,.22), 0 5px 18px rgba(0,0,0,.85); }
+.essential-brand::after { color: #e1c990; }
+.tabs {
+  bottom: 29px;
+  width: min(1160px, calc(100% - 64px));
+  border-color: rgba(232,203,139,.42);
+  background: linear-gradient(180deg, rgba(20,18,12,.90), rgba(5,6,4,.95));
+  box-shadow: 0 22px 42px rgba(0,0,0,.67), inset 0 1px rgba(255,255,255,.07), 0 0 0 1px rgba(0,0,0,.36);
+}
+.tab-btn {
+  min-height: 177px;
+  padding: 17px 8px 13px;
+  border-right-color: rgba(226,196,128,.26);
+  background: linear-gradient(180deg, rgba(67,53,28,.20), rgba(8,9,6,.16));
+  color: #e0cca0;
+  font-size: clamp(.72rem, 1.18vw, .97rem);
+}
+.tab-btn::before {
+  top: 15px;
+  width: 88px;
+  height: 88px;
+  border-color: rgba(234,203,135,.55);
+  background: radial-gradient(circle, rgba(175,132,58,.19), rgba(0,0,0,.07) 62%, transparent 64%);
+  box-shadow: inset 0 0 0 6px rgba(0,0,0,.42), 0 2px 11px rgba(0,0,0,.78), 0 0 18px rgba(209,163,77,.10);
+}
+.tab-btn .tab-icon,
+.tab-btn .d4-logo,
+.tab-btn:nth-child(4) .tab-icon {
+  display: block;
+  position: relative;
+  z-index: 2;
+  width: 78px !important;
+  height: 78px !important;
+  margin: 0 0 12px;
+  padding: 0;
+  border-radius: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,.82));
+}
+.tab-btn:nth-child(4)::after { content: none; }
+.tab-btn:hover, .tab-btn:focus-visible, .tab-btn.active-btn {
+  background: linear-gradient(180deg, rgba(135,94,33,.50), rgba(24,20,12,.70));
+  box-shadow: inset 0 -4px 0 var(--hub-game-accent), inset 0 0 38px color-mix(in srgb, var(--hub-game-accent) 24%, transparent), 0 0 18px rgba(211,164,73,.12);
+}
+.tab-btn:hover::before, .tab-btn:focus-visible::before, .tab-btn.active-btn::before {
+  border-color: #efd18b;
+  box-shadow: inset 0 0 0 6px rgba(0,0,0,.35), 0 0 25px var(--hub-game-glow), 0 0 18px rgba(236,192,101,.16);
+}
+.museum-portal-grid {
+  gap: 18px;
+  margin-top: 19px;
+  padding: 22px;
+  border-color: rgba(230,199,131,.28);
+  background: linear-gradient(150deg, rgba(26,24,17,.90), rgba(6,7,5,.95));
+}
+.museum-portal {
+  min-height: 320px;
+  padding: 28px 29px 24px;
+  border-color: rgba(235,203,132,.45);
+  box-shadow: inset 0 0 0 7px rgba(2,3,2,.34), 0 11px 23px rgba(0,0,0,.44), 0 0 22px rgba(199,145,47,.06);
+}
+.museum-portal::before, .museum-portal::after { color: #f0ce82; text-shadow: 0 1px 5px #000; }
+.museum-portal-media {
+  filter: saturate(.87) contrast(1.05) brightness(.95);
+}
+.museum-portal--patch .museum-portal-media,
+.museum-portal--guide .museum-portal-media { object-position: center; }
+.museum-portal-scrim {
+  background: linear-gradient(90deg, rgba(5,6,4,.97) 0%, rgba(5,6,4,.87) 38%, rgba(5,6,4,.36) 73%, rgba(5,6,4,.10)), linear-gradient(0deg, rgba(0,0,0,.72), transparent 64%);
+}
+.museum-portal-copy { max-width: 68%; }
+.museum-portal-copy strong { color: #f3dfad; text-shadow: 0 3px 12px #000, 0 0 14px rgba(230,183,84,.12); }
+.museum-portal-description { color: #d9ccaf; }
+.museum-portal-action {
+  border-color: rgba(239,206,134,.56);
+  background: linear-gradient(140deg, rgba(63,48,24,.78), rgba(9,10,7,.82));
+  box-shadow: inset 0 1px rgba(255,255,255,.08), 0 4px 12px rgba(0,0,0,.36);
+}
+.museum-portal:hover .museum-portal-media, .museum-portal:focus-visible .museum-portal-media {
+  filter: saturate(1.02) contrast(1.07) brightness(1.03);
+}
+@media (max-width: 767px) {
+  .essential-header { min-height: 716px; }
+  .essential-header::before { background-position: 50% center; }
+  .essential-brand { top: 94px; width: min(355px, calc(100% - 36px)); min-height: 142px; }
+  .tabs { bottom: 17px; width: calc(100% - 22px); }
+  .tab-btn { min-height: 125px; padding: 11px 4px 8px; }
+  .tab-btn::before { top: 9px; width: 65px; height: 65px; }
+  .tab-btn .tab-icon, .tab-btn .d4-logo, .tab-btn:nth-child(4) .tab-icon { width: 58px !important; height: 58px !important; margin-bottom: 8px; }
+  .museum-portal-grid { gap: 12px; margin-top: 12px; padding: 12px; }
+  .museum-portal { min-height: 235px; padding: 20px 20px 18px; }
+  .museum-portal-copy { max-width: 78%; }
+}
+@media (max-width: 767px) {
+  .tab-btn { white-space: normal; overflow: visible; line-height: 1.05; }
+  .tab-btn:nth-child(4) { font-size: .55rem; letter-spacing: 0; }
+}
+.museum-d4-label { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.museum-d4-official { width: 15px; height: 15px; object-fit: contain; filter: drop-shadow(0 1px 2px #000); }
+@media (max-width: 767px) { .museum-d4-official { width: 12px; height: 12px; } }
 </style>
 <div class="poe1-encyclopedia-content">
 <div class="lightbox" id="poe1-encyclopedia-lightbox" onclick="window.poe1Encyclopedia.closeLightbox(event)">
@@ -5145,16 +5273,11 @@ html[data-theme="light"] main { color: var(--text-main); }
             const archiveLabel = document.querySelector('.museum-archive-strip strong');
             const archiveSummary = document.getElementById('museum-archive-summary');
             const archiveButton = document.getElementById('museum-archive-btn');
-            const buildImage = document.getElementById('museum-build-image');
-            const guideImage = document.getElementById('museum-guide-image');
-            const patchImage = document.getElementById('museum-patch-image');
             if (title) title.textContent = game.title;
             if (subtitle) subtitle.textContent = game.subtitle;
             if (archiveLabel) archiveLabel.textContent = game.archiveLabel;
             if (archiveSummary) archiveSummary.textContent = game.archiveSummary;
             if (archiveButton) archiveButton.setAttribute('aria-label', `Apri ${game.archiveLabel} di ${game.title}`);
-            [buildImage, guideImage].forEach(image => { if (image && image.getAttribute('src') !== game.image) image.setAttribute('src', game.image); });
-            if (patchImage) patchImage.setAttribute('src', 'assets/museum/museum_style_reference.jpg');
             window.updateMuseumSection(`${gameId}-dash`, gameId);
         };
 
