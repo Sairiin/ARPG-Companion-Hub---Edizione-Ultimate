@@ -1044,8 +1044,6 @@
 <p class="appearance-panel-note">Le preferenze restano salvate sul dispositivo.</p>
 </section>
 </div>
-</header>
-<a class="skip-link" href="#main-content">Vai ai contenuti</a>
 <div class="hub-toolbelt" aria-label="Strumenti rapidi del Companion Hub">
   <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button" aria-keyshortcuts="Control+K Meta+K">⌕ Cerca <span aria-hidden="true">⌘K</span></button>
   <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
@@ -1054,7 +1052,8 @@
   <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
   <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
-<nav class="tabs" id="main-content" tabindex="-1">
+<a class="skip-link" href="#main-content">Vai ai contenuti</a>
+<nav class="tabs" aria-label="Seleziona il capitolo di gioco">
 <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">
 <img alt="PoE 1" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&amp;s=10" width="26"/> Path of Exile 1
         </button>
@@ -1071,7 +1070,39 @@
 <img alt="Logo Diablo 4" class="d4-logo" decoding="async" height="26" loading="eager" src="assets/diablo4-logo.png" width="26"/> Diablo 4
         </button>
 </nav>
-<main>
+</header>
+<section class="game-museum-hall" aria-labelledby="museum-game-title">
+  <div class="museum-current-plaque">
+    <div class="museum-current-emblem" aria-hidden="true"><span>✦</span></div>
+    <div class="museum-current-copy">
+      <span class="museum-current-kicker">Capitolo attuale</span>
+      <h1 id="museum-game-title">Path of Exile 1</h1>
+      <p id="museum-game-subtitle">Lega 3.29 · Build, guide e strumenti per Wraeclast</p>
+    </div>
+    <div class="museum-current-meta" aria-label="Sezione attuale"><span aria-hidden="true">⌘</span><strong id="museum-current-section">Dashboard</strong></div>
+  </div>
+  <div class="museum-portal-grid" aria-label="Portali del capitolo">
+    <button class="museum-portal museum-portal--build" data-museum-portal="build" type="button">
+      <img class="museum-portal-media" id="museum-build-image" src="assets/museum/poe1-museum-hero.jpg" alt="" decoding="async" loading="eager"/>
+      <span class="museum-portal-scrim" aria-hidden="true"></span>
+      <span class="museum-portal-copy"><span class="museum-portal-kicker">Esplora</span><strong>Build<br/>da esplorare</strong><span class="museum-portal-description">Idee, guide e strumenti per creare il tuo cammino.</span><span class="museum-portal-action">Esplora build <b aria-hidden="true">›</b></span></span>
+    </button>
+    <button class="museum-portal museum-portal--patch" data-museum-portal="patch" type="button">
+      <img class="museum-portal-media" id="museum-patch-image" src="assets/museum/museum_style_reference.jpg" alt="" decoding="async" loading="lazy"/>
+      <span class="museum-portal-scrim" aria-hidden="true"></span>
+      <span class="museum-portal-copy"><span class="museum-portal-kicker">Archivio</span><strong>Registro<br/>patch</strong><span class="museum-portal-description">Cronologia delle modifiche e note di aggiornamento.</span><span class="museum-portal-action">Apri archivio <b aria-hidden="true">›</b></span></span>
+    </button>
+    <button class="museum-portal museum-portal--guide" data-museum-portal="guide" type="button">
+      <img class="museum-portal-media" id="museum-guide-image" src="assets/museum/poe1-museum-hero.jpg" alt="" decoding="async" loading="lazy"/>
+      <span class="museum-portal-scrim" aria-hidden="true"></span>
+      <span class="museum-portal-copy"><span class="museum-portal-kicker">Conoscenza</span><strong>Guida<br/>essenziale</strong><span class="museum-portal-description">Comprendi il gioco, domina ogni sfida.</span><span class="museum-portal-action">Apri guida <b aria-hidden="true">›</b></span></span>
+    </button>
+  </div>
+  <div class="museum-archive-strip" aria-label="Accesso alle sezioni del gioco attivo">
+    <span class="museum-archive-mark" aria-hidden="true">✧</span><strong>Atlante</strong><span id="museum-archive-summary">Mappe, boss e progressione</span><button id="museum-archive-btn" type="button">Apri risorse <b aria-hidden="true">›</b></button>
+  </div>
+</section>
+<main id="main-content" tabindex="-1">
 <!-- =======================================================
                              PATH OF EXILE 1
         ======================================================== -->
@@ -2725,6 +2756,550 @@ html[data-theme="light"] .museum-chapter h2,
 html[data-theme="light"] .museum-chapter-kicker,
 html[data-theme="light"] .essential-brand::before,
 html[data-theme="light"] .essential-brand::after { color: inherit; }
+
+/* === GAME MUSEUM COMPLETO · sala monumentale, portali e medaglioni === */
+:root {
+  --museum-gold: #d6b273;
+  --museum-gold-bright: #f4dfab;
+  --museum-stone: #11120f;
+  --museum-ink: #070806;
+  --museum-line: rgba(224, 193, 128, .32);
+  --museum-line-soft: rgba(224, 193, 128, .15);
+  --museum-display: 'Cinzel', Georgia, serif;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="amoled"] body {
+  background:
+    radial-gradient(1000px 640px at 50% 0%, rgba(160, 116, 53, .12), transparent 64%),
+    radial-gradient(800px 540px at 2% 23%, rgba(40, 45, 34, .24), transparent 70%),
+    #070806;
+}
+
+.essential-header {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 610px;
+  margin: 0 0 24px;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0;
+  background: #090a08;
+  box-shadow: inset 0 -48px 70px rgba(0,0,0,.82), 0 16px 48px rgba(0,0,0,.36);
+}
+.essential-header::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  opacity: 1;
+  background:
+    linear-gradient(90deg, rgba(2,3,2,.90) 0%, rgba(5,6,4,.35) 22%, rgba(3,4,3,.13) 50%, rgba(5,5,3,.50) 80%, rgba(1,2,1,.91) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.76) 0%, rgba(0,0,0,.08) 27%, rgba(0,0,0,.14) 62%, rgba(0,0,0,.94) 100%),
+    url('assets/museum/museum_style_reference.jpg') center 45% / cover;
+}
+.essential-header::after {
+  z-index: -1;
+  inset: 10px;
+  border: 1px solid rgba(231, 205, 151, .16);
+  background:
+    linear-gradient(90deg, transparent 0 4%, rgba(232,208,158,.16) 4.08% 4.16%, transparent 4.25% 95.74%, rgba(232,208,158,.16) 95.82% 95.9%, transparent 96%),
+    linear-gradient(180deg, rgba(232,208,158,.14), transparent 11%, transparent 89%, rgba(232,208,158,.12));
+}
+.essential-header-shell {
+  position: relative;
+  z-index: 4;
+  display: block;
+  width: min(1540px, calc(100% - 32px));
+  max-width: none;
+  min-height: 0;
+  margin: 0 auto;
+  padding: 0;
+}
+.essential-brand {
+  position: absolute;
+  z-index: 3;
+  top: 76px;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: min(510px, 46vw);
+  min-height: 188px;
+  padding: 30px 48px 26px;
+  box-sizing: border-box;
+  transform: translateX(-50%);
+  border: 1px solid rgba(224,193,128,.56);
+  border-top-color: rgba(246,225,178,.76);
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(232,206,142,.14), transparent 43%),
+    linear-gradient(145deg, rgba(44,43,34,.90), rgba(12,13,11,.96) 58%, rgba(41,37,27,.92));
+  box-shadow: inset 0 0 0 7px rgba(0,0,0,.41), inset 0 0 0 8px rgba(227,195,125,.18), 0 20px 34px rgba(0,0,0,.58);
+}
+.essential-brand::before {
+  content: 'ARPG';
+  display: block;
+  color: var(--museum-gold-bright);
+  font: 700 clamp(2.7rem, 5vw, 4.8rem)/.80 var(--museum-display);
+  letter-spacing: .09em;
+  text-align: center;
+  text-shadow: 0 2px 0 #4b3b21, 0 5px 18px rgba(0,0,0,.85);
+}
+.essential-brand::after {
+  content: 'COMPANION HUB';
+  position: static;
+  display: block;
+  margin: 20px 0 0;
+  color: #d8c294;
+  font: 700 clamp(1.15rem, 2vw, 1.8rem)/1 var(--museum-display);
+  letter-spacing: .10em;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 2px 12px rgba(0,0,0,.76);
+}
+.essential-brand .banner-img { display: none; }
+
+.essential-utilities {
+  position: absolute;
+  z-index: 9;
+  top: 14px;
+  right: max(16px, calc((100vw - 1540px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  max-width: 46vw;
+  padding: 0;
+  background: transparent;
+}
+.essential-utilities .auth-btn,
+.essential-utilities .discord-link,
+.essential-utilities .utility-action,
+.hub-tool-btn {
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid rgba(227,199,139,.26) !important;
+  border-radius: 3px;
+  background: linear-gradient(160deg, rgba(35,32,25,.84), rgba(8,9,7,.88)) !important;
+  color: #dfd0ae !important;
+  font-size: .72rem;
+  line-height: 1;
+  box-shadow: inset 0 1px rgba(255,255,255,.045), 0 4px 12px rgba(0,0,0,.35);
+}
+.essential-utilities .auth-btn:hover,
+.essential-utilities .discord-link:hover,
+.essential-utilities .utility-action:hover,
+.hub-tool-btn:hover,
+.hub-tool-btn:focus-visible {
+  color: var(--museum-gold-bright) !important;
+  border-color: var(--museum-gold) !important;
+  background: linear-gradient(160deg, rgba(87,67,36,.90), rgba(19,17,12,.94)) !important;
+  transform: translateY(-1px);
+}
+.essential-utilities .discord-link img { display: none; }
+
+.hub-toolbelt {
+  position: absolute;
+  z-index: 9;
+  top: 14px;
+  left: max(16px, calc((100vw - 1540px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: auto;
+  max-width: 49vw;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none;
+}
+.hub-toolbelt::before { display: none; }
+.hub-tool-btn { white-space: nowrap; }
+.hub-tool-btn--accent { color: var(--museum-gold-bright) !important; border-bottom-color: var(--museum-gold) !important; }
+.hub-tool-btn span { color: rgba(221,202,162,.54); font-size: .64rem; }
+
+.tabs {
+  position: absolute;
+  z-index: 7;
+  bottom: 28px;
+  left: 50%;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0;
+  width: min(1050px, calc(100% - 48px));
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  transform: translateX(-50%);
+  border: 1px solid rgba(224,193,128,.34);
+  border-radius: 3px;
+  background: linear-gradient(180deg, rgba(16,15,11,.92), rgba(5,6,4,.96));
+  box-shadow: 0 18px 38px rgba(0,0,0,.58), inset 0 1px rgba(255,255,255,.05);
+}
+.tab-btn {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 154px;
+  padding: 15px 8px 12px;
+  overflow: hidden;
+  border: 0;
+  border-right: 1px solid rgba(224,193,128,.22);
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(38,35,27,.36), rgba(8,9,7,.18));
+  color: #d0c09e;
+  font: 700 clamp(.68rem, 1.15vw, .92rem)/1.18 var(--museum-display);
+  letter-spacing: .025em;
+  text-align: center;
+  text-shadow: 0 2px 8px #000;
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+.tab-btn:last-child { border-right: 0; }
+.tab-btn::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 15px;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(224,193,128,.43);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(183,142,75,.19), rgba(0,0,0,.04) 62%, transparent 64%);
+  box-shadow: inset 0 0 0 5px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.64);
+}
+.tab-btn .tab-icon,
+.tab-btn .d4-logo {
+  width: 52px !important;
+  height: 52px !important;
+  margin: 0 0 10px;
+  padding: 4px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 50%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px #000) saturate(.95);
+}
+.tab-btn:hover,
+.tab-btn:focus-visible,
+.tab-btn.active-btn {
+  color: #f3dfac !important;
+  border-bottom-color: transparent !important;
+  background: linear-gradient(180deg, rgba(106,76,31,.42), rgba(20,18,12,.60));
+  box-shadow: inset 0 -3px 0 var(--hub-game-accent), inset 0 0 28px color-mix(in srgb, var(--hub-game-accent) 18%, transparent);
+}
+.tab-btn:hover::before,
+.tab-btn:focus-visible::before,
+.tab-btn.active-btn::before { border-color: var(--hub-game-accent); box-shadow: inset 0 0 0 5px rgba(0,0,0,.35), 0 0 22px var(--hub-game-glow); }
+
+.game-museum-hall {
+  position: relative;
+  width: min(1410px, calc(100% - 48px));
+  margin: 0 auto 20px;
+  padding: 0;
+}
+.museum-current-plaque {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 88px;
+  gap: 16px;
+  padding: 11px 26px;
+  overflow: hidden;
+  border: 1px solid var(--museum-line);
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, rgba(26,23,17,.96), rgba(9,10,8,.94) 44%, rgba(24,21,15,.92)),
+    url('assets/museum/museum_style_reference.jpg') center / cover;
+  box-shadow: inset 0 0 0 5px rgba(0,0,0,.28), 0 14px 30px rgba(0,0,0,.27);
+}
+.museum-current-plaque::after {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  border: 1px solid rgba(242,218,163,.11);
+}
+.museum-current-emblem {
+  display: grid;
+  flex: 0 0 auto;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--museum-line);
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--hub-game-accent) 30%, #312512), rgba(0,0,0,.5) 65%);
+  color: var(--museum-gold-bright);
+  font-size: 1.55rem;
+  box-shadow: inset 0 0 0 4px rgba(0,0,0,.35);
+}
+.museum-current-copy { position: relative; z-index: 1; min-width: 0; }
+.museum-current-kicker,
+.museum-portal-kicker {
+  display: block;
+  color: var(--museum-gold);
+  font: 700 .65rem/1.1 var(--museum-display);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.museum-current-copy h1 {
+  margin: 4px 0 2px;
+  color: #ead9b4;
+  font: 700 clamp(1.35rem, 2.7vw, 2.3rem)/1 var(--museum-display);
+  letter-spacing: .055em;
+  text-shadow: 0 2px 9px #000;
+}
+.museum-current-copy p { margin: 0; color: #bdae90; font-size: .78rem; }
+.museum-current-meta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-left: auto;
+  padding: 12px 18px;
+  border-left: 1px solid var(--museum-line-soft);
+  color: #d7c39a;
+  font: 700 .85rem/1 var(--museum-display);
+}
+.museum-current-meta span { color: var(--museum-gold); font-size: 1.25rem; }
+
+.museum-portal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+  padding: 19px;
+  border: 1px solid rgba(224,193,128,.18);
+  border-radius: 3px;
+  background: linear-gradient(150deg, rgba(21,20,15,.78), rgba(7,8,6,.87));
+  box-shadow: inset 0 1px rgba(255,255,255,.03), 0 18px 36px rgba(0,0,0,.3);
+}
+.museum-portal {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 270px;
+  padding: 24px 26px 21px;
+  overflow: hidden;
+  border: 1px solid rgba(224,193,128,.38);
+  border-radius: 3px;
+  background: #0c0d0a;
+  color: #e8d9b9;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 6px rgba(3,4,2,.36), 0 9px 18px rgba(0,0,0,.33);
+}
+.museum-portal::before,
+.museum-portal::after {
+  content: '✧';
+  position: absolute;
+  z-index: 4;
+  color: rgba(242,216,156,.62);
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+.museum-portal::before { top: 8px; left: 10px; }
+.museum-portal::after { right: 10px; bottom: 8px; transform: rotate(180deg); }
+.museum-portal-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.72) contrast(1.02) brightness(.78);
+  transition: transform .45s ease, filter .35s ease;
+}
+.museum-portal--patch .museum-portal-media { object-position: 72% center; }
+.museum-portal--guide .museum-portal-media { object-position: 68% center; }
+.museum-portal-scrim {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7,8,5,.92), rgba(7,8,5,.46) 73%, rgba(7,8,5,.22)), linear-gradient(0deg, rgba(0,0,0,.72), transparent 64%);
+}
+.museum-portal-copy { position: relative; z-index: 3; display: block; max-width: 75%; }
+.museum-portal-copy strong {
+  display: block;
+  margin: 10px 0 10px;
+  color: #f0dfb7;
+  font: 700 clamp(1.5rem, 2.4vw, 2.35rem)/.97 var(--museum-display);
+  letter-spacing: .04em;
+  text-shadow: 0 3px 12px #000;
+}
+.museum-portal-description {
+  display: block;
+  max-width: 28ch;
+  color: #d0c3a6;
+  font-size: .82rem;
+  line-height: 1.48;
+}
+.museum-portal-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  margin-top: 20px;
+  padding: 10px 13px;
+  border: 1px solid rgba(234,208,153,.42);
+  background: rgba(10,10,7,.66);
+  color: #ead6a8;
+  font: 700 .75rem/1 var(--museum-display);
+  letter-spacing: .025em;
+}
+.museum-portal-action b { color: var(--museum-gold); font-size: 1.22rem; line-height: .65; }
+.museum-portal:hover,
+.museum-portal:focus-visible { border-color: var(--museum-gold); box-shadow: inset 0 0 0 6px rgba(71,52,23,.24), 0 12px 25px rgba(0,0,0,.48), 0 0 0 1px color-mix(in srgb, var(--hub-game-accent) 45%, transparent); outline: 0; }
+.museum-portal:hover .museum-portal-media,
+.museum-portal:focus-visible .museum-portal-media { transform: scale(1.055); filter: saturate(.93) contrast(1.05) brightness(.89); }
+.museum-portal:hover .museum-portal-action,
+.museum-portal:focus-visible .museum-portal-action { border-color: var(--hub-game-accent); color: #fff0cb; }
+
+.museum-archive-strip {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  margin-top: 14px;
+  padding: 0 22px;
+  border: 1px solid var(--museum-line-soft);
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(27,24,17,.85), rgba(8,9,7,.90));
+  color: #d9c49d;
+  box-shadow: inset 0 1px rgba(255,255,255,.03);
+}
+.museum-archive-mark { color: var(--museum-gold); font-size: 1.35rem; }
+.museum-archive-strip strong { font: 700 .9rem/1 var(--museum-display); letter-spacing: .1em; text-transform: uppercase; }
+.museum-archive-strip > span:not(.museum-archive-mark) { color: #aaa083; font-size: .82rem; }
+.museum-archive-strip button {
+  margin-left: auto;
+  padding: 9px 12px;
+  border: 1px solid rgba(224,193,128,.28);
+  border-radius: 2px;
+  background: rgba(11,11,8,.66);
+  color: #e1cca0;
+  cursor: pointer;
+  font: 700 .72rem/1 var(--museum-display);
+}
+.museum-archive-strip button:hover,
+.museum-archive-strip button:focus-visible { border-color: var(--museum-gold); color: #fff0c8; outline: 0; }
+
+main { width: min(1410px, calc(100% - 48px)); margin: 0 auto 42px; }
+.tab-content {
+  border: 1px solid rgba(224,193,128,.19) !important;
+  border-radius: 3px;
+  background: linear-gradient(160deg, rgba(23,22,18,.88), rgba(8,9,7,.94)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.025), 0 18px 34px rgba(0,0,0,.24);
+}
+.sub-tabs {
+  padding: 10px;
+  border: 1px solid rgba(224,193,128,.13);
+  border-radius: 3px;
+  background: rgba(7,8,6,.42);
+}
+.sub-tab-btn {
+  border-radius: 2px;
+  color: #c9b990;
+  font-family: var(--museum-display);
+}
+.sub-tab-btn.active-sub { color: #f1dfb5; background: linear-gradient(180deg, rgba(114,82,34,.45), rgba(28,23,15,.62)); }
+
+html[data-theme="light"] .essential-header,
+html[data-theme="light"] .game-museum-hall { color: #ead9b4; }
+html[data-theme="light"] .game-museum-hall,
+html[data-theme="light"] main { color: var(--text-main); }
+
+@media (max-width: 1100px) {
+  .essential-header { min-height: 594px; }
+  .hub-toolbelt { max-width: 54vw; gap: 4px; }
+  .hub-tool-btn { padding-inline: 8px; font-size: .68rem; }
+  .essential-utilities { max-width: 40vw; }
+  .essential-utilities .utility-language { display: none; }
+  .museum-portal { min-height: 245px; padding: 21px 20px 18px; }
+  .museum-portal-copy { max-width: 88%; }
+}
+@media (max-width: 767px) {
+  .essential-header { min-height: 695px; margin-bottom: 15px; }
+  .essential-header::after { inset: 5px; }
+  .essential-header-shell { width: 100%; }
+  .essential-brand { top: 98px; width: min(355px, calc(100% - 36px)); min-height: 136px; padding: 24px 24px 20px; }
+  .essential-brand::before { font-size: clamp(2.25rem, 12vw, 3.4rem); }
+  .essential-brand::after { margin-top: 16px; font-size: 1rem; }
+  .hub-toolbelt { top: 9px; left: 9px; width: calc(100% - 18px); max-width: none; padding: 0; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .hub-toolbelt::-webkit-scrollbar { display: none; }
+  .hub-tool-btn { flex: 0 0 auto; min-height: 34px; padding: 7px 9px; font-size: .67rem; }
+  .hub-tool-btn span { display: none; }
+  .essential-utilities { top: 250px; right: 50%; justify-content: center; width: calc(100% - 28px); max-width: none; transform: translateX(50%); }
+  .essential-utilities .auth-btn,
+  .essential-utilities .discord-link,
+  .essential-utilities .utility-action { min-height: 31px; padding: 6px 8px; font-size: .64rem; }
+  .essential-utilities .auth-btn { order: 1; }
+  .essential-utilities .discord-link { order: 2; }
+  .essential-utilities .utility-action { order: 3; }
+  .tabs { bottom: 18px; grid-template-columns: repeat(3, minmax(0, 1fr)); width: calc(100% - 22px); }
+  .tab-btn { min-height: 120px; padding: 11px 4px 8px; border-bottom: 1px solid rgba(224,193,128,.19); font-size: .60rem; }
+  .tab-btn:nth-child(3) { border-right: 0; }
+  .tab-btn:nth-child(4), .tab-btn:nth-child(5) { border-bottom: 0; }
+  .tab-btn .tab-icon, .tab-btn .d4-logo { width: 42px !important; height: 42px !important; margin-bottom: 7px; }
+  .tab-btn::before { top: 10px; width: 57px; height: 57px; }
+  .game-museum-hall, main { width: calc(100% - 22px); }
+  .museum-current-plaque { min-height: 76px; gap: 11px; padding: 10px 13px; }
+  .museum-current-emblem { width: 41px; height: 41px; font-size: 1.15rem; }
+  .museum-current-copy h1 { font-size: 1.23rem; letter-spacing: .025em; }
+  .museum-current-copy p { font-size: .68rem; }
+  .museum-current-meta { display: none; }
+  .museum-portal-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 10px; padding: 10px; }
+  .museum-portal { min-height: 208px; padding: 19px 19px 16px; }
+  .museum-portal-copy { max-width: 82%; }
+  .museum-portal-copy strong { margin: 7px 0; font-size: 1.55rem; }
+  .museum-portal-description { font-size: .75rem; }
+  .museum-portal-action { margin-top: 13px; padding: 8px 10px; }
+  .museum-archive-strip { gap: 9px; min-height: 50px; margin-top: 10px; padding: 0 13px; }
+  .museum-archive-strip strong { font-size: .75rem; }
+  .museum-archive-strip > span:not(.museum-archive-mark) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .72rem; }
+  .museum-archive-strip button { flex: 0 0 auto; padding: 8px 9px; font-size: .64rem; }
+  .tab-content { padding: 10px !important; }
+  .sub-tabs { margin: 0 0 12px; padding: 7px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .museum-portal-media { transition: none; }
+}
+
+/* Rifiniture mobile e fallback locale per il medaglione Diablo II. */
+.tab-btn:nth-child(4) .tab-icon { display: none; }
+.tab-btn:nth-child(4)::after {
+  content: 'II';
+  position: absolute;
+  z-index: 2;
+  top: 27px;
+  left: 50%;
+  color: #c6814a;
+  font: 700 2.3rem/.9 var(--museum-display);
+  letter-spacing: -.08em;
+  text-shadow: 0 2px 0 #3b160f, 0 0 10px rgba(183,65,34,.55);
+  transform: translateX(-50%);
+}
+@media (max-width: 767px) {
+  .essential-utilities .auth-btn,
+  .essential-utilities .discord-link,
+  .essential-utilities .utility-action {
+    width: auto;
+    min-width: 0;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+  }
+  .essential-utilities .utility-language { display: none; }
+  .tab-btn:nth-child(4)::after { top: 20px; font-size: 1.85rem; }
+}
 </style>
 <div class="poe1-encyclopedia-content">
 <div class="lightbox" id="poe1-encyclopedia-lightbox" onclick="window.poe1Encyclopedia.closeLightbox(event)">
@@ -4547,10 +5122,75 @@ html[data-theme="light"] .essential-brand::after { color: inherit; }
             evt.currentTarget.classList.add(activeBtnClass);
         };
 
+        /* === Game Museum: dati di scena e percorsi verso i moduli esistenti === */
+        const MUSEUM_GAMES = Object.freeze({
+            poe1: { title: 'Path of Exile 1', subtitle: 'Lega 3.29 · Build, guide e strumenti per Wraeclast', archiveLabel: 'Atlante', archiveSummary: 'Mappe, boss e progressione', buildSection: 'poe1-dash', guideSection: 'poe1-guide', archiveSection: 'poe1-atlas', image: 'assets/museum/poe1-museum-hero.jpg' },
+            poe2: { title: 'Path of Exile 2', subtitle: 'Build, gemme e percorsi per la nuova era', archiveLabel: 'Endgame', archiveSummary: 'Roadmap, boss e progressione', buildSection: 'poe2-dash', guideSection: 'poe2-guide', archiveSection: 'poe2-roadmap', image: 'assets/museum/poe2-museum-hero.jpg' },
+            le: { title: 'Last Epoch', subtitle: 'Classi, forgia e Monolith attraverso le ere', archiveLabel: 'Monolith', archiveSummary: 'Timeline, Blessing e obiettivi', buildSection: 'le-dash', guideSection: 'le-crafting', archiveSection: 'le-monolith', image: 'assets/museum/last-epoch-museum-hero.jpg' },
+            d2: { title: 'Diablo II: Resurrected', subtitle: 'Ladder, rune e caccia al bottino perfetto', archiveLabel: 'Santuario', archiveSummary: 'Progressione, farming e boss', buildSection: 'd2-dash', guideSection: 'd2-guide', archiveSection: 'd2-progression', image: 'assets/museum/d2-museum-hero.jpg' },
+            d4: { title: 'Diablo 4', subtitle: 'Stagione, endgame e ceneri di Sanctuarium', archiveLabel: 'Endgame', archiveSummary: 'Boss, dungeon e progressione', buildSection: 'd4-dash', guideSection: 'd4-start', archiveSection: 'd4-endgame', image: 'assets/museum/d4-museum-hero.jpg' }
+        });
+
+        window.updateMuseumSection = function(subTabId, gameId) {
+            const label = document.querySelector(`#${gameId} .${gameId}-sub-btn.active-sub`)?.textContent?.trim() || 'Dashboard';
+            const target = document.getElementById('museum-current-section');
+            if (target) target.textContent = label.replace(/ Build$/i, '');
+        };
+
+        window.updateMuseumScene = function(gameId) {
+            const game = MUSEUM_GAMES[gameId] || MUSEUM_GAMES.poe1;
+            document.body.dataset.activeGame = gameId in MUSEUM_GAMES ? gameId : 'poe1';
+            const title = document.getElementById('museum-game-title');
+            const subtitle = document.getElementById('museum-game-subtitle');
+            const archiveLabel = document.querySelector('.museum-archive-strip strong');
+            const archiveSummary = document.getElementById('museum-archive-summary');
+            const archiveButton = document.getElementById('museum-archive-btn');
+            const buildImage = document.getElementById('museum-build-image');
+            const guideImage = document.getElementById('museum-guide-image');
+            const patchImage = document.getElementById('museum-patch-image');
+            if (title) title.textContent = game.title;
+            if (subtitle) subtitle.textContent = game.subtitle;
+            if (archiveLabel) archiveLabel.textContent = game.archiveLabel;
+            if (archiveSummary) archiveSummary.textContent = game.archiveSummary;
+            if (archiveButton) archiveButton.setAttribute('aria-label', `Apri ${game.archiveLabel} di ${game.title}`);
+            [buildImage, guideImage].forEach(image => { if (image && image.getAttribute('src') !== game.image) image.setAttribute('src', game.image); });
+            if (patchImage) patchImage.setAttribute('src', 'assets/museum/museum_style_reference.jpg');
+            window.updateMuseumSection(`${gameId}-dash`, gameId);
+        };
+
+        function museumOpenLocation(gameId, sectionId) {
+            const gameButton = Array.from(document.querySelectorAll('.tab-btn')).find(button => (button.getAttribute('onclick') || '').includes(`'${gameId}'`));
+            if (gameButton && !gameButton.classList.contains('active-btn')) gameButton.click();
+            window.setTimeout(() => {
+                const subButton = Array.from(document.querySelectorAll(`.${gameId}-sub-btn`)).find(button => (button.getAttribute('onclick') || '').includes(`'${sectionId}'`));
+                if (subButton) subButton.click();
+                const destination = document.getElementById(sectionId);
+                if (destination) destination.scrollIntoView({ behavior: document.body.classList.contains('hub-reduce-motion') ? 'auto' : 'smooth', block: 'start' });
+            }, 0);
+        }
+
+        window.openMuseumPortal = function(portal) {
+            const gameId = document.body.dataset.activeGame || 'poe1';
+            const game = MUSEUM_GAMES[gameId] || MUSEUM_GAMES.poe1;
+            if (portal === 'patch') {
+                document.getElementById('hub-patch-btn')?.click();
+                return;
+            }
+            const target = portal === 'build' ? game.buildSection : portal === 'guide' ? game.guideSection : game.archiveSection;
+            museumOpenLocation(gameId, target);
+        };
+
+        document.querySelectorAll('[data-museum-portal]').forEach(button => {
+            button.addEventListener('click', () => window.openMuseumPortal(button.dataset.museumPortal));
+        });
+        document.getElementById('museum-archive-btn')?.addEventListener('click', () => window.openMuseumPortal('archive'));
+        window.updateMuseumScene('poe1');
+
         window.openMainTab = function(evt, gameId, accentColor) {
             window.toggleTabs(evt, 'tab-content', 'tab-btn', 'active-btn', 'active');
             document.getElementById(gameId).style.display = "block";
             window.initializeTabContent(gameId);
+            window.updateMuseumScene(gameId);
             
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.style.borderBottomColor = "transparent";
@@ -4566,6 +5206,7 @@ html[data-theme="light"] .essential-brand::after { color: inherit; }
         window.openSubTab = function(evt, subTabId, gamePrefix) {
             window.toggleTabs(evt, `${gamePrefix}-sub-content`, `${gamePrefix}-sub-btn`, 'active-sub', 'active-sub-content');
             document.getElementById(subTabId).style.display = "block";
+            window.updateMuseumSection(subTabId, gamePrefix);
             if (subTabId === 'poe1-encyclopedia') {
                 window.initializePoe1Encyclopedia();
             }
