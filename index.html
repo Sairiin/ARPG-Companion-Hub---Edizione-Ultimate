@@ -1086,6 +1086,15 @@
 <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-atlas', 'poe1')">Atlas, Farming &amp; Boss</button>
 </nav>
 <div class="sub-tab-content poe1-sub-content active-sub-content guide-theme--poe1 legacy-dashboard" data-legacy-redesign="dashboard" id="poe1-dash">
+<section class="museum-chapter" data-museum-game="poe1" aria-label="Path of Exile 1 · Archivio degli Esiliati">
+  <img class="museum-chapter-media" src="assets/museum/poe1-museum-hero.jpg" alt="" loading="lazy" decoding="async">
+  <div class="museum-chapter-copy">
+    <span class="museum-chapter-kicker">Path of Exile 1 · Archivio degli Esiliati</span>
+    <h2>Costruisci il tuo percorso attraverso Wraeclast</h2>
+    <p>Build, progressione e strumenti raccolti in un capitolo consultabile prima di entrare in mappa.</p>
+    <div class="museum-chapter-meta"><span>Lega 3.29</span><span>Build e Atlas</span><span>Archivio in revisione</span></div>
+  </div>
+</section>
 <div class="build-meta-panel" id="build-meta-poe1" role="status" aria-live="polite"><div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">Catalogo build in caricamento</strong></div><p class="build-meta-note">Recupero della patch, delle fonti e dello stato di revisione…</p></div>
 <section class="build-discovery" id="build-discovery-poe1" aria-labelledby="build-discovery-title-poe1"><div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title" id="build-discovery-title-poe1">Build da esplorare</strong><span class="build-discovery-badge">Caricamento risorse…</span></div><p class="build-discovery-notice">Caricamento dei punti di partenza e delle ricerche esterne…</p></section>
 
@@ -2311,6 +2320,411 @@
             .hub-search-result { grid-template-columns: 1fr auto; }
             .hub-accessibility-row { grid-template-columns: 1fr; }
         }
+
+
+/* === REDESIGN IBRIDO: DARK EDITORIAL ARPG + GAME MUSEUM === */
+:root {
+  --hybrid-display: 'Cinzel', Georgia, serif;
+  --hybrid-sans: var(--font-main);
+  --hybrid-ink: #090a0d;
+  --hybrid-panel: rgba(19, 21, 27, 0.86);
+  --hybrid-panel-deep: rgba(11, 12, 16, 0.94);
+  --hybrid-line: rgba(210, 178, 111, 0.18);
+  --hybrid-line-strong: rgba(226, 190, 117, 0.52);
+  --hybrid-gold: #d7b16b;
+  --hub-game-accent: var(--accent-primary);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="amoled"] body {
+  background:
+    radial-gradient(1000px 500px at 12% -5%, rgba(119, 82, 31, 0.11), transparent 58%),
+    radial-gradient(800px 480px at 92% 12%, rgba(40, 62, 95, 0.09), transparent 60%),
+    #0a0b0e;
+}
+html[data-theme="dark"] body::before,
+html[data-theme="amoled"] body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(115deg, transparent 0 48%, rgba(255,255,255,0.025) 48.2%, transparent 48.6%),
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,0.08) 0 0.7px, transparent 0.9px);
+  background-size: 16px 16px, 7px 7px;
+}
+
+/* Sistema editoriale: heading, superfici e azioni */
+.essential-header,
+.hub-toolbelt,
+.tab-content,
+.arpg-radar-panel,
+.appearance-panel,
+.hub-dialog,
+.build-meta-panel,
+.build-discovery,
+.section,
+.action-bar,
+.save-form {
+  border-color: var(--hybrid-line) !important;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.22);
+}
+
+.essential-header {
+  position: relative;
+  isolation: isolate;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid var(--hybrid-line-strong) !important;
+  border-radius: 18px;
+  background: linear-gradient(125deg, rgba(9,10,13,0.96), rgba(20,21,26,0.76));
+}
+.essential-header::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(5,6,8,0.94) 0%, rgba(5,6,8,0.74) 50%, rgba(5,6,8,0.5) 100%), url('assets/museum/museum_style_reference.jpg') center right / cover;
+  opacity: 0.82;
+}
+.essential-header::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.035), transparent 45%, rgba(0,0,0,0.32));
+}
+.essential-header-shell { padding: 0; }
+.essential-brand {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 148px;
+  padding: 25px 29px;
+  box-sizing: border-box;
+}
+.essential-brand::before {
+  content: "ARPG COMPANION HUB";
+  color: #f3e4bd;
+  font: 700 clamp(1.45rem, 3vw, 2.5rem)/1 var(--hybrid-display);
+  letter-spacing: 0.055em;
+  text-shadow: 0 3px 18px rgba(0,0,0,0.85);
+}
+.essential-brand::after {
+  content: "Build · Guide · Meta · Archivio di gioco";
+  position: absolute;
+  left: 31px;
+  bottom: 18px;
+  color: rgba(230, 220, 196, 0.73);
+  font-size: 0.77rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.essential-brand .banner-img { display: none; }
+.essential-utilities {
+  position: absolute;
+  top: 17px;
+  right: 18px;
+  padding: 0;
+  background: transparent;
+}
+.essential-utilities .auth-btn,
+.essential-utilities .discord-link,
+.essential-utilities .utility-action,
+.hub-tool-btn,
+.panel-close-btn {
+  border-radius: 999px;
+  border: 1px solid rgba(232, 215, 176, 0.2);
+  box-shadow: none;
+}
+.essential-utilities .auth-btn,
+.essential-utilities .discord-link,
+.essential-utilities .utility-action {
+  background: rgba(8, 9, 12, 0.62) !important;
+  color: var(--text-main) !important;
+  backdrop-filter: blur(8px);
+}
+.essential-utilities .discord-link:hover,
+.essential-utilities .auth-btn:hover,
+.essential-utilities .utility-action:hover {
+  border-color: var(--hybrid-line-strong);
+  transform: translateY(-1px);
+}
+
+.hub-toolbelt {
+  background: linear-gradient(115deg, rgba(19,20,26,0.95), rgba(9,10,14,0.85));
+  border-radius: 15px;
+  border-left: 2px solid var(--hub-game-accent) !important;
+  padding: 9px 13px;
+  gap: 8px;
+}
+.hub-tool-btn {
+  background: rgba(10,11,15,0.64);
+  color: rgba(241,239,233,0.9);
+  padding: 0.64rem 0.9rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.01em;
+}
+.hub-tool-btn:hover,
+.hub-tool-btn--accent {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--hub-game-accent) 23%, #15161d), rgba(23,23,29,0.96));
+  border-color: color-mix(in srgb, var(--hub-game-accent) 60%, transparent);
+  color: #fff;
+}
+
+.tabs { gap: 7px; padding: 0 4px; }
+.tab-btn {
+  flex-grow: 0;
+  min-width: 160px;
+  border-radius: 12px 12px 3px 3px;
+  border: 1px solid rgba(230,221,197,0.11);
+  border-bottom: 2px solid transparent;
+  background: linear-gradient(180deg, rgba(38,39,46,0.78), rgba(18,19,24,0.9));
+  font-family: var(--hybrid-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+.tab-btn.active-btn {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--hub-game-accent) 12%, #25262d), rgba(13,14,18,0.96));
+  color: #f6e9c9;
+  border-color: rgba(230,221,197,0.22);
+  border-bottom-color: var(--hub-game-accent);
+}
+.sub-tabs { gap: 7px; margin: 12px 0 15px; }
+.sub-tab-btn {
+  flex-grow: 0;
+  border-radius: 999px;
+  background: rgba(12,13,17,0.76);
+  border-color: rgba(230,221,197,0.11);
+  font-size: 0.8rem;
+}
+.sub-tab-btn.active-sub {
+  background: color-mix(in srgb, var(--hub-game-accent) 13%, #171820);
+  color: #f5ead0;
+  border-color: color-mix(in srgb, var(--hub-game-accent) 46%, rgba(255,255,255,0.12));
+}
+.tab-content {
+  background: linear-gradient(180deg, rgba(20,21,28,0.86), rgba(13,14,18,0.92));
+  border-radius: 16px;
+  border-top: 1px solid var(--hybrid-line) !important;
+  padding: clamp(14px, 2vw, 23px);
+}
+
+/* Capitoli Museum, visibili all'inizio delle dashboard */
+.museum-chapter {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  min-height: 240px;
+  margin: 0 0 18px;
+  padding: 28px 30px;
+  box-sizing: border-box;
+  border: 1px solid var(--hybrid-line-strong);
+  border-radius: 15px;
+  background: #0b0c10;
+  box-shadow: 0 22px 34px rgba(0,0,0,0.28);
+}
+.museum-chapter::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(7,8,11,0.94) 0%, rgba(7,8,11,0.79) 42%, rgba(7,8,11,0.16) 100%), linear-gradient(180deg, transparent 46%, rgba(3,4,6,0.82) 100%);
+}
+.museum-chapter::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 12px;
+  pointer-events: none;
+  border: 1px solid rgba(235, 212, 159, 0.15);
+  border-radius: 9px;
+}
+.museum-chapter-media {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center right;
+}
+.museum-chapter-copy { position: relative; z-index: 3; max-width: 690px; }
+.museum-chapter-kicker,
+.legacy-kicker {
+  color: var(--hybrid-gold);
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.museum-chapter h2 {
+  margin: 9px 0 8px;
+  color: #f6e8c7;
+  font: 700 clamp(1.65rem, 3.2vw, 2.7rem)/1.02 var(--hybrid-display);
+  letter-spacing: 0.015em;
+}
+.museum-chapter p { margin: 0; max-width: 58ch; color: rgba(237,235,228,0.83); line-height: 1.55; }
+.museum-chapter-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; }
+.museum-chapter-meta span,
+.legacy-hero-meta span {
+  padding: 5px 9px;
+  border: 1px solid rgba(229,206,153,0.23);
+  border-radius: 999px;
+  background: rgba(7,8,11,0.45);
+  color: rgba(248,238,215,0.88);
+  font-size: 0.75rem;
+}
+
+/* Cards e aree informative: meno linee, profondità maggiore */
+.build-meta-panel,
+.build-discovery,
+.section,
+.dash-list li,
+.legacy-database,
+.legacy-editorial,
+.hub-dialog {
+  background: linear-gradient(135deg, rgba(31,32,39,0.9), rgba(15,16,21,0.94));
+  border-color: var(--hybrid-line) !important;
+}
+.build-meta-panel { border-left: 2px solid var(--hub-game-accent) !important; border-radius: 14px; }
+.build-discovery { border-style: solid !important; border-radius: 14px; }
+.build-discovery-card,
+.dash-list li {
+  border-radius: 11px !important;
+  border-color: rgba(231,213,171,0.12) !important;
+  background: linear-gradient(145deg, rgba(26,27,34,0.95), rgba(14,15,20,0.96)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,0.025), 0 8px 18px rgba(0,0,0,0.12);
+}
+.build-discovery-card::before { opacity: 0.42; }
+.build-discovery-source,
+.build-discovery-actions .tool-link,
+.dash-list a.dynamic-link,
+.dash-list a.saved-link { border-radius: 999px; }
+
+.legacy-hero {
+  border: 1px solid var(--hybrid-line-strong);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 22px 36px rgba(0,0,0,0.29);
+}
+.legacy-hero::after { background: linear-gradient(90deg, rgba(7,8,11,0.94), rgba(7,8,11,0.63) 53%, rgba(7,8,11,0.28)); }
+.legacy-title,
+.guide-section h1,
+.legacy-encyclopedia h1,
+#poe1-encyclopedia h1 {
+  font-family: var(--hybrid-display) !important;
+  letter-spacing: 0.015em;
+  color: #f4e6c4;
+}
+.legacy-intro,
+.build-discovery-description { line-height: 1.65; }
+
+.hub-dialog {
+  border-radius: 18px;
+  border-color: var(--hybrid-line-strong) !important;
+  background: linear-gradient(145deg, rgba(24,25,31,0.98), rgba(9,10,14,0.98));
+}
+.hub-dialog-heading h2,
+.hub-dialog h2 { font-family: var(--hybrid-display); color: #f0e4c8; }
+.hub-search-result,
+.hub-compare-card,
+.hub-patch-card,
+.hub-season-card {
+  background: rgba(15,16,21,0.78);
+  border-color: rgba(228,210,169,0.14);
+  border-radius: 11px;
+}
+
+/* Palette contestuale senza variare il modello globale */
+body[data-active-game="poe1"] { --hub-game-accent: #d1a555; }
+body[data-active-game="poe2"] { --hub-game-accent: #86a9dd; }
+body[data-active-game="le"] { --hub-game-accent: #ae83dd; }
+body[data-active-game="d2"] { --hub-game-accent: #a55c5c; }
+body[data-active-game="d4"] { --hub-game-accent: #d25345; }
+
+@media (max-width: 767px) {
+  .essential-header { border-radius: 14px; }
+  .essential-brand { min-height: 120px; padding: 20px 18px; }
+  .essential-brand::before { font-size: 1.27rem; }
+  .essential-brand::after { left: 19px; bottom: 15px; font-size: 0.61rem; letter-spacing: 0.11em; }
+  .essential-utilities { position: static; padding: 8px; background: rgba(8,9,12,0.64); }
+  .museum-chapter { min-height: 178px; padding: 20px 18px; margin-bottom: 14px; border-radius: 13px; }
+  .museum-chapter::after { inset: 8px; }
+  .museum-chapter h2 { font-size: 1.45rem; }
+  .museum-chapter p { font-size: 0.87rem; line-height: 1.45; }
+  .museum-chapter-meta { margin-top: 11px; }
+  .tab-content { padding: 11px; border-radius: 13px; }
+  .hub-toolbelt { border-radius: 13px; }
+  .tab-btn { min-width: 142px; font-size: 0.78rem; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .museum-chapter,
+  .build-discovery-card,
+  .dash-list li,
+  .hub-tool-btn { transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease; }
+  .museum-chapter:hover { transform: translateY(-2px); box-shadow: 0 25px 42px rgba(0,0,0,0.34); }
+  .build-discovery-card:hover,
+  .dash-list li:hover { transform: translateY(-2px); border-color: rgba(229,204,145,0.28) !important; }
+}
+
+
+/* Tema chiaro: il Museum resta atmosferico, le superfici operative restano leggibili. */
+html[data-theme="light"] body {
+  background: radial-gradient(800px 420px at 12% -5%, rgba(188, 146, 74, 0.14), transparent 60%), #eeeae2;
+}
+html[data-theme="light"] .hub-toolbelt,
+html[data-theme="light"] .tab-content,
+html[data-theme="light"] .build-meta-panel,
+html[data-theme="light"] .build-discovery,
+html[data-theme="light"] .section,
+html[data-theme="light"] .action-bar,
+html[data-theme="light"] .save-form,
+html[data-theme="light"] .hub-dialog,
+html[data-theme="light"] .legacy-database,
+html[data-theme="light"] .legacy-editorial {
+  background: linear-gradient(145deg, rgba(255,254,249,0.97), rgba(239,235,225,0.96)) !important;
+  color: #2e2c27;
+  border-color: rgba(115, 83, 34, 0.23) !important;
+}
+html[data-theme="light"] .hub-toolbelt { background: linear-gradient(145deg, rgba(255,254,249,0.96), rgba(231,225,211,0.96)) !important; }
+html[data-theme="light"] .hub-tool-btn,
+html[data-theme="light"] .tab-btn,
+html[data-theme="light"] .sub-tab-btn,
+html[data-theme="light"] .essential-utilities .auth-btn,
+html[data-theme="light"] .essential-utilities .discord-link,
+html[data-theme="light"] .essential-utilities .utility-action {
+  background: rgba(255,253,247,0.92) !important;
+  color: #2f2c25 !important;
+  border-color: rgba(112,82,40,0.24) !important;
+}
+html[data-theme="light"] .build-discovery-card,
+html[data-theme="light"] .dash-list li,
+html[data-theme="light"] .hub-search-result,
+html[data-theme="light"] .hub-compare-card,
+html[data-theme="light"] .hub-patch-card,
+html[data-theme="light"] .hub-season-card {
+  background: linear-gradient(145deg, #fffdf8, #f0ebe1) !important;
+  color: #302d27 !important;
+  border-color: rgba(110,81,40,0.18) !important;
+}
+html[data-theme="light"] .build-meta-panel *,
+html[data-theme="light"] .build-discovery *,
+html[data-theme="light"] .dash-list li *,
+html[data-theme="light"] .hub-dialog * { color: inherit; }
+html[data-theme="light"] .museum-chapter,
+html[data-theme="light"] .essential-header,
+html[data-theme="light"] .legacy-hero { color: #f4e6c4; }
+html[data-theme="light"] .museum-chapter p,
+html[data-theme="light"] .museum-chapter h2,
+html[data-theme="light"] .museum-chapter-kicker,
+html[data-theme="light"] .essential-brand::before,
+html[data-theme="light"] .essential-brand::after { color: inherit; }
 </style>
 <div class="poe1-encyclopedia-content">
 <div class="lightbox" id="poe1-encyclopedia-lightbox" onclick="window.poe1Encyclopedia.closeLightbox(event)">
@@ -3024,6 +3438,15 @@
 <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-defense', 'poe2')">Gemme &amp; Difese</button>
 </nav>
 <div class="sub-tab-content poe2-sub-content active-sub-content guide-theme--poe2 legacy-dashboard" data-legacy-redesign="dashboard" id="poe2-dash">
+<section class="museum-chapter" data-museum-game="poe2" aria-label="Path of Exile 2 · Archivio della Nuova Era">
+  <img class="museum-chapter-media" src="assets/museum/poe2-museum-hero.jpg" alt="" loading="lazy" decoding="async">
+  <div class="museum-chapter-copy">
+    <span class="museum-chapter-kicker">Path of Exile 2 · Archivio della Nuova Era</span>
+    <h2>Una rotta chiara tra classi, endgame e sistemi</h2>
+    <p>Un punto di partenza per leggere la nuova progressione e selezionare la prossima build con intenzione.</p>
+    <div class="museum-chapter-meta"><span>Ciclo attuale</span><span>Build e boss</span><span>Guida essenziale</span></div>
+  </div>
+</section>
 <div class="build-meta-panel" id="build-meta-poe2" role="status" aria-live="polite"><div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">Catalogo build in caricamento</strong></div><p class="build-meta-note">Recupero della patch, delle fonti e dello stato di revisione…</p></div>
 <section class="build-discovery" id="build-discovery-poe2" aria-labelledby="build-discovery-title-poe2"><div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title" id="build-discovery-title-poe2">Build da esplorare</strong><span class="build-discovery-badge">Caricamento risorse…</span></div><p class="build-discovery-notice">Caricamento dei punti di partenza e delle ricerche esterne…</p></section>
 
@@ -3403,6 +3826,15 @@
 <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-defense', 'le')">Difese, Gear &amp; Idols</button>
 </nav>
 <div class="sub-tab-content le-sub-content active-sub-content guide-theme--le legacy-dashboard" data-legacy-redesign="dashboard" id="le-dash">
+<section class="museum-chapter" data-museum-game="le" aria-label="Last Epoch · Archivio delle Ere">
+  <img class="museum-chapter-media" src="assets/museum/last-epoch-museum-hero.jpg" alt="" loading="lazy" decoding="async">
+  <div class="museum-chapter-copy">
+    <span class="museum-chapter-kicker">Last Epoch · Archivio delle Ere</span>
+    <h2>Rileggi ogni epoca prima di forgiare la prossima build</h2>
+    <p>Classi, crafting e Monolith ordinati in un capitolo dedicato alla progressione tra le linee del tempo.</p>
+    <div class="museum-chapter-meta"><span>Ciclo attuale</span><span>Forgia e Monolith</span><span>Archivio in revisione</span></div>
+  </div>
+</section>
 <div class="build-meta-panel" id="build-meta-le" role="status" aria-live="polite"><div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">Catalogo build in caricamento</strong></div><p class="build-meta-note">Recupero della patch, delle fonti e dello stato di revisione…</p></div>
 <section class="build-discovery" id="build-discovery-le" aria-labelledby="build-discovery-title-le"><div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title" id="build-discovery-title-le">Build da esplorare</strong><span class="build-discovery-badge">Caricamento risorse…</span></div><p class="build-discovery-notice">Caricamento dei punti di partenza e delle ricerche esterne…</p></section>
 
@@ -3516,6 +3948,15 @@
 <button class="sub-tab-btn d2-sub-btn" onclick="window.openSubTab(event, 'd2-breakpoints', 'd2')">Breakpoints &amp; Boss</button>
 </nav>
 <div class="sub-tab-content d2-sub-content active-sub-content guide-theme--d2 legacy-dashboard" data-legacy-redesign="dashboard" id="d2-dash">
+<section class="museum-chapter" data-museum-game="d2" aria-label="Diablo II: Resurrected · Archivio di Sanctuarium">
+  <img class="museum-chapter-media" src="assets/museum/d2-museum-hero.jpg" alt="" loading="lazy" decoding="async">
+  <div class="museum-chapter-copy">
+    <span class="museum-chapter-kicker">Diablo II: Resurrected · Archivio di Sanctuarium</span>
+    <h2>Rune, breakpoints e caccia all’oggetto perfetto</h2>
+    <p>Una sala d’archivio per la Ladder, le parole runiche e le decisioni che definiscono il personaggio.</p>
+    <div class="museum-chapter-meta"><span>Ladder attuale</span><span>Runeword e Mercenario</span><span>Guida essenziale</span></div>
+  </div>
+</section>
 <div class="build-meta-panel" id="build-meta-d2" role="status" aria-live="polite"><div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">Catalogo build in caricamento</strong></div><p class="build-meta-note">Recupero della patch, delle fonti e dello stato di revisione…</p></div>
 <section class="build-discovery" id="build-discovery-d2" aria-labelledby="build-discovery-title-d2"><div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title" id="build-discovery-title-d2">Build da esplorare</strong><span class="build-discovery-badge">Caricamento risorse…</span></div><p class="build-discovery-notice">Caricamento dei punti di partenza e delle ricerche esterne…</p></section>
 
@@ -3631,6 +4072,15 @@
 <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-endgame', 'd4')">Endgame &amp; Boss</button>
 </nav>
 <div class="sub-tab-content d4-sub-content active-sub-content guide-theme--d4 legacy-dashboard" data-legacy-redesign="dashboard" id="d4-dash">
+<section class="museum-chapter" data-museum-game="d4" aria-label="Diablo 4 · Archivio delle Ceneri">
+  <img class="museum-chapter-media" src="assets/museum/d4-museum-hero.jpg" alt="" loading="lazy" decoding="async">
+  <div class="museum-chapter-copy">
+    <span class="museum-chapter-kicker">Diablo 4 · Archivio delle Ceneri</span>
+    <h2>Affronta la stagione con una rotta leggibile</h2>
+    <p>Build, Nightmare Dungeon e boss di fine gioco organizzati per partire con un piano concreto.</p>
+    <div class="museum-chapter-meta"><span>Stagione attuale</span><span>Endgame e boss</span><span>Archivio in revisione</span></div>
+  </div>
+</section>
 <div class="build-meta-panel" id="build-meta-d4" role="status" aria-live="polite"><div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">Catalogo build in caricamento</strong></div><p class="build-meta-note">Recupero della patch, delle fonti e dello stato di revisione…</p></div>
 <section class="build-discovery" id="build-discovery-d4" aria-labelledby="build-discovery-title-d4"><div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title" id="build-discovery-title-d4">Build da esplorare</strong><span class="build-discovery-badge">Caricamento risorse…</span></div><p class="build-discovery-notice">Caricamento dei punti di partenza e delle ricerche esterne…</p></section>
 

@@ -108,3 +108,14 @@ Dopo il commit, attendi il completamento della pubblicazione GitHub Pages. Se un
 | Regressione globale | **13/13** |
 
 Sono stati inoltre verificati nel browser ricerca filtrata, area La mia stagione, confronto build, registro patch, contrasto, manifest, registrazione del service worker e link diretti a sottosezioni.
+
+## Osservazioni estetiche per un futuro redesign
+
+La revisione visiva evidenzia una base solida e coerente, ma anche una concentrazione di bordi, pulsanti e contenitori nella parte alta della pagina. Un prossimo redesign può migliorare profondità, ritmo e riconoscibilità senza ridurre contenuti: servono una tipografia editoriale più marcata, superfici con gerarchie meno uniformi, immagini o texture discrete per gioco e una barra strumenti ancora più integrata nell’identità del sito.
+
+## Verifica redesign ibrido
+
+Il controllo browser iniziale conferma che le dashboard PoE 1 e PoE 2 caricano i rispettivi capitoli Museum, aggiornano l’URL condivisibile e applicano accenti distinti senza modificare liste build, pannelli meta o sezioni Community Discovery.
+La gestione del tema è stata riesaminata dopo gli override ibridi. Sono state aggiunte superfici chiare dedicate per i moduli operativi, mentre header e capitoli Museum mantengono volutamente l’atmosfera dark. Il ricaricamento conferma il ripristino corretto del tema dark predefinito e della dashboard PoE 1.
+Le acquisizioni a 390 e 1365 pixel confermano che il sistema ibrido conserva la densità informativa: su desktop la hero Museum apre il capitolo gioco con una gerarchia editoriale chiara; su smartphone la stessa hero si riduce a un banner leggibile e le toolbar restano accessibili in scorrimento orizzontale. Le barre Google Translate visibili nelle acquisizioni appartengono al servizio di traduzione preesistente e non al redesign.
+La dashboard Diablo 4 conferma la corretta palette rossa contestuale, il caricamento della hero Museum a 1920 px e l’aggiornamento dell’URL a `#game=d4&section=d4-dash`. Durante i controlli non è stato creato né modificato alcun dato nelle build personali locali.
