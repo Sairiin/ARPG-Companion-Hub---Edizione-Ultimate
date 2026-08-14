@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-14",
+  "note": "Registro locale editoriale. Aggiorna patch, data, fonti e nota di revisione quando cambia il meta.",
+  "games": {
+    "poe1": {
+      "game": "Path of Exile 1",
+      "currentPatch": "Lega 3.29",
+      "status": "Da revisionare",
+      "updatedAt": null,
+      "sourceLabel": "Notizie ufficiali Path of Exile",
+      "sourceUrl": "https://www.pathofexile.com/news",
+      "changes": [
+        "Catalogo iniziale in attesa di revisione editoriale.",
+        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
+      ]
+    },
+    "poe2": {
+      "game": "Path of Exile 2",
+      "currentPatch": "Early Access 0.5.0",
+      "status": "Da revisionare",
+      "updatedAt": null,
+      "sourceLabel": "Notizie ufficiali Path of Exile",
+      "sourceUrl": "https://www.pathofexile.com/news",
+      "changes": [
+        "Catalogo iniziale in attesa di revisione editoriale.",
+        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
+      ]
+    },
+    "le": {
+      "game": "Last Epoch",
+      "currentPatch": "Cycle 1.0",
+      "status": "Da revisionare",
+      "updatedAt": null,
+      "sourceLabel": "Forum ufficiale Last Epoch",
+      "sourceUrl": "https://forum.lastepoch.com/c/news/64",
+      "changes": [
+        "Catalogo iniziale in attesa di revisione editoriale.",
+        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
+      ]
+    },
+    "d2": {
+      "game": "Diablo II: Resurrected",
+      "currentPatch": "Ladder S14",
+      "status": "Da revisionare",
+      "updatedAt": null,
+      "sourceLabel": "Notizie ufficiali Blizzard",
+      "sourceUrl": "https://news.blizzard.com/it-it/diablo2",
+      "changes": [
+        "Catalogo iniziale in attesa di revisione editoriale.",
+        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
+      ]
+    },
+    "d4": {
+      "game": "Diablo 4",
+      "currentPatch": "Stagione corrente",
+      "status": "Da revisionare",
+      "updatedAt": null,
+      "sourceLabel": "Diablo IV — pagina stagionale ufficiale",
+      "sourceUrl": "https://diablo4.blizzard.com/season",
+      "changes": [
+        "Catalogo iniziale in attesa di revisione editoriale.",
+        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
+      ]
+    }
+  }
+}
