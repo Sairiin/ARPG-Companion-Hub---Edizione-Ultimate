@@ -10,7 +10,7 @@ today_str = datetime.utcnow().strftime('%Y-%m-%d')
 def fetch_arpg_timeline_season(game_key, fallback_name):
     mapping = {
         "poe1": "path-of-exile",
-        "poe2": "path-of-exile-2",
+        "poe2": "path-of-exile2",
         "d4": "diablo-iv",
         "d2": "diablo-ii-resurrected",
         "le": "last-epoch"
@@ -24,9 +24,33 @@ def fetch_arpg_timeline_season(game_key, fallback_name):
         headers = {'User-Agent': 'Mozilla/5.0'}
         res = requests.get(url, headers=headers, timeout=5)
         if res.status_code == 200:
-            current_season = res.json().get("current_season", {}).get("name")
-            if current_season:
-                return current_season
+            data = res.json()
+            current_season = data.get("current_season", {})
+            season_name = current_season.get("name")
+            end_date_str = current_season.get("end_date") # ISO Date dall'API
+            
+            if season_name:
+                time_left_str = ""
+                if end_date_str:
+                    try:
+                        # Calcola il tempo rimanente rispetto ad oggi
+                        end_date = datetime.fromisoformat(end_date_str.replace('Z', '+00:00'))
+                        now = datetime.now(end_date.tzinfo)
+                        diff = end_date - now
+                        
+                        if diff.days > 0:
+                            time_left_str = f" (Termina tra {diff.days}g)"
+                        elif diff.seconds > 0:
+                            hours = diff.seconds // 3600
+                            time_left_str = f" (Termina tra {hours}h)"
+                        else:
+                            time_left_str = " (In conclusione)"
+                    except Exception as e:
+                        print(f"[-] Errore calcolo data fine {game_key}: {e}")
+
+                full_season_info = f"{season_name}{time_left_str}"
+                print(f"[+] aRPG Timeline ({game_key}): '{full_season_info}'")
+                return full_season_info
     except Exception as e:
         print(f"[-] Timeline API Error ({game_key}): {e}")
     return fallback_name
