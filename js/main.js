@@ -357,7 +357,6 @@ window.toggleTabs = function(evt, containerClass, btnClass, activeBtnClass, acti
 };
 
 window.openMainTab = async function(evt, gameId, accentColor) {
-    // Gestione estetica del Tab cliccato
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active-btn');
         btn.style.borderBottomColor = "transparent";
@@ -369,7 +368,6 @@ window.openMainTab = async function(evt, gameId, accentColor) {
         evt.currentTarget.style.color = accentColor;
     }
 
-    // Caricamento dinamico dell'HTML del gioco
     const container = document.getElementById('game-content-container');
     container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>`;
 
@@ -379,7 +377,6 @@ window.openMainTab = async function(evt, gameId, accentColor) {
         const htmlContent = await response.text();
         container.innerHTML = htmlContent;
 
-        // Inizializza le funzioni del gioco
         if (window.initializeTabContent) {
             window.initializeTabContent(gameId);
         }
@@ -387,7 +384,6 @@ window.openMainTab = async function(evt, gameId, accentColor) {
             window.hubSetGameIdentity(gameId);
         }
         
-        // Riapri la prima sottoscheda (dashboard) di default
         const firstSubBtn = container.querySelector(`.${gameId}-sub-btn`);
         if(firstSubBtn) firstSubBtn.click();
 
@@ -526,18 +522,24 @@ function renderBuildMeta(gameId, gameData, errorMessage = '') {
 }
 
 function renderBuildList(ul, gameId, listType, gameData) {
-    ul.innerHTML = ''; 
-    const builds = gameData && gameData.builds && Array.isArray(gameData.builds[listType]) ? gameData.builds[listType] : [];
+    if (!ul) return;
+    ul.replaceChildren(); 
+    
+    const builds = (gameData && gameData.builds && Array.isArray(gameData.builds[listType])) ? gameData.builds[listType] : [];
     
     if (builds.length === 0) {
-        ul.innerHTML = '<li class="build-catalog-empty" style="color: var(--text-muted); font-style:italic; padding: 10px;">Nessuna build pubblicata per questa categoria al momento.</li>';
+        const emptyLi = document.createElement('li');
+        emptyLi.className = 'build-catalog-empty';
+        emptyLi.style.cssText = 'color: var(--text-muted); font-style: italic; padding: 10px;';
+        emptyLi.textContent = 'Nessuna build disponibile per questa categoria.';
+        ul.appendChild(emptyLi);
         return;
     }
 
     builds.forEach(build => {
         const title = buildText(build && build.title, 'Build senza titolo');
         const className = buildText(build && build.class, 'Classe non indicata');
-        const specialization = buildText(build && build.specialization, 'Specializzazione non indicata');
+        const specialization = buildText(build && build.specialization, 'Generica');
         const tier = buildText(build && build.tier, 'In revisione');
         const directUrl = buildSafeUrl(build && build.sourceUrl);
         
@@ -557,7 +559,7 @@ function renderBuildList(ul, gameId, listType, gameData) {
         const guideLink = buildExternalLink('🔗 Guida', directUrl, 'tool-link build-catalog-guide');
         if (guideLink) links.append(guideLink);
         
-        const searchQuery = encodeURIComponent(`${buildGameTitles[gameId] || ''} ${title} ${specialization} build`);
+        const searchQuery = encodeURIComponent(`${buildGameTitles[gameId] || ''} ${title} build`);
         const youtube = buildExternalLink('📺 YouTube', `https://www.youtube.com/results?search_query=${searchQuery}`, 'tool-link build-catalog-youtube');
         if (youtube) links.append(youtube);
         
@@ -567,7 +569,7 @@ function renderBuildList(ul, gameId, listType, gameData) {
         if (directUrl) {
             const save = buildElement('button', 'quick-save-btn', '💾');
             save.type = 'button';
-            save.setAttribute('aria-label', `Salva ${title}`);
+            save.title = `Salva ${title}`;
             save.addEventListener('click', () => {
                 if (typeof window.quickSave === 'function') window.quickSave(gameId, `${title} (${specialization})`, buildText(gameData.patch, 'N/D'), directUrl);
             });
@@ -585,10 +587,9 @@ window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
         const catalog = await loadBuildCatalog();
         const gameData = catalog.games[gameId];
         
-        if (!gameData || typeof gameData !== 'object') throw new Error('Dati non presenti nel JSON');
+        if (!gameData || typeof gameData !== 'object') throw new Error(`Gioco ${gameId} non presente nel JSON`);
         
-        // Aggiorna etichette stagione globali all'interno del tab corrente
-        document.querySelectorAll('#game-content-container .season-highlight').forEach(el => {
+        document.querySelectorAll('.season-highlight').forEach(el => {
             el.textContent = gameData.patch || "Stagione Corrente";
         });
 
@@ -596,9 +597,9 @@ window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
         renderBuildList(ul, gameId, listType, gameData);
         
     } catch (error) {
-        console.warn('Errore fetch builds:', error);
+        console.warn('Errore rendering build:', error);
         renderBuildMeta(gameId, null, 'Catalogo temporaneamente non disponibile.');
-        ul.innerHTML = '<li class="build-catalog-empty" style="color: var(--text-muted); font-style:italic; padding: 10px;">Catalogo in aggiornamento. Riprova più tardi.</li>';
+        ul.innerHTML = '<li class="build-catalog-empty" style="color: var(--text-muted); font-style:italic; padding: 10px;">Errore nel caricamento del catalogo.</li>';
     }
 };
 
@@ -1214,7 +1215,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.loadMyBuildsUI();
     window.updateARPGStats();
     
-    // Clicca automaticamente il primo tab per caricare la pagina
     const firstTab = document.querySelector('.tab-btn');
     if(firstTab) firstTab.click();
 });
