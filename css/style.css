@@ -958,4 +958,191 @@
             .utility-action { padding: 7px 8px; font-size: 0.72rem; }
             .utility-language #google_translate_element select { font-size: 0.69rem; }
         }
+/* ========================================================================== */
+/* ------------------- CSS MANCANTE: ENCICLOPEDIA POE 1 ------------------- */
+/* ========================================================================== */
+#poe1-encyclopedia {
+    --bg-main: #0a0a0a;
+    --bg-card: #151515;
+    --bg-card-hover: #1f1f1f;
+    --gold: #b8860b;
+    --gold-light: #dfa823;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border-color: #2a2a2a;
+    --accent-red: #a00000;
+    --accent-green: #1e6b3c;
+    --accent-blue: #105a9c;
+}
+#poe1-encyclopedia { font-family: 'Cinzel', serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 20px; line-height: 1.6; }
+#poe1-encyclopedia .container { max-width: 1400px; margin: 0 auto; }
+#poe1-encyclopedia header { text-align: center; margin-bottom: 50px; padding-bottom: 30px; border-bottom: 3px solid var(--gold); background: linear-gradient(to bottom, #1a1a1a, #0a0a0a); border-radius: 10px; }
+#poe1-encyclopedia h1 { color: var(--gold); font-size: 3em; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+#poe1-encyclopedia .filter-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+#poe1-encyclopedia .filter-btn { background-color: var(--bg-card); color: var(--gold); border: 2px solid var(--gold); padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s; text-transform: uppercase; }
+#poe1-encyclopedia .filter-btn.active, #poe1-encyclopedia .filter-btn:hover { background-color: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+#poe1-encyclopedia .mechanics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+#poe1-encyclopedia .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; position: relative; }
+#poe1-encyclopedia .card:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); border-color: var(--gold); z-index: 10; }
+#poe1-encyclopedia .card-img { width: 100%; height: 180px; object-fit: cover; border-bottom: 2px solid var(--gold); filter: grayscale(20%); transition: filter 0.3s; }
+#poe1-encyclopedia .card:hover .card-img { filter: grayscale(0%); }
+#poe1-encyclopedia .card-content { padding: 20px; flex-grow: 1; background: linear-gradient(to top, #111, #151515); }
+#poe1-encyclopedia .card-title { color: var(--gold); font-size: 1.4em; margin: 0 0 12px 0; display: flex; align-items: center; justify-content: space-between; }
+#poe1-encyclopedia .difficulty { font-size: 0.7em; padding: 4px 10px; border-radius: 20px; font-weight: bold; text-transform: uppercase; }
+#poe1-encyclopedia .diff-easy { color: #4caf50; border: 1px solid #4caf50; }
+#poe1-encyclopedia .diff-med { color: var(--gold); border: 1px solid var(--gold); }
+#poe1-encyclopedia .diff-hard { color: #f44336; border: 1px solid #f44336; }
+#poe1-encyclopedia .card-desc { color: var(--text-muted); font-size: 1em; margin-bottom: 0; }
+#poe1-encyclopedia .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(5px); }
+#poe1-encyclopedia .modal-content { background-color: #1a1a1a; width: 100%; max-width: 1000px; max-height: 95vh; overflow-y: auto; border-radius: 15px; border: 3px solid var(--gold); padding: 40px; position: relative; box-shadow: 0 0 50px rgba(184, 134, 11, 0.3); }
+#poe1-encyclopedia .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2em; color: var(--gold); cursor: pointer; background: none; border: none; transition: transform 0.3s; }
+#poe1-encyclopedia .close-btn:hover { transform: rotate(90deg); color: #fff; }
+#poe1-encyclopedia .modal-header-img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 30px; border: 2px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+#poe1-encyclopedia h2 { color: var(--gold); font-size: 2.2em; margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+#poe1-encyclopedia .guide-section { margin-bottom: 35px; }
+#poe1-encyclopedia .guide-section h3 { color: var(--gold-light); font-size: 1.5em; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+#poe1-encyclopedia .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin: 20px 0; }
+#poe1-encyclopedia .gallery-item { position: relative; border: 2px solid var(--border-color); border-radius: 8px; overflow: hidden; background: #000; }
+#poe1-encyclopedia .gallery-img { width: 100%; height: 250px; object-fit: contain; cursor: zoom-in; transition: transform 0.3s; }
+#poe1-encyclopedia .gallery-img:hover { transform: scale(1.05); }
+#poe1-encyclopedia .img-caption { background: rgba(0,0,0,0.8); color: var(--gold); padding: 8px 12px; font-size: 0.9em; text-align: center; border-top: 1px solid var(--gold); }
+#poe1-encyclopedia .info-box { background: rgba(255,255,255,0.03); border-left: 4px solid var(--gold); padding: 20px; border-radius: 0 10px 10px 0; margin: 20px 0; }
+#poe1-encyclopedia .step-list { list-style: none; padding: 0; }
+#poe1-encyclopedia .step-list li { position: relative; padding-left: 40px; margin-bottom: 15px; font-size: 1.1em; }
+#poe1-encyclopedia .step-list li::before { content: attr(data-step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; }
+#poe1-encyclopedia .pro-tip { background: rgba(30, 144, 255, 0.1); border: 1px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-top: 15px; }
+#poe1-encyclopedia .pro-tip strong { color: #1e90ff; }
+#poe1-encyclopedia .lightbox { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.98); justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+#poe1-encyclopedia .lightbox.active { display: flex; }
+#poe1-encyclopedia .lightbox-content { max-width: 95vw; max-height: 95vh; position: relative; }
+#poe1-encyclopedia .lightbox-img { width: 100%; height: 100%; object-fit: contain; border: 3px solid var(--gold); border-radius: 10px; box-shadow: 0 0 50px rgba(184, 134, 11, 0.5); }
+#poe1-encyclopedia .lightbox-close { position: absolute; top: -40px; right: 0; font-size: 3em; color: var(--gold); cursor: pointer; background: none; border: none; transition: transform 0.3s; }
+#poe1-encyclopedia .lightbox-close:hover { transform: rotate(90deg); color: #fff; }
+#poe1-encyclopedia .gallery-img { cursor: zoom-in; }
+@media (max-width: 768px) {
+    #poe1-encyclopedia .modal-content { padding: 20px; }
+    #poe1-encyclopedia h1 { font-size: 2em; }
+    #poe1-encyclopedia .gallery { grid-template-columns: 1fr; }
+    #poe1-encyclopedia .modal-header-img { height: 180px; }
+}
 
+/* Layout esteso Enciclopedia */
+#poe1-encyclopedia.guide-section { width: 100%; max-width: none; margin-inline: 0; padding: clamp(16px, 2.25vw, 34px); box-sizing: border-box; }
+#poe1-encyclopedia > .legacy-hero, #poe1-encyclopedia > .legacy-intro, #poe1-encyclopedia .poe1-encyclopedia-content, #poe1-encyclopedia .container { width: 100%; max-width: 1440px; margin-left: auto; margin-right: auto; box-sizing: border-box; }
+#poe1-encyclopedia > .legacy-hero { margin-top: 0; }
+#poe1-encyclopedia .container { padding-inline: 0; }
+#poe1-encyclopedia .mechanics-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 285px), 1fr)); gap: clamp(18px, 2vw, 30px); width: 100%; }
+@media (max-width: 767px) {
+    #poe1-encyclopedia.guide-section { padding: 14px; }
+    #poe1-encyclopedia > .legacy-hero { margin-bottom: 16px; }
+    #poe1-encyclopedia .filter-nav { gap: 9px; margin-bottom: 24px; }
+    #poe1-encyclopedia .filter-btn { padding: 10px 14px; }
+}
+
+/* ========================================================================== */
+/* ------------------- CSS MANCANTE: HUB EVOLUTO (Strumenti) ---------------- */
+/* ========================================================================== */
+:root {
+    --hub-game-accent: var(--accent-primary);
+    --hub-game-glow: rgba(255, 152, 0, 0.14);
+}
+body[data-active-game="poe1"], body[data-active-game="poe2"] { --hub-game-accent: var(--accent-primary); --hub-game-glow: rgba(255, 152, 0, 0.14); }
+body[data-active-game="le"] { --hub-game-accent: var(--accent-le); --hub-game-glow: rgba(123, 31, 162, 0.16); }
+body[data-active-game="d2"] { --hub-game-accent: var(--danger); --hub-game-glow: rgba(176, 190, 197, 0.13); }
+body[data-active-game="d4"] { --hub-game-accent: #d55245; --hub-game-glow: rgba(213, 82, 69, 0.15); }
+
+.skip-link { position: fixed; left: 12px; top: 12px; z-index: 200; padding: 10px 14px; border-radius: 9px; background: var(--accent-primary); color: #101010; font-weight: 800; transform: translateY(-160%); transition: transform .16s ease; }
+.skip-link:focus { transform: translateY(0); }
+
+.hub-toolbelt { position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; width: min(1180px, calc(100% - 30px)); margin: 0 auto 14px; padding: 10px; border: 1px solid var(--border-color); border-radius: 13px; background: linear-gradient(100deg, var(--bg-secondary), var(--bg-card)); box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.14); }
+.hub-toolbelt::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; border-radius: 13px 0 0 13px; background: var(--hub-game-accent); box-shadow: 0 0 18px var(--hub-game-glow); }
+
+.hub-tool-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 39px; padding: 7px 11px; color: var(--text-main); background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 9px; cursor: pointer; font: 800 0.78rem var(--font-main); transition: .18s ease; }
+.hub-tool-btn:hover, .hub-tool-btn:focus-visible { color: var(--hub-game-accent); border-color: var(--hub-game-accent); background: var(--bg-hover); transform: translateY(-1px); }
+.hub-tool-btn--accent { background: color-mix(in srgb, var(--hub-game-accent) 16%, var(--bg-main)); border-color: color-mix(in srgb, var(--hub-game-accent) 48%, var(--border-color)); }
+.hub-install-btn[hidden] { display: none; }
+
+.hub-dialog-backdrop { position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.64); backdrop-filter: blur(4px); }
+.hub-dialog-backdrop[hidden] { display: none; }
+.hub-dialog { width: min(860px, 100%); max-height: min(780px, calc(100vh - 32px)); overflow: auto; border: 1px solid var(--border-color); border-radius: 16px; background: linear-gradient(145deg, var(--bg-secondary), var(--bg-main)); box-shadow: 0 28px 72px rgba(0,0,0,.58); }
+.hub-dialog--wide { width: min(1060px, 100%); }
+.hub-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 17px 18px 12px; border-bottom: 1px solid var(--border-color); }
+.hub-dialog-kicker { display: block; margin-bottom: 3px; color: var(--hub-game-accent); font-size: .7rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+.hub-dialog h2 { margin: 0; font-size: 1.18rem; }
+.hub-dialog-subtitle { margin: 5px 0 0; color: var(--text-muted); font-size: .82rem; line-height: 1.4; }
+.hub-dialog-close { flex: 0 0 auto; width: 34px; height: 34px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--bg-card); color: var(--text-main); cursor: pointer; font-size: 1.1rem; }
+.hub-dialog-close:hover { color: var(--danger); border-color: var(--danger); }
+.hub-dialog-body { padding: 15px 18px 19px; }
+
+.hub-search-input { width: 100%; min-height: 47px; padding: 10px 13px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); background: var(--bg-main); font: 600 .95rem var(--font-main); outline: none; }
+.hub-search-input:focus { border-color: var(--hub-game-accent); box-shadow: 0 0 0 3px var(--hub-game-glow); }
+.hub-search-meta { display: flex; justify-content: space-between; gap: 8px; margin: 10px 1px; color: var(--text-muted); font-size: .75rem; }
+.hub-search-results { display: grid; gap: 7px; }
+.hub-search-result { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 11px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); }
+.hub-search-result:hover { border-color: var(--hub-game-accent); }
+.hub-search-result-main { min-width: 0; background: none; border: 0; color: inherit; text-align: left; cursor: pointer; font: inherit; }
+.hub-search-result-title { display: block; overflow: hidden; color: var(--text-main); font-size: .88rem; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
+.hub-search-result-meta { display: block; margin-top: 3px; color: var(--text-muted); font-size: .73rem; }
+.hub-favorite-btn { width: 35px; height: 35px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-muted); cursor: pointer; }
+.hub-favorite-btn.is-favorite { color: #ffd54f; border-color: #ffd54f; }
+.hub-empty { padding: 22px 10px; color: var(--text-muted); text-align: center; font-size: .85rem; }
+
+.hub-season-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr); gap: 15px; }
+.hub-card { padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); }
+.hub-card h3 { margin: 0 0 10px; color: var(--hub-game-accent); font-size: .92rem; }
+.hub-field { display: grid; gap: 5px; margin-bottom: 10px; }
+.hub-field label { color: var(--text-muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+.hub-field input, .hub-field select { width: 100%; min-height: 40px; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); background: var(--bg-main); font: inherit; }
+.hub-checklist { display: grid; gap: 8px; margin: 10px 0; }
+.hub-check { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 8px; background: var(--bg-main); cursor: pointer; font-size: .83rem; }
+.hub-check input { width: 18px; height: 18px; accent-color: var(--hub-game-accent); }
+.hub-action-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.hub-primary-btn, .hub-secondary-btn { min-height: 39px; padding: 8px 11px; border-radius: 8px; cursor: pointer; font: 850 .78rem var(--font-main); }
+.hub-primary-btn { color: #151515; border: 1px solid var(--hub-game-accent); background: var(--hub-game-accent); }
+.hub-secondary-btn { color: var(--text-main); border: 1px solid var(--border-color); background: var(--bg-main); }
+.hub-stats-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; }
+.hub-stat { padding: 10px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--bg-main); }
+.hub-stat b { display: block; color: var(--hub-game-accent); font-size: 1.15rem; }
+.hub-stat span { display: block; margin-top: 2px; color: var(--text-muted); font-size: .7rem; }
+.hub-mini-list { display: grid; gap: 7px; margin-top: 10px; }
+.hub-mini-item { display: flex; justify-content: space-between; gap: 8px; padding: 8px; border-radius: 8px; background: var(--bg-main); font-size: .78rem; }
+.hub-mini-item button { color: var(--hub-game-accent); border: 0; background: none; cursor: pointer; font: inherit; font-weight: 800; }
+
+.hub-compare-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.hub-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.hub-compare-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); }
+.hub-compare-card-head { padding: 13px; border-bottom: 1px solid var(--border-color); background: linear-gradient(115deg, var(--hub-game-glow), transparent); }
+.hub-compare-card-head h3 { margin: 0; font-size: .98rem; }
+.hub-compare-card-head p { margin: 4px 0 0; color: var(--text-muted); font-size: .76rem; }
+.hub-compare-list { margin: 0; padding: 0; list-style: none; }
+.hub-compare-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 13px; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .78rem; }
+.hub-compare-list li:last-child { border-bottom: 0; }
+.hub-compare-list span { color: var(--text-muted); }
+.hub-compare-note { margin: 12px 0 0; color: var(--text-muted); font-size: .74rem; line-height: 1.4; }
+
+.hub-patch-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 11px; }
+.hub-patch-card { padding: 13px; border: 1px solid var(--border-color); border-radius: 11px; background: var(--bg-card); }
+.hub-patch-card h3 { margin: 0; font-size: .92rem; }
+.hub-patch-patch { display: inline-block; margin: 6px 0; padding: 3px 7px; border-radius: 999px; color: var(--hub-game-accent); background: var(--hub-game-glow); font-size: .71rem; font-weight: 900; }
+.hub-patch-card ul { margin: 7px 0 10px; padding-left: 17px; color: var(--text-muted); font-size: .76rem; line-height: 1.45; }
+.hub-patch-card a { color: var(--hub-game-accent); font-size: .76rem; font-weight: 800; }
+
+.hub-toast { position: fixed; right: 16px; bottom: 16px; z-index: 190; max-width: min(380px, calc(100vw - 32px)); padding: 11px 14px; border: 1px solid var(--hub-game-accent); border-radius: 10px; color: var(--text-main); background: var(--bg-secondary); box-shadow: 0 12px 30px rgba(0,0,0,.35); font-size: .82rem; }
+.hub-toast[hidden] { display: none; }
+.hub-accessibility-row { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; grid-column: 1 / -1; margin-top: 2px; }
+.hub-accessibility-row .theme-btn.is-active { color: var(--hub-game-accent); border-color: var(--hub-game-accent); box-shadow: inset 0 0 0 1px var(--hub-game-accent); }
+
+body.hub-high-contrast { --text-muted: #e0e0e0; --border-color: #aeb8c8; }
+body.hub-high-contrast .hub-tool-btn, body.hub-high-contrast .hub-card, body.hub-high-contrast .hub-dialog, body.hub-high-contrast .hub-search-result { border-width: 2px; }
+body.hub-reduce-motion *, body.hub-reduce-motion *::before, body.hub-reduce-motion *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+
+@media (max-width: 767px) {
+    .hub-toolbelt { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; width: calc(100% - 20px); margin-bottom: 10px; padding: 8px; scroll-snap-type: x proximity; }
+    .hub-tool-btn { flex: 0 0 auto; min-height: 40px; scroll-snap-align: start; }
+    .hub-dialog-backdrop { padding: 8px; align-items: end; }
+    .hub-dialog { max-height: min(88vh, 800px); border-radius: 15px 15px 11px 11px; }
+    .hub-dialog-header, .hub-dialog-body { padding-left: 13px; padding-right: 13px; }
+    .hub-season-layout, .hub-compare-grid, .hub-compare-controls, .hub-patch-grid { grid-template-columns: 1fr; }
+    .hub-search-result { grid-template-columns: 1fr auto; }
+    .hub-accessibility-row { grid-template-columns: 1fr; }
+}
