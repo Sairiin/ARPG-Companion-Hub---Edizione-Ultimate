@@ -1,0 +1,51 @@
+<div class="le-sub-nav sub-tabs-container">
+    <button class="le-sub-btn sub-tab-btn active-sub" onclick="openSubTab(event, 'le-dash', 'le')">📊 Dashboard</button>
+    <button class="le-sub-btn sub-tab-btn" onclick="openSubTab(event, 'le-tools', 'le')">🧰 Strumenti</button>
+    <button class="le-sub-btn sub-tab-btn" onclick="openSubTab(event, 'le-builds', 'le')">💾 Le Mie Build</button>
+</div>
+
+<div id="le-dash" class="le-sub-content active-sub-content">
+    <div id="build-meta-le" class="build-meta-panel"></div>
+    
+    <div class="dash-grid">
+        <div class="dash-card">
+            <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-builds-le" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+        <div class="dash-card">
+            <h3>🚀 Top Build Leveling <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-leveling-le" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="build-discovery-le" class="build-discovery-panel"></div>
+</div>
+
+<div id="le-tools" class="le-sub-content" style="display:none;">
+    <div class="tools-grid">
+        <button class="tool-card" onclick="openOverlay('https://www.lastepochtools.com', 'Last Epoch Tools')">🛠️ LE Tools Planner</button>
+        <button class="tool-card" onclick="openOverlay('https://maxroll.gg/last-epoch', 'Maxroll LE')">📖 Maxroll Last Epoch</button>
+    </div>
+</div>
+
+<div id="le-builds" class="le-sub-content" style="display:none;">
+    <div class="my-builds-container">
+        <h3>💾 Salva la tua Build Last Epoch</h3>
+        <form id="form-le" onsubmit="saveBuild(event, 'le')" class="build-form">
+            <input type="text" id="name-le" placeholder="Nome Build" required>
+            <input type="url" id="link-le" placeholder="Link Guida" required>
+            <input type="text" id="version-le" placeholder="Cycle / Versione">
+            <input type="text" id="note-le" placeholder="Note">
+            <div class="form-actions">
+                <button type="submit" id="submit-btn-le" class="submit-btn" style="background:var(--accent-le);">Salva</button>
+                <button type="button" id="cancel-btn-le" class="cancel-btn" style="display:none;" onclick="cancelEdit('le')">Annulla</button>
+            </div>
+        </form>
+        <input type="text" id="filter-saved-le" placeholder="🔍 Cerca tra le mie build..." onkeyup="filterSavedBuilds('le')" class="search-input">
+        <ul id="my-builds-le" class="dash-list my-builds-list"></ul>
+    </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="d2-sub-nav sub-tabs-container">
+    <button class="d2-sub-btn sub-tab-btn active-sub" onclick="openSubTab(event, 'd2-dash', 'd2')">📊 Dashboard</button>
+    <button class="d2-sub-btn sub-tab-btn" onclick="openSubTab(event, 'd2-runewords', 'd2')">🪨 Runewords</button>
+    <button class="d2-sub-btn sub-tab-btn" onclick="openSubTab(event, 'd2-tools', 'd2')">🧰 Strumenti</button>
+    <button class="d2-sub-btn sub-tab-btn" onclick="openSubTab(event, 'd2-builds', 'd2')">💾 Le Mie Build</button>
+</div>
+
+<div id="d2-dash" class="d2-sub-content active-sub-content">
+    <div id="build-meta-d2" class="build-meta-panel"></div>
+    
+    <div class="dash-grid">
+        <div class="dash-card">
+            <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-builds-d2" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+        <div class="dash-card">
+            <h3>🚀 Top Build Leveling <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-leveling-d2" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="build-discovery-d2" class="build-discovery-panel"></div>
+</div>
+
+<div id="d2-runewords" class="d2-sub-content" style="display:none;">
+    <div class="filter-bar" style="margin-bottom: 15px;">
+        <label for="type-filter-d2">Filtra per Tipo Oggetto: </label>
+        <select id="type-filter-d2" onchange="renderD2Runewords()">
+            <option value="all">Tutti gli Oggetti</option>
+            <option value="armatura">👕 Armature</option>
+            <option value="arma">⚔️ Armi</option>
+            <option value="scudo">🛡️ Scudi</option>
+            <option value="elmo">🪖 Elmi</option>
+        </select>
+    </div>
+    <div id="runewords-container"></div>
+</div>
+
+<div id="d2-tools" class="d2-sub-content" style="display:none;">
+    <div class="tools-grid">
+        <button class="tool-card" onclick="openOverlay('https://d2runewizard.com', 'D2 RuneWizard')">🧙‍♂️ D2 RuneWizard</button>
+        <button class="tool-card" onclick="openOverlay('https://maxroll.gg/d2', 'Maxroll D2')">📖 Maxroll D2</button>
+    </div>
+</div>
+
+<div id="d2-builds" class="d2-sub-content" style="display:none;">
+    <div class="my-builds-container">
+        <h3>💾 Salva la tua Build Diablo 2</h3>
+        <form id="form-d2" onsubmit="saveBuild(event, 'd2')" class="build-form">
+            <input type="text" id="name-d2" placeholder="Nome Build" required>
+            <input type="url" id="link-d2" placeholder="Link Guida" required>
+            <input type="text" id="version-d2" placeholder="Ladder / Patch">
+            <input type="text" id="note-d2" placeholder="Note">
+            <div class="form-actions">
+                <button type="submit" id="submit-btn-d2" class="submit-btn" style="background:var(--danger);">Salva</button>
+                <button type="button" id="cancel-btn-d2" class="cancel-btn" style="display:none;" onclick="cancelEdit('d2')">Annulla</button>
+            </div>
+        </form>
+        <input type="text" id="filter-saved-d2" placeholder="🔍 Cerca tra le mie build..." onkeyup="filterSavedBuilds('d2')" class="search-input">
+        <ul id="my-builds-d2" class="dash-list my-builds-list"></ul>
+    </div>
+</div>

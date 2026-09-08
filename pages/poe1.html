@@ -1,0 +1,58 @@
+<div class="poe1-sub-nav sub-tabs-container">
+    <button class="poe1-sub-btn sub-tab-btn active-sub" onclick="openSubTab(event, 'poe1-dash', 'poe1')">📊 Dashboard</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-tools', 'poe1')">🧰 Strumenti</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-builds', 'poe1')">💾 Le Mie Build</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-encyclopedia', 'poe1')">📖 Enciclopedia</button>
+</div>
+
+<div id="poe1-dash" class="poe1-sub-content active-sub-content">
+    <div id="build-meta-poe1" class="build-meta-panel"></div>
+    
+    <div class="dash-grid">
+        <div class="dash-card">
+            <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-builds-poe1" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+        <div class="dash-card">
+            <h3>🚀 Top Build Leveling <span class="tag season-highlight">Caricamento...</span></h3>
+            <ul id="top-leveling-poe1" class="dash-list">
+                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="build-discovery-poe1" class="build-discovery-panel"></div>
+</div>
+
+<div id="poe1-tools" class="poe1-sub-content" style="display:none;">
+    <div class="tools-grid">
+        <button class="tool-card" onclick="openOverlay('https://poe.ninja', 'PoE Ninja')">📈 PoE Ninja</button>
+        <button class="tool-card" onclick="openOverlay('https://pathofexile.pobb.in', 'PoBB.in')">📋 PoBB.in</button>
+        <button class="tool-card" onclick="openOverlay('https://www.poewiki.net', 'PoE Wiki')">📚 Official Wiki</button>
+        <button class="tool-card" onclick="openOverlay('https://craftofexile.com', 'Craft of Exile')">🔨 Craft of Exile</button>
+    </div>
+</div>
+
+<div id="poe1-builds" class="poe1-sub-content" style="display:none;">
+    <div class="my-builds-container">
+        <h3>💾 Salva la tua Build PoE 1</h3>
+        <form id="form-poe1" onsubmit="saveBuild(event, 'poe1')" class="build-form">
+            <input type="text" id="name-poe1" placeholder="Nome Build (es. Archmage Ball Lightning)" required>
+            <input type="url" id="link-poe1" placeholder="Link (PoBB.in / Maxroll)" required>
+            <input type="text" id="version-poe1" placeholder="Versione/Lega (es. 3.25)">
+            <input type="text" id="note-poe1" placeholder="Note personali">
+            <div class="form-actions">
+                <button type="submit" id="submit-btn-poe1" class="submit-btn">Salva</button>
+                <button type="button" id="cancel-btn-poe1" class="cancel-btn" style="display:none;" onclick="cancelEdit('poe1')">Annulla</button>
+            </div>
+        </form>
+        <input type="text" id="filter-saved-poe1" placeholder="🔍 Cerca tra le mie build..." onkeyup="filterSavedBuilds('poe1')" class="search-input">
+        <ul id="my-builds-poe1" class="dash-list my-builds-list"></ul>
+    </div>
+</div>
+
+<div id="poe1-encyclopedia" class="poe1-sub-content" style="display:none;">
+    <p style="color: var(--text-muted); font-style:italic;">Caricamento risorse enciclopedia PoE 1...</p>
+</div>
