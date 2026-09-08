@@ -910,7 +910,8 @@ window.openMainTab = async function(evt, gameId, accentColor) {
 
         function renderBuildDiscovery(gameId, gameData) {
             const target = document.getElementById(`build-discovery-${gameId}`);
-            const config = buildDiscoveryConfig[gameId];
+            // Cerca la configurazione nel JSON, se non c'è usa quella di base
+            const config = gameData.discovery || buildDiscoveryConfig[gameId];
             if (!target || !config) return;
             target.replaceChildren();
 
