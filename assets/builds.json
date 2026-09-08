@@ -6,40 +6,40 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "PoE Ninja",
-          "url": "https://poe.ninja"
+          "label": "Auto-Scanner",
+          "url": "#"
         }
       ],
       "discovery": {
         "sources": [
           [
             "Maxroll",
-            "https://maxroll.gg/poe"
+            "https://maxroll.gg/poe1"
           ],
           [
             "Icy Veins",
-            "https://www.icy-veins.com/poe"
+            "https://www.icy-veins.com/poe1"
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/poe"
+            "https://mobalytics.gg/poe1"
           ]
         ],
         "prompts": [
           [
             "Starter / Leveling",
             "Punti di partenza per la progressione iniziale.",
-            "poe leveling build"
+            "poe1 leveling build"
           ],
           [
             "Endgame & Boss",
             "Build avanzate per i contenuti più difficili.",
-            "poe endgame boss build"
+            "poe1 endgame boss build"
           ],
           [
             "Speedfarming",
             "Per pulire le mappe alla massima velocità.",
-            "poe speedfarm build"
+            "poe1 speedfarm build"
           ]
         ]
       },
@@ -68,12 +68,12 @@
     },
     "d4": {
       "patch": "Stagione 7",
-      "reviewCycleDays": 7,
+      "reviewCycleDays": 1,
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Maxroll",
-          "url": "https://maxroll.gg/d4"
+          "label": "Auto-Scanner",
+          "url": "#"
         }
       ],
       "discovery": {
@@ -112,20 +112,20 @@
       "builds": {
         "endgame": [
           {
-            "title": "Lightning Spear",
-            "class": "Sorcerer",
-            "specialization": "Evocation",
-            "tier": "S",
-            "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/d4/build-guides/lightning-spear-sorcerer-guide"
+            "title": "Tier Lists for Leveling, ...",
+            "class": "Meta Aggiornato",
+            "specialization": "Live",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://www.icy-veins.com/d4/guides/tier-lists/"
           },
           {
-            "title": "Bone Spirit",
-            "class": "Necromancer",
-            "specialization": "Bone",
-            "tier": "S",
-            "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/d4/build-guides/bone-spirit-necromancer-guide"
+            "title": "NecromancerCold Army of t...",
+            "class": "Meta Aggiornato",
+            "specialization": "Live",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://www.icy-veins.com/d4/guides/army-of-the-dead-necromancer-build/"
           }
         ],
         "leveling": [
@@ -135,19 +135,19 @@
             "specialization": "Leveling",
             "tier": "Start",
             "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/d4/build-guides/chain-lightning-sorcerer-leveling-guide"
+            "sourceUrl": "https://maxroll.gg/d4"
           }
         ]
       }
     },
     "le": {
       "patch": "Cycle 1.1",
-      "reviewCycleDays": 7,
+      "reviewCycleDays": 1,
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Maxroll",
-          "url": "https://maxroll.gg/le"
+          "label": "Auto-Scanner",
+          "url": "#"
         }
       ],
       "discovery": {
@@ -199,12 +199,12 @@
     },
     "d2": {
       "patch": "Ladder Stagione 14",
-      "reviewCycleDays": 7,
+      "reviewCycleDays": 1,
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Maxroll",
-          "url": "https://maxroll.gg/d2"
+          "label": "Auto-Scanner",
+          "url": "#"
         }
       ],
       "discovery": {
@@ -256,12 +256,12 @@
     },
     "poe2": {
       "patch": "Early Access",
-      "reviewCycleDays": 7,
+      "reviewCycleDays": 1,
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Maxroll",
-          "url": "https://maxroll.gg/poe2"
+          "label": "Auto-Scanner",
+          "url": "#"
         }
       ],
       "discovery": {
