@@ -377,6 +377,9 @@ window.openMainTab = async function(evt, gameId, accentColor) {
         const htmlContent = await response.text();
         container.innerHTML = htmlContent;
 
+        // Rimuoviamo il blocco dal Set così da FORZARE il ricaricamento dei dati ogni volta che cambi scheda
+        initializedTabs.delete(gameId);
+
         if (window.initializeTabContent) {
             window.initializeTabContent(gameId);
         }
