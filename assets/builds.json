@@ -6,7 +6,11 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Auto-Scanner",
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe1"
+        },
+        {
+          "label": "Community Meta",
           "url": "#"
         }
       ],
@@ -28,17 +32,17 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione iniziale.",
+            "Punti di partenza per la progressione.",
             "poe1 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build avanzate per i contenuti più difficili.",
+            "Build per i contenuti più difficili.",
             "poe1 endgame boss build"
           ],
           [
             "Speedfarming",
-            "Per pulire le mappe alla massima velocità.",
+            "Per pulire le mappe a massima velocità.",
             "poe1 speedfarm build"
           ]
         ]
@@ -72,7 +76,11 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Auto-Scanner",
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/d4"
+        },
+        {
+          "label": "Community Meta",
           "url": "#"
         }
       ],
@@ -94,17 +102,17 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione iniziale.",
+            "Punti di partenza per la progressione.",
             "d4 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build avanzate per i contenuti più difficili.",
+            "Build per i contenuti più difficili.",
             "d4 endgame boss build"
           ],
           [
             "Speedfarming",
-            "Per pulire le mappe alla massima velocità.",
+            "Per pulire le mappe a massima velocità.",
             "d4 speedfarm build"
           ]
         ]
@@ -146,7 +154,11 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Auto-Scanner",
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/le"
+        },
+        {
+          "label": "Community Meta",
           "url": "#"
         }
       ],
@@ -168,17 +180,17 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione iniziale.",
+            "Punti di partenza per la progressione.",
             "le leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build avanzate per i contenuti più difficili.",
+            "Build per i contenuti più difficili.",
             "le endgame boss build"
           ],
           [
             "Speedfarming",
-            "Per pulire le mappe alla massima velocità.",
+            "Per pulire le mappe a massima velocità.",
             "le speedfarm build"
           ]
         ]
@@ -194,7 +206,16 @@
             "sourceUrl": "https://maxroll.gg/last-epoch/build-guides/falconer"
           }
         ],
-        "leveling": []
+        "leveling": [
+          {
+            "title": "Hammerdin Sentinel",
+            "class": "Sentinel",
+            "specialization": "Paladin",
+            "tier": "Leveling",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          }
+        ]
       }
     },
     "d2": {
@@ -203,7 +224,11 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Auto-Scanner",
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/d2"
+        },
+        {
+          "label": "Community Meta",
           "url": "#"
         }
       ],
@@ -225,17 +250,17 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione iniziale.",
+            "Punti di partenza per la progressione.",
             "d2 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build avanzate per i contenuti più difficili.",
+            "Build per i contenuti più difficili.",
             "d2 endgame boss build"
           ],
           [
             "Speedfarming",
-            "Per pulire le mappe alla massima velocità.",
+            "Per pulire le mappe a massima velocità.",
             "d2 speedfarm build"
           ]
         ]
@@ -251,7 +276,16 @@
             "sourceUrl": "https://maxroll.gg/d2/guides/blessed-hammer-paladin"
           }
         ],
-        "leveling": []
+        "leveling": [
+          {
+            "title": "Holy Fire Paladin",
+            "class": "Paladin",
+            "specialization": "Fire",
+            "tier": "Leveling",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d2"
+          }
+        ]
       }
     },
     "poe2": {
@@ -260,7 +294,11 @@
       "reviewedAt": "2026-09-08",
       "sources": [
         {
-          "label": "Auto-Scanner",
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe2"
+        },
+        {
+          "label": "Community Meta",
           "url": "#"
         }
       ],
@@ -282,24 +320,50 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione iniziale.",
+            "Punti di partenza per la progressione.",
             "poe2 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build avanzate per i contenuti più difficili.",
+            "Build per i contenuti più difficili.",
             "poe2 endgame boss build"
           ],
           [
             "Speedfarming",
-            "Per pulire le mappe alla massima velocità.",
+            "Per pulire le mappe a massima velocità.",
             "poe2 speedfarm build"
           ]
         ]
       },
       "builds": {
-        "endgame": [],
-        "leveling": []
+        "endgame": [
+          {
+            "title": "Monk Strike",
+            "class": "Monk",
+            "specialization": "Invoker",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://poe2db.tw"
+          },
+          {
+            "title": "Warrior Heavy Slash",
+            "class": "Warrior",
+            "specialization": "Titan",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://poe2db.tw"
+          }
+        ],
+        "leveling": [
+          {
+            "title": "Ranger Bow Starter",
+            "class": "Ranger",
+            "specialization": "Deadeye",
+            "tier": "Leveling",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://poe2db.tw"
+          }
+        ]
       }
     }
   }
