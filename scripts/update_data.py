@@ -8,9 +8,45 @@ BUILDS_FILE = 'assets/builds.json'
 today_str = datetime.utcnow().strftime('%Y-%m-%d')
 
 # =====================================================================
-# 1. FUNZIONI DI ESTRAZIONE AUTOMATICA (API & SCRAPING)
+# 1. API ARPG TIMELINE (RECUPERO AUTOMATICO NOME STAGIONE)
 # =====================================================================
+def fetch_arpg_timeline_season(game_key, fallback_name):
+    """
+    Recupera il nome della stagione corrente da aRPG Timeline.
+    game_key accettate: 'poe1', 'poe2', 'd4', 'd2', 'le'
+    """
+    mapping = {
+        "poe1": "path-of-exile",
+        "poe2": "path-of-exile-2",
+        "d4": "diablo-iv",
+        "d2": "diablo-ii-resurrected",
+        "le": "last-epoch"
+    }
+    
+    slug = mapping.get(game_key)
+    if not slug:
+        return fallback_name
 
+    try:
+        url = f"https://www.arpg-timeline.com/api/v1/games/{slug}"
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        res = requests.get(url, headers=headers, timeout=5)
+        
+        if res.status_code == 200:
+            data = res.json()
+            current_season = data.get("current_season", {}).get("name")
+            if current_season:
+                print(f"[+] aRPG Timeline ({game_key}): Trovata stagione '{current_season}'")
+                return current_season
+    except Exception as e:
+        print(f"[-] Impossibile recuperare da aRPG Timeline per {game_key}: {e}")
+    
+    print(f"[*] Usa nome fallback per {game_key}: '{fallback_name}'")
+    return fallback_name
+
+# =====================================================================
+# 2. FUNZIONI DI ESTRAZIONE AUTOMATICA BUILD (API & SCRAPING)
+# =====================================================================
 def fetch_poe1_endgame():
     """Estrae le 3 skill assolute più giocate in endgame da PoE Ninja (API Ufficiale)"""
     builds = []
@@ -35,7 +71,7 @@ def fetch_poe1_endgame():
     return builds
 
 def scrape_icyveins_d4():
-    """Esempio di Web Scraping: legge la pagina di Icy Veins per cercare guide D4"""
+    """Esegue lo Scraping su Icy Veins per cercare guide D4"""
     builds = []
     try:
         url = "https://www.icy-veins.com/d4/"
@@ -43,7 +79,6 @@ def scrape_icyveins_d4():
         res = requests.get(url, headers=headers, timeout=10)
         if res.status_code == 200:
             soup = BeautifulSoup(res.text, 'html.parser')
-            # Cerca i link che contengono '/d4/guides/' e la parola 'build'
             links = soup.find_all('a', href=True)
             for a in links:
                 href = a['href']
@@ -62,9 +97,8 @@ def scrape_icyveins_d4():
     return builds
 
 # =====================================================================
-# 2. GENERATORE DI BLOCCHI E DISCOVERY
+# 3. GENERATORE DI DISCOVERY
 # =====================================================================
-
 def generate_discovery(game_id):
     """Genera le query dinamiche di ricerca per la community"""
     return {
@@ -81,11 +115,9 @@ def generate_discovery(game_id):
     }
 
 # =====================================================================
-# 3. MOTORE PRINCIPALE E SISTEMA DI FALLBACK
+# 4. MOTORE PRINCIPALE
 # =====================================================================
-
 def main():
-    # 3a. Carica il JSON esistente per usarlo come "Paracadute" se lo scraping fallisce
     catalog = {"games": {}}
     if os.path.exists(BUILDS_FILE):
         try:
@@ -94,9 +126,7 @@ def main():
         except Exception:
             pass
 
-    # Funzione di supporto per unire i dati vecchi con quelli nuovi (se disponibili)
     def update_game_data(game_id, patch_name, new_endgame, new_leveling, fallback_static_endgame):
-        # Se il robot non trova nulla, usa le build precedenti. Se è vuoto, usa un fallback statico.
         current_data = catalog.get("games", {}).get(game_id, {})
         old_endgame = current_data.get("builds", {}).get("endgame", [])
         
@@ -108,38 +138,43 @@ def main():
         catalog["games"][game_id] = {
             "patch": patch_name,
             "reviewCycleDays": 1,
-            "reviewedAt": today_str, # Aggiorna sempre la data così il sito mostra "Verificato"
+            "reviewedAt": today_str,
             "sources": [{"label": "Auto-Scanner", "url": "#"}],
             "discovery": generate_discovery(game_id),
             "builds": {
                 "endgame": final_endgame,
-                "leveling": new_leveling # Qui puoi aggiungere scraper simili per il leveling
+                "leveling": new_leveling
             }
         }
 
-    print("Avvio scansione robot...")
+    print("Avvio scansione robot con integrazione aRPG Timeline...")
 
-    # --- POE 1 (Aggiornamento API) ---
-    print("- Aggiorno PoE 1...")
-    update_game_data("poe1", "Lega 3.25 Settlers", fetch_poe1_endgame(), [{"title": "Rolling Magma", "class": "Templar", "specialization": "Inquisitor", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe"}], [{"title": "Lightning Arrow", "class": "Ranger", "specialization": "Deadeye", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe"}])
+    # --- POE 1 ---
+    poe1_season = fetch_arpg_timeline_season("poe1", "Lega 3.29 Curse of the Allflame")
+    print(f"- Aggiorno PoE 1 ({poe1_season})...")
+    update_game_data("poe1", poe1_season, fetch_poe1_endgame(), [{"title": "Rolling Magma", "class": "Templar", "specialization": "Inquisitor", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe"}], [{"title": "Lightning Arrow", "class": "Ranger", "specialization": "Deadeye", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe"}])
 
-    # --- DIABLO 4 (Aggiornamento Scraping) ---
-    print("- Aggiorno Diablo 4...")
-    update_game_data("d4", "Stagione 7", scrape_icyveins_d4(), [{"title": "Chain Lightning", "class": "Sorcerer", "specialization": "Leveling", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/d4"}], [{"title": "Lightning Spear", "class": "Sorcerer", "specialization": "Evocation", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4"}])
+    # --- DIABLO 4 ---
+    d4_season = fetch_arpg_timeline_season("d4", "Stagione 7")
+    print(f"- Aggiorno Diablo 4 ({d4_season})...")
+    update_game_data("d4", d4_season, scrape_icyveins_d4(), [{"title": "Chain Lightning", "class": "Sorcerer", "specialization": "Leveling", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/d4"}], [{"title": "Lightning Spear", "class": "Sorcerer", "specialization": "Evocation", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4"}])
 
-    # --- LAST EPOCH (Dati Statici di Fallback) ---
-    print("- Aggiorno Last Epoch...")
-    update_game_data("le", "Cycle 1.1", [], [], [{"title": "Falconer Dive Bomb", "class": "Rogue", "specialization": "Falconer", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch"}])
+    # --- LAST EPOCH ---
+    le_season = fetch_arpg_timeline_season("le", "Cycle 1.1")
+    print(f"- Aggiorno Last Epoch ({le_season})...")
+    update_game_data("le", le_season, [], [], [{"title": "Falconer Dive Bomb", "class": "Rogue", "specialization": "Falconer", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch"}])
 
-    # --- DIABLO 2 (Dati Statici di Fallback) ---
-    print("- Aggiorno Diablo 2...")
-    update_game_data("d2", "Ladder Stagione 14", [], [], [{"title": "Hammerdin", "class": "Paladin", "specialization": "Caster", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d2"}])
+    # --- DIABLO 2 ---
+    d2_season = fetch_arpg_timeline_season("d2", "Ladder Stagione 14")
+    print(f"- Aggiorno Diablo 2 ({d2_season})...")
+    update_game_data("d2", d2_season, [], [], [{"title": "Hammerdin", "class": "Paladin", "specialization": "Caster", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d2"}])
 
     # --- POE 2 ---
-    print("- Aggiorno PoE 2...")
-    update_game_data("poe2", "Early Access", [], [], [])
+    poe2_season = fetch_arpg_timeline_season("poe2", "Early Access")
+    print(f"- Aggiorno PoE 2 ({poe2_season})...")
+    update_game_data("poe2", poe2_season, [], [], [])
 
-    # Salva il file definitivo
+    # Salva il file
     os.makedirs('assets', exist_ok=True)
     with open(BUILDS_FILE, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2)
