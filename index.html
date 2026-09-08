@@ -26,7 +26,7 @@
     <!-- IL NUOVO FILE JS -->
     <script type="module" src="js/main.js" defer></script>
 </head>
-<body>
+<body data-active-game="poe1">
     <!-- OVERLAY MODAL (iFrame) -->
     <div class="modal" id="iframe-modal">
         <div class="modal-content">
@@ -121,9 +121,11 @@
         </button>
     </nav>
 
-    <!-- CONTAINER DINAMICO DOVE VENGONO INIETTATI I FILE -->
-    <main id="game-content-container" class="tab-content active" style="display: block;">
-        <!-- IL CONTENUTO DEI GIOCHI APPARIRÀ QUI -->
+<!-- CONTAINER DINAMICO DOVE VENGONO INIETTATI I FILE -->
+    <main>
+        <section id="game-content-container" class="tab-content active" style="display: block;">
+            <!-- IL CONTENUTO DEI GIOCHI APPARIRÀ QUI -->
+        </section>
     </main>
 
     <!-- FOOTER -->
