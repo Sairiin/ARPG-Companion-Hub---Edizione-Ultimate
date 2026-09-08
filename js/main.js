@@ -422,7 +422,7 @@ window.multiSearch = function(event, inputId, selectId) {
 // =========================================================
 // 5. DATABASE SMART LINKS (LETTURA JSON E RENDER BUILD)
 // =========================================================
-const BUILD_CATALOG_URL = 'assets/builds.json';
+const BUILD_CATALOG_URL = './assets/builds.json';
 const buildCatalogState = { data: null, promise: null };
 const buildGameTitles = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
 
