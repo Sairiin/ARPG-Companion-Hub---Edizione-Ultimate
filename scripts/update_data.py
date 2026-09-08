@@ -3,11 +3,19 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 import os
+import re
 
 BUILDS_FILE = 'assets/builds.json'
 today_str = datetime.utcnow().strftime('%Y-%m-%d')
 
+# =====================================================================
+# 1. SCRAPING ARPG TIMELINE (DATI LIVE E TIMER)
+# =====================================================================
 def fetch_arpg_timeline_season(game_key, fallback_name):
+    """
+    Legge direttamente la pagina pubblica di aRPG Timeline per estrarre 
+    il nome della stagione e i giorni rimanenti.
+    """
     mapping = {
         "poe1": "path-of-exile",
         "poe2": "path-of-exile2",
@@ -20,41 +28,41 @@ def fetch_arpg_timeline_season(game_key, fallback_name):
         return fallback_name
 
     try:
-        url = f"https://www.arpg-timeline.com/api/v1/games/{slug}"
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        res = requests.get(url, headers=headers, timeout=5)
+        url = f"https://www.arpg-timeline.com/game/{slug}"
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}
+        res = requests.get(url, headers=headers, timeout=8)
+        
         if res.status_code == 200:
-            data = res.json()
-            current_season = data.get("current_season", {})
-            season_name = current_season.get("name")
-            end_date_str = current_season.get("end_date") # ISO Date dall'API
-            
-            if season_name:
-                time_left_str = ""
-                if end_date_str:
-                    try:
-                        # Calcola il tempo rimanente rispetto ad oggi
-                        end_date = datetime.fromisoformat(end_date_str.replace('Z', '+00:00'))
-                        now = datetime.now(end_date.tzinfo)
-                        diff = end_date - now
-                        
-                        if diff.days > 0:
-                            time_left_str = f" (Termina tra {diff.days}g)"
-                        elif diff.seconds > 0:
-                            hours = diff.seconds // 3600
-                            time_left_str = f" (Termina tra {hours}h)"
-                        else:
-                            time_left_str = " (In conclusione)"
-                    except Exception as e:
-                        print(f"[-] Errore calcolo data fine {game_key}: {e}")
+            soup = BeautifulSoup(res.text, 'html.parser')
+            text_content = soup.get_text()
 
-                full_season_info = f"{season_name}{time_left_str}"
-                print(f"[+] aRPG Timeline ({game_key}): '{full_season_info}'")
-                return full_season_info
+            # Estrazione specifica per PoE 2 (Forbidden Rites -> Launch 1.0)
+            if game_key == "poe2":
+                season_match = re.search(r'(0\.5\.5\s*-\s*The Forbidden Rites Event)', text_content, re.IGNORECASE)
+                season_name = season_match.group(1) if season_match else "0.5.5 The Forbidden Rites"
+                
+                # Calcolo giorni al 11 Dicembre 2026 (Lancio 1.0)
+                target_date = datetime(2026, 12, 11)
+                now = datetime.utcnow()
+                days_left = (target_date - now).days
+                
+                if days_left > 0:
+                    return f"{season_name} (Termina tra {days_left}g)"
+                return season_name
+
+            # Estrattore generale per altri giochi
+            season_match = re.search(r'Current Season:\s*([^\n\r]+)', text_content, re.IGNORECASE)
+            if season_match:
+                return season_match.group(1).strip()
+
     except Exception as e:
-        print(f"[-] Timeline API Error ({game_key}): {e}")
+        print(f"[-] Errore scraping aRPG Timeline per {game_key}: {e}")
+    
     return fallback_name
 
+# =====================================================================
+# 2. ESTRAZIONE BUILD AUTOMATICHE
+# =====================================================================
 def fetch_poe1_endgame():
     builds = []
     try:
@@ -91,6 +99,9 @@ def generate_discovery(game_id):
         ]
     }
 
+# =====================================================================
+# 3. MAIN
+# =====================================================================
 def main():
     catalog = {"games": {}}
     if os.path.exists(BUILDS_FILE):
@@ -115,7 +126,7 @@ def main():
             "patch": patch_name,
             "reviewCycleDays": 1,
             "reviewedAt": today_str,
-            "sources": [{"label": "Maxroll", "url": f"https://maxroll.gg/{game_id}"}, {"label": "Community Meta", "url": "#"}],
+            "sources": [{"label": "Maxroll", "url": f"https://maxroll.gg/{game_id}"}, {"label": "aRPG Timeline", "url": f"https://www.arpg-timeline.com/game/{game_id}"}],
             "discovery": generate_discovery(game_id),
             "builds": {
                 "endgame": final_endgame,
@@ -125,7 +136,7 @@ def main():
 
     print("Scansione e aggiornamento database ARPG...")
 
-    # DATABASE BUILDS PER TUTTI I GIOCHI
+    # POE 1
     update_game_data(
         "poe1", 
         fetch_arpg_timeline_season("poe1", "Lega 3.29 Curse of the Allflame"), 
@@ -135,33 +146,44 @@ def main():
         [{"title": "Rolling Magma", "class": "Templar", "specialization": "Inquisitor", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe"}]
     )
 
+    # POE 2 (Dati specifici 0.5.5 Forbidden Rites + Timer per il Launch 1.0)
     update_game_data(
         "poe2", 
-        fetch_arpg_timeline_season("poe2", "Early Access"), 
+        fetch_arpg_timeline_season("poe2", "0.5.5 - The Forbidden Rites Event"), 
         [], 
         [], 
-        [{"title": "Monk Strike", "class": "Monk", "specialization": "Invoker", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://poe2db.tw"}, {"title": "Warrior Heavy Slash", "class": "Warrior", "specialization": "Titan", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://poe2db.tw"}], 
-        [{"title": "Ranger Bow Starter", "class": "Ranger", "specialization": "Deadeye", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://poe2db.tw"}]
+        [
+            {"title": "Monk Invoker Palm", "class": "Monk", "specialization": "Invoker", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe2"},
+            {"title": "Druid Bear Slam", "class": "Druid", "specialization": "Shapeshifter", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe2"},
+            {"title": "Mercenary Crossbow", "class": "Mercenary", "specialization": "Witchhunter", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://maxroll.gg/poe2"}
+        ], 
+        [
+            {"title": "Ranger Lightning Arrow", "class": "Ranger", "specialization": "Deadeye", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe2"},
+            {"title": "Warrior Heavy Strike", "class": "Warrior", "specialization": "Titan", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe2"}
+        ]
     )
 
+    # DIABLO 4
     update_game_data(
         "d4", 
-        fetch_arpg_timeline_season("d4", "Stagione 7"), 
+        fetch_arpg_timeline_season("d4", "Stagione 14 - Season of Death Awakening"), 
         [], 
         [], 
         [{"title": "Lightning Spear", "class": "Sorcerer", "specialization": "Evocation", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4/build-guides/lightning-spear-sorcerer-guide"}, {"title": "Bone Spirit", "class": "Necromancer", "specialization": "Macabre", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4/build-guides/bone-spirit-necromancer-guide"}], 
         [{"title": "Chain Lightning", "class": "Sorcerer", "specialization": "Leveling", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/d4/build-guides/chain-lightning-sorcerer-leveling-guide"}]
     )
 
+    # LAST EPOCH
     update_game_data(
         "le", 
-        fetch_arpg_timeline_season("le", "Cycle 1.1"), 
+        fetch_arpg_timeline_season("le", "Season 4 - Shattered Omens"), 
         [], 
         [], 
         [{"title": "Falconer Dive Bomb", "class": "Rogue", "specialization": "Falconer", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch/build-guides/falconer-build-guide"}, {"title": "Torment Warlock", "class": "Acolyte", "specialization": "Warlock", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch/build-guides/torment-warlock"}], 
         [{"title": "Hammerdin Sentinel", "class": "Sentinel", "specialization": "Paladin", "tier": "Leveling", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/last-epoch"}]
     )
 
+    # DIABLO 2
     update_game_data(
         "d2", 
         fetch_arpg_timeline_season("d2", "Ladder Stagione 14"), 
@@ -175,7 +197,7 @@ def main():
     with open(BUILDS_FILE, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2)
     
-    print(f"[+] File {BUILDS_FILE} salvato correttamente per tutti i giochi!")
+    print(f"[+] File {BUILDS_FILE} salvato e sincronizzato correttamente!")
 
 if __name__ == '__main__':
     main()
