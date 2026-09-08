@@ -1,7 +1,7 @@
 {
   "games": {
     "poe1": {
-      "patch": "Lega Attuale",
+      "patch": "Lega 3.25 Settlers",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-08",
       "sources": [
@@ -10,55 +10,293 @@
           "url": "https://poe.ninja"
         }
       ],
-      "builds": {
-        "endgame": [],
-        "leveling": []
-      }
-    },
-    "poe2": {
-      "patch": "Early Access",
-      "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-08",
-      "sources": [],
-      "builds": {
-        "endgame": [],
-        "leveling": []
-      }
-    },
-    "d2": {
-      "patch": "Stagione Corrente",
-      "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-08",
-      "sources": [],
-      "builds": {
-        "endgame": [],
-        "leveling": []
-      }
-    },
-    "d4": {
-      "patch": "Stagione Corrente",
-      "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-08",
-      "sources": [],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/poe"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/poe"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/poe"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter / Leveling",
+            "Punti di partenza per la progressione iniziale.",
+            "poe leveling build"
+          ],
+          [
+            "Endgame & Boss",
+            "Build avanzate per i contenuti più difficili.",
+            "poe endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe alla massima velocità.",
+            "poe speedfarm build"
+          ]
+        ]
+      },
       "builds": {
         "endgame": [
           {
-            "title": "Migliore Build Diablo 4",
-            "class": "N/D",
-            "specialization": "N/A",
+            "title": "Lightning Arrow",
+            "class": "Ranger",
+            "specialization": "Deadeye",
             "tier": "S",
-            "tierColor": "#4caf50",
-            "sourceUrl": "https://maxroll.gg"
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe"
+          }
+        ],
+        "leveling": [
+          {
+            "title": "Rolling Magma",
+            "class": "Templar",
+            "specialization": "Inquisitor",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe"
+          }
+        ]
+      }
+    },
+    "d4": {
+      "patch": "Stagione 7",
+      "reviewCycleDays": 7,
+      "reviewedAt": "2026-09-08",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/d4"
+        }
+      ],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/d4"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/d4"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/d4"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter / Leveling",
+            "Punti di partenza per la progressione iniziale.",
+            "d4 leveling build"
+          ],
+          [
+            "Endgame & Boss",
+            "Build avanzate per i contenuti più difficili.",
+            "d4 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe alla massima velocità.",
+            "d4 speedfarm build"
+          ]
+        ]
+      },
+      "builds": {
+        "endgame": [
+          {
+            "title": "Lightning Spear",
+            "class": "Sorcerer",
+            "specialization": "Evocation",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides/lightning-spear-sorcerer-guide"
+          },
+          {
+            "title": "Bone Spirit",
+            "class": "Necromancer",
+            "specialization": "Bone",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides/bone-spirit-necromancer-guide"
+          }
+        ],
+        "leveling": [
+          {
+            "title": "Chain Lightning",
+            "class": "Sorcerer",
+            "specialization": "Leveling",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d4/build-guides/chain-lightning-sorcerer-leveling-guide"
+          }
+        ]
+      }
+    },
+    "le": {
+      "patch": "Cycle 1.1",
+      "reviewCycleDays": 7,
+      "reviewedAt": "2026-09-08",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/le"
+        }
+      ],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/le"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/le"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/le"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter / Leveling",
+            "Punti di partenza per la progressione iniziale.",
+            "le leveling build"
+          ],
+          [
+            "Endgame & Boss",
+            "Build avanzate per i contenuti più difficili.",
+            "le endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe alla massima velocità.",
+            "le speedfarm build"
+          ]
+        ]
+      },
+      "builds": {
+        "endgame": [
+          {
+            "title": "Falconer Dive Bomb",
+            "class": "Rogue",
+            "specialization": "Falconer",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides/falconer"
           }
         ],
         "leveling": []
       }
     },
-    "le": {
-      "patch": "Cycle Corrente",
-      "reviewCycleDays": 1,
+    "d2": {
+      "patch": "Ladder Stagione 14",
+      "reviewCycleDays": 7,
       "reviewedAt": "2026-09-08",
-      "sources": [],
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/d2"
+        }
+      ],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/d2"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/d2"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/d2"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter / Leveling",
+            "Punti di partenza per la progressione iniziale.",
+            "d2 leveling build"
+          ],
+          [
+            "Endgame & Boss",
+            "Build avanzate per i contenuti più difficili.",
+            "d2 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe alla massima velocità.",
+            "d2 speedfarm build"
+          ]
+        ]
+      },
+      "builds": {
+        "endgame": [
+          {
+            "title": "Hammerdin",
+            "class": "Paladin",
+            "specialization": "Caster",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d2/guides/blessed-hammer-paladin"
+          }
+        ],
+        "leveling": []
+      }
+    },
+    "poe2": {
+      "patch": "Early Access",
+      "reviewCycleDays": 7,
+      "reviewedAt": "2026-09-08",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe2"
+        }
+      ],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/poe2"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/poe2"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/poe2"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter / Leveling",
+            "Punti di partenza per la progressione iniziale.",
+            "poe2 leveling build"
+          ],
+          [
+            "Endgame & Boss",
+            "Build avanzate per i contenuti più difficili.",
+            "poe2 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe alla massima velocità.",
+            "poe2 speedfarm build"
+          ]
+        ]
+      },
       "builds": {
         "endgame": [],
         "leveling": []
