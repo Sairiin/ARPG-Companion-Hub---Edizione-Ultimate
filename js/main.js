@@ -646,17 +646,23 @@ window.openMainTab = async function(evt, gameId, accentColor) {
             });
         }
 
-        window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
+window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
             const ul = document.getElementById(elementId);
             if (!ul) return;
             try {
                 const catalog = await loadBuildCatalog();
                 const gameData = catalog.games[gameId];
                 if (!gameData || typeof gameData !== 'object') throw new Error('Dati del gioco non presenti nel catalogo');
+                
+                // FIX: Cerchiamo gli elementi della stagione all'interno del contenitore dinamico globale
+                document.querySelectorAll('#game-content-container .season-highlight').forEach(el => {
+                    el.textContent = gameData.patch || "Stagione Attuale";
+                });
+
                 renderBuildMeta(gameId, gameData);
                 renderBuildList(ul, gameId, listType, gameData);
             } catch (error) {
-                console.warn('Catalogo build non caricato:', error);
+                console.error('Catalogo build non caricato:', error);
                 renderBuildMeta(gameId, null, 'Catalogo build temporaneamente non disponibile. Le risorse rapide della dashboard restano utilizzabili.');
                 ul.replaceChildren(buildElement('li', 'build-catalog-empty', 'Catalogo temporaneamente non disponibile. Riprova dopo l’aggiornamento.'));
             }
