@@ -1202,3 +1202,23 @@ body { top: 0px !important; }
     margin: 0 auto;
     display: block;
 }
+/* Google Translate Elegante & Header Pulito */
+.essential-utilities { display: flex; align-items: center; justify-content: flex-end; gap: 10px; width: 100%; }
+.utility-language { display: flex; align-items: center; }
+.utility-language #google_translate_element { overflow: hidden; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+.utility-language .goog-te-combo {
+    appearance: none; -webkit-appearance: none;
+    background: transparent; color: var(--text-main); border: none;
+    padding: 8px 15px; margin: 0 !important; font-weight: bold; cursor: pointer;
+    font-family: inherit; font-size: 0.9em; outline: none;
+}
+.goog-te-gadget { color: transparent !important; font-size: 0px !important; }
+.goog-logo-link, .goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+
+/* Centratura Header e Banner */
+.essential-brand { display: flex; justify-content: center; width: 100%; }
+.essential-brand .banner-img { margin: 0 auto; display: block; max-width: 100%; }
+
+/* Bottone Discord Toolbelt */
+.discord-tool-btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 5px; }
