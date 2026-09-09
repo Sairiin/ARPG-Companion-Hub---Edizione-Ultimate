@@ -3,47 +3,42 @@
     "poe1": {
       "currentPatch": "Lega 3.29 Curse of the Allflame",
       "changes": [
-        "Estrazione automatica stagione attiva completata il 2026-09-09.",
-        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+        "Estrazione automatica completata il 2026-09-09."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
-      "sourceLabel": "Consulta aRPG Timeline"
+      "sourceLabel": "Consulta aRPG Timeline / iCal"
     },
     "poe2": {
       "currentPatch": "0.5.5 - The Forbidden Rites Event",
       "changes": [
-        "Estrazione automatica stagione attiva completata il 2026-09-09.",
-        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+        "Estrazione automatica completata il 2026-09-09."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
-      "sourceLabel": "Consulta aRPG Timeline"
+      "sourceLabel": "Consulta aRPG Timeline / iCal"
     },
     "d4": {
       "currentPatch": "Stagione 7",
       "changes": [
-        "Estrazione automatica stagione attiva completata il 2026-09-09.",
-        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+        "Estrazione automatica completata il 2026-09-09."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
-      "sourceLabel": "Consulta aRPG Timeline"
+      "sourceLabel": "Consulta aRPG Timeline / iCal"
     },
     "le": {
       "currentPatch": "Season 4",
       "changes": [
-        "Estrazione automatica stagione attiva completata il 2026-09-09.",
-        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+        "Estrazione automatica completata il 2026-09-09."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
-      "sourceLabel": "Consulta aRPG Timeline"
+      "sourceLabel": "Consulta aRPG Timeline / iCal"
     },
     "d2": {
       "currentPatch": "Ladder Stagione 14",
       "changes": [
-        "Estrazione automatica stagione attiva completata il 2026-09-09.",
-        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+        "Estrazione automatica completata il 2026-09-09."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
-      "sourceLabel": "Consulta aRPG Timeline"
+      "sourceLabel": "Consulta aRPG Timeline / iCal"
     }
   }
 }
