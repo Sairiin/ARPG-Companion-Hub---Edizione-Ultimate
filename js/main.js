@@ -60,14 +60,18 @@ if(auth) {
         if (user) {
             currentUser = user;
             const userName = user.displayName || user.email;
-            authBtn.innerHTML = `👤 Esci (${userName})`;
-            authBtn.onclick = window.logoutFirebase;
+            if (authBtn) {
+                authBtn.innerHTML = `👤 Esci (${userName})`;
+                authBtn.onclick = window.logoutFirebase;
+            }
             window.closeAuthModal();
             await syncFromFirebase();
         } else {
             currentUser = null;
-            authBtn.innerHTML = `👤 Accedi al Cloud`;
-            authBtn.onclick = window.openAuthModal;
+            if (authBtn) {
+                authBtn.innerHTML = `👤 Accedi al Cloud`;
+                authBtn.onclick = window.openAuthModal;
+            }
             userBuilds = JSON.parse(localStorage.getItem('arpgBuildHub')) || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
             window.loadMyBuildsUI();
         }
@@ -128,8 +132,11 @@ window.loadMyBuildsUI = function() {
 };
 
 window.filterSavedBuilds = function(game) {
-    let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
+    let filterInput = document.getElementById(`filter-saved-${game}`);
+    if (!filterInput) return;
+    let filter = filterInput.value.toLowerCase();
     let ul = document.getElementById(`my-builds-${game}`);
+    if (!ul) return;
     let li = ul.getElementsByTagName("li");
     for (let i = 0; i < li.length; i++) {
         if (li[i].innerText.includes("Nessuna build salvata")) continue; 
@@ -153,14 +160,18 @@ window.editBuild = function(game, index) {
 
 window.cancelEdit = function(game) {
     window.editingIndex[game] = null;
-    document.getElementById(`form-${game}`).reset();
+    const form = document.getElementById(`form-${game}`);
+    if (form) form.reset();
     let submitBtn = document.getElementById(`submit-btn-${game}`);
-    submitBtn.textContent = "Salva";
-    if(game === 'le') submitBtn.style.background = "var(--accent-le)";
-    else if(game === 'd2') submitBtn.style.background = "var(--danger)";
-    else if(game === 'd4') submitBtn.style.background = "#c0392b";
-    else submitBtn.style.background = "var(--accent-secondary)";
-    document.getElementById(`cancel-btn-${game}`).style.display = "none";
+    if (submitBtn) {
+        submitBtn.textContent = "Salva";
+        if(game === 'le') submitBtn.style.background = "var(--accent-le)";
+        else if(game === 'd2') submitBtn.style.background = "var(--danger)";
+        else if(game === 'd4') submitBtn.style.background = "#c0392b";
+        else submitBtn.style.background = "var(--accent-secondary)";
+    }
+    const cancelBtn = document.getElementById(`cancel-btn-${game}`);
+    if (cancelBtn) cancelBtn.style.display = "none";
 };
 
 window.saveBuild = async function(event, game) {
@@ -216,13 +227,16 @@ window.setFontSize(currentFontSize);
 window.openOverlay = function(url, title = "Overlay Strumento") {
     const modal = document.getElementById('iframe-modal');
     const iframe = document.getElementById('modal-iframe');
-    document.getElementById('modal-title').innerText = title;
-    iframe.src = url;
-    modal.style.display = 'flex';
+    const titleEl = document.getElementById('modal-title');
+    if (titleEl) titleEl.innerText = title;
+    if (iframe) iframe.src = url;
+    if (modal) modal.style.display = 'flex';
 };
 window.closeOverlay = function() {
-    document.getElementById('iframe-modal').style.display = 'none';
-    document.getElementById('modal-iframe').src = '';
+    const modal = document.getElementById('iframe-modal');
+    const iframe = document.getElementById('modal-iframe');
+    if (modal) modal.style.display = 'none';
+    if (iframe) iframe.src = '';
 };
 
 function setEssentialPanel(panelId, triggerId, open) {
@@ -253,20 +267,23 @@ document.addEventListener('keydown', event => {
 window.toggleTabs = function(evt, containerClass, btnClass, activeBtnClass, activeContentClass) {
     document.querySelectorAll('.' + containerClass).forEach(el => { el.style.display = "none"; el.classList.remove(activeContentClass); });
     document.querySelectorAll('.' + btnClass).forEach(btn => btn.classList.remove(activeBtnClass));
-    evt.currentTarget.classList.add(activeBtnClass);
+    if (evt && evt.currentTarget) evt.currentTarget.classList.add(activeBtnClass);
 };
 
 window.openMainTab = function(evt, gameId, accentColor) {
     window.toggleTabs(evt, 'tab-content', 'tab-btn', 'active-btn', 'active');
-    document.getElementById(gameId).style.display = "block";
-    window.initializeTabContent(gameId);
+    const target = document.getElementById(gameId);
+    if (target) {
+        target.style.display = "block";
+        window.initializeTabContent(gameId);
+    }
     
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.style.borderBottomColor = "transparent";
         btn.style.color = "var(--text-main)";
     });
     
-    if (accentColor) {
+    if (evt && evt.currentTarget && accentColor) {
         evt.currentTarget.style.borderBottomColor = accentColor;
         evt.currentTarget.style.color = accentColor;
     }
@@ -274,7 +291,8 @@ window.openMainTab = function(evt, gameId, accentColor) {
 
 window.openSubTab = function(evt, subTabId, gamePrefix) {
     window.toggleTabs(evt, `${gamePrefix}-sub-content`, `${gamePrefix}-sub-btn`, 'active-sub', 'active-sub-content');
-    document.getElementById(subTabId).style.display = "block";
+    const target = document.getElementById(subTabId);
+    if (target) target.style.display = "block";
     if (subTabId === 'poe1-encyclopedia' && window.initializePoe1Encyclopedia) {
         window.initializePoe1Encyclopedia();
     }
@@ -518,6 +536,15 @@ let hubPatchRegistry = null;
 let hubRankingData = null;
 let hubSearchEntries = [];
 let hubToastTimer = null;
+
+function hubSafeUrl(value) {
+    try {
+        const url = new URL(value, window.location.href);
+        return /^https?:$/.test(url.protocol) ? url.href : '';
+    } catch (error) {
+        return '';
+    }
+}
 
 function hubElement(tag, options = {}, children = []) {
     const element = document.createElement(tag);
