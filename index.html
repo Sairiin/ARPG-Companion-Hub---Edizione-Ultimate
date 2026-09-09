@@ -5,85 +5,87 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="no-referrer" name="referrer"/>
     <title>ARPG Companion Hub - Edizione Ultimate</title>
-    
-    <link href="arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
+    <!-- Assicurati che l'icona esista in assets -->
+    <link href="assets/arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link crossorigin="" href="https://www.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
-    
-    <link rel="stylesheet" href="style.css?v=6">
-    <link rel="manifest" href="manifest.webmanifest">
+    <!-- Collegamento al file CSS -->
+    <link href="style.css" rel="stylesheet" />
 </head>
 <body>
-
-<!-- MODALI -->
+<!-- MODALS -->
 <div class="modal" id="iframe-modal">
-    <div class="modal-content">
-        <div class="modal-header"><span class="modal-title" id="modal-title">ARPG Tools</span><span class="close-btn" onclick="window.closeOverlay()">×</span></div>
-        <iframe id="modal-iframe" loading="lazy" src=""></iframe>
-    </div>
+    <div class="modal-content"><div class="modal-header"><span class="modal-title" id="modal-title">ARPG Tools</span><span class="close-btn" onclick="window.closeOverlay()">×</span></div><iframe id="modal-iframe" loading="lazy" src=""></iframe></div>
 </div>
-
 <div class="modal" id="auth-modal">
     <div class="modal-content auth-box">
         <div class="modal-header"><span class="modal-title">Autenticazione Cloud</span><span class="close-btn" onclick="window.closeAuthModal()">×</span></div>
         <div style="padding: 20px; display: flex; flex-direction: column; gap: 15px;">
             <input class="auth-input" id="auth-email" placeholder="La tua Email" type="email"/>
             <input class="auth-input" id="auth-password" placeholder="La tua Password" type="password"/>
-            <div style="display: flex; gap: 10px;">
-                <button class="action-btn" onclick="window.loginWithEmail()" style="flex:1;">Accedi</button>
-                <button class="action-btn" onclick="window.registerWithEmail()" style="flex:1; background: var(--accent-tertiary);">Registrati</button>
-            </div>
+            <div style="display: flex; gap: 10px;"><button class="action-btn" onclick="window.loginWithEmail()" style="flex:1;">Accedi</button><button class="action-btn" onclick="window.registerWithEmail()" style="flex:1; background: var(--accent-tertiary);">Registrati</button></div>
             <div style="text-align: center; color: var(--text-muted);">— oppure —</div>
             <button class="action-btn" style="background:#fff; color:#111;" onclick="window.loginWithGoogle()">Accedi con Google</button>
         </div>
     </div>
 </div>
 
-<!-- HEADER CENTRATO CON SELETTORE LINGUA FLUTTUANTE -->
+<!-- HEADER E LINGUA FLUTTUANTE -->
 <header class="essential-header">
     <div class="utility-language-floating" aria-label="Lingua del sito">
         <div id="google_translate_element"></div>
     </div>
-    
+
+    <!-- Banner Centrato -->
     <div class="essential-header-shell">
         <div class="essential-brand">
-            <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
+            <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="assets/arpg_hub_banner_v2.jpg"/>
         </div>
-        
-        <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel">
-            <div class="appearance-panel-heading">
-                <div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione del testo.</p></div>
-                <button aria-label="Chiudi" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button>
+
+        <!-- Pannello Aspetto -->
+        <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="position: absolute; top: 100%; z-index: 999; background: var(--bg-card); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+            <div class="appearance-panel-heading"><div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione del testo.</p></div><button aria-label="Chiudi" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button></div>
+            <div class="appearance-grid" style="display:flex; flex-wrap:wrap; gap:5px; margin-top:10px;">
+                <button class="theme-btn" onclick="window.setTheme('dark')" title="Tema scuro" type="button">🌙 Scuro</button>
+                <button class="theme-btn" onclick="window.setTheme('amoled')" title="Tema AMOLED" type="button">🖤 AMOLED</button>
+                <button class="theme-btn" onclick="window.setTheme('light')" title="Tema chiaro" type="button">☀️ Chiaro</button>
+                <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" title="Riduci carattere" type="button">A− Testo</button>
+                <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" title="Ingrandisci carattere" type="button">A+ Testo</button>
             </div>
-            <div class="appearance-grid">
-                <button class="theme-btn" onclick="window.setTheme('dark')" type="button">🌙 Scuro</button>
-                <button class="theme-btn" onclick="window.setTheme('amoled')" type="button">🖤 AMOLED</button>
-                <button class="theme-btn" onclick="window.setTheme('light')" type="button">☀️ Chiaro</button>
-                <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" type="button">A− Testo</button>
-                <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" type="button">A+ Testo</button>
-            </div>
+            <p class="appearance-panel-note">Le preferenze restano salvate sul dispositivo.</p>
         </section>
     </div>
 </header>
 
 <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
-<!-- TOOLBELT COMPLETA -->
-<div class="hub-toolbelt" aria-label="Strumenti rapidi">
-    <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
+<!-- TOOLBELT COMPLETA E ORDINATA -->
+<div class="hub-toolbelt" aria-label="Strumenti rapidi del Companion Hub">
+    <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button" aria-keyshortcuts="Control+K Meta+K">⌕ Cerca <span aria-hidden="true">⌘K</span></button>
+    <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
+    <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
     <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
     <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
     <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
+    
+    <!-- Penultimo: Aspetto -->
     <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
-    <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank">
-        <img alt="Discord" src="logo_animated_v2.jpg"/> Discord
+    
+    <!-- Discord -->
+    <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank" style="text-decoration: none;">
+        <img alt="Discord" src="assets/logo_animated_v2.jpg" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px;"/> Discord
     </a>
+    
+    <!-- Ultimo: Accedi -->
     <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
+    
+    <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
 
-<!-- TAB GIOCHI PRINCIPALI -->
+<!-- TABS PRINCIPALI -->
 <nav class="tabs" id="main-content" tabindex="-1">
     <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">Path of Exile 1</button>
     <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">Path of Exile 2</button>
@@ -92,258 +94,24 @@
     <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">Diablo 4</button>
 </nav>
 
+<!-- CONTENITORE DINAMICO -->
 <main id="game-content-container">
-
-    <!-- POE 1 -->
-    <section class="tab-content active" id="poe1">
-        <nav class="sub-tabs">
-            <button class="sub-tab-btn poe1-sub-btn active-sub" onclick="window.openSubTab(event, 'poe1-dash', 'poe1')">Dashboard Build</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-tools', 'poe1')">🧰 Strumenti</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-builds', 'poe1')">💾 Le Mie Build</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-guide', 'poe1')">Unici Leveling</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-crafting', 'poe1')">Guida Crafting</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-lab', 'poe1')">Trial of Ascendancy</button>
-            <button class="sub-tab-btn poe1-sub-btn" onclick="window.openSubTab(event, 'poe1-encyclopedia', 'poe1')">Enciclopedia Meccaniche</button>
-        </nav>
-
-        <div class="sub-tab-content poe1-sub-content active-sub-content" id="poe1-dash">
-            <div class="build-meta-panel" id="build-meta-poe1"></div>
-            <section class="build-discovery" id="build-discovery-poe1"></section>
-            <div class="section">
-                <h3><div>🛡️ Top Build Endgame <span class="season-highlight" id="season-highlight-poe1">Attuale</span></div></h3>
-                <ul class="dash-list" id="top-builds-poe1"></ul>
-            </div>
-            <div class="section">
-                <h3><div>🚀 Top Build Leveling <span class="season-highlight" id="season-highlight-poe1-lvl">Attuale</span></div></h3>
-                <ul class="dash-list" id="top-leveling-poe1"></ul>
-            </div>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content" id="poe1-tools" style="display:none;">
-            <div class="action-bar">
-                <form onsubmit="window.multiSearch(event, 'search-input-poe1', 'search-site-poe1')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
-                    <input id="search-input-poe1" placeholder="Cerca termine..." required style="flex-grow:1;" type="text"/>
-                    <select id="search-site-poe1">
-                        <option value="all">🔍 Cerca in Tutti i Siti</option>
-                        <option value="poewiki.net">Wiki Ufficiale</option>
-                        <option value="mobalytics.gg/poe">Mobalytics</option>
-                        <option value="icy-veins.com/poe">Icy Veins</option>
-                        <option value="maxroll.gg/poe">Maxroll</option>
-                        <option value="poebuilds.cc">PoEBuilds.cc</option>
-                    </select>
-                    <button class="action-btn" type="submit">Cerca</button>
-                </form>
-            </div>
-            <div class="section" style="background: transparent; border: none; padding: 0;">
-                <a class="tool-link" href="https://craftofexile.com" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🛠️ Craft of Exile</a>
-                <a class="tool-link" href="https://poe.ninja" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">📈 PoE Ninja</a>
-                <a class="tool-link" href="https://pob.cool/" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🖥️ PoB (Cool)</a>
-                <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
-                <a class="tool-link" href="https://www.filterblade.xyz/" rel="noopener noreferrer" style="background: #3f51b5;" target="_blank">🛡️ FilterBlade</a>
-            </div>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content" id="poe1-builds" style="display:none;">
-            <div class="section">
-                <h3>
-                    <div>💾 Le Mie Build Personali</div>
-                    <input class="filter-saved-input" id="filter-saved-poe1" onkeyup="window.filterSavedBuilds('poe1')" placeholder="🔍 Filtra le tue build..." type="text"/>
-                </h3>
-                <form class="save-form" id="form-poe1" onsubmit="window.saveBuild(event, 'poe1')">
-                    <input id="name-poe1" placeholder="Nome Build" required type="text"/>
-                    <input id="link-poe1" placeholder="Incolla URL" required type="url"/>
-                    <input class="input-small" id="version-poe1" placeholder="Ver." required type="text"/>
-                    <input id="note-poe1" placeholder="Note" type="text"/>
-                    <button class="action-btn" id="submit-btn-poe1" type="submit">Salva</button>
-                    <button class="cancel-btn" id="cancel-btn-poe1" onclick="window.cancelEdit('poe1')" type="button">Annulla</button>
-                </form>
-                <ul class="dash-list saved-builds-list" id="my-builds-poe1"></ul>
-            </div>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1 legacy-database" id="poe1-guide" style="display:none;">
-            <div class="legacy-hero"><img alt="" class="legacy-hero-media" src="assets/guides/poe1-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 1</span><h1 class="legacy-title">Unici Leveling</h1></div></div>
-            <div class="filter-container">
-                <label for="class-filter-poe1">Filtra per Classe:</label>
-                <select id="class-filter-poe1" onchange="window.filterItemsStatic('poe1-guide', 'class-filter-poe1', 'data-class')">
-                    <option value="all">Mostra Tutti</option><option value="duelist">Duelist</option><option value="marauder">Marauder</option><option value="ranger">Ranger</option><option value="shadow">Shadow</option><option value="templar">Templar</option><option value="witch">Witch</option>
-                </select>
-            </div>
-            <h2 class="guide-title category-title">🛡️ Elmi</h2>
-            <ul class="guide-list">
-                <li data-class="all"><div class="item-image-container"><img alt="Goldrim" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Goldrim_inventory_icon.png"/></div><div class="item-details"><span class="unique-item">Goldrim</span><span class="desc">Sistema le difese dall'Atto 1.</span></div><div class="item-stats"><div class="stat-line">+30-40% Resistenze Elementali</div></div></li>
-            </ul>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1" id="poe1-crafting" style="display:none;">
-            <div class="legacy-hero"><div class="legacy-hero-content"><h1 class="legacy-title">Guida Crafting</h1></div></div>
-            <div class="info-box"><strong>Step 1:</strong> Trasmutazione in Magico, <strong>Step 2:</strong> Alteration Spam, <strong>Step 3:</strong> Regal Orb, <strong>Step 4:</strong> Crafting Bench.</div>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1" id="poe1-lab" style="display:none;">
-            <div class="legacy-hero"><div class="legacy-hero-content"><h1 class="legacy-title">Trial of Ascendancy</h1></div></div>
-            <div class="info-box">Completando le prove negli Atti sbloccherai i punti Ascendenza al Lord's Labyrinth.</div>
-        </div>
-
-        <div class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1" id="poe1-encyclopedia" style="display:none;">
-            <div id="poe1-encyclopedia-root">
-                <h1>🧭 Enciclopedia Meccaniche</h1>
-                <div class="mechanics-grid">
-                    <div class="card" onclick="alert('Alva: Incursion - Modifica il passato per sbloccare il Tempio di Atzoatl.')"><div class="card-content"><h3>⏳ Alva (Incursion)</h3></div></div>
-                    <div class="card" onclick="alert('Niko: Delve - Miniera infinita ricca di fossili.')"><div class="card-content"><h3>⛏️ Niko (Delve)</h3></div></div>
-                    <div class="card" onclick="alert('Jun: Betrayal - Manipola il Sindacato Immortale.')"><div class="card-content"><h3>🕵️ Jun (Betrayal)</h3></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- POE 2 -->
-    <section class="tab-content" id="poe2" style="display:none;">
-        <nav class="sub-tabs">
-            <button class="sub-tab-btn poe2-sub-btn active-sub" onclick="window.openSubTab(event, 'poe2-dash', 'poe2')">Dashboard Build</button>
-            <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-tools', 'poe2')">🧰 Strumenti</button>
-            <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-builds', 'poe2')">💾 Le Mie Build</button>
-        </nav>
-        <div class="sub-tab-content poe2-sub-content active-sub-content" id="poe2-dash">
-            <div class="build-meta-panel" id="build-meta-poe2"></div>
-            <section class="build-discovery" id="build-discovery-poe2"></section>
-            <div class="section"><h3>🛡️ Top Build Endgame</h3><ul class="dash-list" id="top-builds-poe2"></ul></div>
-            <div class="section"><h3>🚀 Top Build Leveling</h3><ul class="dash-list" id="top-leveling-poe2"></ul></div>
-        </div>
-        <div class="sub-tab-content poe2-sub-content" id="poe2-tools" style="display:none;">
-            <a class="tool-link" href="https://poe2db.tw" target="_blank" style="background:#555;">🛠️ PoE2DB</a>
-        </div>
-        <div class="sub-tab-content poe2-sub-content" id="poe2-builds" style="display:none;">
-            <div class="section">
-                <h3>💾 Le Mie Build Personali</h3>
-                <form class="save-form" id="form-poe2" onsubmit="window.saveBuild(event, 'poe2')">
-                    <input id="name-poe2" placeholder="Nome Build" required type="text"/>
-                    <input id="link-poe2" placeholder="Incolla URL" required type="url"/>
-                    <input class="input-small" id="version-poe2" placeholder="Ver." type="text"/>
-                    <input id="note-poe2" placeholder="Note" type="text"/>
-                    <button class="action-btn" id="submit-btn-poe2" type="submit">Salva</button>
-                </form>
-                <ul class="dash-list saved-builds-list" id="my-builds-poe2"></ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- LAST EPOCH -->
-    <section class="tab-content" id="le" style="display:none;">
-        <nav class="sub-tabs">
-            <button class="sub-tab-btn le-sub-btn active-sub" onclick="window.openSubTab(event, 'le-dash', 'le')">Dashboard Build</button>
-            <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-tools', 'le')">🧰 Strumenti</button>
-            <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-builds', 'le')">💾 Le Mie Build</button>
-        </nav>
-        <div class="sub-tab-content le-sub-content active-sub-content" id="le-dash">
-            <div class="build-meta-panel" id="build-meta-le"></div>
-            <section class="build-discovery" id="build-discovery-le"></section>
-            <div class="section"><h3>🛡️ Top Build Endgame</h3><ul class="dash-list" id="top-builds-le"></ul></div>
-            <div class="section"><h3>🚀 Top Build Leveling</h3><ul class="dash-list" id="top-leveling-le"></ul></div>
-        </div>
-        <div class="sub-tab-content le-sub-content" id="le-tools" style="display:none;">
-            <a class="tool-link" href="https://www.lastepochtools.com/" target="_blank" style="background:var(--accent-le);">🛠️ LE Tools</a>
-        </div>
-        <div class="sub-tab-content le-sub-content" id="le-builds" style="display:none;">
-            <div class="section">
-                <h3>💾 Le Mie Build Personali</h3>
-                <form class="save-form" id="form-le" onsubmit="window.saveBuild(event, 'le')">
-                    <input id="name-le" placeholder="Nome Build" required type="text"/>
-                    <input id="link-le" placeholder="Link" required type="url"/>
-                    <input class="input-small" id="version-le" placeholder="Cycle" type="text"/>
-                    <input id="note-le" placeholder="Note" type="text"/>
-                    <button class="action-btn" id="submit-btn-le" style="background:var(--accent-le);" type="submit">Salva</button>
-                </form>
-                <ul class="dash-list saved-builds-list" id="my-builds-le"></ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- DIABLO 2 -->
-    <section class="tab-content" id="d2" style="display:none;">
-        <nav class="sub-tabs">
-            <button class="sub-tab-btn d2-sub-btn active-sub" onclick="window.openSubTab(event, 'd2-dash', 'd2')">Dashboard Build</button>
-            <button class="sub-tab-btn d2-sub-btn" onclick="window.openSubTab(event, 'd2-runewords', 'd2')">🪨 Runewords</button>
-            <button class="sub-tab-btn d2-sub-btn" onclick="window.openSubTab(event, 'd2-builds', 'd2')">💾 Le Mie Build</button>
-        </nav>
-        <div class="sub-tab-content d2-sub-content active-sub-content" id="d2-dash">
-            <div class="build-meta-panel" id="build-meta-d2"></div>
-            <section class="build-discovery" id="build-discovery-d2"></section>
-            <div class="section"><h3>⚔️ Meta Endgame</h3><ul class="dash-list" id="top-builds-d2"></ul></div>
-            <div class="section"><h3>🚀 Meta Leveling</h3><ul class="dash-list" id="top-leveling-d2"></ul></div>
-        </div>
-        <div class="sub-tab-content d2-sub-content" id="d2-runewords" style="display:none;">
-            <div class="filter-container">
-                <label for="type-filter-d2">Filtra per Tipo Oggetto:</label>
-                <select id="type-filter-d2" onchange="window.renderD2Runewords()">
-                    <option value="all">Mostra Tutti</option>
-                    <option value="armatura">👕 Armature</option>
-                    <option value="arma">⚔️ Armi</option>
-                    <option value="scudo">🛡️ Scudi</option>
-                    <option value="elmo">🪖 Elmi</option>
-                </select>
-            </div>
-            <ul class="guide-list" id="runewords-container"></ul>
-        </div>
-        <div class="sub-tab-content d2-sub-content" id="d2-builds" style="display:none;">
-            <div class="section">
-                <h3>💾 Le Mie Build Personali</h3>
-                <form class="save-form" id="form-d2" onsubmit="window.saveBuild(event, 'd2')">
-                    <input id="name-d2" placeholder="Nome Build" required type="text"/>
-                    <input id="link-d2" placeholder="Link" required type="url"/>
-                    <input class="input-small" id="version-d2" placeholder="Ladder" type="text"/>
-                    <input id="note-d2" placeholder="Note" type="text"/>
-                    <button class="action-btn" id="submit-btn-d2" style="background:var(--danger);" type="submit">Salva</button>
-                </form>
-                <ul class="dash-list saved-builds-list" id="my-builds-d2"></ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- DIABLO 4 -->
-    <section class="tab-content" id="d4" style="display:none;">
-        <nav class="sub-tabs">
-            <button class="sub-tab-btn d4-sub-btn active-sub" onclick="window.openSubTab(event, 'd4-dash', 'd4')">Dashboard Build</button>
-            <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-tools', 'd4')">🧰 Strumenti</button>
-            <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-builds', 'd4')">💾 Le Mie Build</button>
-        </nav>
-        <div class="sub-tab-content d4-sub-content active-sub-content" id="d4-dash">
-            <div class="build-meta-panel" id="build-meta-d4"></div>
-            <section class="build-discovery" id="build-discovery-d4"></section>
-            <div class="section"><h3>🛡️ Top Build Endgame</h3><ul class="dash-list" id="top-builds-d4"></ul></div>
-            <div class="section"><h3>🚀 Top Build Leveling</h3><ul class="dash-list" id="top-leveling-d4"></ul></div>
-        </div>
-        <div class="sub-tab-content d4-sub-content" id="d4-tools" style="display:none;">
-            <a class="tool-link" href="https://maxroll.gg/d4/build-guides" target="_blank" style="background:#c0392b;">🛠️ Maxroll D4</a>
-        </div>
-        <div class="sub-tab-content d4-sub-content" id="d4-builds" style="display:none;">
-            <div class="section">
-                <h3>💾 Le Mie Build Personali</h3>
-                <form class="save-form" id="form-d4" onsubmit="window.saveBuild(event, 'd4')">
-                    <input id="name-d4" placeholder="Nome Build" required type="text"/>
-                    <input id="link-d4" placeholder="Link" required type="url"/>
-                    <input class="input-small" id="version-d4" placeholder="Stagione" type="text"/>
-                    <input id="note-d4" placeholder="Note" type="text"/>
-                    <button class="action-btn" id="submit-btn-d4" style="background:#c0392b;" type="submit">Salva</button>
-                </form>
-                <ul class="dash-list saved-builds-list" id="my-builds-d4"></ul>
-            </div>
-        </div>
-    </section>
-
+    <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
 </main>
 
 <footer class="main-footer">
     © 2026 Sairiin - ARPG Companion Hub<br/><a class="footer-link" href="mailto:giordani.claudio@gmail.com" style="margin-top:10px; display:inline-block;">Contattami per supporto</a>
 </footer>
 
+<!-- SCRIPT GOOGLE TRANSLATE -->
 <script>
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
     }
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<script type="module" src="js/main.js"></script>
 
+<!-- SCRIPT LOGICA E FIREBASE (Modulo Esterno) -->
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
