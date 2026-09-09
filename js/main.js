@@ -215,37 +215,65 @@ window.initializeTabContent = async function(gameId) {
     window.loadMyBuildsUI();
 };
 
+// MODALE CLASSIFICA ARPG
 document.getElementById('hub-ranking-btn').onclick = () => {
     const body = document.getElementById('hub-ranking-grid');
     if(!body) {
-        const m = buildElement('div', 'modal'); m.id = 'hub-ranking-dialog'; m.style.display = 'flex';
-        m.innerHTML = `<div class="modal-content auth-box"><div class="modal-header"><span class="modal-title">Classifica ARPG</span><span class="close-btn" onclick="document.getElementById('hub-ranking-dialog').style.display='none'">×</span></div><div id="hub-ranking-grid" style="padding:20px; overflow-y:auto; color:var(--text-main);"></div></div>`;
+        const m = document.createElement('div'); m.className = 'modal'; m.id = 'hub-ranking-dialog'; m.style.display = 'flex';
+        m.innerHTML = `<div class="modal-content" style="max-width: 500px; height: auto; max-height: 85vh;">
+            <div class="modal-header"><span class="modal-title">📊 Classifica ARPG (Live)</span><span class="close-btn" onclick="document.getElementById('hub-ranking-dialog').style.display='none'">×</span></div>
+            <div id="hub-ranking-grid" style="padding:20px; overflow-y:auto; color:var(--text-main);"></div>
+        </div>`;
         document.body.appendChild(m);
     } else { document.getElementById('hub-ranking-dialog').style.display = 'flex'; }
     
     const target = document.getElementById('hub-ranking-grid');
     target.innerHTML = '';
-    if(!hubRankingData?.rankings) { target.innerHTML = '<p>Dati Steam in tempo reale non disponibili.</p>'; return; }
+    if(!hubRankingData?.rankings) { target.innerHTML = '<p>Dati Steam in tempo reale non disponibili. Aggiorna lo script Python.</p>'; return; }
+    
     hubRankingData.rankings.forEach((s, i) => {
         const formatNum = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : n;
-        target.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;"><span>${i+1}. ${s.name}</span> <strong style="color:${s.color};">~${formatNum(s.players)}</strong></div>`;
+        target.innerHTML += `
+        <div style="display:flex; justify-content:space-between; align-items: center; margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px; font-size: 1.1em;">
+            <span><strong>${i+1}.</strong> ${s.name}</span> 
+            <span style="color:${s.color}; font-weight: bold; background: var(--bg-card); padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);">
+                ~${formatNum(s.players)} <span style="font-size:0.7em; color:var(--text-muted)">giocatori</span>
+            </span>
+        </div>`;
     });
 };
 
+// MODALE REGISTRO PATCH
 document.getElementById('hub-patch-btn').onclick = () => {
     const body = document.getElementById('hub-patch-grid');
     if(!body) {
-        const m = buildElement('div', 'modal'); m.id = 'hub-patch-dialog'; m.style.display = 'flex';
-        m.innerHTML = `<div class="modal-content auth-box" style="width:600px;"><div class="modal-header"><span class="modal-title">Registro Patch & Stagioni</span><span class="close-btn" onclick="document.getElementById('hub-patch-dialog').style.display='none'">×</span></div><div id="hub-patch-grid" style="padding:20px; overflow-y:auto; display:grid; grid-template-columns:1fr; gap:15px; color:var(--text-main);"></div></div>`;
+        const m = document.createElement('div'); m.className = 'modal'; m.id = 'hub-patch-dialog'; m.style.display = 'flex';
+        m.innerHTML = `<div class="modal-content" style="max-width: 900px; height: auto; max-height: 85vh;">
+            <div class="modal-header"><span class="modal-title">▤ Registro Patch & Stagioni</span><span class="close-btn" onclick="document.getElementById('hub-patch-dialog').style.display='none'">×</span></div>
+            <div id="hub-patch-grid" style="padding:20px; overflow-y:auto; display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:15px; color:var(--text-main);"></div>
+        </div>`;
         document.body.appendChild(m);
     } else { document.getElementById('hub-patch-dialog').style.display = 'flex'; }
     
     const target = document.getElementById('hub-patch-grid');
     target.innerHTML = '';
     if(!hubPatchRegistry?.games) return;
+    
     Object.entries(HUB_GAMES).forEach(([id, name]) => {
         const p = hubPatchRegistry.games[id];
-        target.innerHTML += `<div style="border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-card);"><h3 style="margin-top:0; color:var(--accent-primary);">${name}</h3><div class="season-highlight" style="margin-bottom:10px;">${p?.currentPatch || 'N/D'}</div><br><a href="${p?.sourceUrl}" target="_blank" style="color:var(--accent-tertiary); text-decoration:underline;">Consulta Fonte</a></div>`;
+        let listItems = (p?.changes || ['Nessuna nota automatica disponibile.']).map(c => `<li style="margin-bottom: 5px;">${c}</li>`).join('');
+        
+        target.innerHTML += `
+        <div style="border:1px solid var(--border-color); padding:15px; border-radius:8px; background:var(--bg-card); box-shadow: 0 4px 6px rgba(0,0,0,0.2); display: flex; flex-direction: column;">
+            <h3 style="margin-top:0; color:var(--accent-primary); border-bottom: 1px dashed var(--border-color); padding-bottom: 5px;">${name}</h3>
+            <div class="season-highlight" style="margin-bottom:15px; align-self: flex-start;">${p?.currentPatch || 'N/D'}</div>
+            <ul style="padding-left: 20px; margin-bottom: 15px; font-size: 0.9em; color: var(--text-muted); flex-grow: 1;">
+                ${listItems}
+            </ul>
+            <a href="${p?.sourceUrl}" target="_blank" class="action-btn" style="text-decoration:none; text-align:center; display:block; background: var(--accent-tertiary); padding: 8px;">
+                Consulta Fonte Ufficiale
+            </a>
+        </div>`;
     });
 };
 
