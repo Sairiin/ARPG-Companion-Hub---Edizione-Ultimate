@@ -1,32 +1,31 @@
-<div class="le-sub-nav sub-tabs-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:20px;">
-    <button class="le-sub-btn sub-tab-btn active-sub" onclick="window.openSubTab(event, 'le-dash', 'le')">📊 Dashboard</button>
-    <button class="le-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'le-tools', 'le')">🧰 Strumenti & Ricerca</button>
-    <button class="le-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'le-builds', 'le')">💾 Le Mie Build</button>
-    <button class="le-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'le-crafting', 'le')">🔨 Guida Forgiatura</button>
-    <button class="le-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'le-monolith', 'le')">🌌 Monolith & Blessing</button>
-    <button class="le-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'le-defense', 'le')">🛡️ Difese & Idols</button>
-</div>
+<nav class="sub-tabs">
+    <button class="sub-tab-btn le-sub-btn active-sub" onclick="window.openSubTab(event, 'le-dash', 'le')">📊 Dashboard</button>
+    <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-tools', 'le')">🧰 Strumenti & Ricerca</button>
+    <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-builds', 'le')">💾 Le Mie Build</button>
+    <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-crafting', 'le')">🔨 Guida Forgiatura</button>
+    <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-monolith', 'le')">🌌 Monolith & Blessing</button>
+    <button class="sub-tab-btn le-sub-btn" onclick="window.openSubTab(event, 'le-defense', 'le')">🛡️ Difese & Idols</button>
+</nav>
 
-<div id="le-dash" class="le-sub-content active-sub-content">
-    <div id="build-meta-le" class="build-meta-panel"></div>
-    <div class="dash-grid">
-        <div class="dash-card">
-            <h3>🛡️ Top Build Endgame <span class="tag season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Caricamento...</span></h3>
-            <ul id="top-builds-le" class="dash-list">
-                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-            </ul>
-        </div>
-        <div class="dash-card">
-            <h3>🚀 Top Build Leveling <span class="tag season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Caricamento...</span></h3>
-            <ul id="top-leveling-le" class="dash-list">
-                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-            </ul>
-        </div>
+<div id="le-dash" class="sub-tab-content le-sub-content active-sub-content guide-theme--le legacy-dashboard" data-legacy-redesign="dashboard">
+    <div id="build-meta-le" class="build-meta-panel" role="status" aria-live="polite"></div>
+    <section id="build-discovery-le" class="build-discovery"></section>
+
+    <div class="section" style="border-left-color: var(--accent-le);">
+        <h3 style="color: var(--accent-le);"><div>🛡️ Top Build Endgame <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Caricamento...</span></div></h3>
+        <ul id="top-builds-le" class="dash-list">
+            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+        </ul>
     </div>
-    <div id="build-discovery-le" class="build-discovery-panel"></div>
+    <div class="section" style="border-left-color: var(--accent-le);">
+        <h3 style="color: var(--accent-le);"><div>🚀 Top Build Leveling <span class="season-highlight" style="border-color: var(--accent-le); color: var(--accent-le);">Caricamento...</span></div></h3>
+        <ul id="top-leveling-le" class="dash-list">
+            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+        </ul>
+    </div>
 </div>
 
-<div id="le-tools" class="le-sub-content" style="display:none;">
+<div id="le-tools" class="sub-tab-content le-sub-content guide-theme--le legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
     <div class="action-bar" style="border-color: var(--accent-le);">
         <form onsubmit="window.multiSearch(event, 'search-input-le', 'search-site-le')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
             <input id="search-input-le" placeholder="Cerca term..." required style="flex-grow:1;" type="text"/>
@@ -48,7 +47,7 @@
     </div>
 </div>
 
-<div id="le-builds" class="le-sub-content" style="display:none;">
+<div id="le-builds" class="sub-tab-content le-sub-content guide-theme--le legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
     <div class="section" style="border-left-color: var(--accent-le);">
         <h3 style="color: var(--accent-le);">
             <div>💾 Le Mie Build Personali</div>
@@ -57,7 +56,7 @@
         <form class="save-form" id="form-le" onsubmit="window.saveBuild(event, 'le')" style="border-color: var(--accent-le);">
             <input id="name-le" placeholder="Nome Build" required style="border-color: var(--accent-le);" type="text"/>
             <input id="link-le" placeholder="Incolla URL" required style="border-color: var(--accent-le);" type="url"/>
-            <input class="input-small" id="version-le" placeholder="Cycle" required style="border-color: var(--accent-le);" type="text"/>
+            <input class="input-small" id="version-le" placeholder="Ver. (1.0)" required style="border-color: var(--accent-le);" type="text"/>
             <input id="note-le" placeholder="Note (Corruption 300+...)" style="border-color: var(--accent-le);" type="text"/>
             <button class="action-btn" id="submit-btn-le" style="background: var(--accent-le);" type="submit">Salva</button>
             <button class="cancel-btn" id="cancel-btn-le" onclick="window.cancelEdit('le')" type="button">Annulla</button>
@@ -66,22 +65,69 @@
     </div>
 </div>
 
+<!-- INIZIO GUIDE ORIGINALI LE -->
 <div id="le-crafting" class="sub-tab-content le-sub-content guide-section guide-theme--le legacy-editorial" data-legacy-redesign="legacy-editorial" style="display:none;">
-    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Last Epoch · Forge Handbook</span><h1 class="legacy-title">La Forgia: Guida al Crafting</h1></div></div>
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Last Epoch · Forge Handbook</span><h1 class="legacy-title">La Forgia: Guida al Crafting di Last Epoch</h1><p class="legacy-tagline">La Forgia letta come una sequenza di decisioni: basi, affissi, rischio e upgrade mirati.</p><div class="legacy-hero-meta"><span>Guida pratica</span><span>Crafting</span></div></div></div><p class="legacy-intro">La Forgia è l'interfaccia principale e incredibilmente accessibile: basta premere il tasto <strong>"F"</strong> in qualsiasi momento, ovunque ti trovi, senza dover tornare in città.</p>
     <h2 class="guide-title category-title">🔥 Il Forging Potential (FP)</h2>
-    <ul class="guide-list"><li class="text-only"><div class="stat-line">Aggiungere un Affisso consuma FP. Se arriva a 0, l'oggetto è "Bricked".</div><div class="stat-line">Gli oggetti Viola (Exalted) hanno spesso 40+ FP.</div></li></ul>
-    <h2 class="guide-title category-title">🔮 I Glifi (Glyphs)</h2>
-    <ul class="guide-list"><li class="text-only"><div class="stat-line"><strong>Glyph of Hope:</strong> 25% probabilità di NON consumare FP. Usalo sempre.</div><div class="stat-line"><strong>Glyph of Chaos:</strong> Cambia l'affisso casualmente aumentandone il Tier.</div><div class="stat-line"><strong>Glyph of Despair:</strong> Sigilla l'affisso per farti avere 5 statistiche totali.</div></li></ul>
-    <h2 class="guide-title category-title">🪨 Le Rune (Runes)</h2>
-    <ul class="guide-list"><li class="text-only"><div class="stat-line"><strong>Shattering:</strong> Distrugge e ti dà Frammenti.</div><div class="stat-line"><strong>Ascendance:</strong> Converte l'oggetto in un Unico casuale dello stesso tipo.</div></li></ul>
+    <ul class="guide-list">
+        <li class="text-only">
+            <span class="desc" style="margin-bottom:10px;">Ogni oggetto nel gioco possiede un valore chiamato Forging Potential (FP). Aggiungere o migliorare un Affisso su un oggetto consuma FP.</span>
+            <div class="stat-line">Se un oggetto arriva a 0 FP, è "Bricked": non può più essere craftato.</div>
+            <div class="stat-line">Gli oggetti Rari (Gialli) hanno circa 20-40 FP. Gli oggetti Eccelsi (Exalted - Viola) hanno spesso 40+ FP, rendendoli le basi migliori per il crafting.</div>
+            <div class="stat-line" style="color: #4caf50;"><strong>Consiglio:</strong> Finché ti rimane anche solo 1 FP, puoi tentare un'ultima modifica!</div>
+        </li>
+    </ul>
+    <h2 class="guide-title category-title">🔮 I Glifi (Glyphs) - Modificatori di Supporto</h2>
+    <ul class="guide-list">
+        <li class="text-only">
+            <span class="desc" style="margin-bottom:10px;">I glifi vengono inseriti nello slot inferiore durante un craft per influenzarne il risultato o il costo.</span>
+            <div class="stat-line"><strong>Glyph of Hope:</strong> Fornisce un 25% di probabilità che il craft NON consumi alcun Forging Potential. Usalo <em>sempre</em>!</div>
+            <div class="stat-line"><strong>Glyph of Chaos:</strong> Quando aggiorni un affisso, lo cambia casualmente in un altro affisso compatibile e ne aumenta il Tier.</div>
+            <div class="stat-line"><strong>Glyph of Order:</strong> Previene la variazione casuale del roll numerico quando aggiorni il Tier di un affisso.</div>
+            <div class="stat-line"><strong>Glyph of Despair:</strong> Ha una probabilità di "Sigillare" l'affisso. Un affisso sigillato viene spostato in un 5° slot bonus, permettendoti di creare oggetti con 5 statistiche (invece di 4).</div>
+        </li>
+    </ul>
+    <h2 class="guide-title category-title">🪨 Le Rune (Runes) - Modificatori di Azione</h2>
+    <ul class="guide-list">
+        <li class="text-only">
+            <span class="desc" style="margin-bottom:10px;">Le rune eseguono azioni dirette sull'oggetto.</span>
+            <div class="stat-line"><strong>Rune of Shattering:</strong> Distrugge l'oggetto. Recupererai una parte degli affissi sotto forma di "Frammenti" (Shards) per craftarli altrove. Ottimo modo per accumulare shard!</div>
+            <div class="stat-line"><strong>Rune of Removal:</strong> Rimuove un affisso casuale dall'oggetto e te lo restituisce sotto forma di Frammenti.</div>
+            <div class="stat-line"><strong>Rune of Ascendance:</strong> Converte un oggetto base in un Oggetto Unico o di Set casuale dello stesso identico tipo (es. trasforma una spada in una spada unica).</div>
+            <div class="stat-line"><strong>Rune of Discovery:</strong> Aggiunge affissi casuali di Livello 1 (Tier 1) in tutti gli slot vuoti.</div>
+        </li>
+    </ul>
 </div>
 
 <div id="le-monolith" class="sub-tab-content guide-theme--le le-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Last Epoch · Monolith Strategy</span><h1 class="guide-title">Monolith, Blessing &amp; Farming</h1></div></div>
-    <div class="guide-table-wrap"><table><thead><tr><th>Elemento</th><th>Funzione</th><th>Scelta consigliata</th></tr></thead><tbody><tr><td>Echo</td><td>Mappa con ricompensa e modificatori</td><td>Priorità a ricompense utili.</td></tr><tr><td>Stability</td><td>Sblocca le quest della Timeline</td><td>Avanza fino al boss se sei pronto.</td></tr><tr><td>Blessing</td><td>Bonus permanente selezionabile</td><td>Scegli quella che risolve un bisogno reale.</td></tr><tr><td>Corruption</td><td>Aumenta difficoltà e ricompense</td><td>Alzala solo finché il clear è fluido.</td></tr></tbody></table></div>
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Last Epoch · Monolith Strategy</span><h1 class="guide-title">Monolith, Blessing &amp; Farming</h1><p class="guide-hero-tagline">Dai una direzione a Echo, Timeline e Blessing senza perdere il controllo del rischio.</p></div></div>
+    <p class="guide-intro">Il Monolith of Fate è il centro dell’endgame di Last Epoch. Ogni Timeline combina Echo, obiettivi, ricompense, stabilità e boss; la scelta consapevole degli Echo trasforma la progressione in un percorso mirato.</p>
+    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Gestire la progressione Monolith con ricompense mirate.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Dopo la campagna e prima di alzare la Corruption.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Stability, boss, Blessing e clear affidabili.</span></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Elemento</th><th>Funzione</th><th>Scelta consigliata</th></tr></thead><tbody>
+        <tr><td>Echo</td><td>Mappa con ricompensa e modificatori</td><td>Priorità a ricompense utili e rischio gestibile.</td></tr>
+        <tr><td>Stability</td><td>Sblocca le quest della Timeline</td><td>Avanza fino alla quest/boss quando la build è pronta.</td></tr>
+        <tr><td>Blessing</td><td>Bonus permanente selezionabile</td><td>Scegli prima la Blessing che risolve un bisogno reale.</td></tr>
+        <tr><td>Corruption</td><td>Aumenta difficoltà e ricompense</td><td>Alzala solo finché i clear rimangono fluidi.</td></tr>
+    </tbody></table></div>
+    <h2 class="guide-title category-title">Routine per una Timeline</h2>
+    <ol class="step-list">
+        <li data-step="1"><strong>Identifica il drop obiettivo.</strong> Scegli una Timeline e non correre in tutte le direzioni.</li>
+        <li data-step="2"><strong>Accumula Stability.</strong> Gli Echo più lontani spesso aumentano il rischio: non sacrificarvi la continuità.</li>
+        <li data-step="3"><strong>Completa boss e Blessing.</strong> Aggiorna la build dopo ogni scelta importante.</li>
+        <li data-step="4"><strong>Gestisci Corruption.</strong> Riduci se i tempi o le morti peggiorano; aumenta quando la build domina il livello attuale.</li>
+    </ol>
+    <p class="guide-footer">Riferimento esterno: <a href="https://maxroll.gg/last-epoch/monolith/beginner-guide" rel="noopener noreferrer" target="_blank">guida Monolith of Fate</a>.</p>
 </div>
 
 <div id="le-defense" class="sub-tab-content guide-theme--le le-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Last Epoch · Forge With Purpose</span><h1 class="guide-title">Difese, Crafting &amp; Idols</h1></div></div>
-    <div class="guide-table-wrap"><table><thead><tr><th>Priorità</th><th>Obiettivo</th><th>Domanda utile</th></tr></thead><tbody><tr><td>1</td><td>Difese fondamentali</td><td>Quale tipo di danno mi uccide più spesso?</td></tr><tr><td>2</td><td>Recovery e mobilità</td><td>Posso riprendermi tra una minaccia e l’altra?</td></tr><tr><td>3</td><td>Idols e Blessing</td><td>Quale slot produce il miglior miglioramento mirato?</td></tr></tbody></table></div>
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/last-epoch-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Last Epoch · Forge With Purpose</span><h1 class="guide-title">Difese, Crafting &amp; Idols</h1><p class="guide-hero-tagline">Usa crafting, affissi, Idols e Blessing per eliminare il vero punto debole della build.</p></div></div>
+    <p class="guide-intro">In Last Epoch il crafting non è un’attività da rimandare al finale: è uno strumento per correggere equipaggiamento e difese durante tutta la progressione. Usa gli affissi per risolvere prima sopravvivenza, sustain e resistenze, poi per aumentare il danno.</p>
+    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Costruire difese stabili e gear con una funzione precisa.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Ogni volta che trovi un oggetto con potenziale reale.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Crafting precoce e upgrade coerenti con la skill.</span></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Priorità</th><th>Obiettivo</th><th>Domanda utile</th></tr></thead><tbody>
+        <tr><td>1</td><td>Difese fondamentali</td><td>Quale tipo di danno mi uccide più spesso?</td></tr>
+        <tr><td>2</td><td>Recovery e mobilità</td><td>Posso riprendermi tra una minaccia e l’altra?</td></tr>
+        <tr><td>3</td><td>Affissi della skill</td><td>Gli affissi scalano davvero i tag della skill?</td></tr>
+        <tr><td>4</td><td>Idols e Blessing</td><td>Quale slot produce il miglior miglioramento mirato?</td></tr>
+    </tbody></table></div>
+    <div class="pro-tip"><strong>Ricorda:</strong> Forging Potential è una risorsa. Definisci lo scopo dell’oggetto prima di spenderla e non aspettare l’oggetto perfetto per craftare.</div>
 </div>

@@ -1,32 +1,32 @@
-<div class="d4-sub-nav sub-tabs-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:20px;">
-    <button class="d4-sub-btn sub-tab-btn active-sub" onclick="window.openSubTab(event, 'd4-dash', 'd4')">📊 Dashboard</button>
-    <button class="d4-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'd4-tools', 'd4')">🧰 Strumenti & Ricerca</button>
-    <button class="d4-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'd4-builds', 'd4')">💾 Le Mie Build</button>
-    <button class="d4-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'd4-start', 'd4')">🚀 Inizia & Livellamento</button>
-    <button class="d4-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'd4-defense', 'd4')">🛡️ Difese & Gear</button>
-    <button class="d4-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'd4-endgame', 'd4')">🗺️ Endgame & Boss</button>
-</div>
+<nav class="sub-tabs">
+    <button class="sub-tab-btn d4-sub-btn active-sub" onclick="window.openSubTab(event, 'd4-dash', 'd4')">📊 Dashboard</button>
+    <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-tools', 'd4')">🧰 Strumenti & Ricerca</button>
+    <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-builds', 'd4')">💾 Le Mie Build</button>
+    <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-start', 'd4')">🚀 Inizia & Livellamento</button>
+    <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-defense', 'd4')">🛡️ Difese & Gear</button>
+    <button class="sub-tab-btn d4-sub-btn" onclick="window.openSubTab(event, 'd4-endgame', 'd4')">🗺️ Endgame & Boss</button>
+</nav>
 
-<div id="d4-dash" class="d4-sub-content active-sub-content">
-    <div id="build-meta-d4" class="build-meta-panel"></div>
-    <div class="dash-grid">
-        <div class="dash-card">
-            <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
-            <ul id="top-builds-d4" class="dash-list">
-                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-            </ul>
-        </div>
-        <div class="dash-card">
-            <h3>🚀 Top Build Leveling <span class="tag season-highlight">Caricamento...</span></h3>
-            <ul id="top-leveling-d4" class="dash-list">
-                <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-            </ul>
-        </div>
+<div id="d4-dash" class="sub-tab-content d4-sub-content active-sub-content guide-theme--d4 legacy-dashboard" data-legacy-redesign="dashboard">
+    <div id="build-meta-d4" class="build-meta-panel" role="status" aria-live="polite"></div>
+    <section id="build-discovery-d4" class="build-discovery"></section>
+
+    <div class="section">
+        <h2 class="section-title">Guide classe &amp; endgame</h2>
+        <ul class="dash-list" id="top-builds-d4">
+            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+        </ul>
     </div>
-    <div id="build-discovery-d4" class="build-discovery-panel"></div>
+    <div class="section">
+        <h2 class="section-title">Risorse per il livellamento</h2>
+        <ul class="dash-list" id="top-leveling-d4">
+            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
+        </ul>
+    </div>
+    <div class="info-box"><strong>Nota editoriale:</strong> build e bilanciamento cambiano con stagioni e patch. Questa dashboard rimanda a fonti aggiornate; le guide interne spiegano il metodo di progressione.</div>
 </div>
 
-<div id="d4-tools" class="d4-sub-content" style="display:none;">
+<div id="d4-tools" class="sub-tab-content d4-sub-content guide-theme--d4 legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
     <div class="action-bar">
         <form onsubmit="window.multiSearch(event, 'search-input-d4', 'search-site-d4')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
             <input id="search-input-d4" placeholder="Cerca una build, una classe o un boss..." required style="flex-grow:1;" type="text"/>
@@ -36,7 +36,7 @@
                 <option value="wowhead.com">Wowhead</option>
                 <option value="diablo4.blizzard.com">Blizzard</option>
             </select>
-            <button class="action-btn" type="submit" style="background:#c0392b;">Cerca</button>
+            <button type="submit" class="action-btn" style="background:#c0392b;">Cerca</button>
         </form>
     </div>
     <div class="section" style="background: transparent; border: none; padding: 0;">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<div id="d4-builds" class="d4-sub-content" style="display:none;">
+<div id="d4-builds" class="sub-tab-content d4-sub-content guide-theme--d4 legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
     <div class="section" style="border-left-color: #c0392b;">
         <h3 style="color: #c0392b;">
             <div>💾 Le Mie Build Personali</div>
@@ -65,17 +65,55 @@
     </div>
 </div>
 
+<!-- INIZIO GUIDE ORIGINALI D4 -->
 <div id="d4-start" class="sub-tab-content guide-theme--d4 d4-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · First Steps</span><h1 class="guide-title">Inizia: Campagna, Livellamento &amp; Stagione</h1></div></div>
-    <div class="guide-table-wrap"><table><thead><tr><th>Momento</th><th>Obiettivo</th><th>Decisione utile</th></tr></thead><tbody><tr><td>Creazione</td><td>Scegliere classe e stile</td><td>Parti da una build leveling, non da endgame.</td></tr><tr><td>Livellamento</td><td>Clear affidabile</td><td>Usa skill che funzionano con gli oggetti disponibili.</td></tr><tr><td>Stagione</td><td>Sfruttare il sistema attivo</td><td>Trattalo come acceleratore.</td></tr></tbody></table></div>
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · First Steps</span><h1 class="guide-title">Inizia: Campagna, Livellamento &amp; Stagione</h1><p class="guide-hero-tagline">Una progressione leggibile dalla scelta della classe al primo contenuto endgame.</p></div></div>
+    <p class="guide-intro">Diablo 4 cambia nel tempo attraverso stagioni e aggiornamenti. La base più solida è scegliere un obiettivo chiaro, costruire un nucleo di skill affidabile e usare i primi oggetti per risolvere risorse, difese e velocità di eliminazione.</p>
+    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Costruire un nucleo affidabile con gli oggetti disponibili.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">All’avvio di un personaggio o di una nuova stagione.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Skill stabili, difese e clear senza attrito.</span></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Momento</th><th>Obiettivo</th><th>Decisione utile</th></tr></thead><tbody>
+        <tr><td>Creazione</td><td>Scegliere classe e stile</td><td>Parti da una build leveling, non da una configurazione da oggetti rari.</td></tr>
+        <tr><td>Livellamento</td><td>Clear affidabile e mobilità</td><td>Usa skill che funzionano con gli oggetti disponibili.</td></tr>
+        <tr><td>Primo endgame</td><td>Consolidare difese e aspetti</td><td>Non salire di difficoltà se il tempo di clear peggiora troppo.</td></tr>
+        <tr><td>Stagione</td><td>Sfruttare il sistema attivo</td><td>Trattalo come un acceleratore, non come l’unica fonte di progressione.</td></tr>
+    </tbody></table></div>
+    <h2 class="guide-title category-title">Tre domande per ogni upgrade</h2>
+    <ol class="step-list">
+        <li data-step="1"><strong>Rende la build più stabile?</strong> Difese e risorse vengono prima di un danno marginale.</li>
+        <li data-step="2"><strong>Rende il clear più rapido?</strong> Mantieni l’upgrade se il beneficio è osservabile nelle attività reali.</li>
+        <li data-step="3"><strong>Serve al prossimo obiettivo?</strong> Evita di consumare materiali su un oggetto che sostituirai subito.</li>
+    </ol>
+    <p class="guide-footer">Riferimento stagionale: <a href="https://diablo4.blizzard.com/season" rel="noopener noreferrer" target="_blank">pagina ufficiale Diablo IV</a>.</p>
 </div>
 
 <div id="d4-defense" class="sub-tab-content guide-theme--d4 d4-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · Defensive Foundation</span><h1 class="guide-title">Difese, Gear &amp; Crafting</h1></div></div>
-    <div class="guide-table-wrap"><table><thead><tr><th>Problema</th><th>Diagnosi</th><th>Risposta iniziale</th></tr></thead><tbody><tr><td>Colpi improvvisi</td><td>Danno esplosivo o resistenza scarsa</td><td>Rivedi difese attive e riduzione danni.</td></tr><tr><td>Risorse insufficienti</td><td>Costo troppo alto o recovery bassa</td><td>Semplifica la rotazione.</td></tr><tr><td>Oggetti mediocri</td><td>Affissi non allineati</td><td>Preferisci pochi affissi utili a molti casuali.</td></tr></tbody></table></div>
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · Defensive Foundation</span><h1 class="guide-title">Difese, Gear &amp; Crafting</h1><p class="guide-hero-tagline">Decifra le morti della build e trasforma ogni slot in una risposta concreta.</p></div></div>
+    <p class="guide-intro">La robustezza di una build dipende dall’insieme di riduzione danni, resistenze, vita, mobilità e recovery. Quando le morti aumentano, individua il tipo di minaccia prima di sostituire casualmente gli oggetti.</p>
+    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Creare una base solida di difese, recovery e gear.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Quando il salto di difficoltà compromette velocità o sicurezza.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Diagnosi prima della spesa di materiali.</span></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Problema</th><th>Diagnosi</th><th>Risposta iniziale</th></tr></thead><tbody>
+        <tr><td>Colpi improvvisi</td><td>Danno esplosivo o resistenza insufficiente</td><td>Rivedi difese attive, riduzione danni e posizionamento.</td></tr>
+        <tr><td>Risorse insufficienti</td><td>Costo troppo alto o recovery bassa</td><td>Semplifica la rotazione e cerca sustain mirato.</td></tr>
+        <tr><td>Boss lenti</td><td>Danno singolo o uptime basso</td><td>Verifica skill principale, paragon e sinergie.</td></tr>
+        <tr><td>Oggetti mediocri</td><td>Affissi non allineati al ruolo</td><td>Preferisci pochi affissi utili a molti casuali.</td></tr>
+    </tbody></table></div>
+    <div class="pro-tip"><strong>Crafting prudente:</strong> investi materiali quando un oggetto ha già il ruolo corretto nella build. Un upgrade piccolo ma certo spesso vale più di un tentativo casuale su un oggetto temporaneo.</div>
 </div>
 
 <div id="d4-endgame" class="sub-tab-content guide-theme--d4 d4-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · Endgame Loop</span><h1 class="guide-title">Endgame, Boss &amp; Farming</h1></div></div>
-    <div class="guide-table-wrap"><table><thead><tr><th>Bisogno</th><th>Approccio</th><th>Indicatore di efficacia</th></tr></thead><tbody><tr><td>Esperienza e paragon</td><td>Contenuto rapido</td><td>Clear continui e sicuri.</td></tr><tr><td>Materiali</td><td>Attività mirata</td><td>Spesa sostenuta dagli upgrade.</td></tr><tr><td>Unique e boss</td><td>Preparazione</td><td>Il boss è ripetibile senza troppe morti.</td></tr></tbody></table></div>
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/diablo4-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Diablo 4 · Endgame Loop</span><h1 class="guide-title">Endgame, Boss &amp; Farming</h1><p class="guide-hero-tagline">Scegli l’attività in base a ciò che manca alla build e rendi ogni sessione misurabile.</p></div></div>
+    <p class="guide-intro">L’endgame va pianificato in base alla risorsa che manca. Attività diverse premiano esperienza, glifi, materiali, oggetti mirati o progressione di difficoltà. Un percorso efficiente passa da contenuti completati rapidamente, non da tentativi ripetuti oltre il livello della build.</p>
+    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Convertire tempo di gioco in paragon, materiali e upgrade mirati.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Dopo l’accesso alle attività endgame e prima dei boss.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Farm efficiente, preparazione e progressione graduale.</span></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Bisogno</th><th>Approccio</th><th>Indicatore di efficacia</th></tr></thead><tbody>
+        <tr><td>Esperienza e paragon</td><td>Contenuto che completi rapidamente</td><td>Clear continui e sicuri.</td></tr>
+        <tr><td>Glifi</td><td>Attività dedicata alla loro crescita</td><td>La potenza aumenta senza rallentare la route.</td></tr>
+        <tr><td>Materiali</td><td>Attività con ricompensa mirata</td><td>Spesa sostenuta dagli upgrade ottenuti.</td></tr>
+        <tr><td>Unique e boss</td><td>Preparazione e farming mirato</td><td>Il boss è ripetibile senza consumare troppe risorse.</td></tr>
+    </tbody></table></div>
+    <h2 class="guide-title category-title">Routine endgame</h2>
+    <ol class="step-list">
+        <li data-step="1"><strong>Scegli cosa stai cercando.</strong> Non farmare tutto nello stesso momento.</li>
+        <li data-step="2"><strong>Valuta la velocità.</strong> Abbassa la difficoltà se quella attuale interrompe il ritmo.</li>
+        <li data-step="3"><strong>Potenzia in ordine.</strong> Prima i componenti che cambiano clear e sopravvivenza, poi gli upgrade di lusso.</li>
+        <li data-step="4"><strong>Prepara i boss.</strong> Controlla difese, gestione risorse e mobilità prima del tentativo.</li>
+    </ol>
+    <p class="guide-footer">Riferimento esterno: <a href="https://maxroll.gg/d4/meta/endgame-progression" rel="noopener noreferrer" target="_blank">roadmap endgame Diablo 4</a>.</p>
 </div>
