@@ -26,24 +26,46 @@
     <div class="info-box"><strong>Nota editoriale:</strong> build e bilanciamento cambiano con stagioni e patch. Questa dashboard rimanda a fonti aggiornate; le guide interne spiegano il metodo di progressione.</div>
 </div>
 
-<div id="d4-tools" class="sub-tab-content d4-sub-content guide-theme--d4 legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
-    <div class="action-bar">
-        <form onsubmit="window.multiSearch(event, 'search-input-d4', 'search-site-d4')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
-            <input id="search-input-d4" placeholder="Cerca una build, una classe o un boss..." required style="flex-grow:1;" type="text"/>
-            <select id="search-site-d4">
-                <option value="all">Cerca in tutti i siti</option>
-                <option value="maxroll.gg">Maxroll</option>
-                <option value="wowhead.com">Wowhead</option>
-                <option value="diablo4.blizzard.com">Blizzard</option>
+<div id="d4-tools" class="sub-tab-content d4-sub-content" style="display:none;">
+    <div class="action-bar" style="background: linear-gradient(135deg, #181511 0%, #0a0806 100%); border: 1px solid #000; box-shadow: inset 0 0 10px #000;">
+        <form onsubmit="window.multiSearch(event, 'search-input-d4', 'search-site-d4')" style="display: flex; width: 100%; gap: 15px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size:1.8em; margin-left: 10px;">🔍</span>
+            <input id="search-input-d4" placeholder="Cerca build, boss o oggetti..." required style="flex-grow:1; background: #050505; border: 1px solid #222;" type="text"/>
+            <select id="search-site-d4" style="background: #050505; border: 1px solid #222;">
+                <option value="all">🌐 Cerca Ovunque</option>
+                <option value="maxroll.gg/d4">Maxroll</option>
+                <option value="wowhead.com/diablo-4">Wowhead</option>
+                <option value="diablo4.blizzard.com">Blizzard (Ufficiale)</option>
             </select>
-            <button type="submit" class="action-btn" style="background:#c0392b;">Cerca</button>
+            <button type="submit" class="action-btn" style="border-top-color: #c0392b;">Avvia Ricerca</button>
         </form>
     </div>
-    <div class="section" style="background: transparent; border: none; padding: 0;">
-        <a class="tool-link" href="https://maxroll.gg/d4/build-guides" rel="noopener noreferrer" style="background:#c0392b;" target="_blank">Guide Build</a>
-        <a class="tool-link" href="https://maxroll.gg/d4/meta/endgame-progression" rel="noopener noreferrer" style="background:#7b1e1e;" target="_blank">Roadmap Endgame</a>
-        <a class="tool-link" href="https://www.wowhead.com/diablo-4" rel="noopener noreferrer" style="background:#805c28;" target="_blank">Database &amp; Guide</a>
-        <a class="tool-link" href="https://diablo4.blizzard.com/season" rel="noopener noreferrer" style="background:#5a1717;" target="_blank">Stagione Ufficiale</a>
+
+    <div class="tools-grid">
+        <div class="tool-card" style="border-top-color: #c0392b;">
+            <div class="tool-card-icon">📚</div>
+            <div class="tool-card-title">Maxroll: Build & Guide</div>
+            <div class="tool-card-desc">Il database supremo per le meta-build, le tier list e le strategie endgame.</div>
+            <a href="https://maxroll.gg/d4/build-guides" target="_blank" class="tool-card-action">Esplora Guide</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #7b1e1e;">
+            <div class="tool-card-icon">🗺️</div>
+            <div class="tool-card-title">Roadmap Endgame</div>
+            <div class="tool-card-desc">I percorsi ottimizzati per scalare il Paragon e farmare materiali e boss.</div>
+            <a href="https://maxroll.gg/d4/meta/endgame-progression" target="_blank" class="tool-card-action">Vedi Roadmap</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #805c28;">
+            <div class="tool-card-icon">🗄️</div>
+            <div class="tool-card-title">Wowhead Database</div>
+            <div class="tool-card-desc">Sede di statistiche, tabelle di drop e informazioni avanzate di gioco.</div>
+            <a href="https://www.wowhead.com/diablo-4" target="_blank" class="tool-card-action">Apri Database</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #5a1717;">
+            <div class="tool-card-icon">📜</div>
+            <div class="tool-card-title">Pergamena Blizzard</div>
+            <div class="tool-card-desc">Note di aggiornamento ufficiali e dettagli meccanici della Stagione in corso.</div>
+            <a href="https://diablo4.blizzard.com/season" target="_blank" class="tool-card-action">Leggi Novità</a>
+        </div>
     </div>
 </div>
 
