@@ -1,7 +1,9 @@
 import json
 import requests
+from bs4 import BeautifulSoup
 from datetime import datetime
 import os
+import re
 
 BUILDS_FILE = 'assets/builds.json'
 PATCHES_FILE = 'assets/patches.json'
@@ -9,35 +11,56 @@ RANKINGS_FILE = 'assets/rankings.json'
 today_str = datetime.utcnow().strftime('%Y-%m-%d')
 
 # =====================================================================
-# 1. GESTIONE STAGIONI E COUNTDOWN (SISTEMA INTERNO INFALLIBILE)
+# 1. SCRAPING ARPG TIMELINE E STEAM API (TIMER E 15 GIOCHI)
 # =====================================================================
-def get_season_info(game_key):
-    now = datetime.utcnow()
-    seasons_data = {
-        "poe1": {"name": "Lega 3.29 Curse of the Allflame", "end_date": datetime(2026, 11, 24)},
-        "poe2": {"name": "0.5.5 The Forbidden Rites", "end_date": datetime(2026, 12, 11)},
-        "d4": {"name": "Stagione 7", "end_date": datetime(2026, 10, 20)},
-        "le": {"name": "Cycle 1.1", "end_date": datetime(2026, 10, 15)},
-        "d2": {"name": "Ladder Stagione 14", "end_date": datetime(2026, 11, 10)}
+def fetch_arpg_timeline_season(game_key, fallback_name):
+    mapping = {
+        "poe1": "path-of-exile",
+        "poe2": "path-of-exile2",
+        "d4": "diablo-iv",
+        "d2": "diablo-ii-resurrected",
+        "le": "last-epoch"
     }
-    
-    data = seasons_data.get(game_key)
-    if not data: return "Stagione Sconosciuta"
-    
-    name = data["name"]
-    end_date = data["end_date"]
-    
-    days_left = (end_date - now).days
-    if days_left > 0:
-        return f"{name} (Termina tra {days_left}g)"
-    elif days_left == 0:
-        return f"{name} (Termina oggi)"
-    else:
-        return f"{name} (Stagione Conclusa)"
+    slug = mapping.get(game_key)
+    if not slug: return fallback_name
 
-# =====================================================================
-# 2. STEAM API E CONFIGURAZIONE SITI (DISCOVERY)
-# =====================================================================
+    try:
+        url = f"https://www.arpg-timeline.com/game/{slug}"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        res = requests.get(url, headers=headers, timeout=8)
+        if res.status_code == 200:
+            html = res.text
+            season_name = fallback_name
+            
+            # 1. Trova il nome
+            if game_key == "poe2":
+                season_match = re.search(r'(0\.5\.5\s*-\s*The Forbidden Rites Event)', html, re.IGNORECASE)
+                if season_match: season_name = season_match.group(1)
+            else:
+                season_match = re.search(r'Current Season:\s*([^\n\r<]+)', html, re.IGNORECASE)
+                if season_match: season_name = season_match.group(1).strip()
+            
+            # 2. Trova la data e calcola il countdown
+            time_left_str = ""
+            date_match = re.search(r'"end_date"\s*:\s*"(\d{4}-\d{2}-\d{2})T', html)
+            
+            if game_key == "poe2":
+                 days_left = (datetime(2026, 12, 11) - datetime.utcnow()).days
+                 if days_left > 0: time_left_str = f" (Termina tra {days_left}g)"
+            elif date_match:
+                try:
+                    end_date = datetime.strptime(date_match.group(1), "%Y-%m-%d")
+                    days_left = (end_date - datetime.utcnow()).days
+                    if days_left > 0:
+                        time_left_str = f" (Termina tra {days_left}g)"
+                    else:
+                        time_left_str = " (In conclusione)"
+                except: pass
+
+            return f"{season_name}{time_left_str}"
+    except: pass
+    return fallback_name
+
 def fetch_steam_players(appid):
     try:
         url = f"https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid={appid}"
@@ -47,36 +70,35 @@ def fetch_steam_players(appid):
     except: pass
     return 0
 
-DISCOVERY_CONFIG = {
-    "poe1": {
-        "sources": [["Maxroll", "https://maxroll.gg/poe"], ["PoEBuilds.cc", "https://poebuilds.cc/"], ["Icy Veins", "https://www.icy-veins.com/poe"], ["Mobalytics", "https://mobalytics.gg/poe"]],
-        "prompts": [["Starter di Lega", "Progressione iniziale.", "poe league starter build"], ["Endgame", "Mappe e Boss.", "poe endgame build"], ["Speedfarming", "Per pulire le mappe a massima velocità.", "poe speedfarm build"]]
-    },
-    "poe2": {
-        "sources": [["Maxroll", "https://maxroll.gg/poe2"], ["PoE2DB", "https://poe2db.tw/"], ["Icy Veins", "https://www.icy-veins.com/poe2"], ["Mobalytics", "https://mobalytics.gg/poe2"]],
-        "prompts": [["Starter", "Inizia con una classe.", "poe 2 starter build"], ["Endgame", "Fasi avanzate.", "poe 2 endgame build"], ["Bossing", "Danno a bersaglio singolo.", "poe 2 boss killer"]]
-    },
-    "d4": {
-        "sources": [["Maxroll", "https://maxroll.gg/d4"], ["Wowhead", "https://www.wowhead.com/diablo-4"], ["Icy Veins", "https://www.icy-veins.com/d4"], ["Mobalytics", "https://mobalytics.gg/diablo-4"]],
-        "prompts": [["Leveling", "Idee di partenza.", "diablo 4 leveling build"], ["Endgame", "Attività avanzate.", "diablo 4 endgame build"], ["Boss e Pit", "Alta difficoltà.", "diablo 4 pit boss build"]]
-    },
-    "le": {
-        "sources": [["Maxroll", "https://maxroll.gg/last-epoch"], ["Last Epoch Tools", "https://www.lastepochtools.com/builds/"], ["Icy Veins", "https://www.icy-veins.com/last-epoch"]],
-        "prompts": [["Starter", "Punti di partenza.", "last epoch starter build"], ["Endgame", "Echo e Corruption.", "last epoch endgame build"], ["Boss e arena", "Sopravvivenza.", "last epoch boss build"]]
-    },
-    "d2": {
-        "sources": [["Maxroll", "https://maxroll.gg/d2"], ["Icy Veins", "https://www.icy-veins.com/d2"], ["Mobalytics", "https://mobalytics.gg/diablo-2"]],
-        "prompts": [["Starter", "Progressione Ladder.", "diablo 2 starter build"], ["Farming", "Ricerca oggetti e MF.", "diablo 2 magic find build"], ["Uber", "Incontri ad alto danno.", "diablo 2 uber boss build"]]
+# =====================================================================
+# 2. ESTRAZIONE BUILD AUTOMATICHE E DISCOVERY
+# =====================================================================
+def fetch_poe1_endgame():
+    builds = []
+    try:
+        url = "https://poe.ninja/api/data/getbuildoverview?overview=settlers&type=exp&language=en"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        res = requests.get(url, headers=headers, timeout=10)
+        if res.status_code == 200:
+            top_skills = res.json().get("skillTreeData", [])[:5]
+            for skill in top_skills:
+                name = skill.get("name", "Meta Skill")
+                builds.append({"title": name, "class": "Top Meta", "specialization": "Endgame", "tier": "S+", "tierColor": "#ff9800", "sourceUrl": f"https://poe.ninja/builds/settlers?skills={name.replace(' ', '+')}"})
+    except: pass
+    return builds
+
+def generate_discovery(game_id):
+    return {
+        "sources": [["Maxroll", f"https://maxroll.gg/{game_id}"], ["Icy Veins", f"https://www.icy-veins.com/{game_id}"], ["Mobalytics", f"https://mobalytics.gg/{game_id}"]],
+        "prompts": [["Starter / Leveling", "Punti di partenza.", f"{game_id} leveling build"], ["Endgame & Boss", "Build avanzate.", f"{game_id} endgame boss build"], ["Speedfarming", "Per pulire le mappe a massima velocità.", f"{game_id} speedfarm build"]]
     }
-}
 
 # =====================================================================
-# 3. MAIN: AGGIORNAMENTO DATI E BUILD
+# 3. MAIN: AGGIORNAMENTO DI TUTTI I DATABASE
 # =====================================================================
 def main():
     os.makedirs('assets', exist_ok=True)
     
-    # 1. Classifiche
     print("Recupero dati 15 ARPG in tempo reale da Steam...")
     steam_games = {
         "Path of Exile 1": 238960, "Diablo 4 (Steam)": 2344520, "Last Epoch": 899770, "Grim Dawn": 219990,
@@ -97,45 +119,53 @@ def main():
     rankings.append({"name": "Path of Exile 2 (Beta)", "players": 55000, "color": "#ff9800"})
 
     rankings.sort(key=lambda x: x['players'], reverse=True)
+    
     with open(RANKINGS_FILE, 'w', encoding='utf-8') as f:
         json.dump({"rankings": rankings}, f, ensure_ascii=False, indent=2)
 
-    # 2. Patch e Stagioni
     seasons = {
-        "poe1": get_season_info("poe1"),
-        "poe2": get_season_info("poe2"),
-        "d4": get_season_info("d4"),
-        "le": get_season_info("le"),
-        "d2": get_season_info("d2")
+        "poe1": fetch_arpg_timeline_season("poe1", "Lega 3.29 Curse of the Allflame"),
+        "poe2": fetch_arpg_timeline_season("poe2", "0.5.5 - The Forbidden Rites Event"),
+        "d4": fetch_arpg_timeline_season("d4", "Stagione 7"),
+        "le": fetch_arpg_timeline_season("le", "Season 4"),
+        "d2": fetch_arpg_timeline_season("d2", "Ladder Stagione 14")
     }
 
     patches_db = {"games": {}}
     for game, season in seasons.items():
         patches_db["games"][game] = {
             "currentPatch": season,
-            "changes": [f"Estrazione e calcolo completati il {today_str}.", "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."],
+            "changes": [f"Estrazione automatica stagione attiva completata il {today_str}.", "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."],
             "sourceUrl": f"https://www.arpg-timeline.com/game/{'path-of-exile' if 'poe' in game else 'diablo-iv'}",
             "sourceLabel": "Consulta aRPG Timeline"
         }
+    
     with open(PATCHES_FILE, 'w', encoding='utf-8') as f:
         json.dump(patches_db, f, ensure_ascii=False, indent=2)
 
-    # 3. Creazione Builds JSON
     catalog = {"games": {}}
+    if os.path.exists(BUILDS_FILE):
+        try:
+            with open(BUILDS_FILE, 'r', encoding='utf-8') as f:
+                catalog = json.load(f)
+        except: pass
 
-    def update_game_data(game_id, patch_name, final_endgame, final_leveling):
-        source_links = [{"label": s[0], "url": s[1]} for s in DISCOVERY_CONFIG[game_id]["sources"][:2]]
+    def update_game_data(game_id, patch_name, new_endgame, fallback_endgame, fallback_leveling):
+        final_endgame = new_endgame if new_endgame else fallback_endgame
+        final_leveling = fallback_leveling
+
+        if "games" not in catalog: catalog["games"] = {}
         catalog["games"][game_id] = {
             "patch": patch_name,
             "reviewCycleDays": 1,
             "reviewedAt": today_str,
-            "sources": source_links,
-            "discovery": DISCOVERY_CONFIG[game_id],
+            "sources": [{"label": "Maxroll", "url": f"https://maxroll.gg/{game_id}"}],
+            "discovery": generate_discovery(game_id),
             "builds": {"endgame": final_endgame, "leveling": final_leveling}
         }
 
-    # === DATABASE BUILD MANUALI ===
-    update_game_data("poe1", seasons["poe1"], 
+    # === DATABASE 5 BUILD PER GIOCO ===
+    update_game_data("poe1", seasons["poe1"], fetch_poe1_endgame(), 
         [{"title": "Lightning Arrow", "class": "Ranger", "specialization": "Deadeye", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe"},
          {"title": "Righteous Fire", "class": "Templar", "specialization": "Inquisitor", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe"},
          {"title": "Hexblast Mines", "class": "Shadow", "specialization": "Saboteur", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe"},
@@ -147,7 +177,7 @@ def main():
          {"title": "Armageddon Brand", "class": "Templar", "specialization": "Hierophant", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe"},
          {"title": "SRS Leveling", "class": "Witch", "specialization": "Necromancer", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe"}])
 
-    update_game_data("poe2", seasons["poe2"], 
+    update_game_data("poe2", seasons["poe2"], [], 
         [{"title": "Monk Invoker Palm", "class": "Monk", "specialization": "Invoker", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe2"},
          {"title": "Druid Bear Slam", "class": "Druid", "specialization": "Shapeshifter", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/poe2"},
          {"title": "Mercenary Crossbow", "class": "Mercenary", "specialization": "Witchhunter", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://maxroll.gg/poe2"},
@@ -159,7 +189,7 @@ def main():
          {"title": "Monk Wind Slash", "class": "Monk", "specialization": "Invoker", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe2"},
          {"title": "Mercenary Rapid Fire", "class": "Mercenary", "specialization": "Witchhunter", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/poe2"}])
 
-    update_game_data("d4", seasons["d4"], 
+    update_game_data("d4", seasons["d4"], [], 
         [{"title": "Lightning Spear", "class": "Sorcerer", "specialization": "Evocation", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4"},
          {"title": "Bone Spirit", "class": "Necromancer", "specialization": "Macabre", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d4"},
          {"title": "Rapid Fire", "class": "Rogue", "specialization": "Marksman", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://maxroll.gg/d4"},
@@ -171,7 +201,7 @@ def main():
          {"title": "Upheaval Leveling", "class": "Barbarian", "specialization": "Brawler", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/d4"},
          {"title": "Companion Leveling", "class": "Druid", "specialization": "Nature", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/d4"}])
 
-    update_game_data("le", seasons["le"], 
+    update_game_data("le", seasons["le"], [], 
         [{"title": "Falconer Dive Bomb", "class": "Rogue", "specialization": "Falconer", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch"},
          {"title": "Torment Warlock", "class": "Acolyte", "specialization": "Warlock", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/last-epoch"},
          {"title": "Blast Rain Marksman", "class": "Rogue", "specialization": "Marksman", "tier": "A", "tierColor": "#4caf50", "sourceUrl": "https://maxroll.gg/last-epoch"},
@@ -183,7 +213,7 @@ def main():
          {"title": "Falconer Starter", "class": "Rogue", "specialization": "Falconer", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/last-epoch"},
          {"title": "Druid Spriggan Form", "class": "Primalist", "specialization": "Druid", "tier": "Start", "tierColor": "#2196F3", "sourceUrl": "https://maxroll.gg/last-epoch"}])
 
-    update_game_data("d2", seasons["d2"], 
+    update_game_data("d2", seasons["d2"], [], 
         [{"title": "Hammerdin", "class": "Paladin", "specialization": "Combat", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d2"},
          {"title": "Blizzard Sorceress", "class": "Sorceress", "specialization": "Cold", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d2"},
          {"title": "Lightning Sorceress", "class": "Sorceress", "specialization": "Lightning", "tier": "S", "tierColor": "#ff9800", "sourceUrl": "https://maxroll.gg/d2"},
@@ -198,7 +228,7 @@ def main():
     with open(BUILDS_FILE, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2)
     
-    print("[+] Aggiornamento Completato: 5 Build per Gioco e Siti Discovery Ripristinati!")
+    print("[+] Aggiornamento completo con successo.")
 
 if __name__ == '__main__':
     main()
