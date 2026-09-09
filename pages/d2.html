@@ -8,45 +8,57 @@
     <button class="sub-tab-btn d2-sub-btn" onclick="window.openSubTab(event, 'd2-breakpoints', 'd2')">⚡ Breakpoints</button>
 </nav>
 
-<div id="d2-dash" class="sub-tab-content d2-sub-content active-sub-content guide-theme--d2 legacy-dashboard" data-legacy-redesign="dashboard">
+<div id="d2-dash" class="sub-tab-content d2-sub-content active-sub-content">
     <div id="build-meta-d2" class="build-meta-panel" role="status" aria-live="polite"></div>
     <section id="build-discovery-d2" class="build-discovery"></section>
-
     <div class="section" style="border-left-color: var(--danger);">
         <h3 style="color: var(--danger);"><div>⚔️ Meta Endgame <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Caricamento...</span></div></h3>
-        <ul class="dash-list" id="top-builds-d2">
-            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-        </ul>
+        <ul class="dash-list" id="top-builds-d2"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
     </div>
     <div class="section" style="border-left-color: var(--danger);">
         <h3 style="color: var(--danger);"><div>🚀 Meta Leveling <span class="season-highlight" style="border-color: var(--danger); color: var(--danger);">Caricamento...</span></div></h3>
-        <ul class="dash-list" id="top-leveling-d2">
-            <li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li>
-        </ul>
+        <ul class="dash-list" id="top-leveling-d2"><li><span style="color: var(--text-muted); font-style:italic;">In attesa di sincronizzazione...</span></li></ul>
     </div>
 </div>
 
-<div id="d2-tools" class="sub-tab-content d2-sub-content guide-theme--d2 legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
-    <div class="action-bar" style="border-color: var(--danger);">
-        <form onsubmit="window.multiSearch(event, 'search-input-d2', 'search-site-d2')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
-            <input id="search-input-d2" placeholder="Cerca term..." required style="flex-grow:1;" type="text"/>
-            <select id="search-site-d2" style="border-color: var(--danger);">
-                <option value="all">🔍 Cerca in Tutti i Siti</option>
+<div id="d2-tools" class="sub-tab-content d2-sub-content" style="display:none;">
+    <div class="action-bar" style="background: linear-gradient(135deg, #181511 0%, #0a0806 100%); border: 1px solid #000; box-shadow: inset 0 0 10px #000;">
+        <form onsubmit="window.multiSearch(event, 'search-input-d2', 'search-site-d2')" style="display: flex; width: 100%; gap: 15px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size:1.8em; margin-left: 10px;">🔍</span>
+            <input id="search-input-d2" placeholder="Cerca term..." required style="flex-grow:1; background: #050505; border: 1px solid #222;" type="text"/>
+            <select id="search-site-d2" style="background: #050505; border: 1px solid #222;">
+                <option value="all">🌐 Cerca Ovunque</option>
                 <option value="maxroll.gg/d2">Maxroll D2R</option>
                 <option value="icy-veins.com/d2">Icy Veins D2R</option>
                 <option value="mobalytics.gg/diablo-2">Mobalytics D2R</option>
             </select>
-            <button class="action-btn" style="background: var(--danger);" type="submit">Cerca</button>
+            <button class="action-btn" style="border-top-color: var(--danger);" type="submit">Cerca</button>
         </form>
     </div>
-    <div class="section" style="background: transparent; border: none; padding: 0;">
-        <a class="tool-link" href="https://d2runewizard.com" rel="noopener noreferrer" style="background: var(--danger);" target="_blank">🛠️ D2Runewizard</a>
-        <a class="tool-link" href="https://maxroll.gg/d2/d2-drop-calculator" rel="noopener noreferrer" style="background: var(--danger);" target="_blank">⚖️ Maxroll Drop Calc</a>
-        <a class="tool-link" href="https://maxroll.gg/d2/d2planner" rel="noopener noreferrer" style="background: var(--danger);" target="_blank">📈 D2 Planner</a>
+    <div class="tools-grid">
+        <div class="tool-card" style="border-top-color: #d4af37;">
+            <div class="tool-card-icon">🪨</div>
+            <div class="tool-card-title">D2 Runewizard</div>
+            <div class="tool-card-desc">Il tracker definitivo: segna le rune che hai e scopri quali Parole Runiche puoi creare.</div>
+            <a href="https://d2runewizard.com" target="_blank" class="tool-card-action">Apri Runewizard</a>
+            <button class="tool-card-action" onclick="window.openOverlay('https://d2runewizard.com', 'D2 Runewizard')" style="margin-top: 5px; background: transparent; border: 1px dashed var(--border-color); color: var(--text-muted);">Apri in Overlay</button>
+        </div>
+        <div class="tool-card" style="border-top-color: var(--danger);">
+            <div class="tool-card-icon">⚖️</div>
+            <div class="tool-card-title">Drop Calculator</div>
+            <div class="tool-card-desc">Scopri le esatte percentuali di caduta degli oggetti e ottimizza il Magic Find.</div>
+            <a href="https://maxroll.gg/d2/d2-drop-calculator" target="_blank" class="tool-card-action">Calcola Drop</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #2980b9;">
+            <div class="tool-card-icon">📈</div>
+            <div class="tool-card-title">D2 Planner</div>
+            <div class="tool-card-desc">Strumento avanzato per pianificare equipaggiamento, incavi e abilità del personaggio.</div>
+            <a href="https://maxroll.gg/d2/d2planner" target="_blank" class="tool-card-action">Pianifica Build</a>
+        </div>
     </div>
 </div>
 
-<div id="d2-builds" class="sub-tab-content d2-sub-content guide-theme--d2 legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
+<div id="d2-builds" class="sub-tab-content d2-sub-content" style="display:none;">
     <div class="section" style="border-left-color: var(--danger);">
         <h3 style="color: var(--danger);">
             <div>💾 Le Mie Build Personali</div>
@@ -64,76 +76,54 @@
     </div>
 </div>
 
-<!-- INIZIO GUIDE ORIGINALI D2 -->
-<div id="d2-runewords" class="sub-tab-content d2-sub-content guide-section guide-theme--d2 legacy-database" data-legacy-redesign="legacy-database" style="display:none;">
-    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Runeword Archive</span><h1 class="legacy-title">Guida D2R: Database Parole Runiche</h1><p class="legacy-tagline">Parole runiche, basi e filtri in un archivio leggibile anche quando stai preparando il prossimo upgrade.</p><div class="legacy-hero-meta"><span>Database filtrabile</span><span>Parole runiche</span></div></div></div>
-    <p class="legacy-intro" style="margin-top:0; font-size:0.9em; color:var(--text-muted);"><em>Tutte le migliori ricette con le rune, aggiornate alle ultime Patch di Diablo 2 Resurrected. Assicurati di usare un oggetto base "Grigio" (Normale con Incavi) e di inserire le rune nell'ordine esatto!</em></p>
-
+<div id="d2-runewords" class="sub-tab-content d2-sub-content guide-section" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Runeword Archive</span><h1 class="legacy-title">Database Parole Runiche</h1></div></div>
+    <p class="legacy-intro"><em>Ricette aggiornate per Diablo 2 Resurrected. Usa un oggetto base "Grigio" con il numero esatto di incavi!</em></p>
     <div class="filter-container">
         <label for="type-filter-d2">Filtra per Tipo Oggetto:</label>
         <select id="type-filter-d2" onchange="window.renderD2Runewords()">
-            <option value="all">Mostra Tutti</option>
-            <option value="armatura">👕 Armature</option>
-            <option value="arma">⚔️ Armi</option>
-            <option value="scudo">🛡️ Scudi</option>
-            <option value="elmo">🪖 Elmi</option>
+            <option value="all">Mostra Tutti</option><option value="armatura">👕 Armature</option><option value="arma">⚔️ Armi</option><option value="scudo">🛡️ Scudi</option><option value="elmo">🪖 Elmi</option>
         </select>
     </div>
     <ul class="guide-list" id="runewords-container"></ul>
 </div>
 
-<div id="d2-merc" class="sub-tab-content d2-sub-content guide-section guide-theme--d2 legacy-editorial" data-legacy-redesign="legacy-editorial" style="display:none;">
-    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Companion Guide</span><h1 class="legacy-title">Guida: L'Inseparabile Mercenario (Atto 2)</h1><p class="legacy-tagline">Una scheda compatta per trasformare il mercenario in una parte affidabile della build.</p><div class="legacy-hero-meta"><span>Guida di supporto</span><span>Atto 2</span></div></div></div><p class="legacy-intro">In Diablo 2, il tuo mercenario non è solo un "pet", ma una parte fondamentale della tua build. Il <strong>Mercenario del Deserto</strong> (reclutabile a Lut Gholein - Atto 2) è scelto dal 99% dei giocatori perché fornisce un'Aura di gruppo passiva.</p>
-
+<div id="d2-merc" class="sub-tab-content d2-sub-content guide-section" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Companion Guide</span><h1 class="legacy-title">L'Inseparabile Mercenario</h1></div></div>
     <h2 class="guide-title category-title">🛡️ Quale Aura Scegliere? (Incubo)</h2>
     <ul class="guide-list">
         <li class="text-only">
-            <span class="desc" style="margin-bottom:10px;">Assicurati di reclutarli a difficoltà Incubo (Nightmare) per avere queste Aure:</span>
-            <div class="stat-line"><strong>Holy Freeze (Sacro Gelo):</strong> Rallenta enormemente tutti i mostri vicini. La scelta migliore per la difesa e la sopravvivenza. Ideale per Incantatori (Sorceress, Hammerdin).</div>
-            <div class="stat-line"><strong>Might (Potenza):</strong> Aumenta massicciamente i danni fisici. Obbligatorio se giochi build corpo a corpo o a base fisica (Zealer, Barbarian, Summoner Necromancer).</div>
-            <div class="stat-line"><strong>Prayer (Preghiera - Normale):</strong> Cura costantemente Vita. Se abbinato all'arma Insight raddoppia la sua potenza curativa.</div>
+            <span class="desc" style="margin-bottom:10px;">Reclutali a difficoltà Incubo (Nightmare):</span>
+            <div class="stat-line"><strong>Holy Freeze (Sacro Gelo):</strong> Rallenta enormemente tutti i mostri vicini. La scelta migliore per la difesa.</div>
+            <div class="stat-line"><strong>Might (Potenza):</strong> Aumenta massicciamente i danni fisici. Obbligatorio se giochi build corpo a corpo.</div>
+            <div class="stat-line"><strong>Prayer (Preghiera - Normale):</strong> Cura costantemente Vita. Se abbinato all'arma Insight raddoppia la potenza curativa.</div>
         </li>
     </ul>
     <h2 class="guide-title category-title">⚔️ Equipaggiamento Ideale (Gear)</h2>
     <ul class="guide-list">
         <li class="text-only">
-            <span class="desc" style="margin-bottom:10px;">Il tuo mercenario ha bisogno di 3 cose per non morire: Resistenza al limite, Danno enorme (per la "Life Leech") e Velocità d'attacco.</span>
-            <div class="stat-line"><strong>L'Arma:</strong> Se hai problemi di Mana, usa la runeword <strong>"Insight"</strong> (Ral+Tir+Tal+Sol). Per l'Endgame elementale, <strong>"Infinity"</strong> (Ber+Mal+Ber+Ist) è vitale per abbattere le immunità nemiche.</div>
-            <div class="stat-line"><strong>L'Elmo:</strong> Cerca "Ruba Vita" (Life Leech). L'elmo unico <strong>"Andariel's Visage"</strong> è il migliore assoluto. Una fantastica opzione economica è la runeword <strong>"Bulwark"</strong> (Shael+Io+Sol).</div>
-            <div class="stat-line"><strong>L'Armatura Torso:</strong> La runeword <strong>"Treachery"</strong> (Shael+Thul+Lem) è spesso migliore di armature costose, perché aumenta enormemente la sua velocità di attacco. La runeword <strong>"Fortitude"</strong> (El+Sol+Dol+Lo) massimizza il suo danno grezzo.</div>
-            <div class="stat-line" style="color: #4caf50;"><strong>Tip Pro:</strong> Usa basi "Eteree" (Ethereal) per il mercenario! Gli oggetti non perdono mai durabilità quando indossati da loro, ed essendo eterei hanno il 50% di statistiche base in più!</div>
+            <div class="stat-line"><strong>L'Arma:</strong> Runeword <strong>"Insight"</strong> (Ral+Tir+Tal+Sol) per il mana. <strong>"Infinity"</strong> (Ber+Mal+Ber+Ist) per abbattere le immunità nemiche.</div>
+            <div class="stat-line"><strong>L'Elmo:</strong> Cerca "Ruba Vita". <strong>"Andariel's Visage"</strong> è il migliore. Opzione economica: <strong>"Bulwark"</strong> (Shael+Io+Sol).</div>
+            <div class="stat-line"><strong>L'Armatura Torso:</strong> La runeword <strong>"Treachery"</strong> (Shael+Thul+Lem) aumenta la velocità d'attacco. <strong>"Fortitude"</strong> (El+Sol+Dol+Lo) massimizza il danno.</div>
+            <div class="stat-line" style="color: #4caf50;"><strong>Tip Pro:</strong> Usa basi "Eteree" per il mercenario! Non perdono durabilità e hanno il 50% di statistiche in più.</div>
         </li>
     </ul>
 </div>
 
-<div id="d2-progression" class="sub-tab-content guide-theme--d2 d2-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="guide-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Efficient Routes</span><h1 class="guide-title">Progressione, Farming &amp; Magic Find</h1><p class="guide-hero-tagline">Imposta route corte, sicure e in linea con il vero obiettivo del personaggio.</p></div></div>
-    <p class="guide-intro">In Diablo II: Resurrected l’efficienza nasce dalla scelta del percorso adatto al personaggio, non dal replicare una sola route. Se una zona richiede troppi teleport, morti o pozioni, riduci il livello di rischio e consolida l’equipaggiamento.</p>
-    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Trovare la route adatta a esperienza, rune, boss o Magic Find.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Nella transizione tra difficoltà e durante il farming.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Continuità, immunità gestibili e mercenario.</span></div></div>
+<div id="d2-progression" class="sub-tab-content d2-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="guide-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Efficient Routes</span><h1 class="guide-title">Progressione &amp; Magic Find</h1></div></div>
     <div class="guide-table-wrap"><table><thead><tr><th>Fase</th><th>Obiettivo</th><th>Priorità</th></tr></thead><tbody>
-        <tr><td>Campagna</td><td>Completare quest essenziali e difficoltà</td><td>Resistenze, fonte di danno affidabile, mercenario.</td></tr>
+        <tr><td>Campagna</td><td>Completare quest e difficoltà</td><td>Resistenze, fonte di danno affidabile, mercenario.</td></tr>
         <tr><td>Transizione</td><td>Primi oggetti e rune utili</td><td>Zone che il personaggio completa senza rallentamenti.</td></tr>
         <tr><td>Farming</td><td>Oggetti, esperienza o rune</td><td>Una route corta e ripetibile invece di molte incompiute.</td></tr>
-        <tr><td>Endgame</td><td>Boss, Terror Zone e sfide</td><td>Breakpoints e immunità gestite dalla build.</td></tr>
     </tbody></table></div>
-    <h2 class="guide-title category-title">Checklist per una route</h2>
-    <ol class="step-list">
-        <li data-step="1"><strong>Scegli un solo obiettivo.</strong> Esperienza, rune, boss o Magic Find richiedono compromessi diversi.</li>
-        <li data-step="2"><strong>Misura la continuità.</strong> Una route rapida e sicura è più utile di una ad alto rischio.</li>
-        <li data-step="3"><strong>Evita immunità non gestibili.</strong> Non basare la progressione su mostri che la build non può affrontare con regolarità.</li>
-        <li data-step="4"><strong>Rivedi il mercenario.</strong> Equipaggiamento e sopravvivenza del compagno incidono sul ritmo della route.</li>
-    </ol>
 </div>
 
-<div id="d2-breakpoints" class="sub-tab-content guide-theme--d2 d2-sub-content guide-section" style="display:none;">
-    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="guide-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Combat Readiness</span><h1 class="guide-title">Breakpoints, Gear &amp; Preparazione Boss</h1><p class="guide-hero-tagline">Leggi breakpoints ed equipaggiamento nel contesto della build, non come numeri isolati.</p></div></div>
-    <p class="guide-intro">I breakpoint fanno parte della logica di ottimizzazione di D2R: una statistica è particolarmente utile quando supera la soglia successiva della propria classe, skill e configurazione. Per questo le tabelle devono sempre essere lette insieme alla build scelta.</p>
-    <div class="guide-signal-grid"><div class="guide-signal-card"><span class="guide-signal-label">Obiettivo</span><span class="guide-signal-value">Preparare gear e personaggio per boss e contenuti difficili.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Quando usarla</span><span class="guide-signal-value">Prima di cambiare arma, armatura o distribuire statistiche.</span></div><div class="guide-signal-card"><span class="guide-signal-label">Focus</span><span class="guide-signal-value">Soglie utili, resistenze e risposta alle immunità.</span></div></div>
+<div id="d2-breakpoints" class="sub-tab-content d2-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/d2-guide-hero.jpg"/><div class="guide-hero-content"><span class="legacy-kicker">Diablo II: Resurrected · Combat Readiness</span><h1 class="guide-title">Breakpoints &amp; Preparazione</h1></div></div>
     <div class="guide-table-wrap"><table><thead><tr><th>Area</th><th>Controllo</th><th>Obiettivo pratico</th></tr></thead><tbody>
-        <tr><td>Velocità</td><td>FCR, FHR o IAS della build</td><td>Raggiungere una soglia utile, non accumulare statistiche casualmente.</td></tr>
+        <tr><td>Velocità</td><td>FCR, FHR o IAS</td><td>Raggiungere una soglia utile.</td></tr>
         <tr><td>Resistenze</td><td>Valore nelle difficoltà alte</td><td>Non sacrificare sopravvivenza per un piccolo aumento di danno.</td></tr>
         <tr><td>Danno</td><td>Tipo di danno e immunità</td><td>Capire come la build gestisce i nemici problematici.</td></tr>
-        <tr><td>Boss</td><td>Mobilità, pozioni e mercenario</td><td>Preparare il tentativo prima di entrare.</td></tr>
     </tbody></table></div>
-    <div class="info-box"><strong>Uso corretto:</strong> questa è una checklist di metodo. Le soglie precise dipendono da classe, skill, arma e patch; consulta una tabella dedicata alla build prima di cambiare equipaggiamento.</div>
 </div>
