@@ -5,14 +5,12 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="no-referrer" name="referrer"/>
     <title>ARPG Companion Hub - Edizione Ultimate</title>
-    
     <link href="arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
-    
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="style.css?v=5">
     <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
@@ -41,17 +39,15 @@
     </div>
 </div>
 
-<!-- HEADER CENTRATO CON SELETTORE LINGUA -->
+<!-- HEADER -->
 <header class="essential-header">
     <div class="utility-language-floating" aria-label="Lingua del sito">
         <div id="google_translate_element"></div>
     </div>
-    
     <div class="essential-header-shell">
         <div class="essential-brand">
             <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
         </div>
-        
         <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel">
             <div class="appearance-panel-heading">
                 <div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione del testo.</p></div>
@@ -70,11 +66,9 @@
 
 <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
-<!-- TOOLBELT COMPLETA -->
+<!-- TOOLBELT -->
 <div class="hub-toolbelt" aria-label="Strumenti rapidi">
     <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
-    <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
-    <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
     <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
     <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
     <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
@@ -83,10 +77,9 @@
         <img alt="Discord" src="logo_animated_v2.jpg"/> Discord
     </a>
     <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
-    <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
 
-<!-- TAB GIOCHI PRINCIPALI -->
+<!-- NAVIGAZIONE GIOCHI -->
 <nav class="tabs" id="main-content" tabindex="-1">
     <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">Path of Exile 1</button>
     <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">Path of Exile 2</button>
@@ -95,9 +88,9 @@
     <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">Diablo 4</button>
 </nav>
 
-<!-- CONTENITORE DINAMICO CON CLASSE TAB-CONTENT (Ripristina la scheda di sfondo) -->
+<!-- CONTENITORE DINAMICO SCHEDE -->
 <main id="game-content-container" class="tab-content active">
-    <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
+    <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati...</div>
 </main>
 
 <footer class="main-footer">
