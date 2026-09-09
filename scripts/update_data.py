@@ -228,7 +228,7 @@ def main():
     with open(BUILDS_FILE, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2)
     
-    print("[+] Aggiornamento completo con successo.")
+    print("[+] File JSON multipli salvati e aggiornati con successo!")
 
 if __name__ == '__main__':
     main()
