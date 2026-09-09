@@ -172,38 +172,105 @@ window.initializeTabContent = async function(gameId) {
     const gameData = hubBuildCatalog?.games[gameId];
     if (!gameData) return;
 
+    // 1. RENDERING PANNELLO META (Con Timer e Fonti)
     const metaTarget = document.getElementById(`build-meta-${gameId}`);
     if(metaTarget) {
-        metaTarget.innerHTML = `<div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">${HUB_GAMES[gameId]}</strong><span class="build-meta-status">Sincronizzato</span></div>
-        <div class="build-meta-details"><div class="build-meta-detail"><span class="build-meta-label">Patch / Stagione / Timer</span><strong class="build-meta-value">${gameData.patch}</strong></div></div>`;
+        let sourcesHtml = (gameData.sources || []).map(s => `<a href="${s.url}" target="_blank" class="tool-link" style="background:var(--bg-hover); border-color:var(--border-color);">${s.label}</a>`).join('');
+        
+        metaTarget.innerHTML = `
+            <div class="build-meta-heading">
+                <div>
+                    <span class="build-meta-eyebrow">Aggiornamento meta</span>
+                    <strong class="build-meta-title">${HUB_GAMES[gameId]}</strong>
+                </div>
+                <span class="build-meta-status">Sincronizzato Live</span>
+            </div>
+            <div class="build-meta-details">
+                <div class="build-meta-detail">
+                    <span class="build-meta-label">Stagione Attuale / Timer</span>
+                    <strong class="build-meta-value" style="color:var(--accent-primary);">${gameData.patch}</strong>
+                </div>
+                <div class="build-meta-detail">
+                    <span class="build-meta-label">Fonti Verificate</span>
+                    <div style="margin-top: 5px;">${sourcesHtml || '<span style="color:var(--text-muted)">Maxroll / Community</span>'}</div>
+                </div>
+            </div>`;
     }
 
-    document.querySelectorAll(`#${gameId} .season-highlight`).forEach(el => { el.textContent = gameData.patch || "Stagione Corrente"; });
+    // Sincronizza i titoletti "Caricamento..." sulle liste build
+    document.querySelectorAll(`#${gameId} .season-highlight`).forEach(el => { 
+        el.textContent = gameData.patch || "Stagione Corrente"; 
+    });
 
+    // 2. RENDERING DISCOVERY COMMUNITY (Con Siti Multipli e YouTube)
     const discTarget = document.getElementById(`build-discovery-${gameId}`);
     if(discTarget && gameData.discovery) {
-        let html = `<div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title">Build da esplorare</strong></div><div class="build-discovery-sources">`;
-        gameData.discovery.sources.forEach(s => html += `<a href="${s[1]}" target="_blank" class="tool-link" style="background:#555;">↗ ${s[0]}</a>`);
+        let html = `
+            <div class="build-discovery-heading">
+                <div>
+                    <span class="build-discovery-eyebrow">Community discovery</span>
+                    <strong class="build-discovery-title">Build da esplorare</strong>
+                </div>
+                <span class="build-discovery-badge">Ricerca Automatica</span>
+            </div>
+            <div class="build-discovery-sources" style="margin-bottom: 15px;">
+                <span style="font-size:0.85em; color:var(--text-muted); margin-right:10px;">Siti Consigliati:</span>`;
+        
+        gameData.discovery.sources.forEach(s => {
+            html += `<a href="${s[1]}" target="_blank" class="tool-link" style="background:rgba(255,255,255,0.1);">↗ ${s[0]}</a>`;
+        });
+        
         html += `</div><div class="build-discovery-grid">`;
+        
         gameData.discovery.prompts.forEach(p => {
-            let cleanPatch = gameData.patch.split('(')[0].trim();
+            let cleanPatch = gameData.patch.split('(')[0].trim(); // Pulisce il timer dalla query
             let q = encodeURIComponent(`${HUB_GAMES[gameId]} ${cleanPatch} ${p[2]}`);
-            html += `<article class="build-discovery-card"><h4>${p[0]}</h4><p>${p[1]}</p><div class="build-discovery-actions"><a href="https://www.youtube.com/results?search_query=${q}" target="_blank" class="tool-link" style="background:var(--color-yt);">📺 YouTube</a></div></article>`;
+            html += `
+            <article class="build-discovery-card">
+                <h4 style="margin:0 0 5px 0; color:var(--accent-primary);">${p[0]}</h4>
+                <p style="font-size:0.85em; color:var(--text-muted); margin:0 0 15px 0; flex-grow:1;">${p[1]}</p>
+                <div class="build-discovery-actions">
+                    <a href="https://www.youtube.com/results?search_query=${q}" target="_blank" class="tool-link" style="background:var(--color-yt);">📺 YouTube</a>
+                    <a href="https://www.google.com/search?q=${q}" target="_blank" class="tool-link" style="background:var(--color-google);">🔍 Google</a>
+                </div>
+            </article>`;
         });
         html += `</div>`;
         discTarget.innerHTML = html;
     }
 
+    // 3. RENDERING LISTE BUILD (Aggiunto YouTube Dinamico)
     const renderList = (type, targetId) => {
         const ul = document.getElementById(targetId);
         if(!ul) return;
         ul.innerHTML = '';
         const builds = gameData.builds[type] || [];
         if(!builds.length) { ul.innerHTML = '<li><span style="color:var(--text-muted); font-style:italic;">Nessuna build registrata.</span></li>'; return; }
+        
         builds.forEach(b => {
-            ul.innerHTML += `<li><div class="dash-list-item-content"><div><span class="build-catalog-title">${b.title}</span> <span class="tag" style="background:${b.tierColor}">${b.tier}</span></div><div class="build-class-info">(${b.class} - ${b.specialization})</div><div class="smart-links-container"><a href="${b.sourceUrl}" target="_blank" class="tool-link" style="background:#555;">🔗 Guida</a></div></div><div class="dash-list-actions"><button type="button" class="quick-save-btn" title="Salva nelle Mie Build" onclick="window.quickSave('${gameId}', '${b.title} (${b.specialization})', '${gameData.patch}', '${b.sourceUrl}')">💾</button></div></li>`;
+            let cleanPatch = gameData.patch.split('(')[0].trim();
+            let ytQuery = encodeURIComponent(`${HUB_GAMES[gameId]} ${cleanPatch} ${b.title} ${b.specialization} build`);
+            
+            ul.innerHTML += `
+            <li>
+                <div class="dash-list-item-content">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span class="build-catalog-title" style="font-size:1.1em; color:var(--accent-primary);">${b.title}</span> 
+                        <span class="tag" style="background:${b.tierColor};">${b.tier}</span>
+                    </div>
+                    <div class="build-class-info" style="color:var(--text-muted); margin: 5px 0;">(${b.class} - ${b.specialization})</div>
+                    <div class="smart-links-container" style="display:flex; gap:5px; margin-top:5px;">
+                        <a href="${b.sourceUrl}" target="_blank" class="tool-link" style="background:var(--bg-hover); border:1px solid var(--border-color);">🔗 Guida Scritta</a>
+                        <a href="https://www.youtube.com/results?search_query=${ytQuery}" target="_blank" class="tool-link" style="background:var(--color-yt); border:1px solid #aa0000;">📺 YouTube</a>
+                    </div>
+                </div>
+                <div class="dash-list-actions">
+                    <button type="button" class="quick-save-btn" title="Salva nelle Mie Build" onclick="window.quickSave('${gameId}', '${b.title.replace(/'/g,"\\'")}', '${gameData.patch.split('(')[0].trim()}', '${b.sourceUrl}')">💾</button>
+                </div>
+            </li>`;
         });
     };
+    
     renderList('endgame', `top-builds-${gameId}`);
     renderList('leveling', `top-leveling-${gameId}`);
     
