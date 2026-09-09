@@ -185,7 +185,7 @@ window.multiSearch = function(event, inputId, selectId) {
 };
 
 // =========================================================
-// 4. NAVIGAZIONE DINAMICA E CARICAMENTO PAGINE (RIPRISTINATO)
+// 4. NAVIGAZIONE DINAMICA E CARICAMENTO PAGINE (CORRETTO)
 // =========================================================
 const initializedTabs = new Set();
 const tabBuildTargets = { poe1: [['endgame', 'top-builds-poe1'], ['leveling', 'top-leveling-poe1']], poe2: [['endgame', 'top-builds-poe2'], ['leveling', 'top-leveling-poe2']], le: [['endgame', 'top-builds-le'], ['leveling', 'top-leveling-le']], d2: [['endgame', 'top-builds-d2'], ['leveling', 'top-leveling-d2']], d4: [['endgame', 'top-builds-d4'], ['leveling', 'top-leveling-d4']] };
@@ -199,7 +199,6 @@ window.initializeTabContent = function(gameId) {
     initializedTabs.add(gameId);
 };
 
-// LA FUNZIONE CORRETTA CON FETCH
 window.openMainTab = async function(evt, gameId, accentColor) {
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active-btn');
@@ -219,11 +218,11 @@ window.openMainTab = async function(evt, gameId, accentColor) {
     try {
         const response = await fetch(`pages/${gameId}.html`);
         if (!response.ok) throw new Error("Pagina non trovata");
-        container.innerHTML = await response.text();
-
-        // Eliminiamo dal set per forzare l'inizializzazione del JS del nuovo HTML inserito
-        initializedTabs.delete(gameId);
         
+        // LA CORREZIONE VITALE: avvolgiamo l'HTML nella section tab-content in modo che il CSS funzioni!
+        container.innerHTML = `<section class="tab-content active" id="${gameId}">${await response.text()}</section>`;
+
+        initializedTabs.delete(gameId);
         if (window.initializeTabContent) window.initializeTabContent(gameId);
         if (window.hubSetGameIdentity) window.hubSetGameIdentity(gameId);
         
@@ -262,7 +261,7 @@ window.filterItemsStatic = function(sectionId, filterId, dataAttr) {
 };
 
 // =========================================================
-// 5. SMART LINKS (CATALOGO BUILDS JSON)
+// 5. SMART LINKS E DATABASE JSON
 // =========================================================
 const BUILD_CATALOG_URL = 'assets/builds.json';
 const buildCatalogState = { data: null, promise: null };
@@ -302,11 +301,11 @@ function renderBuildMeta(gameId, gameData, errorMessage = '') {
     const details = buildElement('div', 'build-meta-details');
     const rev = buildElement('div', 'build-meta-detail');
     rev.append(buildElement('span', 'build-meta-label', 'Sincronizzazione API'));
-    rev.append(buildElement('strong', 'build-meta-value', 'Attiva (aRPG Timeline)'));
+    rev.append(buildElement('strong', 'build-meta-value', 'Attiva e Verificata'));
     details.append(rev);
 
     const sources = buildElement('div', 'build-meta-detail build-meta-sources');
-    sources.append(buildElement('span', 'build-meta-label', 'Fonti Database'));
+    sources.append(buildElement('span', 'build-meta-label', 'Fonti Database Principali'));
     const sourceLinks = buildElement('span', 'build-meta-source-links');
     const sourcesList = Array.isArray(gameData.sources) ? gameData.sources : [];
     sourcesList.forEach(src => {
@@ -370,7 +369,7 @@ window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
         if (!gameData) throw new Error('Dati mancanti');
         renderBuildMeta(gameId, gameData);
         renderBuildList(ul, gameId, listType, gameData);
-        document.querySelectorAll(`.season-highlight`).forEach(el => { if(el.closest(`#${gameId}-dash`)) el.textContent = gameData.patch || "Stagione Corrente"; });
+        document.querySelectorAll(`.season-highlight`).forEach(el => { if(el.closest(`#${gameId}`)) el.textContent = gameData.patch || "Stagione Corrente"; });
     } catch (error) {
         renderBuildMeta(gameId, null, 'Catalogo build temporaneamente non disponibile.');
         ul.replaceChildren(buildElement('li', 'build-catalog-empty', 'Errore caricamento.'));
@@ -489,8 +488,6 @@ function hubElement(tag, options = {}, children = []) {
     return el;
 }
 function hubToast(msg) { const t = document.getElementById('hub-toast'); if (!t) return; t.textContent = msg; t.hidden = false; clearTimeout(hubToastTimer); hubToastTimer = setTimeout(() => { t.hidden = true; }, 3200); }
-function hubSetGameIdentity(gameId) { if (!HUB_GAMES[gameId]) return; document.body.dataset.activeGame = gameId; const tb = document.querySelector('.hub-toolbelt'); if (tb) tb.setAttribute('data-game', gameId); }
-window.hubSetGameIdentity = hubSetGameIdentity;
 function hubCurrentGame() { return document.body.dataset.activeGame || 'poe1'; }
 function hubCurrentSection(gId = hubCurrentGame()) { const a = document.querySelector(`#${gId} .${gId}-sub-content.active-sub-content`); return a ? a.id : `${gId}-dash`; }
 
@@ -561,44 +558,28 @@ function hubRenderRanking() {
     t.appendChild(list);
 }
 
-function hubWrapNavigation() {
-    const oMain = window.openMainTab; const oSub = window.openSubTab;
-    if (typeof oMain === 'function' && !oMain.__hubWrapped) {
-        window.openMainTab = function(e, gId, color) { oMain.call(this, e, gId, color); hubSetGameIdentity(gId); }; window.openMainTab.__hubWrapped = true;
-    }
-    if (typeof oSub === 'function' && !oSub.__hubWrapped) {
-        window.openSubTab = function(e, sId, gPref) { oSub.call(this, e, sId, gPref); hubSetGameIdentity(gPref); }; window.openSubTab.__hubWrapped = true;
-    }
-}
-
 function hubCreateInterface() {
     const sBody = hubCreateDialog('hub-search-dialog', 'Ricerca globale', 'Trova nel Companion Hub', 'Cerca build, guide e sezioni.');
     const sInput = hubElement('input', { id: 'hub-search-input', className: 'hub-search-input', type: 'search', placeholder: 'Cerca build, guida o gioco…' });
     sInput.addEventListener('input', () => hubRenderSearchResults(sInput.value));
     sBody.append(sInput, hubElement('div', { id: 'hub-search-results', className: 'hub-search-results' }));
     
-    hubCreateDialog('hub-season-dialog', 'Spazio personale', 'La mia stagione', 'Le preferenze sono salvate sul dispositivo.');
-    hubCreateDialog('hub-compare-dialog', 'Confronto', 'Confronta due build', 'Scegli dal catalogo per il confronto.');
-    
-    const pBody = hubCreateDialog('hub-patch-dialog', 'Aggiornamenti Meta', 'Registro Stagioni', 'Gestito tramite aRPG Timeline.');
+    const pBody = hubCreateDialog('hub-patch-dialog', 'Aggiornamenti Meta', 'Registro Stagioni', 'Roadmap estratte in automatico.');
     pBody.appendChild(hubElement('div', { id: 'hub-patch-grid', className: 'hub-patch-grid' }));
 
-    const rBody = hubCreateDialog('hub-ranking-dialog', 'Trend in tempo reale', 'Classifica ARPG', 'Giocatori su Steam (Top 15 aggiornata automaticamente).');
+    const rBody = hubCreateDialog('hub-ranking-dialog', 'Trend in tempo reale', 'Classifica 15 ARPG', 'Giocatori su Steam, aggiornato quotidianamente.');
     rBody.appendChild(hubElement('div', { id: 'hub-ranking-grid', className: 'hub-ranking-grid' }));
 
     document.body.appendChild(hubElement('div', { id: 'hub-toast', className: 'hub-toast', hidden: 'hidden' }));
 
     document.getElementById('hub-search-btn')?.addEventListener('click', () => hubOpenDialog('hub-search-dialog'));
-    document.getElementById('hub-season-btn')?.addEventListener('click', () => hubOpenDialog('hub-season-dialog'));
-    document.getElementById('hub-compare-btn')?.addEventListener('click', () => hubOpenDialog('hub-compare-dialog'));
     document.getElementById('hub-patch-btn')?.addEventListener('click', () => { hubRenderPatchRegistry(); hubOpenDialog('hub-patch-dialog'); });
     document.getElementById('hub-ranking-btn')?.addEventListener('click', () => { hubRenderRanking(); hubOpenDialog('hub-ranking-dialog'); });
     document.getElementById('hub-share-btn')?.addEventListener('click', () => { navigator.clipboard?.writeText(window.location.href); hubToast("Link copiato!"); });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    hubSetGameIdentity('poe1');
-    hubWrapNavigation();
+    window.hubSetGameIdentity('poe1');
     hubCreateInterface();
     hubLoadData().then(() => {
         window.loadMyBuildsUI();
