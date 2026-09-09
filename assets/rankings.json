@@ -7,72 +7,72 @@
     },
     {
       "name": "Path of Exile 1",
-      "players": 9680,
+      "players": 10308,
       "color": "#4caf50"
     },
     {
       "name": "Grim Dawn",
-      "players": 9242,
+      "players": 8885,
       "color": "#2196f3"
     },
     {
       "name": "Hero Siege",
-      "players": 8278,
+      "players": 8224,
       "color": "#607d8b"
     },
     {
       "name": "Diablo 4 (Steam)",
-      "players": 3579,
+      "players": 3616,
       "color": "#f44336"
     },
     {
       "name": "Diablo 2: Res (Stima BNet)",
-      "players": 1610,
+      "players": 1627,
       "color": "#607d8b"
     },
     {
       "name": "Last Epoch",
-      "players": 987,
+      "players": 977,
       "color": "#9c27b0"
     },
     {
       "name": "Titan Quest",
-      "players": 795,
+      "players": 800,
       "color": "#ff9800"
     },
     {
       "name": "Torchlight 2",
-      "players": 238,
+      "players": 220,
       "color": "#00bcd4"
     },
     {
       "name": "Inquisitor Martyr",
-      "players": 133,
+      "players": 140,
       "color": "#ffc107"
     },
     {
       "name": "Chronicon",
-      "players": 90,
+      "players": 73,
       "color": "#e91e63"
     },
     {
-      "name": "Wolcen",
-      "players": 66,
-      "color": "#8bc34a"
-    },
-    {
       "name": "The Slormancer",
-      "players": 58,
+      "players": 66,
       "color": "#795548"
     },
     {
+      "name": "Wolcen",
+      "players": 61,
+      "color": "#8bc34a"
+    },
+    {
       "name": "Van Helsing",
-      "players": 13,
+      "players": 17,
       "color": "#673ab7"
     },
     {
       "name": "Victor Vran",
-      "players": 10,
+      "players": 5,
       "color": "#9e9e9e"
     }
   ]
