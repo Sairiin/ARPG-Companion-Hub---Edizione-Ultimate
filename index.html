@@ -67,11 +67,11 @@
         <div class="essential-brand">
             <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
         </div>
+        
+        <!-- HEADER PULITO: Solo Cloud e Lingua -->
         <div class="essential-utilities" aria-label="Comandi del sito">
-            <button class="auth-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi</button>
-            <a class="discord-link" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank"><img alt="I Masochist" height="20" src="logo_animated_v2.jpg" style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;" width="20"/> Discord</a>
             <div class="utility-language" aria-label="Lingua del sito"><div id="google_translate_element"></div></div>
-            <button aria-controls="appearance-panel" aria-expanded="false" class="utility-action" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
+            <button class="auth-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
         </div>
 
         <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="z-index: 999;">
@@ -90,6 +90,7 @@
 
 <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
+<!-- TOOLBELT COMPLETA (Aspetto e Discord aggiunti in fondo) -->
 <div class="hub-toolbelt" aria-label="Strumenti rapidi del Companion Hub">
     <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button" aria-keyshortcuts="Control+K Meta+K">⌕ Cerca <span aria-hidden="true">⌘K</span></button>
     <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
@@ -97,9 +98,14 @@
     <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
     <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
     <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
+    
+    <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
+    <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank">
+        <img alt="Discord" src="logo_animated_v2.jpg" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: text-bottom; margin-right: 2px;"/> Discord
+    </a>
+    
     <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
-
     <!-- MAIN TABS (I Bottoni dei Giochi) -->
     <nav class="tabs" id="main-content" tabindex="-1">
         <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">
