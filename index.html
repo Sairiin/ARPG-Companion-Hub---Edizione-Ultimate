@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="dark">
+<html data-theme="dark" lang="it">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="referrer" content="no-referrer"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>ARPG Companion Hub - Edizione Ultimate</title>
-    <link rel="icon" type="image/jpeg" href="arpg_hub_logo_v2.jpg"/>
-    <link rel="stylesheet" href="style.css"/>
-    <link rel="manifest" href="manifest.webmanifest"/>
-    <meta name="theme-color" content="#ff9800"/>
+    <link href="arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Richiama il tuo foglio di stile esterno -->
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#ff9800">
 </head>
 <body>
-
     <!-- OVERLAY MODAL (iFrame) -->
     <div class="modal" id="iframe-modal">
         <div class="modal-content">
@@ -19,7 +24,7 @@
                 <span class="modal-title" id="modal-title">ARPG Tools Overlay</span>
                 <span class="close-btn" onclick="window.closeOverlay()">×</span>
             </div>
-            <iframe id="modal-iframe" loading="lazy" src="" title="Strumento ARPG esterno"></iframe>
+            <iframe id="modal-iframe" loading="lazy" src="" title="Strumento ARPG"></iframe>
         </div>
     </div>
 
@@ -38,92 +43,63 @@
                     <button class="action-btn" onclick="window.registerWithEmail()" style="flex:1; background: var(--accent-tertiary);">Registrati</button>
                 </div>
                 <div style="text-align: center; color: var(--text-muted); margin: 10px 0;">— oppure —</div>
-                <button class="auth-btn" onclick="window.loginWithGoogle()">
+                <button class="auth-btn" onclick="window.loginWithGoogle()" style="border:1px solid #ccc;">
+                    <svg style="width:18px;height:18px;margin-right:8px;" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path></svg>
                     Accedi con Google
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- HEADER: BANNER CENTRATO E LINGUA FLUTTUANTE -->
+    <!-- HEADER -->
     <header class="essential-header">
         <div class="utility-language-floating" aria-label="Lingua del sito">
             <div id="google_translate_element"></div>
         </div>
-
         <div class="essential-header-shell">
             <div class="essential-brand">
                 <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
             </div>
-
             <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="z-index: 999;">
-                <div class="appearance-panel-heading">
-                    <div>
-                        <h2 id="appearance-title">Aspetto</h2>
-                        <p>Schema e dimensione del testo.</p>
-                    </div>
-                    <button aria-label="Chiudi impostazioni aspetto" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button>
-                </div>
+                <div class="appearance-panel-heading"><div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione.</p></div><button aria-label="Chiudi" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button></div>
                 <div class="appearance-grid">
-                    <button class="theme-btn" onclick="window.setTheme('dark')" title="Tema scuro" type="button">🌙 Scuro</button>
-                    <button class="theme-btn" onclick="window.setTheme('amoled')" title="Tema AMOLED" type="button">🖤 AMOLED</button>
-                    <button class="theme-btn" onclick="window.setTheme('light')" title="Tema chiaro" type="button">☀️ Chiaro</button>
-                    <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" title="Riduci carattere" type="button">A− Testo</button>
-                    <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" title="Ingrandisci carattere" type="button">A+ Testo</button>
+                    <button class="theme-btn" onclick="window.setTheme('dark')" type="button">🌙 Scuro</button>
+                    <button class="theme-btn" onclick="window.setTheme('amoled')" type="button">🖤 AMOLED</button>
+                    <button class="theme-btn" onclick="window.setTheme('light')" type="button">☀️ Chiaro</button>
+                    <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" type="button">A− Testo</button>
+                    <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" type="button">A+ Testo</button>
                 </div>
-                <p class="appearance-panel-note">Le preferenze restano salvate sul dispositivo.</p>
             </section>
         </div>
     </header>
 
-    <a class="skip-link" href="#main-content">Vai ai contenuti</a>
-
-    <!-- TOOLBELT UNIFICATA -->
+    <!-- TOOLBELT COMPLETA -->
     <div class="hub-toolbelt" aria-label="Strumenti rapidi del Companion Hub">
-        <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button" aria-keyshortcuts="Control+K Meta+K">⌕ Cerca <span aria-hidden="true">⌘K</span></button>
+        <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
         <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
         <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
         <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
         <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
         <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
-        
         <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
-        
-        <a class="hub-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank" style="text-decoration: none;">
+        <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank">
             <img alt="Discord" src="logo_animated_v2.jpg" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px;"/> Discord
         </a>
-        
         <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
-        
-        <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
     </div>
 
-    <!-- SELEZIONE GIOCO (MAIN TABS) -->
-    <nav class="tabs">
-        <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">
-            <img alt="PoE 1" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&amp;s=10" width="26"/> Path of Exile 1
-        </button>
-        <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">
-            <img alt="PoE 2" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLULAvVSpii6ietytRcFICav9snB2sdbmrsuX3Y5Brw&amp;s=10" width="26"/> Path of Exile 2
-        </button>
-        <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')">
-            <img alt="Last Epoch" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://cdn2.steamgriddb.com/icon_thumb/1e8d0b1e07841cd90a347a8f26b41505.png" style="border-radius: 50%;" width="26"/> Last Epoch
-        </button>
-        <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')">
-            <img alt="D2R" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://diablo2.io/favicon.ico" width="26"/> Diablo 2: Resurrected
-        </button>
-        <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">
-            <img alt="Logo Diablo 4" class="d4-logo" decoding="async" height="26" loading="eager" src="assets/diablo4-logo.png" width="26"/> Diablo 4
-        </button>
+    <!-- MAIN TABS -->
+    <nav class="tabs" id="main-tabs">
+        <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')"><img alt="PoE 1" class="tab-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&s=10"/> Path of Exile 1</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')"><img alt="PoE 2" class="tab-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLULAvVSpii6ietytRcFICav9snB2sdbmrsuX3Y5Brw&s=10"/> Path of Exile 2</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')"><img alt="LE" class="tab-icon" style="border-radius:50%;" src="https://cdn2.steamgriddb.com/icon_thumb/1e8d0b1e07841cd90a347a8f26b41505.png"/> Last Epoch</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')"><img alt="D2R" class="tab-icon" src="https://diablo2.io/favicon.ico"/> Diablo 2: Resurrected</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')"><img alt="D4" class="tab-icon d4-logo" src="assets/diablo4-logo.png"/> Diablo 4</button>
     </nav>
 
-    <!-- CONTENITORI PER IL CARICAMENTO DINAMICO DEI MODULI HTML -->
-    <main id="main-content" tabindex="-1">
-        <div id="poe1" class="tab-content active"></div>
-        <div id="poe2" class="tab-content"></div>
-        <div id="le" class="tab-content"></div>
-        <div id="d2" class="tab-content"></div>
-        <div id="d4" class="tab-content"></div>
+    <!-- CONTENITORE DINAMICO DOVE VENGONO INIETTATE LE PAGINE -->
+    <main id="game-content-container">
+        <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
     </main>
 
     <footer class="main-footer">
@@ -131,14 +107,15 @@
         <a class="footer-link" href="mailto:giordani.claudio@gmail.com" style="margin-top: 10px; display: inline-block;">Contattami per supporto</a>
     </footer>
 
-    <!-- SCRIPT DI SISTEMA -->
+    <!-- Script Google Translate -->
     <script>
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
         }
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <!-- Richiamo allo script principale (modulare) -->
     <script type="module" src="js/main.js"></script>
-
 </body>
 </html>
