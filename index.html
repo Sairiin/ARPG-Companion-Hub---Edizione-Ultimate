@@ -1,564 +1,121 @@
 <!DOCTYPE html>
 <html data-theme="dark" lang="it">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="no-referrer" name="referrer"/>
-<title>ARPG Companion Hub - Edizione Ultimate</title>
-<link href="arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link crossorigin="" href="https://www.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
-<style>
-/* === VARIABILI E BASE === */
-:root { --accent-primary: #ff9800; --accent-secondary: #4caf50; --accent-tertiary: #2196F3; --accent-le: #9c27b0; --danger: #f44336; --guide-title: #b8860b; --item-unique: #c6a15b; --stat-line: #8da4d1; --color-yt: #ff0000; --color-google: #4285F4; --color-site: #555555; --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; --base-font-size: 16px; }
-[data-theme="dark"] { --bg-main: #1e1e24; --bg-secondary: #2b2b36; --bg-card: #333333; --bg-hover: #444444; --text-main: #e0e0e0; --text-muted: #aaaaaa; --border-color: #444444; --item-bg: #242424; --item-hover: #2a2a2a; }
-[data-theme="amoled"] { --bg-main: #000000; --bg-secondary: #0a0a0a; --bg-card: #111111; --bg-hover: #222222; --text-main: #f0f0f0; --text-muted: #888888; --border-color: #222222; --item-bg: #050505; --item-hover: #151515; }
-[data-theme="light"] { --bg-main: #f4f4f9; --bg-secondary: #ffffff; --bg-card: #e0e0e0; --bg-hover: #d0d0d0; --text-main: #222222; --text-muted: #555555; --border-color: #cccccc; --item-bg: #f9f9f9; --item-hover: #eeeeee; --guide-title: #8a6300; --item-unique: #a8823a; --stat-line: #3b5998; }
-body { font-family: var(--font-main); font-size: var(--base-font-size); background-color: var(--bg-main); color: var(--text-main); margin: 0; padding: 10px; transition: background-color 0.3s, color 0.3s, font-size 0.3s; display: flex; flex-direction: column; min-height: 100vh;}
-@media (min-width: 768px) { body { padding: 20px; } }
-main { flex-grow: 1; }
-
-/* === HEADER E LINGUA FLUTTUANTE === */
-.essential-header { position: relative; margin-bottom: 20px; }
-.utility-language-floating { position: absolute; top: 10px; right: 10px; z-index: 1000; background: var(--bg-card); padding: 4px 8px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); border: 1px solid var(--border-color); }
-.utility-language-floating .goog-te-combo { appearance: none; -webkit-appearance: none; background: transparent; color: var(--text-main); border: none; font-family: var(--font-main); font-size: 0.85em; font-weight: bold; outline: none; cursor: pointer; padding: 4px; }
-.goog-te-gadget { color: transparent !important; font-size: 0px !important; }
-.goog-logo-link, .goog-te-banner-frame { display: none !important; }
-body { top: 0px !important; }
-.essential-header-shell { display: flex; justify-content: center; padding-top: 10px; position: relative; }
-.essential-brand .banner-img { margin: 0 auto; display: block; max-width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 2px solid var(--border-color); }
-
-/* === MODALS E TAB UI === */
-.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); justify-content: center; align-items: center;}
-.modal-content { background-color: var(--bg-main); width: 95%; height: 90%; border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; border: 2px solid var(--border-color);}
-.modal-content.auth-box { width: 400px; height: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-.modal-header { padding: 10px 20px; background: var(--bg-secondary); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color);}
-.modal-title { font-weight: bold; color: var(--accent-primary); }
-.close-btn { color: var(--danger); font-size: 28px; font-weight: bold; cursor: pointer; transition: 0.2s;}
-.close-btn:hover { color: white; }
-#modal-iframe { flex-grow: 1; width: 100%; border: none; background: white;}
-.tab-content, .sub-tab-content { animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-.tabs { display: flex; justify-content: center; margin-bottom: 10px; gap: 5px; flex-wrap: wrap; }
-.tab-btn { background-color: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; cursor: pointer; font-size: 1em; border-radius: 5px 5px 0 0; transition: 0.2s; border-bottom: 3px solid transparent; display: flex; align-items: center; gap: 8px; flex-grow: 1; justify-content: center;}
-@media (min-width: 768px) { .tab-btn { padding: 12px 24px; flex-grow: 0;} }
-.tab-btn:hover { background-color: var(--bg-hover); }
-.tab-btn.active-btn { background-color: var(--bg-secondary); color: var(--accent-primary); font-weight: bold; border-bottom: 3px solid var(--accent-primary); border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color); border-right: 1px solid var(--border-color);}
-.tab-icon { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; }
-.tab-content { display: none; background-color: var(--bg-secondary); padding: 15px; border-radius: 0 0 8px 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-top: none;}
-.active { display: block; }
-.sub-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; flex-wrap: wrap; justify-content: center; }
-.sub-tab-btn { background-color: var(--bg-main); color: var(--text-muted); border: 1px solid var(--border-color); padding: 8px 12px; cursor: pointer; border-radius: 4px; transition: 0.2s; font-size: 0.9em; flex-grow: 1; text-align: center;}
-.sub-tab-btn:hover { background-color: var(--bg-card); }
-.sub-tab-btn.active-sub { background-color: var(--bg-hover); color: var(--text-main); border-color: var(--accent-secondary); font-weight: bold; }
-.sub-tab-content { display: none; }
-.sub-tab-content.active-sub-content { display: block; }
-
-/* === LISTE, BOTTONI E DASHBOARD === */
-.action-bar, .save-form { background: var(--bg-main); padding: 10px; border-radius: 5px; margin-bottom: 20px; display: flex; gap: 8px; flex-direction: column; border: 1px solid var(--border-color);}
-@media (min-width: 768px) { .action-bar, .save-form { padding: 15px; flex-direction: row; align-items: center; gap: 10px;} }
-.action-bar input, .save-form input, .action-bar select, .auth-input { padding: 10px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); border-radius: 4px; width: 100%; box-sizing: border-box; font-size: 1em;}
-button.action-btn { padding: 10px; border: none; background: var(--accent-secondary); color: #fff; cursor: pointer; border-radius: 4px; font-weight: bold; width: 100%; font-size: 1em;}
-@media (min-width: 768px) { button.action-btn { width: auto; padding: 10px 20px;} }
-button.action-btn:hover { filter: brightness(1.1); }
-button.delete-btn, button.edit-btn { color: white; border: none; border-radius: 4px; cursor: pointer; padding: 6px 10px; font-weight: bold; margin-left: 5px; font-size: 0.9em; transition: 0.2s;}
-button.delete-btn { background: var(--danger); } button.edit-btn { background: var(--accent-primary); }
-.cancel-btn { background: var(--bg-card); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 4px; cursor: pointer; padding: 10px; font-weight: bold; display: none; }
-.section { margin-bottom: 20px; background: var(--bg-main); padding: 15px; border-radius: 5px; border: 1px solid var(--border-color); border-left: 4px solid var(--accent-primary);}
-.section h3 { color: var(--accent-primary); margin-top: 0; border-bottom: 1px dashed var(--border-color); padding-bottom: 5px; display: flex; flex-direction: column; gap: 10px; font-size: 1.1em;}
-@media (min-width: 768px) { .section h3 { flex-direction: row; justify-content: space-between; align-items: center; } }
-.season-highlight { background: var(--bg-card); color: var(--accent-secondary); border: 1px solid var(--accent-secondary); padding: 2px 6px; border-radius: 4px; font-size: 0.75em; display: inline-block; margin-top: 5px; letter-spacing: 0.5px;}
-.filter-saved-input { padding: 6px 10px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 0.85em; width: 100%; max-width: 200px;}
-.dash-list { list-style-type: none; padding: 0; margin: 0;}
-.saved-builds-list { max-height: 350px; overflow-y: auto; padding-right: 5px; }
-.dash-list li { background: var(--bg-card); margin-bottom: 8px; padding: 10px; border-radius: 4px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--border-color);}
-@media (min-width: 768px) { .dash-list li { flex-direction: row; align-items: center; justify-content: space-between; gap: 0;} }
-.dash-list-item-content { display: flex; flex-direction: column; gap: 5px; width: 100%;}
-@media (min-width: 768px) { .dash-list-item-content { flex-direction: row; align-items: center; flex-wrap: wrap; gap: 10px; flex-grow: 1;} }
-.dash-list a { color: var(--accent-tertiary); text-decoration: underline; font-weight: bold; font-size: 1em; cursor: pointer;}
-.dash-list a:hover { color: var(--accent-primary);}
-.build-class-info { font-size: 0.85em; color: var(--accent-secondary); font-style: italic; }
-.dash-list-actions { display: flex; justify-content: flex-end; align-items: center; width: 100%; border-top: 1px solid var(--border-color); padding-top: 8px; margin-top: 4px;}
-@media (min-width: 768px) { .dash-list-actions { width: auto; border-top: none; padding-top: 0; margin-top: 0;} }
-.tag { font-size: 0.75em; padding: 3px 6px; border-radius: 4px; color: white; font-weight: bold; display: inline-block; align-self: flex-start;}
-.quick-save-btn { background: none; border: none; font-size: 1.4em; cursor: pointer; padding: 0; margin-left: 10px;}
-.tool-link { color: white; padding: 4px 8px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 0.8em; display: inline-block; margin-right: 5px; margin-bottom: 5px; border: 1px solid rgba(0,0,0,0.3);}
-.smart-links-container { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 5px; width: 100%; }
-
-/* === GUIDE OFFLINE === */
-.guide-section h2.guide-title { color: var(--guide-title); border-bottom: 1px solid var(--border-color); padding-bottom: 5px; margin-top: 30px; font-size: 1.4em;}
-.guide-list { list-style-type: none; padding: 0; }
-.guide-list li { margin-bottom: 15px; background-color: var(--item-bg); padding: 12px; border-radius: 8px; border-left: 4px solid #af6025; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 15px; border: 1px solid var(--border-color);}
-@media (min-width: 768px) { .guide-list li { display: grid; grid-template-columns: 80px 1fr 300px; padding: 15px; margin-bottom: 25px;} }
-.guide-list li.text-only { display: block; } 
-.item-image-container { width: 60px; min-height: 60px; aspect-ratio: 1 / 1; background-color: #0d0d0d; border: 1px solid var(--border-color); border-radius: 6px; display: flex; justify-content: center; align-items: center; padding: 5px; font-size: 2em; overflow: hidden;}
-.item-image-container img { max-width: 100%; max-height: 100px; object-fit: contain; }
-.item-details { display: flex; flex-direction: column; justify-content: center; }
-a.unique-item, span.unique-item { color: var(--item-unique); font-weight: bold; text-decoration: none; font-size: 1.2em; margin-bottom: 8px; text-transform: uppercase;}
-.badges span { font-weight: bold; font-size: 0.8em; padding: 3px 6px; border-radius: 4px; background-color: rgba(0,0,0,0.4); border: 1px solid var(--border-color);}
-.class-rec { color: #8c8c8c; font-style: italic; display: block; margin-top: 10px; border-top: 1px dashed var(--border-color); padding-top: 8px; font-size: 0.9em;}
-.desc { color: var(--text-muted); margin-top: 5px; display: block; font-size: 0.95em; line-height: 1.4;}
-.item-stats { background-color: var(--bg-main); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.85em; color: var(--stat-line); display: flex; flex-direction: column; justify-content: center; }
-.item-stats strong { color: var(--item-unique); margin-bottom: 8px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; display: block; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;}
-.stat-line { margin-bottom: 4px; position: relative; padding-left: 10px; line-height: 1.4;}
-.stat-line::before { content: "•"; position: absolute; left: 0; color: var(--item-unique); }
-.filter-container { background-color: var(--item-bg); padding: 12px 15px; border-radius: 8px; border-left: 4px solid var(--guide-title); display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; border: 1px solid var(--border-color);}
-@media (min-width: 768px) { .filter-container { flex-direction: row; align-items: center; padding: 15px 20px;} }
-.filter-container select { background-color: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); padding: 8px 10px; border-radius: 4px; width: 100%;}
-li.runeword-card { margin-bottom: 25px; background-color: var(--item-bg); padding: 15px; border-radius: 8px; border-left: 4px solid #8b0000; transition: all 0.3s ease; display: grid; grid-template-columns: 80px 1fr 380px; gap: 20px; align-items: center; border: 1px solid var(--border-color);}
-.rune-images-container { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; margin-bottom: 8px; }
-.rune-block { display: flex; flex-direction: column; align-items: center; background: #0d0d0d; border: 1px solid var(--border-color); border-radius: 4px; padding: 4px; min-width: 40px;}
-.rune-block img { width: 24px; height: 24px; object-fit: contain; }
-.rune-block span { font-size: 0.7em; color: #d6a953; margin-top: 4px; font-weight: bold; text-transform: uppercase; }
-
-/* === HUB EVOLUTO CSS === */
-:root { --hub-game-accent: var(--accent-primary); --hub-game-glow: rgba(255, 152, 0, 0.14); }
-body[data-active-game="poe1"], body[data-active-game="poe2"] { --hub-game-accent: var(--accent-primary); --hub-game-glow: rgba(255, 152, 0, 0.14); }
-body[data-active-game="le"] { --hub-game-accent: var(--accent-le); --hub-game-glow: rgba(123, 31, 162, 0.16); }
-body[data-active-game="d2"] { --hub-game-accent: var(--danger); --hub-game-glow: rgba(176, 190, 197, 0.13); }
-body[data-active-game="d4"] { --hub-game-accent: #d55245; --hub-game-glow: rgba(213, 82, 69, 0.15); }
-.skip-link { position: fixed; left: 12px; top: 12px; z-index: 200; padding: 10px 14px; border-radius: 9px; background: var(--accent-primary); color: #101010; font-weight: 800; transform: translateY(-160%); transition: transform .16s ease; }
-.skip-link:focus { transform: translateY(0); }
-.hub-toolbelt { position: relative; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; width: min(1180px, calc(100% - 30px)); margin: 0 auto 14px; padding: 10px; border: 1px solid var(--border-color); border-radius: 13px; background: linear-gradient(100deg, var(--bg-secondary), var(--bg-card)); box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 8px 22px rgba(0,0,0,.14); }
-.hub-toolbelt::before { content: ''; position: absolute; inset: 0 auto 0 0; width: 4px; border-radius: 13px 0 0 13px; background: var(--hub-game-accent); box-shadow: 0 0 18px var(--hub-game-glow); }
-.hub-tool-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 39px; padding: 7px 11px; color: var(--text-main); background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 9px; cursor: pointer; font: 800 0.78rem var(--font-main); transition: .18s ease; }
-.hub-tool-btn:hover { color: var(--hub-game-accent); border-color: var(--hub-game-accent); background: var(--bg-hover); transform: translateY(-1px); }
-.hub-tool-btn--accent { background: color-mix(in srgb, var(--hub-game-accent) 16%, var(--bg-main)); border-color: color-mix(in srgb, var(--hub-game-accent) 48%, var(--border-color)); }
-.hub-dialog-backdrop { position: fixed; inset: 0; z-index: 160; display: grid; place-items: center; padding: 16px; background: rgba(0,0,0,.64); backdrop-filter: blur(4px); }
-.hub-dialog-backdrop[hidden] { display: none; }
-.hub-dialog { width: min(860px, 100%); max-height: min(780px, calc(100vh - 32px)); overflow: auto; border: 1px solid var(--border-color); border-radius: 16px; background: linear-gradient(145deg, var(--bg-secondary), var(--bg-main)); box-shadow: 0 28px 72px rgba(0,0,0,.58); }
-.hub-dialog-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; padding: 17px 18px 12px; border-bottom: 1px solid var(--border-color); }
-.hub-dialog h2 { margin: 0; font-size: 1.18rem; }
-.hub-dialog-close { flex: 0 0 auto; width: 34px; height: 34px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--bg-card); color: var(--text-main); cursor: pointer; font-size: 1.1rem; }
-.hub-dialog-body { padding: 15px 18px 19px; }
-.hub-search-input { width: 100%; min-height: 47px; padding: 10px 13px; box-sizing: border-box; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-main); background: var(--bg-main); font: 600 .95rem var(--font-main); outline: none; }
-.hub-search-results { display: grid; gap: 7px; margin-top: 10px; }
-.hub-search-result { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 10px 11px; border: 1px solid var(--border-color); border-radius: 10px; background: var(--bg-card); }
-.hub-search-result-main { min-width: 0; background: none; border: 0; color: inherit; text-align: left; cursor: pointer; font: inherit; }
-.hub-search-result-title { display: block; overflow: hidden; color: var(--text-main); font-size: .88rem; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
-.hub-favorite-btn { width: 35px; height: 35px; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-main); color: var(--text-muted); cursor: pointer; }
-.hub-favorite-btn.is-favorite { color: #ffd54f; border-color: #ffd54f; }
-.hub-season-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr); gap: 15px; }
-.hub-card { padding: 14px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); }
-.hub-field input, .hub-field select { width: 100%; min-height: 40px; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-main); background: var(--bg-main); font: inherit; }
-.hub-primary-btn { min-height: 39px; padding: 8px 11px; border-radius: 8px; cursor: pointer; font: 850 .78rem var(--font-main); color: #151515; border: 1px solid var(--hub-game-accent); background: var(--hub-game-accent); }
-.hub-compare-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.hub-compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.hub-compare-card { overflow: hidden; border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); }
-.hub-compare-list { margin: 0; padding: 0; list-style: none; }
-.hub-compare-list li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 13px; border-bottom: 1px solid rgba(255,255,255,.06); font-size: .78rem; }
-.hub-patch-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 11px; }
-.hub-patch-card { padding: 13px; border: 1px solid var(--border-color); border-radius: 11px; background: var(--bg-card); }
-.hub-patch-patch { display: inline-block; margin: 6px 0; padding: 3px 7px; border-radius: 999px; color: var(--hub-game-accent); background: var(--hub-game-glow); font-size: .71rem; font-weight: 900; }
-.hub-toast { position: fixed; right: 16px; bottom: 16px; z-index: 190; max-width: min(380px, calc(100vw - 32px)); padding: 11px 14px; border: 1px solid var(--hub-game-accent); border-radius: 10px; color: var(--text-main); background: var(--bg-secondary); box-shadow: 0 12px 30px rgba(0,0,0,.35); font-size: .82rem; }
-.hub-toast[hidden] { display: none; }
-
-/* META DATA e DISCOVERY CSS */
-.build-meta-panel { margin: 1.15rem 0 1.35rem; padding: 1rem 1.1rem; border: 1px solid rgba(255, 152, 0, 0.34); border-left: 4px solid var(--accent-primary); border-radius: 12px; background: linear-gradient(125deg, rgba(255, 152, 0, 0.14), rgba(0, 0, 0, 0.15) 62%); box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16); }
-.build-meta-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 0.45rem 0.65rem; margin-bottom: 0.85rem; }
-.build-meta-eyebrow { color: var(--text-muted); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
-.build-meta-title { color: var(--text-main); font-size: 1.04rem; }
-.build-meta-status { margin-left: auto; padding: 0.25rem 0.55rem; border: 1px solid currentColor; border-radius: 999px; font-size: 0.76rem; font-weight: 800; color: #75d69a; background: rgba(47, 157, 91, 0.13); }
-.build-meta-details { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; }
-.build-meta-detail { padding: 0.65rem 0.7rem; border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; background: rgba(0, 0, 0, 0.16); }
-.build-meta-label { display: block; margin-bottom: 0.22rem; color: var(--text-muted); font-size: 0.71rem; font-weight: 700; text-transform: uppercase; }
-.build-meta-value { color: var(--text-main); font-size: 0.88rem; }
-.build-discovery { margin: 1.1rem 0 1.35rem; padding: 1rem 1.1rem; border: 1px dashed rgba(255, 152, 0, 0.58); border-radius: 12px; background: linear-gradient(135deg, rgba(255, 152, 0, 0.08), rgba(0, 0, 0, 0.18) 66%); }
-.build-discovery-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 0.65rem; }
-.build-discovery-eyebrow { color: var(--accent-primary); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; }
-.build-discovery-title { color: var(--text-main); font-size: 1.04rem; }
-.build-discovery-badge { margin-left: auto; padding: 0.25rem 0.55rem; border: 1px solid rgba(255, 201, 104, 0.65); border-radius: 999px; color: #f0c36b; background: rgba(211, 147, 43, 0.13); font-size: 0.74rem; font-weight: 800; }
-.build-discovery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; margin-top: 0.88rem; }
-.build-discovery-card { display: flex; flex-direction: column; padding: 0.78rem; border: 1px solid rgba(255, 255, 255, 0.1); border-top: 2px solid rgba(255, 152, 0, 0.58); border-radius: 9px; background: rgba(0, 0, 0, 0.16); }
-.build-discovery-actions { display: flex; flex-wrap: wrap; gap: 0.38rem; margin-top: auto; }
-.build-discovery-actions .tool-link { font-size: 0.75rem; }
-
-/* LEGACY E DESIGN GUIDE OFFLINE */
-.guide-hero { min-height: 258px; border: 1px solid rgba(255, 152, 0, 0.55); border-radius: 14px; overflow: hidden; position: relative; display: flex; align-items: flex-end; margin: 4px 0 22px; background: #121218; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
-.guide-hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,14,0.98) 0%, rgba(10,10,14,0.82) 43%, rgba(10,10,14,0.20) 100%), linear-gradient(0deg, rgba(10,10,14,0.72) 0%, rgba(10,10,14,0.05) 64%); }
-.guide-hero-media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.guide-hero-content { position: relative; z-index: 2; width: min(710px, 100%); padding: 30px; }
-.guide-kicker { color: var(--accent-primary); font-size: 0.73em; text-transform: uppercase; font-weight: 800; display: inline-flex; align-items: center; gap: 9px; margin-bottom: 10px; }
-.guide-kicker::before { content: ''; width: 30px; height: 2px; background: var(--accent-primary); }
-.guide-hero h1.guide-title { color: #fff; font-size: clamp(1.7rem, 4vw, 2.65rem); line-height: 1.1; margin: 0; font-family: 'Cinzel', serif; }
-.guide-intro { font-size: 1.06em; line-height: 1.7; padding: 2px 0 2px 19px; border-left: 3px solid var(--accent-primary); margin: 0 0 22px; }
-.guide-signal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 25px; }
-.guide-signal-card { background: linear-gradient(145deg, rgba(255, 152, 0, 0.15), rgba(0,0,0,0.12)); border: 1px solid rgba(255, 152, 0, 0.30); border-radius: 10px; padding: 15px 16px; position: relative; overflow: hidden; }
-.guide-signal-card::after { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--accent-primary); }
-.guide-signal-label { display: block; color: var(--accent-primary); font-size: 0.72em; font-weight: 800; text-transform: uppercase; margin-bottom: 7px; }
-.guide-signal-value { display: block; line-height: 1.35; color: var(--text-main); font-weight: 600; font-size: 0.94em; }
-.guide-table-wrap { overflow-x: auto; border: 1px solid var(--border-color); border-radius: 10px; margin: 16px 0 24px; background: rgba(0,0,0,0.12); }
-.guide-section table { width: 100%; border-collapse: collapse; }
-.guide-section th { background: rgba(255, 152, 0, 0.20); color: #fff; text-align: left; padding: 13px 15px; font-size: 0.78em; text-transform: uppercase; }
-.guide-section td { padding: 14px 15px; border-top: 1px solid var(--border-color); }
-.guide-section .step-list li { position: relative; padding: 15px 16px 15px 58px; border: 1px solid var(--border-color); border-radius: 9px; background: var(--item-bg); margin-bottom: 10px; }
-.guide-section .step-list li::before { content: attr(data-step); position: absolute; left: 14px; top: 14px; color: var(--accent-primary); font-weight: 800; font-size: 1.2em;}
-.info-box, .pro-tip { border-radius: 10px; border: 1px solid rgba(255, 152, 0, 0.35); border-left: 4px solid var(--accent-primary); background: linear-gradient(90deg, rgba(255, 152, 0, 0.13), rgba(255, 152, 0, 0.03)); padding: 15px 17px; margin: 20px 0; }
-
-.main-footer { text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px; color: var(--text-muted); font-size: 0.9em; background: var(--bg-secondary);}
-.footer-link { color: var(--accent-tertiary); text-decoration: none; font-weight: bold; transition: 0.2s;}
-</style>
-<link rel="manifest" href="manifest.webmanifest">
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>ARPG Companion Hub - Edizione Ultimate</title>
+    <link href="arpg_hub_logo_v2.jpg" rel="icon" type="image/jpeg"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet"/>
+    
+    <!-- COLLEGAMENTO FONDAMENTALE AL CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- MODALS -->
-<div class="modal" id="iframe-modal">
-    <div class="modal-content"><div class="modal-header"><span class="modal-title" id="modal-title">ARPG Tools</span><span class="close-btn" onclick="window.closeOverlay()">×</span></div><iframe id="modal-iframe" loading="lazy" src=""></iframe></div>
-</div>
-<div class="modal" id="auth-modal">
-    <div class="modal-content auth-box">
-        <div class="modal-header"><span class="modal-title">Autenticazione Cloud</span><span class="close-btn" onclick="window.closeAuthModal()">×</span></div>
-        <div style="padding: 20px; display: flex; flex-direction: column; gap: 15px;">
-            <input class="auth-input" id="auth-email" placeholder="La tua Email" type="email"/>
-            <input class="auth-input" id="auth-password" placeholder="La tua Password" type="password"/>
-            <div style="display: flex; gap: 10px;"><button class="action-btn" onclick="window.loginWithEmail()" style="flex:1;">Accedi</button><button class="action-btn" onclick="window.registerWithEmail()" style="flex:1; background: var(--accent-tertiary);">Registrati</button></div>
-            <div style="text-align: center; color: var(--text-muted);">— oppure —</div>
-            <button class="action-btn" style="background:#fff; color:#111;" onclick="window.loginWithGoogle()">Accedi con Google</button>
-        </div>
-    </div>
-</div>
-
-<!-- HEADER E LINGUA -->
-<header class="essential-header">
-    <div class="utility-language-floating" aria-label="Lingua del sito">
-        <div id="google_translate_element"></div>
-    </div>
-    <div class="essential-header-shell">
-        <div class="essential-brand">
-            <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
-        </div>
-        <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="z-index: 999; position:absolute; top:100%; right:0; background:var(--bg-card); padding:15px; border:1px solid var(--border-color); border-radius:8px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:10px;"><h2>Aspetto</h2><button class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')">×</button></div>
-            <div style="display:flex; gap:5px; flex-wrap:wrap;">
-                <button class="action-btn" onclick="window.setTheme('dark')">🌙 Scuro</button>
-                <button class="action-btn" onclick="window.setTheme('amoled')">🖤 AMOLED</button>
-                <button class="action-btn" onclick="window.setTheme('light')">☀️ Chiaro</button>
-                <button class="action-btn" onclick="window.changeFontSize(-1)">A− Testo</button>
-                <button class="action-btn" onclick="window.changeFontSize(1)">A+ Testo</button>
+    <!-- OVERLAY MODAL (iFrame) -->
+    <div class="modal" id="iframe-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="modal-title">ARPG Tools Overlay</span>
+                <span class="close-btn" onclick="window.closeOverlay()">×</span>
             </div>
-        </section>
+            <iframe id="modal-iframe" loading="lazy" src="" title="Strumento"></iframe>
+        </div>
     </div>
-</header>
-<a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
-<!-- TOOLBELT CENTRALE COMPLETA -->
-<div class="hub-toolbelt" aria-label="Strumenti rapidi">
-    <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
-    <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
-    <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
-    <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
-    <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
-    <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
-    <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
-    <a class="hub-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
-        <img alt="Discord" src="logo_animated_v2.jpg" style="width:18px; height:18px; border-radius:50%; object-fit:cover;"/> Discord
-    </a>
-    <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
-    <button class="hub-tool-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
-</div>
+    <!-- AUTH MODAL -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-content auth-box">
+            <div class="modal-header">
+                <span class="modal-title">Autenticazione Cloud</span>
+                <span class="close-btn" onclick="window.closeAuthModal()">×</span>
+            </div>
+            <div style="padding: 20px; display: flex; flex-direction: column; gap: 15px;">
+                <input class="auth-input" id="auth-email" placeholder="La tua Email" type="email"/>
+                <input class="auth-input" id="auth-password" placeholder="La tua Password" type="password"/>
+                <div style="display: flex; gap: 10px;">
+                    <button class="action-btn" onclick="window.loginWithEmail()" style="flex:1;">Accedi</button>
+                    <button class="action-btn" onclick="window.registerWithEmail()" style="flex:1; background: var(--accent-tertiary);">Registrati</button>
+                </div>
+                <div style="text-align: center; color: var(--text-muted);">— oppure —</div>
+                <button class="action-btn" style="background:#fff; color:#111;" onclick="window.loginWithGoogle()">Accedi con Google</button>
+            </div>
+        </div>
+    </div>
 
-<!-- TABS PRINCIPALI -->
-<nav class="tabs" id="main-content" tabindex="-1">
-    <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">Path of Exile 1</button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">Path of Exile 2</button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')">Last Epoch</button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')">Diablo 2: Resurrected</button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">Diablo 4</button>
-</nav>
+    <!-- HEADER E LINGUA -->
+    <header class="essential-header">
+        <div class="utility-language-floating" aria-label="Lingua del sito">
+            <div id="google_translate_element"></div>
+        </div>
+        <div class="essential-header-shell">
+            <div class="essential-brand">
+                <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
+            </div>
+            
+            <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="z-index: 999; position:absolute; top:100%; right:0; background:var(--bg-card); padding:15px; border:1px solid var(--border-color); border-radius:8px;">
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                    <h2 style="margin:0; color:var(--accent-primary);">Aspetto</h2>
+                    <button class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" style="background:transparent; border:none; color:white; cursor:pointer; font-size:1.5em;">×</button>
+                </div>
+                <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                    <button class="action-btn" onclick="window.setTheme('dark')" style="width:auto; padding:5px 10px;">🌙 Scuro</button>
+                    <button class="action-btn" onclick="window.setTheme('amoled')" style="width:auto; padding:5px 10px;">🖤 AMOLED</button>
+                    <button class="action-btn" onclick="window.setTheme('light')" style="width:auto; padding:5px 10px;">☀️ Chiaro</button>
+                    <button class="action-btn" onclick="window.changeFontSize(-1)" style="width:auto; padding:5px 10px;">A− Testo</button>
+                    <button class="action-btn" onclick="window.changeFontSize(1)" style="width:auto; padding:5px 10px;">A+ Testo</button>
+                </div>
+            </section>
+        </div>
+    </header>
 
-<!-- CONTENITORE DINAMICO -->
-<main id="game-content-container">
-    <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
-</main>
+    <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
-<footer class="main-footer">
-    © 2026 Sairiin - ARPG Companion Hub<br/><a class="footer-link" href="mailto:giordani.claudio@gmail.com" style="margin-top:10px; display:inline-block;">Contattami per supporto</a>
-</footer>
-
-<!-- SCRIPT GOOGLE TRANSLATE -->
-<script>
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-    }
-</script>
-<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- SCRIPT LOGICA E FIREBASE (MAIN.JS INTEGRATO) -->
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-    const firebaseConfig = { apiKey: "AIzaSyBBb-T8EEAGk203ANzajLkNvyoo17STTus", authDomain: "arpg-companion-hub.firebaseapp.com", projectId: "arpg-companion-hub", storageBucket: "arpg-companion-hub.firebasestorage.app", messagingSenderId: "992359528045", appId: "1:992359528045:web:f1776114a695399237b164", measurementId: "G-R7EDZCSZN2" };
-
-    let app, auth, db;
-    try { app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app); } catch(e) { console.warn("Firebase offline.", e); }
-
-    let currentUser = null;
-    let userBuilds = { poe1: [], poe2: [], d2: [], le: [], d4: [] }; 
-    window.editingIndex = { poe1: null, poe2: null, d2: null, le: null, d4: null };
-
-    window.openAuthModal = () => document.getElementById('auth-modal').style.display = 'flex';
-    window.closeAuthModal = () => document.getElementById('auth-modal').style.display = 'none';
-    window.loginWithGoogle = async () => { const provider = new GoogleAuthProvider(); try { await signInWithPopup(auth, provider); } catch(e) {} };
-    window.registerWithEmail = async () => { const e=document.getElementById('auth-email').value; const p=document.getElementById('auth-password').value; try { await createUserWithEmailAndPassword(auth,e,p); window.closeAuthModal(); } catch(e){ alert(e.message); } };
-    window.loginWithEmail = async () => { const e=document.getElementById('auth-email').value; const p=document.getElementById('auth-password').value; try { await signInWithEmailAndPassword(auth,e,p); window.closeAuthModal(); } catch(e){ alert(e.message); } };
-    window.logoutFirebase = async () => { if(auth) await signOut(auth); };
-
-    if(auth) {
-        onAuthStateChanged(auth, async (user) => {
-            const authBtn = document.getElementById('auth-btn');
-            if (user) {
-                currentUser = user;
-                authBtn.innerHTML = `Esci (${user.displayName || user.email})`;
-                authBtn.onclick = window.logoutFirebase;
-                window.closeAuthModal();
-                await syncFromFirebase();
-            } else {
-                currentUser = null;
-                authBtn.innerHTML = `👤 Accedi al Cloud`;
-                authBtn.onclick = window.openAuthModal;
-                userBuilds = JSON.parse(localStorage.getItem('arpgBuildHub')) || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
-                window.loadMyBuildsUI();
-            }
-        });
-    }
-
-    async function syncFromFirebase() {
-        if (!currentUser || !db) return;
-        try {
-            const docSnap = await getDoc(doc(db, "users", currentUser.uid));
-            if (docSnap.exists()) { userBuilds = docSnap.data().builds || { poe1: [], poe2: [], d2: [], le: [], d4: [] }; }
-            else { await setDoc(doc(db, "users", currentUser.uid), { builds: userBuilds }); }
-            window.loadMyBuildsUI();
-        } catch(e) { console.error(e); }
-    }
-    async function syncToFirebase() {
-        if (currentUser && db) { try { await setDoc(doc(db, "users", currentUser.uid), { builds: userBuilds }, { merge: true }); } catch(e) {} }
-        else { localStorage.setItem('arpgBuildHub', JSON.stringify(userBuilds)); }
-        window.loadMyBuildsUI();
-    }
-
-    window.loadMyBuildsUI = function() {
-        ['poe1', 'poe2', 'd2', 'le', 'd4'].forEach(game => {
-            const ul = document.getElementById(`my-builds-${game}`);
-            if(!ul) return;
-            ul.innerHTML = '';
-            if (!userBuilds[game] || userBuilds[game].length === 0) { ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic;">Nessuna build salvata.</span></li>'; return; }
-            userBuilds[game].forEach((build, index) => {
-                ul.innerHTML += `<li><div class="dash-list-item-content"><a href="${build.link}" class="saved-link" target="_blank">${build.name}</a><span class="build-version">v. ${build.version || 'N/A'}</span><span class="build-note">- ${build.note || ''}</span></div><div class="dash-list-actions"><button class="edit-btn" onclick="window.editBuild('${game}', ${index})">✏️</button><button class="delete-btn" onclick="window.deleteBuild('${game}', ${index})">❌</button></div></li>`;
-            });
-        });
-    };
-
-    window.filterSavedBuilds = function(game) {
-        let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
-        let li = document.getElementById(`my-builds-${game}`)?.getElementsByTagName("li");
-        if(!li) return;
-        for (let i=0; i<li.length; i++) { if(!li[i].innerText.includes("Nessuna build")) li[i].style.display = (li[i].innerText.toLowerCase().indexOf(filter) > -1) ? "" : "none"; }
-    };
-    window.editBuild = function(game, index) {
-        const build = userBuilds[game][index];
-        document.getElementById(`name-${game}`).value = build.name; document.getElementById(`link-${game}`).value = build.link; document.getElementById(`version-${game}`).value = build.version; document.getElementById(`note-${game}`).value = build.note;
-        window.editingIndex[game] = index;
-        document.getElementById(`submit-btn-${game}`).textContent = "Aggiorna"; document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
-    };
-    window.cancelEdit = function(game) {
-        window.editingIndex[game] = null; document.getElementById(`form-${game}`).reset();
-        document.getElementById(`submit-btn-${game}`).textContent = "Salva"; document.getElementById(`cancel-btn-${game}`).style.display = "none";
-    };
-    window.saveBuild = async function(event, game) {
-        event.preventDefault();
-        const b = { name: document.getElementById(`name-${game}`).value, link: document.getElementById(`link-${game}`).value, version: document.getElementById(`version-${game}`).value, note: document.getElementById(`note-${game}`).value };
-        if (!userBuilds[game]) userBuilds[game] = [];
-        if (window.editingIndex[game] !== null) userBuilds[game][window.editingIndex[game]] = b; else userBuilds[game].push(b);
-        await syncToFirebase(); window.cancelEdit(game);
-    };
-    window.deleteBuild = async function(game, index) { if(!confirm("Eliminare?")) return; userBuilds[game].splice(index, 1); await syncToFirebase(); };
-    window.quickSave = async function(game, name, version, link) { if(!userBuilds[game]) userBuilds[game]=[]; userBuilds[game].push({name, link, version, note:"Dal Catalogo"}); await syncToFirebase(); alert("Build Salvata!"); };
-
-    window.setTheme = function(themeName) { document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('arpgTheme', themeName); };
-    window.setTheme(localStorage.getItem('arpgTheme') || 'dark');
-    let currentFontSize = parseInt(localStorage.getItem('arpgFontSize')) || 16;
-    window.setFontSize = function(size) { currentFontSize = size; document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px'); localStorage.setItem('arpgFontSize', currentFontSize); };
-    window.changeFontSize = function(step) { let newSize = currentFontSize + (step * 2); if(newSize >= 12 && newSize <= 24) window.setFontSize(newSize); };
-    window.setFontSize(currentFontSize);
-    window.openOverlay = function(url, title) { document.getElementById('modal-iframe').src = url; document.getElementById('modal-title').innerText = title; document.getElementById('iframe-modal').style.display = 'flex'; };
-    window.closeOverlay = function() { document.getElementById('modal-iframe').src = ''; document.getElementById('iframe-modal').style.display = 'none'; };
-    window.closeEssentialPanel = function(panelId, triggerId) { document.getElementById(panelId).hidden = true; };
-    window.toggleAppearancePanel = function() { const p = document.getElementById('appearance-panel'); p.hidden = !p.hidden; };
-
-    window.toggleTabs = function(evt, containerClass, btnClass, activeBtnClass, activeContentClass) {
-        document.querySelectorAll('.' + containerClass).forEach(el => { el.style.display = "none"; el.classList.remove(activeContentClass); });
-        document.querySelectorAll('.' + btnClass).forEach(btn => btn.classList.remove(activeBtnClass));
-        evt.currentTarget.classList.add(activeBtnClass);
-    };
-
-    const initializedTabs = new Set();
-    window.openMainTab = async function(evt, gameId, accentColor) {
-        document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active-btn'); btn.style.borderBottomColor = "transparent"; btn.style.color = "var(--text-main)"; });
-        evt.currentTarget.classList.add('active-btn');
-        if (accentColor) { evt.currentTarget.style.borderBottomColor = accentColor; evt.currentTarget.style.color = accentColor; }
-        const container = document.getElementById('game-content-container');
-        container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>`;
-        try {
-            const res = await fetch(`pages/${gameId}.html`);
-            if (!res.ok) throw new Error("File non trovato");
-            container.innerHTML = await res.text();
-            initializedTabs.delete(gameId);
-            window.initializeTabContent(gameId);
-            document.body.dataset.activeGame = gameId;
-            const firstSubBtn = container.querySelector(`.${gameId}-sub-btn`);
-            if(firstSubBtn) firstSubBtn.click();
-        } catch (error) { container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento. Assicurati che i file in pages/ esistano.</div>`; }
-    };
-    window.openSubTab = function(evt, subTabId, gamePrefix) {
-        window.toggleTabs(evt, `${gamePrefix}-sub-content`, `${gamePrefix}-sub-btn`, 'active-sub', 'active-sub-content');
-        document.getElementById(subTabId).style.display = "block";
-        if (subTabId === 'poe1-encyclopedia' && window.poe1EncyclopediaInit) window.poe1EncyclopediaInit();
-    };
-
-    window.multiSearch = function(event, inputId, selectId) {
-        event.preventDefault(); let input = document.getElementById(inputId).value; let site = document.getElementById(selectId).value;
-        if(input.trim() !== "") {
-            if (site === 'all') { let allSites = Array.from(document.getElementById(selectId).options).map(opt => opt.value).filter(val => val !== 'all').map(val => `site:${val}`).join(' OR '); window.open(`https://www.google.com/search?q=${encodeURIComponent(input)}+(${allSites})`, '_blank'); }
-            else { window.open(`https://www.google.com/search?q=site:${site}+${encodeURIComponent(input)}`, '_blank'); }
-        }
-    };
-
-    // --- HUB EVOLUTO JSON (Build, Discovery, Rankings) ---
-    const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
-    let hubBuildCatalog = null; let hubPatchRegistry = null; let hubRankingData = null; let hubSearchEntries = [];
-    
-    function buildElement(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
-    
-    async function loadAllJSON() {
-        const [cat, pat, rank] = await Promise.allSettled([
-            fetch('./assets/builds.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
-            fetch('./assets/patches.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
-            fetch('./assets/rankings.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject())
-        ]);
-        hubBuildCatalog = cat.status === 'fulfilled' ? cat.value : null;
-        hubPatchRegistry = pat.status === 'fulfilled' ? pat.value : null;
-        hubRankingData = rank.status === 'fulfilled' ? rank.value : null;
+    <!-- TOOLBELT COMPLETA -->
+    <div class="hub-toolbelt" aria-label="Strumenti rapidi">
+        <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
+        <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
+        <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
+        <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
+        <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
+        <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
         
-        hubSearchEntries = [];
-        if (hubBuildCatalog?.games) {
-            Object.entries(hubBuildCatalog.games).forEach(([gameId, game]) => {
-                Object.entries(game.builds || {}).forEach(([cat, builds]) => {
-                    (builds || []).forEach(b => hubSearchEntries.push({ title: b.title, kind: 'Build', gameId, meta: `${b.class} ${b.specialization}`, url: b.sourceUrl }));
-                });
-            });
-        }
-    }
-
-    window.initializeTabContent = async function(gameId) {
-        if (!hubBuildCatalog) await loadAllJSON();
-        const gameData = hubBuildCatalog?.games[gameId];
-        if (!gameData) return;
-
-        // Meta Badge
-        const metaTarget = document.getElementById(`build-meta-${gameId}`);
-        if(metaTarget) {
-            metaTarget.innerHTML = `<div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">${HUB_GAMES[gameId]}</strong><span class="build-meta-status">Verificato</span></div>
-            <div class="build-meta-details"><div class="build-meta-detail"><span class="build-meta-label">Patch / Stagione</span><strong class="build-meta-value">${gameData.patch}</strong></div></div>`;
-        }
-
-        // Discovery
-        const discTarget = document.getElementById(`build-discovery-${gameId}`);
-        if(discTarget && gameData.discovery) {
-            let html = `<div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title">Build da esplorare</strong></div><div class="build-discovery-sources">`;
-            gameData.discovery.sources.forEach(s => html += `<a href="${s[1]}" target="_blank" class="tool-link" style="background:#555;">↗ ${s[0]}</a>`);
-            html += `</div><div class="build-discovery-grid">`;
-            gameData.discovery.prompts.forEach(p => {
-                let q = encodeURIComponent(`${HUB_GAMES[gameId]} ${gameData.patch} ${p[2]}`);
-                html += `<article class="build-discovery-card"><h4>${p[0]}</h4><p>${p[1]}</p><div class="build-discovery-actions"><a href="https://www.youtube.com/results?search_query=${q}" target="_blank" class="tool-link" style="background:var(--color-yt);">📺 YouTube</a></div></article>`;
-            });
-            html += `</div>`;
-            discTarget.innerHTML = html;
-        }
-
-        // Render List
-        const renderList = (type, targetId) => {
-            const ul = document.getElementById(targetId);
-            if(!ul) return;
-            ul.innerHTML = '';
-            const builds = gameData.builds[type] || [];
-            if(!builds.length) { ul.innerHTML = '<li><span style="color:var(--text-muted); font-style:italic;">Nessuna build registrata.</span></li>'; return; }
-            builds.forEach(b => {
-                ul.innerHTML += `<li>
-                    <div class="dash-list-item-content">
-                        <div><span class="build-catalog-title">${b.title}</span> <span class="tag" style="background:${b.tierColor}">${b.tier}</span></div>
-                        <div class="build-class-info">(${b.class} - ${b.specialization})</div>
-                        <div class="smart-links-container"><a href="${b.sourceUrl}" target="_blank" class="tool-link" style="background:#555;">🔗 Guida</a></div>
-                    </div>
-                    <div class="dash-list-actions"><button type="button" class="quick-save-btn" onclick="window.quickSave('${gameId}', '${b.title} (${b.specialization})', '${gameData.patch}', '${b.sourceUrl}')">💾</button></div>
-                </li>`;
-            });
-        };
-        renderList('endgame', `top-builds-${gameId}`);
-        renderList('leveling', `top-leveling-${gameId}`);
+        <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
         
-        if (gameId === 'd2' && window.renderD2Runewords) window.renderD2Runewords();
-        window.loadMyBuildsUI();
-    };
-
-    // --- HUB DIALOGS ---
-    function openDialog(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeDialog(id) { document.getElementById(id).style.display = 'none'; }
-    
-    document.getElementById('hub-ranking-btn').onclick = () => {
-        const body = document.getElementById('hub-ranking-grid');
-        if(!body) {
-            const m = buildElement('div', 'modal'); m.id = 'hub-ranking-dialog'; m.style.display = 'flex';
-            m.innerHTML = `<div class="modal-content auth-box"><div class="modal-header"><span class="modal-title">Classifica ARPG</span><span class="close-btn" onclick="document.getElementById('hub-ranking-dialog').style.display='none'">×</span></div><div id="hub-ranking-grid" style="padding:20px; overflow-y:auto;"></div></div>`;
-            document.body.appendChild(m);
-        } else { document.getElementById('hub-ranking-dialog').style.display = 'flex'; }
+        <a class="hub-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank" style="text-decoration:none; display:inline-flex; align-items:center; gap:6px;">
+            <img alt="Discord" src="logo_animated_v2.jpg" style="width:18px; height:18px; border-radius:50%; object-fit:cover;"/> Discord
+        </a>
         
-        const target = document.getElementById('hub-ranking-grid');
-        target.innerHTML = '';
-        if(!hubRankingData?.rankings) { target.innerHTML = '<p>Dati non disponibili.</p>'; return; }
-        hubRankingData.rankings.forEach((s, i) => {
-            const formatNum = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : n;
-            target.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;"><span>${i+1}. ${s.name}</span> <strong style="color:${s.color};">~${formatNum(s.players)}</strong></div>`;
-        });
-    };
+        <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
+    </div>
 
-    document.getElementById('hub-patch-btn').onclick = () => {
-        const body = document.getElementById('hub-patch-grid');
-        if(!body) {
-            const m = buildElement('div', 'modal'); m.id = 'hub-patch-dialog'; m.style.display = 'flex';
-            m.innerHTML = `<div class="modal-content auth-box" style="width:600px;"><div class="modal-header"><span class="modal-title">Registro Patch & Stagioni</span><span class="close-btn" onclick="document.getElementById('hub-patch-dialog').style.display='none'">×</span></div><div id="hub-patch-grid" style="padding:20px; overflow-y:auto; display:grid; grid-template-columns:1fr; gap:15px;"></div></div>`;
-            document.body.appendChild(m);
-        } else { document.getElementById('hub-patch-dialog').style.display = 'flex'; }
-        
-        const target = document.getElementById('hub-patch-grid');
-        target.innerHTML = '';
-        if(!hubPatchRegistry?.games) return;
-        Object.entries(HUB_GAMES).forEach(([id, name]) => {
-            const p = hubPatchRegistry.games[id];
-            target.innerHTML += `<div style="border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-card);"><h3>${name}</h3><div class="season-highlight" style="margin-bottom:10px;">${p?.currentPatch || 'N/D'}</div><br><a href="${p?.sourceUrl}" target="_blank" style="color:var(--accent-primary);">Consulta Fonte</a></div>`;
-        });
-    };
+    <!-- TABS PRINCIPALI -->
+    <nav class="tabs" id="main-content" tabindex="-1">
+        <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">Path of Exile 1</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">Path of Exile 2</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')">Last Epoch</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')">Diablo 2: Resurrected</button>
+        <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">Diablo 4</button>
+    </nav>
 
-    // Ricerca Rapida
-    document.getElementById('hub-search-btn').onclick = () => {
-        const p = prompt("Cerca Build (inserisci nome classe o skill):");
-        if(p && p.trim()) {
-            const res = hubSearchEntries.filter(x => x.title.toLowerCase().includes(p.toLowerCase()) || x.meta.toLowerCase().includes(p.toLowerCase()));
-            if(res.length) { alert(`Trovati ${res.length} risultati! Ti porto alla scheda: ${HUB_GAMES[res[0].gameId]}`); document.querySelector(`.tab-btn[onclick*="'${res[0].gameId}'"]`).click(); }
-            else alert("Nessun risultato trovato nel catalogo interno.");
+    <!-- CONTENITORE DINAMICO HTML -->
+    <main id="game-content-container">
+        <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
+    </main>
+
+    <footer class="main-footer">
+        © 2026 Sairiin - ARPG Companion Hub<br/><a class="footer-link" href="mailto:giordani.claudio@gmail.com" style="margin-top:10px; display:inline-block;">Contattami per supporto</a>
+    </footer>
+
+    <!-- SCRIPT GOOGLE TRANSLATE -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
         }
-    };
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    document.addEventListener("DOMContentLoaded", async () => {
-        await loadAllJSON();
-        const firstTab = document.querySelector('.tab-btn');
-        if(firstTab) firstTab.click();
-    });
-</script>
+    <!-- COLLEGAMENTO AL FILE JAVASCRIPT -->
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
