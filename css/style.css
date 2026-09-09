@@ -1165,3 +1165,40 @@ body { top: 0px !important; }
 
 /* Stile bottone Discord nella Toolbelt */
 .discord-tool-btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; }
+/* Widget Lingua Elegante e Fluttuante */
+.utility-language-floating {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--bg-card);
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    border: 1px solid var(--border-color);
+}
+.utility-language-floating .goog-te-combo {
+    background: transparent;
+    color: var(--text-main);
+    border: none;
+    font-family: var(--font-main);
+    font-weight: bold;
+    font-size: 0.85em;
+    outline: none;
+    cursor: pointer;
+}
+/* Nascondi i loghi grezzi di Google */
+.goog-te-gadget { color: transparent !important; font-size: 0px !important; }
+.goog-logo-link, .goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+
+/* Centratura Banner */
+.essential-header-shell {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+.essential-brand .banner-img {
+    margin: 0 auto;
+    display: block;
+}
