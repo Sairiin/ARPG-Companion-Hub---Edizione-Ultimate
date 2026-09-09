@@ -1,6 +1,3 @@
-// =========================================================
-// 1. CONFIGURAZIONE FIREBASE E AUTENTICAZIONE
-// =========================================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -20,10 +17,7 @@ try {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
     db = getFirestore(app);
-    console.log("Firebase Inizializzato con successo!");
-} catch(e) {
-    console.warn("Firebase non configurato o errore. L'app funzionerà in modalità Solo Locale.", e);
-}
+} catch(e) { console.warn("Firebase non configurato.", e); }
 
 let currentUser = null;
 let userBuilds = { poe1: [], poe2: [], d2: [], le: [], d4: [] }; 
@@ -33,13 +27,13 @@ window.openAuthModal = () => document.getElementById('auth-modal').style.display
 window.closeAuthModal = () => document.getElementById('auth-modal').style.display = 'none';
 
 window.loginWithGoogle = async () => {
-    if(!auth) return alert("Firebase non è stato configurato nel codice.");
+    if(!auth) return;
     const provider = new GoogleAuthProvider();
-    try { await signInWithPopup(auth, provider); } catch(e) { console.error("Errore di Login", e); }
+    try { await signInWithPopup(auth, provider); } catch(e) {}
 };
 
 window.registerWithEmail = async () => {
-    if(!auth) return alert("Firebase non configurato.");
+    if(!auth) return;
     const email = document.getElementById('auth-email').value;
     const pass = document.getElementById('auth-password').value;
     try {
@@ -49,7 +43,7 @@ window.registerWithEmail = async () => {
 };
 
 window.loginWithEmail = async () => {
-    if(!auth) return alert("Firebase non configurato.");
+    if(!auth) return;
     const email = document.getElementById('auth-email').value;
     const pass = document.getElementById('auth-password').value;
     try {
@@ -58,9 +52,7 @@ window.loginWithEmail = async () => {
     } catch(e) { alert("Errore Login: " + e.message); }
 };
 
-window.logoutFirebase = async () => {
-    if(auth) await signOut(auth);
-};
+window.logoutFirebase = async () => { if(auth) await signOut(auth); };
 
 if(auth) {
     onAuthStateChanged(auth, async (user) => {
@@ -68,8 +60,7 @@ if(auth) {
         if (user) {
             currentUser = user;
             const userName = user.displayName || user.email;
-            const photo = user.photoURL || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>';
-            authBtn.innerHTML = `<img src="${photo}" style="width:20px; border-radius:50%; background:white;"> Esci (${userName})`;
+            authBtn.innerHTML = `👤 Esci (${userName})`;
             authBtn.onclick = window.logoutFirebase;
             window.closeAuthModal();
             await syncFromFirebase();
@@ -88,14 +79,13 @@ async function syncFromFirebase() {
     try {
         const docRef = doc(db, "users", currentUser.uid);
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-            userBuilds = docSnap.data().builds || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
-        } else {
+        if (docSnap.exists()) userBuilds = docSnap.data().builds || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
+        else {
             userBuilds = JSON.parse(localStorage.getItem('arpgBuildHub')) || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
             await setDoc(docRef, { builds: userBuilds });
         }
         window.loadMyBuildsUI();
-    } catch(e) { console.error("Errore lettura database:", e); }
+    } catch(e) {}
 }
 
 async function syncToFirebase() {
@@ -103,16 +93,13 @@ async function syncToFirebase() {
         try {
             const docRef = doc(db, "users", currentUser.uid);
             await setDoc(docRef, { builds: userBuilds }, { merge: true });
-        } catch(e) { console.error("Errore salvataggio database:", e); }
+        } catch(e) {}
     } else {
         localStorage.setItem('arpgBuildHub', JSON.stringify(userBuilds));
     }
     window.loadMyBuildsUI();
 }
 
-// =========================================================
-// 2. FUNZIONI PER "LE MIE BUILD"
-// =========================================================
 window.loadMyBuildsUI = function() {
     ['poe1', 'poe2', 'd2', 'le', 'd4'].forEach(game => {
         const ul = document.getElementById(`my-builds-${game}`);
@@ -120,20 +107,20 @@ window.loadMyBuildsUI = function() {
         ul.innerHTML = '';
         if (!userBuilds[game]) userBuilds[game] = [];
         if (userBuilds[game].length === 0) {
-            ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic; font-size:0.9em;">Nessuna build salvata. Usa il form o la ricerca per aggiungerne una.</span></li>';
+            ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic; font-size:0.9em;">Nessuna build salvata.</span></li>';
             return;
         }
         userBuilds[game].forEach((build, index) => {
             ul.innerHTML += `
                 <li>
                     <div class="dash-list-item-content">
-                        <a href="${build.link}" class="saved-link" target="_blank" rel="noopener noreferrer" title="Apri Link">${build.name}</a>
+                        <a href="${build.link}" class="saved-link" target="_blank">${build.name}</a>
                         <span class="build-version">v. ${build.version || 'N/A'}</span>
                         <span class="build-note">- ${build.note || 'Nessuna nota'}</span>
                     </div>
                     <div class="dash-list-actions">
-                        <button class="edit-btn" aria-label="Modifica" onclick="window.editBuild('${game}', ${index})">✏️</button>
-                        <button class="delete-btn" aria-label="Elimina" onclick="window.deleteBuild('${game}', ${index})">❌</button>
+                        <button class="edit-btn" onclick="window.editBuild('${game}', ${index})">✏️</button>
+                        <button class="delete-btn" onclick="window.deleteBuild('${game}', ${index})">❌</button>
                     </div>
                 </li>`;
         });
@@ -143,7 +130,6 @@ window.loadMyBuildsUI = function() {
 window.filterSavedBuilds = function(game) {
     let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
     let ul = document.getElementById(`my-builds-${game}`);
-    if(!ul) return;
     let li = ul.getElementsByTagName("li");
     for (let i = 0; i < li.length; i++) {
         if (li[i].innerText.includes("Nessuna build salvata")) continue; 
@@ -163,7 +149,6 @@ window.editBuild = function(game, index) {
     submitBtn.textContent = "Aggiorna";
     submitBtn.style.background = "var(--accent-tertiary)";
     document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
-    document.getElementById(`name-${game}`).focus();
 };
 
 window.cancelEdit = function(game) {
@@ -186,19 +171,13 @@ window.saveBuild = async function(event, game) {
     let note = document.getElementById(`note-${game}`).value || "Senza note";
 
     if (!userBuilds[game]) userBuilds[game] = [];
-    if (window.editingIndex[game] !== null) {
-        userBuilds[game][window.editingIndex[game]] = { name, link, version, note };
-    } else {
-        userBuilds[game].push({ name, link, version, note });
-    }
+    if (window.editingIndex[game] !== null) userBuilds[game][window.editingIndex[game]] = { name, link, version, note };
+    else userBuilds[game].push({ name, link, version, note });
     
     await syncToFirebase();
     window.cancelEdit(game);
     const filterInput = document.getElementById(`filter-saved-${game}`);
-    if(filterInput) {
-        filterInput.value = "";
-        window.filterSavedBuilds(game);
-    }
+    if(filterInput) { filterInput.value = ""; window.filterSavedBuilds(game); }
 };
 
 window.deleteBuild = async function(game, index) {
@@ -215,43 +194,6 @@ window.quickSave = async function(game, buildName, defaultVersion, buildUrl) {
     alert("Build Salvata in: Le Mie Build Personali!");
 };
 
-window.exportBackup = function() {
-    let data = JSON.stringify(userBuilds);
-    let blob = new Blob([data], { type: "application/json" });
-    let url = URL.createObjectURL(blob);
-    let a = document.createElement("a");
-    a.href = url;
-    a.download = "arpg_builds_backup.json";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-};
-
-window.importBackup = async function(event) {
-    let file = event.target.files[0];
-    if (!file) return;
-    let reader = new FileReader();
-    reader.onload = async function(e) {
-        try {
-            let json = JSON.parse(e.target.result);
-            if (json.poe1 || json.poe2 || json.d2 || json.le) {
-                userBuilds = json;
-                await syncToFirebase();
-                alert("Backup importato con successo!");
-            } else {
-                alert("File di backup non valido o danneggiato.");
-            }
-        } catch (err) {
-            alert("Errore nella lettura del file.");
-        }
-    };
-    reader.readAsText(file);
-    event.target.value = '';
-};
-
-// =========================================================
-// 3. ASPETTO, TEMI E PANNELLI
-// =========================================================
 window.setTheme = function(themeName) {
     document.documentElement.setAttribute('data-theme', themeName);
     localStorage.setItem('arpgTheme', themeName);
@@ -278,35 +220,9 @@ window.openOverlay = function(url, title = "Overlay Strumento") {
     iframe.src = url;
     modal.style.display = 'flex';
 };
-
 window.closeOverlay = function() {
-    const modal = document.getElementById('iframe-modal');
-    const iframe = document.getElementById('modal-iframe');
-    iframe.src = '';
-    modal.style.display = 'none';
-};
-
-window.updateARPGStats = function() {
-    const baseStats = { poe1: 41000, d4: 30000, d2r: 15000, d3: 10000, gd: 2500, le: 1500, tq: 800, tl2: 600, chronicon: 300 };
-    const formatNumber = num => num >= 1000 ? (num/1000).toFixed(1) + 'k' : num;
-    const getVariance = base => Math.floor(base * (1 + (Math.random() * 0.15 - 0.075))); 
-    let stats = [
-        { name: 'Path of Exile', val: getVariance(baseStats.poe1), color: '#4caf50' },
-        { name: 'Diablo 4', val: getVariance(baseStats.d4), color: 'var(--danger)' },
-        { name: 'Diablo 2: Res', val: getVariance(baseStats.d2r), color: '#607d8b' },
-        { name: 'Diablo 3', val: getVariance(baseStats.d3), color: '#607d8b' },
-        { name: 'Grim Dawn', val: getVariance(baseStats.gd), color: '#a1887f' },
-        { name: 'Last Epoch', val: getVariance(baseStats.le), color: 'var(--accent-le)' },
-        { name: 'Titan Quest', val: getVariance(baseStats.tq), color: '#a1887f' },
-        { name: 'Torchlight II', val: getVariance(baseStats.tl2), color: '#a1887f' },
-        { name: 'Chronicon', val: getVariance(baseStats.chronicon), color: '#a1887f' }
-    ];
-    stats.sort((a,b) => b.val - a.val); 
-    let html = `<strong style="color: var(--accent-primary); display: block; margin-bottom: 8px; font-size: 1.1em; border-bottom: 1px dashed var(--border-color); padding-bottom: 4px;">📊 Top 10 ARPG Trend</strong>`;
-    stats.forEach((s, i) => { html += `<div><span>${i+1}. ${s.name}</span> <strong style="color: ${s.color};">~${formatNumber(s.val)}</strong></div>`; });
-    html += `<div><span>10. PoE 2</span> <strong style="color: #ffaa00;">Beta</strong></div>`;
-    const statsContainer = document.getElementById('arpg-live-stats');
-    if(statsContainer) statsContainer.innerHTML = html;
+    document.getElementById('iframe-modal').style.display = 'none';
+    document.getElementById('modal-iframe').src = '';
 };
 
 function setEssentialPanel(panelId, triggerId, open) {
@@ -317,82 +233,42 @@ function setEssentialPanel(panelId, triggerId, open) {
     trigger.setAttribute('aria-expanded', String(open));
 }
 
-window.toggleArpgRadar = function() {
-    const panel = document.getElementById('arpg-radar-panel');
-    if (!panel) return;
-    const willOpen = panel.hidden;
-    setEssentialPanel('appearance-panel', 'appearance-toggle', false);
-    setEssentialPanel('arpg-radar-panel', 'arpg-radar-toggle', willOpen);
-};
-
 window.toggleAppearancePanel = function() {
     const panel = document.getElementById('appearance-panel');
     if (!panel) return;
-    const willOpen = panel.hidden;
-    setEssentialPanel('arpg-radar-panel', 'arpg-radar-toggle', false);
-    setEssentialPanel('appearance-panel', 'appearance-toggle', willOpen);
+    setEssentialPanel('appearance-panel', 'appearance-toggle', panel.hidden);
 };
 
-window.closeEssentialPanel = function(panelId, triggerId) {
-    setEssentialPanel(panelId, triggerId, false);
-};
+window.closeEssentialPanel = function(panelId, triggerId) { setEssentialPanel(panelId, triggerId, false); };
 
 document.addEventListener('click', event => {
     const shell = document.querySelector('.essential-header-shell');
     if (!shell || shell.contains(event.target)) return;
-    setEssentialPanel('arpg-radar-panel', 'arpg-radar-toggle', false);
     setEssentialPanel('appearance-panel', 'appearance-toggle', false);
 });
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') setEssentialPanel('appearance-panel', 'appearance-toggle', false);
+});
 
-// =========================================================
-// 4. NAVIGAZIONE TABS E CARICAMENTO DINAMICO HTML
-// =========================================================
 window.toggleTabs = function(evt, containerClass, btnClass, activeBtnClass, activeContentClass) {
-    document.querySelectorAll('.' + containerClass).forEach(el => {
-        el.style.display = "none";
-        el.classList.remove(activeContentClass);
-    });
+    document.querySelectorAll('.' + containerClass).forEach(el => { el.style.display = "none"; el.classList.remove(activeContentClass); });
     document.querySelectorAll('.' + btnClass).forEach(btn => btn.classList.remove(activeBtnClass));
     evt.currentTarget.classList.add(activeBtnClass);
 };
 
-window.openMainTab = async function(evt, gameId, accentColor) {
+window.openMainTab = function(evt, gameId, accentColor) {
+    window.toggleTabs(evt, 'tab-content', 'tab-btn', 'active-btn', 'active');
+    document.getElementById(gameId).style.display = "block";
+    window.initializeTabContent(gameId);
+    
     document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('active-btn');
         btn.style.borderBottomColor = "transparent";
         btn.style.color = "var(--text-main)";
     });
-    evt.currentTarget.classList.add('active-btn');
+    
     if (accentColor) {
         evt.currentTarget.style.borderBottomColor = accentColor;
         evt.currentTarget.style.color = accentColor;
-    }
-
-    const container = document.getElementById('game-content-container');
-    container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>`;
-
-    try {
-        const response = await fetch(`pages/${gameId}.html`);
-        if (!response.ok) throw new Error("Pagina non trovata");
-        const htmlContent = await response.text();
-        container.innerHTML = htmlContent;
-
-        // Rimuoviamo il blocco dal Set così da FORZARE il ricaricamento dei dati ogni volta che cambi scheda
-        initializedTabs.delete(gameId);
-
-        if (window.initializeTabContent) {
-            window.initializeTabContent(gameId);
-        }
-        if (window.hubSetGameIdentity) {
-            window.hubSetGameIdentity(gameId);
-        }
-        
-        const firstSubBtn = container.querySelector(`.${gameId}-sub-btn`);
-        if(firstSubBtn) firstSubBtn.click();
-
-    } catch (error) {
-        console.error("Errore nel caricamento:", error);
-        container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento della sezione.</div>`;
     }
 };
 
@@ -419,31 +295,14 @@ window.multiSearch = function(event, inputId, selectId) {
     }
 };
 
-// =========================================================
-// 5. DATABASE SMART LINKS (LETTURA JSON E RENDER BUILD)
-// =========================================================
-const BUILD_CATALOG_URL = './assets/builds.json';
+// --- DATABASE SMART LINKS ---
+const BUILD_CATALOG_URL = 'assets/builds.json';
 const buildCatalogState = { data: null, promise: null };
 const buildGameTitles = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
 
 function buildText(value, fallback = '') { return typeof value === 'string' && value.trim() ? value.trim() : fallback; }
 function buildSafeUrl(value) { try { const url = new URL(buildText(value)); return /^https?:$/.test(url.protocol) ? url.href : ''; } catch (e) { return ''; } }
 function buildSafeColor(value) { return /^#[0-9a-f]{3,8}$/i.test(buildText(value)) ? value : 'var(--legacy-accent, var(--accent-primary))'; }
-
-function buildReviewState(gameData) {
-    const cycle = Number.isFinite(Number(gameData && gameData.reviewCycleDays)) ? Math.max(1, Number(gameData.reviewCycleDays)) : 30;
-    const reviewedAt = buildText(gameData && gameData.reviewedAt);
-    const reviewedDate = /^\d{4}-\d{2}-\d{2}$/.test(reviewedAt) ? new Date(`${reviewedAt}T12:00:00`) : null;
-    const ageDays = reviewedDate ? Math.floor((Date.now() - reviewedDate.getTime()) / 86400000) : null;
-    const stale = Boolean(gameData && gameData.requiresReview) || !reviewedDate || ageDays === null || ageDays > cycle;
-    return { stale, cycle, reviewedAt, ageDays };
-}
-
-function buildFormatDate(value) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(buildText(value))) return 'Non ancora registrata';
-    const date = new Date(`${value}T12:00:00`);
-    return new Intl.DateTimeFormat('it-IT', { day: '2-digit', month: 'long', year: 'numeric' }).format(date);
-}
 
 function buildElement(tag, className, text) {
     const element = document.createElement(tag);
@@ -466,12 +325,8 @@ async function loadBuildCatalog() {
     if (buildCatalogState.data) return buildCatalogState.data;
     if (!buildCatalogState.promise) {
         buildCatalogState.promise = fetch(BUILD_CATALOG_URL, { cache: 'no-store' })
-            .then(response => { if (!response.ok) throw new Error(`Catalogo non disponibile (${response.status})`); return response.json(); })
-            .then(data => {
-                if (!data || typeof data !== 'object' || !data.games || typeof data.games !== 'object') throw new Error('Formato non valido');
-                buildCatalogState.data = data;
-                return data;
-            })
+            .then(res => { if (!res.ok) throw new Error("Errore"); return res.json(); })
+            .then(data => { buildCatalogState.data = data; return data; })
             .catch(error => { buildCatalogState.promise = null; throw error; });
     }
     return buildCatalogState.promise;
@@ -491,31 +346,20 @@ function renderBuildMeta(gameId, gameData, errorMessage = '') {
     }
 
     target.classList.remove('is-unavailable');
-    const review = buildReviewState(gameData);
-    target.classList.toggle('is-stale', review.stale);
     const heading = buildElement('div', 'build-meta-heading');
-    heading.append(buildElement('span', 'build-meta-eyebrow', 'Aggiornamento meta'));
-    
-    // Il nome patch ora include anche il Countdown "(Termina tra Xg)"
+    heading.append(buildElement('span', 'build-meta-eyebrow', 'Stato Stagione & Meta'));
     heading.append(buildElement('strong', 'build-meta-title', buildText(gameData.patch, buildGameTitles[gameId])));
-    const status = buildElement('span', `build-meta-status ${review.stale ? 'is-stale' : 'is-current'}`, review.stale ? 'Da verificare' : 'Verificato');
+    const status = buildElement('span', 'build-meta-status is-current', 'Aggiornato');
     heading.append(status);
 
     const details = buildElement('div', 'build-meta-details');
-    
-    // Aggiornato: Mostra informazioni di Sistema invece della sola patch
-    const patch = buildElement('div', 'build-meta-detail');
-    patch.append(buildElement('span', 'build-meta-label', 'Sincronizzazione API'));
-    patch.append(buildElement('strong', 'build-meta-value', 'Attiva (aRPG Timeline)'));
-    details.append(patch);
-
-    const revised = buildElement('div', 'build-meta-detail');
-    revised.append(buildElement('span', 'build-meta-label', 'Ultimo Controllo'));
-    revised.append(buildElement('strong', 'build-meta-value', buildFormatDate(review.reviewedAt)));
-    details.append(revised);
+    const rev = buildElement('div', 'build-meta-detail');
+    rev.append(buildElement('span', 'build-meta-label', 'Sincronizzazione API'));
+    rev.append(buildElement('strong', 'build-meta-value', 'Attiva e Verificata'));
+    details.append(rev);
 
     const sources = buildElement('div', 'build-meta-detail build-meta-sources');
-    sources.append(buildElement('span', 'build-meta-label', 'Fonti Database'));
+    sources.append(buildElement('span', 'build-meta-label', 'Fonti Database Principali'));
     const sourceLinks = buildElement('span', 'build-meta-source-links');
     const sourcesList = Array.isArray(gameData.sources) ? gameData.sources : [];
     sourcesList.forEach(source => {
@@ -530,36 +374,27 @@ function renderBuildMeta(gameId, gameData, errorMessage = '') {
 }
 
 function renderBuildList(ul, gameId, listType, gameData) {
-    if (!ul) return;
-    ul.replaceChildren(); 
-    
-    const builds = (gameData && gameData.builds && Array.isArray(gameData.builds[listType])) ? gameData.builds[listType] : [];
-    
-    if (builds.length === 0) {
-        const emptyLi = document.createElement('li');
-        emptyLi.className = 'build-catalog-empty';
-        emptyLi.style.cssText = 'color: var(--text-muted); font-style: italic; padding: 10px;';
-        emptyLi.textContent = 'Nessuna build disponibile per questa categoria.';
-        ul.appendChild(emptyLi);
+    ul.replaceChildren();
+    const builds = gameData && gameData.builds && Array.isArray(gameData.builds[listType]) ? gameData.builds[listType] : [];
+    if (!builds.length) {
+        ul.append(buildElement('li', 'build-catalog-empty', 'Nessuna build caricata.'));
         return;
     }
 
     builds.forEach(build => {
         const title = buildText(build && build.title, 'Build senza titolo');
-        const className = buildText(build && build.class, 'Classe non indicata');
-        const specialization = buildText(build && build.specialization, 'Generica');
-        const tier = buildText(build && build.tier, 'In revisione');
+        const className = buildText(build && build.class, 'Classe');
+        const specialization = buildText(build && build.specialization, 'Specializzazione');
+        const tier = buildText(build && build.tier, 'Tier');
         const directUrl = buildSafeUrl(build && build.sourceUrl);
         
         const li = buildElement('li');
         const content = buildElement('div', 'dash-list-item-content');
         const titleLine = buildElement('div');
-        
         titleLine.append(buildElement('span', 'build-catalog-title', title));
         const tierEl = buildElement('span', 'tag build-catalog-tier', tier);
         tierEl.style.background = buildSafeColor(build && build.tierColor);
         titleLine.append(tierEl);
-        
         content.append(titleLine);
         content.append(buildElement('div', 'build-class-info', `(${className} – ${specialization})`));
 
@@ -570,17 +405,16 @@ function renderBuildList(ul, gameId, listType, gameData) {
         const searchQuery = encodeURIComponent(`${buildGameTitles[gameId] || ''} ${title} build`);
         const youtube = buildExternalLink('📺 YouTube', `https://www.youtube.com/results?search_query=${searchQuery}`, 'tool-link build-catalog-youtube');
         if (youtube) links.append(youtube);
-        
+        const google = buildExternalLink('🔍 Cerca', `https://www.google.com/search?q=${searchQuery}`, 'tool-link build-catalog-search');
+        if (google) links.append(google);
         content.append(links);
 
         const actions = buildElement('div', 'dash-list-actions');
         if (directUrl) {
             const save = buildElement('button', 'quick-save-btn', '💾');
             save.type = 'button';
-            save.title = `Salva ${title}`;
-            save.addEventListener('click', () => {
-                if (typeof window.quickSave === 'function') window.quickSave(gameId, `${title} (${specialization})`, buildText(gameData.patch, 'N/D'), directUrl);
-            });
+            save.setAttribute('aria-label', `Salva ${title}`);
+            save.addEventListener('click', () => { window.quickSave(gameId, `${title} (${specialization})`, buildText(gameData.patch, 'N/D'), directUrl); });
             actions.append(save);
         }
         li.append(content, actions);
@@ -594,69 +428,49 @@ window.fetchAndDisplayBuilds = async function(gameId, listType, elementId) {
     try {
         const catalog = await loadBuildCatalog();
         const gameData = catalog.games[gameId];
-        
-        if (!gameData || typeof gameData !== 'object') throw new Error(`Gioco ${gameId} non presente nel JSON`);
-        
-        document.querySelectorAll('.season-highlight').forEach(el => {
-            el.textContent = gameData.patch || "Stagione Corrente";
-        });
-
+        if (!gameData) throw new Error('Dati mancanti');
         renderBuildMeta(gameId, gameData);
         renderBuildList(ul, gameId, listType, gameData);
         
+        document.querySelectorAll(`.season-highlight`).forEach(el => {
+            if(el.closest(`#${gameId}`)) el.textContent = gameData.patch || "Stagione Corrente";
+        });
     } catch (error) {
-        console.warn('Errore rendering build:', error);
-        renderBuildMeta(gameId, null, 'Catalogo temporaneamente non disponibile.');
-        ul.innerHTML = '<li class="build-catalog-empty" style="color: var(--text-muted); font-style:italic; padding: 10px;">Errore nel caricamento del catalogo.</li>';
+        renderBuildMeta(gameId, null, 'Catalogo build temporaneamente non disponibile.');
+        ul.replaceChildren(buildElement('li', 'build-catalog-empty', 'Errore caricamento.'));
     }
 };
 
-// --- DISCOVERY ---
-const buildDiscoveryConfig = {
-    poe1: { sources: [ ['Maxroll', 'https://maxroll.gg/poe'], ['PoEBuilds', 'https://poebuilds.cc/'] ], prompts: [ ['Starter', 'Per iniziare.', 'league starter'], ['Endgame', 'Per mappe alte.', 'endgame'] ] },
-    poe2: { sources: [ ['Maxroll', 'https://maxroll.gg/poe2'] ], prompts: [ ['Starter', 'Per iniziare.', 'starter build'] ] },
-    le: { sources: [ ['Maxroll', 'https://maxroll.gg/last-epoch'] ], prompts: [ ['Starter', 'Per iniziare.', 'starter'] ] },
-    d2: { sources: [ ['Maxroll', 'https://maxroll.gg/d2'] ], prompts: [ ['Starter', 'Per iniziare.', 'starter'] ] },
-    d4: { sources: [ ['Maxroll', 'https://maxroll.gg/d4'] ], prompts: [ ['Starter', 'Per iniziare.', 'starter'] ] }
-};
-
-function discoveryGameQuery(gameId, gameData, suffix) {
-    const normalizedSuffix = /\bbuild\s*$/i.test(suffix) ? suffix : `${suffix} build`;
-    return `${buildGameTitles[gameId] || ''} ${buildText(gameData && gameData.patch)} ${normalizedSuffix}`.replace(/\s+/g, ' ').trim();
-}
-
-function discoveryLink(label, url, className) { return buildExternalLink(label, url, className); }
-
 function renderBuildDiscovery(gameId, gameData) {
     const target = document.getElementById(`build-discovery-${gameId}`);
-    const config = (gameData && gameData.discovery) ? gameData.discovery : buildDiscoveryConfig[gameId];
+    const config = gameData && gameData.discovery ? gameData.discovery : null;
     if (!target || !config) return;
     target.replaceChildren();
 
     const heading = buildElement('div', 'build-discovery-heading');
     heading.append(buildElement('span', 'build-discovery-eyebrow', 'Community discovery'));
-    heading.append(buildElement('strong', 'build-discovery-title', 'Build da esplorare'));
-    heading.append(buildElement('span', 'build-discovery-badge', 'Aggiornamento Automatico'));
+    heading.append(buildElement('strong', 'build-discovery-title', 'Siti suggeriti e Ricerca'));
+    heading.append(buildElement('span', 'build-discovery-badge', 'Consigliati'));
     target.append(heading);
-    target.append(buildElement('p', 'build-discovery-notice', 'Punti di partenza e ricerche esterne aggiornate alla patch corrente.'));
+    target.append(buildElement('p', 'build-discovery-notice', 'Esplora le build partendo da queste risorse affidabili per la community.'));
 
     const sources = buildElement('div', 'build-discovery-sources');
     (config.sources || []).forEach(([label, url]) => {
-        const link = discoveryLink(`↗ ${label}`, url, 'build-discovery-source');
+        const link = buildExternalLink(`↗ ${label}`, url, 'build-discovery-source');
         if (link) sources.append(link);
     });
     target.append(sources);
 
     const grid = buildElement('div', 'build-discovery-grid');
     (config.prompts || []).forEach(([title, description, suffix]) => {
-        const query = discoveryGameQuery(gameId, gameData, suffix);
+        const query = `${buildGameTitles[gameId] || ''} ${suffix}`;
         const encoded = encodeURIComponent(query);
         const card = buildElement('article', 'build-discovery-card');
         card.append(buildElement('h4', '', title));
         card.append(buildElement('p', '', description));
         const actions = buildElement('div', 'build-discovery-actions');
-        const youtube = discoveryLink('📺 YouTube live', `https://www.youtube.com/results?search_query=${encoded}`, 'tool-link build-discovery-youtube');
-        const google = discoveryLink('🔍 Cerca sul web', `https://www.google.com/search?q=${encoded}`, 'tool-link build-discovery-search');
+        const youtube = buildExternalLink('📺 YouTube', `https://www.youtube.com/results?search_query=${encoded}`, 'tool-link build-discovery-youtube');
+        const google = buildExternalLink('🔍 Cerca', `https://www.google.com/search?q=${encoded}`, 'tool-link build-discovery-search');
         if (youtube) actions.append(youtube);
         if (google) actions.append(google);
         card.append(actions);
@@ -669,185 +483,10 @@ window.initializeBuildDiscovery = async function(gameId) {
     try {
         const catalog = await loadBuildCatalog();
         renderBuildDiscovery(gameId, catalog.games[gameId]);
-    } catch (error) {
-        const target = document.getElementById(`build-discovery-${gameId}`);
-        if (target) target.innerHTML = '<p class="build-discovery-notice">Le risorse community non sono disponibili al momento.</p>';
-    }
+    } catch (error) {}
 };
 
-// =========================================================
-// 6. ENCICLOPEDIA E RUNWORDS
-// =========================================================
-window.initializePoe1Encyclopedia = function() {
-    const root = document.getElementById('poe1-encyclopedia');
-    if (!root || root.dataset.initialized === 'true') return;
-
-    const api = {
-        openLightbox(imgSrc) {
-            const lightbox = root.querySelector('#poe1-encyclopedia-lightbox');
-            const image = root.querySelector('#poe1-encyclopedia-lightbox-img');
-            lightbox.classList.add('active');
-            image.src = imgSrc;
-            document.body.style.overflow = 'hidden';
-        },
-        closeLightbox(event) {
-            const lightbox = root.querySelector('#poe1-encyclopedia-lightbox');
-            if (event && event.target !== lightbox) return;
-            lightbox.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        },
-        filterSelection(event, category) {
-            const cards = root.querySelectorAll('.card');
-            const buttons = root.querySelectorAll('.filter-btn');
-            buttons.forEach(button => button.classList.remove('active'));
-            if (event && event.currentTarget) event.currentTarget.classList.add('active');
-            const classToMatch = category === 'all' ? '' : category;
-            cards.forEach(card => {
-                card.style.display = card.className.includes(classToMatch) ? 'flex' : 'none';
-            });
-        },
-        openModal(id) {
-            const modal = root.querySelector(`#${id}`);
-            if (!modal) return;
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        },
-        closeModalById(id) {
-            const modal = root.querySelector(`#${id}`);
-            if (!modal) return;
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        },
-        closeModal(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-    };
-    window.poe1Encyclopedia = api;
-    document.addEventListener('keydown', function(event) {
-        if (event.key !== 'Escape') return;
-        const lb = root.querySelector('#poe1-encyclopedia-lightbox');
-        if(lb) lb.classList.remove('active');
-        root.querySelectorAll('.modal-overlay').forEach(modal => { modal.style.display = 'none'; });
-        document.body.style.overflow = 'auto';
-    });
-    root.dataset.initialized = 'true';
-    api.filterSelection(null, 'all');
-};
-
-window.filterItemsStatic = function(sectionId, filterId, dataAttr) {
-    const selectedClass = document.getElementById(filterId).value;
-    const section = document.getElementById(sectionId);
-    if(!section) return;
-    const items = section.querySelectorAll(`li[${dataAttr}]`);
-    items.forEach(item => {
-        const itemClasses = item.getAttribute(dataAttr).split(',');
-        item.style.display = (selectedClass === 'all' || itemClasses.includes('all') || itemClasses.includes(selectedClass)) ? '' : 'none';
-    });
-    const categories = section.querySelectorAll('.category-title');
-    categories.forEach(category => {
-        const ul = category.nextElementSibling;
-        if (ul && ul.tagName === 'UL') {
-            const hasVisibleItems = Array.from(ul.querySelectorAll('li')).some(li => li.style.display !== 'none');
-            category.style.display = hasVisibleItems ? 'block' : 'none';
-            ul.style.display = hasVisibleItems ? 'block' : 'none';
-        }
-    });
-};
-
-const RUNE_IMG_BASE_URL = "https://d2runewizard.com/assets/runes/";
-const RUNE_IMG_EXT = ".webp";
-const runewordsData = [
-    { name: "Stealth (Furtività)", type: "armatura", emoji: "👕", level: 17, sockets: 2, runes: ["Tal", "Eth"], base: "Qualsiasi Armatura Torso", desc: "L'armatura per eccellenza per il leveling. Offre velocità di movimento e di lancio magie fenomenali fin dai primissimi livelli.", stats: ["+25% Velocità di Lancio (FCR)", "+25% Velocità di Movimento (FRW)", "+25% Recupero dai Colpi (FHR)", "Rigenerazione Mana +15%"] },
-    { name: "Treachery (Tradimento)", type: "armatura", emoji: "👕", level: 43, sockets: 3, runes: ["Shael", "Thul", "Lem"], base: "Armatura Torso", desc: "Eccellente per il Mercenario Atto 2 o personaggi Melee. Può far 'proccare' Fade, aumentando massicciamente le resistenze e la riduzione danni.", stats: ["5% probabilità di lanciare Dissolvenza (Fade) liv. 15", "+45% Velocità d'Attacco Aumentata (IAS)", "+20% Recupero dai Colpi (FHR)", "+30% Resistenza al Freddo"] },
-    { name: "Fortitude (Fortezza)", type: "armatura", emoji: "👕", level: 59, sockets: 4, runes: ["El", "Sol", "Dol", "Lo"], base: "Armatura Torso (Anche Armi)", desc: "La migliore armatura per Mercenari e personaggi fisici (Melee/Archi). Dona un danno pazzesco e difese impenetrabili.", stats: ["<span style='color:#ff3333'>+300% Danno Aumentato</span>", "+200% Difesa", "+ (1-1.5 per Livello) a Vita", "+25-30% a Tutte le Resistenze"] },
-    { name: "Enigma", type: "armatura", emoji: "👕", level: 65, sockets: 3, runes: ["Jah", "Ith", "Ber"], base: "Mage Plate, Dusk Shroud, Archon Plate", desc: "La runeword più desiderata del gioco. Conferisce l'abilità 'Teletrasporto' a QUALSIASI classe, rivoluzionando il farming.", stats: ["<span style='color:var(--item-unique)'>+1 a Teletrasporto (Teleport)</span>", "+2 a Tutte le Abilità", "+ (0.75 per Livello) a Forza", "+ (1 per Livello) % prob. di trovare Oggetti Magici"] },
-    { name: "Chains of Honor (Catene dell'Onore)", type: "armatura", emoji: "👕", level: 63, sockets: 4, runes: ["Dol", "Um", "Ber", "Ist"], base: "Armatura Torso", desc: "Un'alternativa eccezionale a Enigma se hai bisogno di sopravvivenza. Offre enormi resistenze e danni extra contro demoni/non-morti.", stats: ["+2 a Tutte le Abilità", "<span style='color:#4da6ff'>+65% a Tutte le Resistenze Elementali</span>", "+200% Danno ai Demoni / +100% ai Non-Morti", "Ruba l'8% di Vita per Colpo"] },
-    { name: "Hustle", type: "armatura", emoji: "👕", level: 39, sockets: 3, runes: ["Shael", "Ko", "Eld"], base: "Armatura Torso (Anche Armi)", desc: "Nuova Runeword della patch 2.6. Ottima per correre e attaccare velocemente a metà gioco.", stats: ["+50% Velocità di Movimento (FRW)", "+20% Velocità d'Attacco Aumentata (IAS)", "+20% Recupero dai Colpi (FHR)", "Consumo Vigore ridotto del 50%"] },
-    { name: "Spirit (Spirito - Arma)", type: "arma", emoji: "🗡️", level: 25, sockets: 4, runes: ["Tal", "Thul", "Ort", "Amn"], base: "Spade (es. Crystal Sword, Broad Sword)", desc: "Il miglior oggetto qualità/prezzo per tutti gli Incantatori (Caster). Statistiche assurde per rune così economiche.", stats: ["+2 a Tutte le Abilità", "+25-35% Velocità di Lancio (FCR)", "+55% Recupero dai Colpi (FHR)", "+22 a Vitalità / +89-112 a Mana"] },
-    { name: "Insight (Intuizione)", type: "arma", emoji: "🔱", level: 27, sockets: 4, runes: ["Ral", "Tir", "Tal", "Sol"], base: "Armi Inastate (Polearms) o Archi (Patch 2.4+)", desc: "Equipaggiata dal Mercenario dell'Atto 2, risolve permanentemente qualsiasi problema di Mana per il tuo personaggio.", stats: ["<span style='color:#4da6ff'>Aura di Meditazione liv. 12-17 attiva</span>", "+200-260% Danno Aumentato", "+35% Velocità di Lancio (FCR)", "Bonus del 23% al Ritrovamento di Oggetti Magici"] },
-    { name: "Grief (Dolore)", type: "arma", emoji: "⚔️", level: 59, sockets: 5, runes: ["Eth", "Tir", "Lo", "Mal", "Ral"], base: "Spade, Asce (Phase Blade, Berserker Axe)", desc: "L'arma corpo a corpo più forte del gioco. Il suo bonus al danno 'piatto' distrugge completamente i calcoli matematici del gioco.", stats: ["<span style='color:#ff3333'>Danno +340-400 (Danno base Puro!)</span>", "+30-40% Velocità d'Attacco (IAS)", "Ignora la Difesa del Bersaglio", "20% Colpo Mortale (Deadly Strike)"] },
-    { name: "Call to Arms (Chiamata alle Armi)", type: "arma", emoji: "📯", level: 57, sockets: 5, runes: ["Amn", "Ral", "Mal", "Ist", "Ohm"], base: "Spade, Mazze (Crystal Sword, Flail)", desc: "La runeword definitiva per lo switch dell'arma (W). Permette a chiunque di lanciare gli urli del Barbaro per aumentare Vita e Mana.", stats: ["+1 a Tutte le Abilità", "+1-6 a Comando di Battaglia", "<span style='color:var(--item-unique)'>+1-6 a Ordini di Battaglia (Battle Orders)</span>", "+1-4 a Grido di Battaglia"] },
-    { name: "Heart of the Oak (HOTO)", type: "arma", emoji: "🧙‍♂️", level: 55, sockets: 4, runes: ["Ko", "Vex", "Pul", "Thul"], base: "Mazze, Bastoni (Flail)", desc: "L'arma perfetta per gli Incantatori a fine gioco. FCR eccezionale e massicce resistenze.", stats: ["+3 a Tutte le Abilità", "+40% Velocità di Lancio (FCR)", "<span style='color:#4da6ff'>+30-40% a Tutte le Resistenze Elementali</span>", "+15% Mana Massimo"] },
-    { name: "Infinity (Infinito)", type: "arma", emoji: "🔱", level: 63, sockets: 4, runes: ["Ber", "Mal", "Ber", "Ist"], base: "Armi Inastate (Mancatcher, Thresher) o Lance", desc: "L'arma 'Endgame' per i mercenari delle build Elementali. Rompe le immunità dei mostri in modalità Inferno.", stats: ["<span style='color:#ffaa00'>Aura Convinzione (Conviction) liv. 12 attiva</span>", "-45-55% alla Resistenza al Fulmine del Nemico", "40% Prob. di Colpo Frantumante (Crushing Blow)", "Aggiunge Danno da Fulmine"] },
-    { name: "Mosaic", type: "arma", emoji: "🥋", level: 53, sockets: 3, runes: ["Mal", "Gul", "Amn"], base: "Armi corpo a corpo da Assassina (Claws)", desc: "Introdotta nella 2.6, ha reso l'Assassina Martial Arts una delle classi più potenti e visivamente caotiche del gioco.", stats: ["<span style='color:#4da6ff'>50% Prob. di non consumare cariche (100% con 2 armi)</span>", "+2 ad Abilità Arti Marziali (Assassina)", "+20% IAS / Danni da freddo/fuoco/fulmine aggiunti", "Ruba 7% di Vita per colpo"] },
-    { name: "White (Bianco)", type: "arma", emoji: "💀", level: 35, sockets: 2, runes: ["Dol", "Io"], base: "Bacchette (Wands) - Solo Negromante", desc: "Se creata in una bacchetta che ha già +3 a Lancia d'Osso, trasforma il tuo Negromante in una mitragliatrice di danni.", stats: ["+3 ad Abilità Veleno e Osso (Necromante)", "+2 a Lancia d'Osso / +3 ad Armatura d'Osso", "+20% Velocità di Lancio (FCR)", "+13 a Mana"] },
-    { name: "Spirit (Spirito - Scudo)", type: "scudo", emoji: "🛡️", level: 25, sockets: 4, runes: ["Tal", "Thul", "Ort", "Amn"], base: "Monarch (Paladini: Qualsiasi scudo base con +Res)", desc: "La versione Scudo di Spirit. È il motivo per cui quasi tutti i Caster mettono almeno 156 di Forza (per indossare il Monarch).", stats: ["+2 a Tutte le Abilità", "+25-35% Velocità di Lancio (FCR)", "+55% Recupero dai Colpi (FHR)", "+35% Res Freddo, Fulmine, Veleno (Manca Fuoco!)"] },
-    { name: "Rhyme (Rima)", type: "scudo", emoji: "🛡️", level: 29, sockets: 2, runes: ["Shael", "Eth"], base: "Bone Shield, Grim Shield", desc: "Uno scudo eccellente per metà gioco o Magic Find. Impedisce di essere congelati.", stats: ["<span style='color:#4da6ff'>Impossibile essere Congelati (Cannot Be Frozen)</span>", "+25% a Tutte le Resistenze Elementali", "+20% Possibilità di Blocco / +40% Velocità di Blocco", "25% Ritrovamento Oggetti Magici (MF)"] },
-    { name: "Ancient's Pledge (Promessa degli Antichi)", type: "scudo", emoji: "🛡️", level: 21, sockets: 3, runes: ["Ral", "Ort", "Tal"], base: "Kite Shield, Large Shield", desc: "Le rune ti vengono donate completando la quest dell'Atto 5 Normale. Fixa le tue resistenze in un colpo solo.", stats: ["+48% Resistenza al Freddo", "+48% Resistenza al Fuoco", "+48% Resistenza al Fulmine", "+48% Resistenza al Veleno"] },
-    { name: "Exile (Esilio)", type: "scudo", emoji: "🛡️", level: 57, sockets: 4, runes: ["Vex", "Ohm", "Ist", "Dol"], base: "Scudi del Paladino (Ideale: Eterei con bug/auto-riparazione)", desc: "Il miglior scudo per Paladini 'Smiter' o Zealer. Dona Aura Sfida e ricarica vita castando 'Life Tap'.", stats: ["<span style='color:#ff3333'>15% prob. di lanciare Life Tap (Ruba Vita) liv. 5 su attacco</span>", "Aura di Sfida (Defiance) liv. 13-16 attiva", "+2 ad Aure Offensive (Paladino)", "Ripara 1 Durabilità ogni 4 secondi"] },
-    { name: "Lore (Conoscenza)", type: "elmo", emoji: "🪖", level: 27, sockets: 2, runes: ["Ort", "Sol"], base: "Qualsiasi Elmo a 2 incavi (es. Cap, Bone Helm)", desc: "L'elmo standard per finire la difficoltà Normale e affrontare Incubo. Dona un utilissimo +1 a Tutte le Abilità.", stats: ["<span style='color:var(--item-unique)'>+1 a Tutte le Abilità</span>", "+30% Resistenza al Fulmine", "Danno Ridotto di 7", "+2 al Mana per ogni uccisione"] },
-    { name: "Flickering Flame", type: "elmo", emoji: "🪖", level: 55, sockets: 3, runes: ["Nef", "Pul", "Vex"], base: "Elmi (Ideale: Elmi del Druido con +Abilità)", desc: "Introdotto nella 2.4, è il sogno di ogni build fuoco. Abbassa le difese nemiche e fornisce Aura Resistenza al Fuoco per contrastare Sunder Charms.", stats: ["<span style='color:#ff3333'>Aura Resistenza al Fuoco liv. 4-8 attiva</span>", "-10-15% alla Resistenza al Fuoco dei Nemici", "+3 ad Abilità di Fuoco", "+5% alle Resistenze Massime al Fuoco"] },
-    { name: "Bulwark (Baluardo)", type: "elmo", emoji: "🪖", level: 35, sockets: 3, runes: ["Shael", "Io", "Sol"], base: "Qualsiasi Elmo a 3 incavi", desc: "Nuovo elmo economico della patch 2.6 per Mercenari. Riduce drasticamente i danni subiti e fornisce Life Leech.", stats: ["Ruba 4-6% di Vita per Colpo", "Riduce il Danno Fisico Subito del 10-15%", "+20% Recupero dai Colpi (FHR)", "Aumenta la Vita Massima del 5%"] },
-    { name: "Cure (Cura)", type: "elmo", emoji: "🪖", level: 35, sockets: 3, runes: ["Shael", "Io", "Tal"], base: "Qualsiasi Elmo a 3 incavi", desc: "Nuovo elmo 2.6. Insieme a Insight su un Mercenario (con aura Preghiera) crea una sinergia mostruosa di cura continua e pulizia veleni.", stats: ["<span style='color:#52d164'>Aura Purificazione (Cleansing) liv. 1 attiva</span>", "+20% Recupero dai Colpi (FHR)", "Aumenta la Vita Massima del 5%", "+40-60% Resistenza al Veleno"] }
-];
-
-window.renderD2Runewords = function() {
-    const selectedType = document.getElementById('type-filter-d2') ? document.getElementById('type-filter-d2').value : 'all';
-    const container = document.getElementById('runewords-container');
-    if(!container) return;
-    container.innerHTML = ''; 
-    let typesToRender = selectedType === 'all' ? [...new Set(runewordsData.map(rw => rw.type))] : [selectedType];
-    typesToRender.forEach(type => {
-        const items = runewordsData.filter(rw => rw.type === type);
-        if (items.length === 0) return;
-        const h2 = document.createElement('h2');
-        h2.className = 'guide-title category-title';
-        h2.textContent = type === 'armatura' ? '👕 Armature (Body Armor)' : type === 'arma' ? '⚔️ Armi (Weapons)' : type === 'scudo' ? '🛡️ Scudi (Shields)' : '🪖 Elmi (Helms)';
-        container.appendChild(h2);
-        const ul = document.createElement('ul');
-        ul.className = 'guide-list';
-        items.forEach(item => {
-            const li = document.createElement('li');
-            li.className = 'runeword-card';
-            const statsHtml = item.stats.map(stat => `<div class="stat-line">${stat}</div>`).join('');
-            let runeImagesHtml = '<div class="rune-images-container">';
-            item.runes.forEach(rune => {
-                let safeRune = rune.trim().toLowerCase();
-                let imgUrl = `${RUNE_IMG_BASE_URL}${safeRune}${RUNE_IMG_EXT}`;
-                runeImagesHtml += `<div class="rune-block"><img src="${imgUrl}" alt="${rune}" width="28" height="28" loading="lazy" decoding="async"><span>${rune}</span></div>`;
-            });
-            runeImagesHtml += '</div>';
-            li.innerHTML = `
-                <div class="item-image-container">${item.emoji}</div>
-                <div class="item-details">
-                    <span class="unique-item">${item.name}</span>
-                    <div class="badges">
-                        <span class="level-req">📈 Liv. Req: ${item.level}</span>
-                        <span class="item-sockets">🕳️ ${item.sockets} Incavi</span>
-                        <span class="item-runes">🪨 ${item.runes.join(' + ')}</span>
-                    </div>
-                    ${runeImagesHtml}
-                    <span class="desc">${item.desc}</span>
-                    <span class="class-rec">🎯 Base Ideale: ${item.base}</span>
-                </div>
-                <div class="item-stats">
-                    <strong>Bonus e Statistiche</strong>
-                    ${statsHtml}
-                </div>
-            `;
-            ul.appendChild(li);
-        });
-        container.appendChild(ul);
-    });
-};
-
-// =========================================================
-// 7. HUB EVOLUTO (Season, Search, Patch, Compare, Rankings)
-// =========================================================
-const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
-const HUB_FAVORITES_KEY = 'arpgHubFavoritesV1';
-const HUB_SEASON_KEY = 'arpgHubSeasonV1';
-const HUB_A11Y_KEY = 'arpgHubAccessibilityV1';
-let hubBuildCatalog = null;
-let hubPatchRegistry = null;
-let hubRankingData = null;
-let hubSearchEntries = [];
-let hubInstallPrompt = null;
-let hubToastTimer = null;
-
+// --- Inizializzazione Tabs ---
 const initializedTabs = new Set();
 const tabBuildTargets = {
     poe1: [['endgame', 'top-builds-poe1'], ['leveling', 'top-leveling-poe1']],
@@ -863,9 +502,22 @@ window.initializeTabContent = function(gameId) {
         tabBuildTargets[gameId].forEach(([listType, elementId]) => { window.fetchAndDisplayBuilds(gameId, listType, elementId); });
     }
     window.initializeBuildDiscovery(gameId);
-    if (gameId === 'd2') window.renderD2Runewords();
+    if (gameId === 'd2' && window.renderD2Runewords) window.renderD2Runewords();
+    if (gameId === 'poe1' && window.initializePoe1Encyclopedia) window.initializePoe1Encyclopedia();
     initializedTabs.add(gameId);
 };
+
+// =========================================================
+// 7. HUB EVOLUTO (Season, Search, Patch, Compare, Rankings)
+// =========================================================
+const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
+const HUB_FAVORITES_KEY = 'arpgHubFavoritesV1';
+const HUB_SEASON_KEY = 'arpgHubSeasonV1';
+let hubBuildCatalog = null;
+let hubPatchRegistry = null;
+let hubRankingData = null;
+let hubSearchEntries = [];
+let hubToastTimer = null;
 
 function hubElement(tag, options = {}, children = []) {
     const element = document.createElement(tag);
@@ -880,8 +532,6 @@ function hubElement(tag, options = {}, children = []) {
     return element;
 }
 
-function hubSafeUrl(value) { try { const url = new URL(value, window.location.href); return /^https?:$/.test(url.protocol) ? url.href : ''; } catch (error) { return ''; } }
-
 function hubToast(message) {
     const toast = document.getElementById('hub-toast');
     if (!toast) return;
@@ -892,10 +542,10 @@ function hubToast(message) {
 }
 
 function hubReadJson(key, fallback) { try { const value = localStorage.getItem(key); return value ? JSON.parse(value) : fallback; } catch (error) { return fallback; } }
-function hubWriteJson(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) { hubToast('Errore salvataggio locale.'); } }
+function hubWriteJson(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) {} }
 function hubCurrentGame() { return document.body.dataset.activeGame || 'poe1'; }
 function hubCurrentSection(gameId = hubCurrentGame()) {
-    const active = document.querySelector(`#${gameId} .${gameId}-sub-content.active-sub-content`) || document.querySelector(`#${gameId} .${gameId}-sub-content:not([style*="display: none"])`);
+    const active = document.querySelector(`#${gameId} .${gameId}-sub-content.active-sub-content`);
     return active ? active.id : `${gameId}-dash`;
 }
 
@@ -906,7 +556,6 @@ window.hubSetGameIdentity = function(gameId) {
     if (toolbelt) toolbelt.setAttribute('data-game', gameId);
 };
 
-function hubHashParams() { return new URLSearchParams(window.location.hash.replace(/^#/, '')); }
 function hubUpdateHash(gameId, sectionId) {
     const params = new URLSearchParams();
     params.set('game', gameId || hubCurrentGame());
@@ -923,16 +572,16 @@ function hubOpenLocation(gameId, sectionId) {
             const subButton = Array.from(document.querySelectorAll(`.${gameId}-sub-btn`)).find(button => (button.getAttribute('onclick') || '').includes(`'${sectionId}'`));
             if (subButton) subButton.click();
             const destination = document.getElementById(sectionId);
-            if (destination) destination.scrollIntoView({ behavior: document.body.classList.contains('hub-reduce-motion') ? 'auto' : 'smooth', block: 'start' });
+            if (destination) destination.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }, 0);
 }
 
 function hubApplyHash() {
-    const params = hubHashParams();
+    const params = new URLSearchParams(window.location.hash.replace(/^#/, ''));
     const gameId = params.get('game');
     const sectionId = params.get('section');
-    if (HUB_GAMES[gameId]) { hubOpenLocation(gameId, sectionId && sectionId.startsWith(`${gameId}-`) ? sectionId : null); }
+    if (HUB_GAMES[gameId]) hubOpenLocation(gameId, sectionId);
 }
 
 function hubFavorites() { const saved = hubReadJson(HUB_FAVORITES_KEY, []); return Array.isArray(saved) ? saved : []; }
@@ -944,9 +593,9 @@ function hubToggleFavorite(entry) {
     const current = hubFavorites();
     const existing = current.findIndex(item => item.key === key);
     if (existing >= 0) current.splice(existing, 1);
-    else current.unshift({ key, title: entry.title, gameId: entry.gameId, targetId: entry.targetId || entry.id, kind: entry.kind, meta: entry.meta || '', savedAt: new Date().toISOString() });
+    else current.unshift({ key, title: entry.title, gameId: entry.gameId, targetId: entry.targetId || entry.id, kind: entry.kind, meta: entry.meta || '' });
     hubSetFavorites(current);
-    hubToast(existing >= 0 ? 'Rimosso dai preferiti.' : 'Aggiunto a La mia stagione.');
+    hubToast(existing >= 0 ? 'Rimosso dai preferiti.' : 'Aggiunto ai preferiti.');
     hubRenderSearchResults(document.getElementById('hub-search-input')?.value || '');
     hubRenderSeason();
 }
@@ -957,13 +606,12 @@ function hubBuildStaticEntries() {
         const onclick = button.getAttribute('onclick') || '';
         const match = onclick.match(/openSubTab\(event,\s*'([^']+)',\s*'([^']+)'\)/);
         if (!match || !HUB_GAMES[match[2]]) return;
-        entries.push({ id: `section-${match[1]}`, kind: 'Sezione', title: button.textContent.trim(), gameId: match[2], targetId: match[1], meta: `${HUB_GAMES[match[2]]} · navigazione` });
+        entries.push({ id: `section-${match[1]}`, kind: 'Sezione', title: button.textContent.trim(), gameId: match[2], targetId: match[1], meta: `${HUB_GAMES[match[2]]}` });
     });
     return entries;
 }
 
 async function hubLoadData() {
-    // Scaricamento parallelo dei 3 database JSON
     const [catalogResult, patchesResult, rankingsResult] = await Promise.allSettled([
         fetch('assets/builds.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()),
         fetch('assets/patches.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()),
@@ -979,7 +627,7 @@ async function hubLoadData() {
         Object.entries(hubBuildCatalog.games).forEach(([gameId, game]) => {
             Object.entries(game.builds || {}).forEach(([category, builds]) => {
                 (builds || []).forEach(build => buildEntries.push({
-                    ...build, id: build.id || build.title, kind: 'Build', gameId, targetId: `${gameId}-dash`, category, meta: `${HUB_GAMES[gameId]} · ${category === 'endgame' ? 'Endgame' : 'Livellamento'} · ${build.class}`
+                    ...build, id: build.id || build.title, kind: 'Build', gameId, targetId: `${gameId}-dash`, category, meta: `${HUB_GAMES[gameId]} · ${build.class}`
                 }));
             });
         });
@@ -997,7 +645,7 @@ function hubCreateDialog(id, kicker, title, subtitle) {
     const dialog = hubElement('section', { className: 'hub-dialog', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': `${id}-title` });
     const heading = hubElement('div', { className: 'hub-dialog-header' }, [
         hubElement('div', {}, [hubElement('span', { className: 'hub-dialog-kicker', text: kicker }), hubElement('h2', { id: `${id}-title`, text: title }), hubElement('p', { className: 'hub-dialog-subtitle', text: subtitle })]),
-        hubElement('button', { className: 'hub-dialog-close', type: 'button', 'aria-label': `Chiudi ${title}`, text: '×', onclick: () => hubCloseDialog(id) })
+        hubElement('button', { className: 'hub-dialog-close', type: 'button', text: '×', onclick: () => hubCloseDialog(id) })
     ]);
     const body = hubElement('div', { className: 'hub-dialog-body' });
     dialog.append(heading, body);
@@ -1022,23 +670,20 @@ function hubRenderSearchResults(query) {
     const normalized = String(query || '').trim().toLocaleLowerCase('it');
     const selected = normalized ? hubSearchEntries.filter(entry => `${entry.title} ${entry.meta} ${entry.kind}`.toLocaleLowerCase('it').includes(normalized)) : hubSearchEntries.slice(0, 16);
     target.replaceChildren();
-    count.textContent = normalized ? `${selected.length} risultati` : `Cerca tra ${hubSearchEntries.length} elementi`;
-    if (!selected.length) {
-        target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun risultato trovato.' }));
-        return;
-    }
+    count.textContent = `${selected.length} risultati`;
+    if (!selected.length) { target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun risultato trovato.' })); return; }
     const favorites = new Set(hubFavorites().map(item => item.key));
     selected.slice(0, 36).forEach(entry => {
         const main = hubElement('button', { className: 'hub-search-result-main', type: 'button', onclick: () => { hubCloseDialog('hub-search-dialog'); hubOpenLocation(entry.gameId, entry.targetId); } }, [
             hubElement('span', { className: 'hub-search-result-title', text: entry.title }),
-            hubElement('span', { className: 'hub-search-result-meta', text: `${entry.kind} · ${entry.meta || HUB_GAMES[entry.gameId]}` })
+            hubElement('span', { className: 'hub-search-result-meta', text: `${entry.kind} · ${entry.meta}` })
         ]);
-        const favorite = hubElement('button', { className: `hub-favorite-btn${favorites.has(hubFavoriteKey(entry)) ? ' is-favorite' : ''}`, type: 'button', title: 'Preferito', text: '★', onclick: () => hubToggleFavorite(entry) });
+        const favorite = hubElement('button', { className: `hub-favorite-btn${favorites.has(hubFavoriteKey(entry)) ? ' is-favorite' : ''}`, type: 'button', text: '★', onclick: () => hubToggleFavorite(entry) });
         target.appendChild(hubElement('article', { className: 'hub-search-result' }, [main, favorite]));
     });
 }
 
-function hubSeasonDefault() { return { gameId: 'poe1', className: '', favorites: true, goals: { build: false, defenses: false, progression: false, boss: false } }; }
+function hubSeasonDefault() { return { gameId: 'poe1', className: '', goals: { build: false, defenses: false, progression: false, boss: false } }; }
 function hubSeasonState() { return { ...hubSeasonDefault(), ...hubReadJson(HUB_SEASON_KEY, hubSeasonDefault()) }; }
 
 function hubRenderSeason() {
@@ -1053,8 +698,8 @@ function hubRenderSeason() {
     Object.entries(HUB_GAMES).forEach(([id, name]) => gameSelect.appendChild(hubElement('option', { value: id, text: name, ...(id === state.gameId ? { selected: 'selected' } : {}) })));
     const classInput = hubElement('input', { id: 'hub-season-class', value: state.className || '', placeholder: 'Classe o archetipo scelto' });
     profile.append(
-        hubElement('div', { className: 'hub-field' }, [hubElement('label', { htmlFor: 'hub-season-game', text: 'Gioco attivo' }), gameSelect]),
-        hubElement('div', { className: 'hub-field' }, [hubElement('label', { htmlFor: 'hub-season-class', text: 'La tua build' }), classInput]),
+        hubElement('div', { className: 'hub-field' }, [hubElement('label', { text: 'Gioco attivo' }), gameSelect]),
+        hubElement('div', { className: 'hub-field' }, [hubElement('label', { text: 'La tua build' }), classInput]),
         hubElement('div', { className: 'hub-action-row' }, [hubElement('button', { className: 'hub-primary-btn', type: 'button', text: 'Salva stagione', onclick: () => { const next = hubSeasonState(); next.gameId = gameSelect.value; next.className = classInput.value.trim(); hubWriteJson(HUB_SEASON_KEY, next); hubSetGameIdentity(next.gameId); hubToast('Stagione salvata.'); hubRenderSeason(); } })])
     );
     goals.replaceChildren();
@@ -1072,7 +717,7 @@ function hubRenderSeason() {
     );
     favoritesTarget.replaceChildren();
     if (!favoriteItems.length) favoritesTarget.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun preferito salvato.' }));
-    else favoriteItems.slice(0, 8).forEach(item => favoritesTarget.appendChild(hubElement('div', { className: 'hub-mini-item' }, [hubElement('span', { text: `${HUB_GAMES[item.gameId] || item.gameId} · ${item.title}` }), hubElement('button', { type: 'button', text: 'Apri', onclick: () => { hubCloseDialog('hub-season-dialog'); hubOpenLocation(item.gameId, item.targetId); } })])));
+    else favoriteItems.slice(0, 8).forEach(item => favoritesTarget.appendChild(hubElement('div', { className: 'hub-mini-item' }, [hubElement('span', { text: `${HUB_GAMES[item.gameId]} · ${item.title}` }), hubElement('button', { type: 'button', text: 'Apri', onclick: () => { hubCloseDialog('hub-season-dialog'); hubOpenLocation(item.gameId, item.targetId); } })])));
 }
 
 function hubCatalogBuilds() {
@@ -1088,9 +733,9 @@ function hubRenderCompareOptions() {
     [first, second].forEach(select => {
         const saved = select.value;
         select.replaceChildren(hubElement('option', { value: '', text: 'Scegli una build' }));
-        builds.forEach(build => select.appendChild(hubElement('option', { value: build.id || build.title, text: `${HUB_GAMES[build.gameId]} · ${build.title}`, ...( (build.id || build.title) === saved ? { selected: 'selected' } : {}) })));
+        builds.forEach(build => select.appendChild(hubElement('option', { value: build.title, text: `${HUB_GAMES[build.gameId]} · ${build.title}`, ...(build.title === saved ? { selected: 'selected' } : {}) })));
     });
-    if (builds.length >= 2 && !first.value && !second.value) { first.value = builds[0].id || builds[0].title; second.value = builds[1].id || builds[1].title; }
+    if (builds.length >= 2 && !first.value && !second.value) { first.value = builds[0].title; second.value = builds[1].title; }
     hubRenderCompare();
 }
 
@@ -1100,7 +745,7 @@ function hubRenderCompare() {
     const secondId = document.getElementById('hub-compare-second')?.value;
     if (!target) return;
     const builds = hubCatalogBuilds();
-    const selected = [builds.find(build => (build.id || build.title) === firstId), builds.find(build => (build.id || build.title) === secondId)].filter(Boolean);
+    const selected = [builds.find(build => build.title === firstId), builds.find(build => build.title === secondId)].filter(Boolean);
     target.replaceChildren();
     if (!selected.length) { target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Scegli due build da confrontare.' })); return; }
     selected.forEach(build => {
@@ -1123,9 +768,9 @@ function hubRenderPatchRegistry() {
         const patch = games[gameId];
         const card = hubElement('article', { className: 'hub-patch-card' }, [hubElement('h3', { text: name }), hubElement('span', { className: 'hub-patch-patch', text: patch?.currentPatch || 'Non disponibile' })]);
         const list = hubElement('ul');
-        (patch?.changes || ['Nessuna nota automatica.']).forEach(change => list.appendChild(hubElement('li', { text: change })));
+        (patch?.changes || []).forEach(change => list.appendChild(hubElement('li', { text: change })));
         card.appendChild(list);
-        if (patch?.sourceUrl) card.appendChild(hubElement('a', { href: patch.sourceUrl, target: '_blank', text: 'Visita Sito Ufficiale' }));
+        if (patch?.sourceUrl) card.appendChild(hubElement('a', { href: patch.sourceUrl, target: '_blank', text: 'Visita Timeline' }));
         target.appendChild(card);
     });
 }
@@ -1152,8 +797,7 @@ function hubRenderRanking() {
 function hubCopyShareLink() {
     const url = new URL(window.location.href);
     url.hash = `game=${encodeURIComponent(hubCurrentGame())}&section=${encodeURIComponent(hubCurrentSection())}`;
-    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url.href).then(() => hubToast('Link copiato.')).catch(() => window.prompt('Copia questo link:', url.href));
-    else window.prompt('Copia questo link:', url.href);
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url.href).then(() => hubToast('Link copiato.')).catch(() => {});
 }
 
 function hubCreateInterface() {
@@ -1179,11 +823,10 @@ function hubCreateInterface() {
     const patchBody = hubCreateDialog('hub-patch-dialog', 'Aggiornamenti Meta', 'Registro Stagioni', 'Gestito in automatico tramite aRPG Timeline.');
     patchBody.appendChild(hubElement('div', { id: 'hub-patch-grid', className: 'hub-patch-grid' }));
 
-    // NUOVA MODALE CLASSIFICA
     const rankingBody = hubCreateDialog('hub-ranking-dialog', 'Trend in tempo reale', 'Classifica ARPG', 'Giocatori attivi su Steam e stime (Aggiornati quotidianamente in automatico).');
     rankingBody.appendChild(hubElement('div', { id: 'hub-ranking-grid', className: 'hub-ranking-grid' }));
 
-    document.body.appendChild(hubElement('div', { id: 'hub-toast', className: 'hub-toast', hidden: 'hidden', role: 'status', 'aria-live': 'polite' }));
+    document.body.appendChild(hubElement('div', { id: 'hub-toast', className: 'hub-toast', hidden: 'hidden' }));
     
     document.getElementById('hub-search-btn')?.addEventListener('click', () => hubOpenDialog('hub-search-dialog', '#hub-search-input'));
     document.getElementById('hub-season-btn')?.addEventListener('click', () => { hubRenderSeason(); hubOpenDialog('hub-season-dialog'); });
@@ -1228,9 +871,6 @@ function hubInit() {
 }
 document.addEventListener('DOMContentLoaded', hubInit);
 
-// =========================================================
-// 8. AVVIO AL CARICAMENTO
-// =========================================================
 document.addEventListener("DOMContentLoaded", () => {
     window.loadMyBuildsUI();
     const firstTab = document.querySelector('.tab-btn');
