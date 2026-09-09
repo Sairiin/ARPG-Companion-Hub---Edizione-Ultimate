@@ -489,28 +489,33 @@ function renderBuildMeta(gameId, gameData, errorMessage = '') {
         target.append(heading, buildElement('p', 'build-meta-unavailable', errorMessage));
         return;
     }
+
     target.classList.remove('is-unavailable');
     const review = buildReviewState(gameData);
     target.classList.toggle('is-stale', review.stale);
-    
     const heading = buildElement('div', 'build-meta-heading');
     heading.append(buildElement('span', 'build-meta-eyebrow', 'Aggiornamento meta'));
-    heading.append(buildElement('strong', 'build-meta-title', buildText(gameData.game, buildGameTitles[gameId])));
-    heading.append(buildElement('span', `build-meta-status ${review.stale ? 'is-stale' : 'is-current'}`, review.stale ? 'Da verificare' : 'Verificato oggi'));
+    
+    // Il nome patch ora include anche il Countdown "(Termina tra Xg)"
+    heading.append(buildElement('strong', 'build-meta-title', buildText(gameData.patch, buildGameTitles[gameId])));
+    const status = buildElement('span', `build-meta-status ${review.stale ? 'is-stale' : 'is-current'}`, review.stale ? 'Da verificare' : 'Verificato');
+    heading.append(status);
 
     const details = buildElement('div', 'build-meta-details');
+    
+    // Aggiornato: Mostra informazioni di Sistema invece della sola patch
     const patch = buildElement('div', 'build-meta-detail');
-    patch.append(buildElement('span', 'build-meta-label', 'Patch / stagione'));
-    patch.append(buildElement('strong', 'build-meta-value', buildText(gameData.patch, 'Non indicata')));
+    patch.append(buildElement('span', 'build-meta-label', 'Sincronizzazione API'));
+    patch.append(buildElement('strong', 'build-meta-value', 'Attiva (aRPG Timeline)'));
     details.append(patch);
 
     const revised = buildElement('div', 'build-meta-detail');
-    revised.append(buildElement('span', 'build-meta-label', 'Ultima revisione'));
+    revised.append(buildElement('span', 'build-meta-label', 'Ultimo Controllo'));
     revised.append(buildElement('strong', 'build-meta-value', buildFormatDate(review.reviewedAt)));
     details.append(revised);
 
     const sources = buildElement('div', 'build-meta-detail build-meta-sources');
-    sources.append(buildElement('span', 'build-meta-label', 'Fonti consultate'));
+    sources.append(buildElement('span', 'build-meta-label', 'Fonti Database'));
     const sourceLinks = buildElement('span', 'build-meta-source-links');
     const sourcesList = Array.isArray(gameData.sources) ? gameData.sources : [];
     sourcesList.forEach(source => {
