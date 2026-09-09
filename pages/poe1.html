@@ -1,13 +1,17 @@
-<div class="poe1-sub-nav sub-tabs-container">
-    <button class="poe1-sub-btn sub-tab-btn active-sub" onclick="openSubTab(event, 'poe1-dash', 'poe1')">📊 Dashboard</button>
-    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-tools', 'poe1')">🧰 Strumenti</button>
-    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-builds', 'poe1')">💾 Le Mie Build</button>
-    <button class="poe1-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe1-encyclopedia', 'poe1')">📖 Enciclopedia</button>
+<div class="poe1-sub-nav sub-tabs-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:20px;">
+    <button class="poe1-sub-btn sub-tab-btn active-sub" onclick="window.openSubTab(event, 'poe1-dash', 'poe1')">📊 Dashboard</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-tools', 'poe1')">🧰 Strumenti & Ricerca</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-builds', 'poe1')">💾 Le Mie Build</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-encyclopedia', 'poe1')">📖 Enciclopedia</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-guide', 'poe1')">🛡️ Unici Leveling</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-crafting', 'poe1')">🔨 Crafting</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-lab', 'poe1')">🏛️ Labirinto</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-defense', 'poe1')">🛡️ Difese</button>
+    <button class="poe1-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe1-atlas', 'poe1')">🗺️ Atlas & Boss</button>
 </div>
 
 <div id="poe1-dash" class="poe1-sub-content active-sub-content">
     <div id="build-meta-poe1" class="build-meta-panel"></div>
-    
     <div class="dash-grid">
         <div class="dash-card">
             <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
@@ -22,37 +26,246 @@
             </ul>
         </div>
     </div>
-    
     <div id="build-discovery-poe1" class="build-discovery-panel"></div>
 </div>
 
 <div id="poe1-tools" class="poe1-sub-content" style="display:none;">
-    <div class="tools-grid">
-        <button class="tool-card" onclick="openOverlay('https://poe.ninja', 'PoE Ninja')">📈 PoE Ninja</button>
-        <button class="tool-card" onclick="openOverlay('https://pathofexile.pobb.in', 'PoBB.in')">📋 PoBB.in</button>
-        <button class="tool-card" onclick="openOverlay('https://www.poewiki.net', 'PoE Wiki')">📚 Official Wiki</button>
-        <button class="tool-card" onclick="openOverlay('https://craftofexile.com', 'Craft of Exile')">🔨 Craft of Exile</button>
+    <div class="action-bar">
+        <form onsubmit="window.multiSearch(event, 'search-input-poe1', 'search-site-poe1')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
+            <input id="search-input-poe1" placeholder="Cerca termine..." required style="flex-grow:1;" type="text"/>
+            <select id="search-site-poe1">
+                <option value="all">🔍 Cerca in Tutti i Siti</option>
+                <option value="poewiki.net">Wiki Ufficiale</option>
+                <option value="mobalytics.gg/poe">Mobalytics</option>
+                <option value="icy-veins.com/poe">Icy Veins</option>
+                <option value="maxroll.gg/poe">Maxroll</option>
+                <option value="poebuilds.cc">PoEBuilds.cc</option>
+            </select>
+            <button class="action-btn" type="submit">Cerca</button>
+        </form>
+    </div>
+    <div class="section" style="background: transparent; border: none; padding: 0;">
+        <a class="tool-link" href="https://craftofexile.com" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🛠️ Craft of Exile</a>
+        <a class="tool-link" href="https://poe.ninja" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">📈 PoE Ninja</a>
+        <a class="tool-link" href="https://pob.cool/" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🖥️ PoB (Cool)</a>
+        <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
+        <a class="tool-link" href="https://www.poebuilds.cc/" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🌐 PoEBuilds.cc</a>
+        <a class="tool-link" href="https://www.filterblade.xyz/" rel="noopener noreferrer" style="background: #3f51b5;" target="_blank">🛡️ FilterBlade</a>
     </div>
 </div>
 
 <div id="poe1-builds" class="poe1-sub-content" style="display:none;">
-    <div class="my-builds-container">
-        <h3>💾 Salva la tua Build PoE 1</h3>
-        <form id="form-poe1" onsubmit="saveBuild(event, 'poe1')" class="build-form">
-            <input type="text" id="name-poe1" placeholder="Nome Build (es. Archmage Ball Lightning)" required>
-            <input type="url" id="link-poe1" placeholder="Link (PoBB.in / Maxroll)" required>
-            <input type="text" id="version-poe1" placeholder="Versione/Lega (es. 3.25)">
-            <input type="text" id="note-poe1" placeholder="Note personali">
-            <div class="form-actions">
-                <button type="submit" id="submit-btn-poe1" class="submit-btn">Salva</button>
-                <button type="button" id="cancel-btn-poe1" class="cancel-btn" style="display:none;" onclick="cancelEdit('poe1')">Annulla</button>
-            </div>
+    <div class="section">
+        <h3>
+            <div>💾 Le Mie Build Personali</div>
+            <input class="filter-saved-input" id="filter-saved-poe1" onkeyup="window.filterSavedBuilds('poe1')" placeholder="🔍 Filtra le tue build..." type="text"/>
+        </h3>
+        <form class="save-form" id="form-poe1" onsubmit="window.saveBuild(event, 'poe1')">
+            <input id="name-poe1" placeholder="Nome Build" required type="text"/>
+            <input id="link-poe1" placeholder="Incolla URL" required type="url"/>
+            <input class="input-small" id="version-poe1" placeholder="Versione" required type="text"/>
+            <input id="note-poe1" placeholder="Note (Starter, MF...)" type="text"/>
+            <button class="action-btn" id="submit-btn-poe1" type="submit">Salva</button>
+            <button class="cancel-btn" id="cancel-btn-poe1" onclick="window.cancelEdit('poe1')" type="button">Annulla</button>
         </form>
-        <input type="text" id="filter-saved-poe1" placeholder="🔍 Cerca tra le mie build..." onkeyup="filterSavedBuilds('poe1')" class="search-input">
-        <ul id="my-builds-poe1" class="dash-list my-builds-list"></ul>
+        <ul class="dash-list saved-builds-list" id="my-builds-poe1"></ul>
     </div>
 </div>
 
-<div id="poe1-encyclopedia" class="poe1-sub-content" style="display:none;">
-    <p style="color: var(--text-muted); font-style:italic;">Caricamento risorse enciclopedia PoE 1...</p>
+<!-- ========================================== -->
+<!-- VECCHIE GUIDE E ENCICLOPEDIA POE 1 -->
+<!-- ========================================== -->
+<div id="poe1-guide" class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1 legacy-database" data-legacy-redesign="legacy-database" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 1 · Leveling Library</span><h1 class="legacy-title">Guida PoE 1: Oggetti Unici per Leveling</h1><p class="legacy-tagline">Un archivio visivo di unici per riconoscere upgrade utili, requisiti e destinazioni di classe.</p><div class="legacy-hero-meta"><span>Database interattivo</span><span>34 oggetti</span></div></div></div>
+    <div class="filter-container">
+        <label for="class-filter-poe1">Filtra per Classe:</label>
+        <select id="class-filter-poe1" onchange="window.filterItemsStatic('poe1-guide', 'class-filter-poe1', 'data-class')">
+            <option value="all">Mostra Tutti</option><option value="duelist">Duelist</option><option value="marauder">Marauder</option><option value="ranger">Ranger</option><option value="scion">Scion</option><option value="shadow">Shadow</option><option value="templar">Templar</option><option value="witch">Witch</option>
+        </select>
+    </div>
+    
+    <h2 class="guide-title category-title">🛡️ Elmi (Helmets)</h2>
+    <ul class="guide-list">
+        <li data-class="all"><div class="item-image-container"><img alt="Goldrim" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Goldrim_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Goldrim</a><div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~2 C</span><span class="item-sockets">🕳️ Max 4</span></div><span class="desc">La scelta predefinita per il leveling, sistema le difese dall'Atto 1.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">+30-40% a tutte le Resistenze Elementali</div></div></li>
+        <li data-class="ranger,duelist,marauder"><div class="item-image-container"><img alt="Thrillsteel" loading="lazy" src="https://www.poewiki.net/images/e/e7/Thrillsteel_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Thrillsteel</a><div class="badges"><span class="level-req">📈 Liv. 18</span><span class="item-cost">💰 ~1 Alch</span><span class="item-sockets">🕳️ Max 4</span></div><span class="desc">Fornisce enormi buff alla velocità.</span><span class="class-rec">🎯 Ranger, Duelist, Marauder.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">Hai Assalto (Onslaught) costante</div></div></li>
+    </ul>
+    
+    <h2 class="guide-title category-title">👕 Armature Torso (Chest)</h2>
+    <ul class="guide-list">
+        <li data-class="all"><div class="item-image-container"><img alt="Tabula Rasa" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Tabula_Rasa_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Tabula Rasa</a><div class="badges"><span class="level-req">📈 Liv. 1</span><span class="item-cost">💰 ~12 C</span><span class="item-sockets">🕳️ 6 Fissi</span></div><span class="desc">L'armatura per eccellenza per livellare: un 6-Link bianco dal livello 1.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">Possiede sempre 6 Incavi Bianchi tutti collegati</div></div></li>
+    </ul>
+
+    <h2 class="guide-title category-title">🥾 Stivali (Boots)</h2>
+    <ul class="guide-list">
+        <li data-class="all"><div class="item-image-container"><img alt="Wanderlust" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Wanderlust_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Wanderlust</a><div class="badges"><span class="level-req">📈 Liv. 1</span></div><span class="desc">Evitano morti per congelamento.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">Sei Immune al Congelamento</div><div class="stat-line">20% Velocità di Movimento</div></div></li>
+    </ul>
+</div>
+
+<div id="poe1-crafting" class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1 legacy-editorial" data-legacy-redesign="legacy-editorial" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 1 · Crafting Path</span><h1 class="legacy-title">Guida per Principianti: Crafting &amp; Upgrading</h1><p class="legacy-tagline">Una guida pratica per leggere le basi, pianificare gli upgrade e spendere valuta con intenzione.</p></div></div>
+    <h2 class="guide-title category-title">🔨 Come craftare un oggetto da zero (Step-by-Step)</h2>
+    <ul class="guide-list">
+        <li class="text-only">
+            <span class="desc" style="margin-bottom:10px;">Durante il leveling è vitale sapersi creare un buon pezzo di equipaggiamento (es. fiaschetta) usando Alteration, Regal e Master Crafting.</span>
+            <div class="stat-line" style="margin-top:10px;"><strong>Step 1: La Base Perfetta.</strong> Trova un oggetto con un alto <em>Item Level</em>.</div>
+            <div class="stat-line"><strong>Step 2: Qualità.</strong> Portalo al 20% di Qualità da bianco (costa meno).</div>
+            <div class="stat-line"><strong>Step 3: Trasmutazione.</strong> Usa un Orb of Transmutation (oggetto Blu).</div>
+            <div class="stat-line"><strong>Step 4: Alteration Spam.</strong> Usa Orb of Alteration finché non trovi l'affisso che cerchi.</div>
+            <div class="stat-line"><strong>Step 5: Regal.</strong> Usa un Regal Orb per trasformarlo in Raro (Giallo).</div>
+            <div class="stat-line"><strong>Step 6: Master Crafting.</strong> Usa la Crafting Bench per forzare l'ultimo affisso.</div>
+        </li>
+    </ul>
+</div>
+
+<div id="poe1-lab" class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1 legacy-editorial" data-legacy-redesign="legacy-editorial" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 1 · Ascendancy Route</span><h1 class="legacy-title">Trial of Ascendancy (Labirinto)</h1><p class="legacy-tagline">Preparazione e ricompense del Labirinto in una scheda da consultare prima della corsa.</p></div></div>
+    <h2 class="guide-title category-title">🥉 Labirinto Normale (Act 1-3)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line">Act 1: The Lower Prison</div><div class="stat-line">Act 2: The Crypt Level 1</div><div class="stat-line">Act 2: The Chamber of Sins Level 2</div><div class="stat-line">Act 3: The Crematorium, Catacombs, Imperial Gardens</div></li></ul>
+    <h2 class="guide-title category-title">🥈 Labirinto Crudele (Act 6-7)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line">Act 6: The Prison</div><div class="stat-line">Act 7: The Crypt, The Chamber of Sins Level 2</div></li></ul>
+    <h2 class="guide-title category-title">🥇 Labirinto Spietato (Act 8-10)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line">Act 8: The Bath House</div><div class="stat-line">Act 9: The Tunnel</div><div class="stat-line">Act 10: The Ossuary</div></li></ul>
+</div>
+
+<div id="poe1-encyclopedia" class="sub-tab-content poe1-sub-content guide-section guide-theme--poe1 legacy-encyclopedia" data-initialized="false" data-legacy-redesign="legacy-encyclopedia" style="display:none;">
+    <style>
+        #poe1-encyclopedia { --bg-main: #0a0a0a; --bg-card: #151515; --bg-card-hover: #1f1f1f; --gold: #b8860b; --gold-light: #dfa823; --text-main: #e0e0e0; --text-muted: #a0a0a0; --border-color: #2a2a2a; --accent-red: #a00000; --accent-green: #1e6b3c; --accent-blue: #105a9c; font-family: 'Cinzel', serif, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; }
+        #poe1-encyclopedia .filter-nav { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+        #poe1-encyclopedia .filter-btn { background-color: var(--bg-card); color: var(--gold); border: 2px solid var(--gold); padding: 12px 25px; cursor: pointer; border-radius: 5px; font-weight: bold; transition: all 0.3s; text-transform: uppercase; }
+        #poe1-encyclopedia .filter-btn.active, #poe1-encyclopedia .filter-btn:hover { background-color: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+        #poe1-encyclopedia .mechanics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        #poe1-encyclopedia .card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; cursor: pointer; transition: all 0.4s; display: flex; flex-direction: column; position: relative; }
+        #poe1-encyclopedia .card:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7); border-color: var(--gold); z-index: 10; }
+        #poe1-encyclopedia .card-img { width: 100%; height: 180px; object-fit: cover; border-bottom: 2px solid var(--gold); filter: grayscale(20%); transition: filter 0.3s; }
+        #poe1-encyclopedia .card:hover .card-img { filter: grayscale(0%); }
+        #poe1-encyclopedia .card-content { padding: 20px; flex-grow: 1; background: linear-gradient(to top, #111, #151515); }
+        #poe1-encyclopedia .card-title { color: var(--gold); font-size: 1.4em; margin: 0 0 12px 0; display: flex; align-items: center; justify-content: space-between; }
+        #poe1-encyclopedia .difficulty { font-size: 0.7em; padding: 4px 10px; border-radius: 20px; font-weight: bold; text-transform: uppercase; }
+        #poe1-encyclopedia .diff-easy { color: #4caf50; border: 1px solid #4caf50; }
+        #poe1-encyclopedia .diff-med { color: var(--gold); border: 1px solid var(--gold); }
+        #poe1-encyclopedia .diff-hard { color: #f44336; border: 1px solid #f44336; }
+        #poe1-encyclopedia .card-desc { color: var(--text-muted); font-size: 1em; margin-bottom: 0; }
+        #poe1-encyclopedia .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; backdrop-filter: blur(5px); }
+        #poe1-encyclopedia .modal-content { background-color: #1a1a1a; width: 100%; max-width: 1000px; max-height: 95vh; overflow-y: auto; border-radius: 15px; border: 3px solid var(--gold); padding: 40px; position: relative; box-shadow: 0 0 50px rgba(184, 134, 11, 0.3); }
+        #poe1-encyclopedia .close-btn { position: absolute; top: 20px; right: 25px; font-size: 2em; color: var(--gold); cursor: pointer; background: none; border: none; transition: transform 0.3s; }
+        #poe1-encyclopedia .close-btn:hover { transform: rotate(90deg); color: #fff; }
+        #poe1-encyclopedia .modal-header-img { width: 100%; height: 300px; object-fit: cover; border-radius: 10px; margin-bottom: 30px; border: 2px solid var(--gold); box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        #poe1-encyclopedia h2 { color: var(--gold); font-size: 2.2em; margin-top: 0; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        #poe1-encyclopedia .guide-section { margin-bottom: 35px; }
+        #poe1-encyclopedia .guide-section h3 { color: var(--gold-light); font-size: 1.5em; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        #poe1-encyclopedia .info-box { background: rgba(255,255,255,0.03); border-left: 4px solid var(--gold); padding: 20px; border-radius: 0 10px 10px 0; margin: 20px 0; }
+        #poe1-encyclopedia .step-list { list-style: none; padding: 0; }
+        #poe1-encyclopedia .step-list li { position: relative; padding-left: 40px; margin-bottom: 15px; font-size: 1.1em; }
+        #poe1-encyclopedia .step-list li::before { content: attr(data-step); position: absolute; left: 0; top: 0; width: 28px; height: 28px; background: var(--gold); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; }
+        #poe1-encyclopedia .pro-tip { background: rgba(30, 144, 255, 0.1); border: 1px solid var(--accent-blue); padding: 15px; border-radius: 8px; margin-top: 15px; }
+        #poe1-encyclopedia .pro-tip strong { color: #1e90ff; }
+        #poe1-encyclopedia .lightbox { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.98); justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; }
+        #poe1-encyclopedia .lightbox.active { display: flex; }
+        #poe1-encyclopedia .lightbox-content { max-width: 95vw; max-height: 95vh; position: relative; }
+        #poe1-encyclopedia .lightbox-img { width: 100%; height: 100%; object-fit: contain; border: 3px solid var(--gold); border-radius: 10px; }
+        #poe1-encyclopedia .lightbox-close { position: absolute; top: -40px; right: 0; font-size: 3em; color: var(--gold); cursor: pointer; background: none; border: none; }
+    </style>
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 1 · Mechanics Archive</span><h1 class="legacy-title">🧭 Path of Exile: Enciclopedia Ultimate</h1><p class="legacy-tagline">Un archivio esplorabile di meccaniche, maestri e attività endgame.</p></div></div>
+    <div class="poe1-encyclopedia-content">
+        <div class="lightbox" id="poe1-encyclopedia-lightbox" onclick="window.poe1Encyclopedia.closeLightbox(event)">
+            <div class="lightbox-content" onclick="event.stopPropagation()"><button class="lightbox-close" onclick="window.poe1Encyclopedia.closeLightbox()">×</button><img alt="Immagine ingrandita" class="lightbox-img" id="poe1-encyclopedia-lightbox-img" src=""/></div>
+        </div>
+        <div class="container">
+            <div class="filter-nav">
+                <button class="filter-btn active" onclick="window.poe1Encyclopedia.filterSelection(event, 'all')">Tutte</button>
+                <button class="filter-btn" onclick="window.poe1Encyclopedia.filterSelection(event, 'master')">Maestri</button>
+                <button class="filter-btn" onclick="window.poe1Encyclopedia.filterSelection(event, 'inmap')">In-Map</button>
+                <button class="filter-btn" onclick="window.poe1Encyclopedia.filterSelection(event, 'outmap')">Out-of-Map</button>
+            </div>
+            <div class="mechanics-grid">
+                <div class="card master" onclick="window.poe1Encyclopedia.openModal('poe1-encyclopedia-modal-alva')"><img alt="Alva" class="card-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/SxTazIehGapVSPNb.jpg"/><div class="card-content"><h3 class="card-title">Alva (Incursion) <span class="difficulty diff-med">Media</span></h3><p class="card-desc">Modifica il passato per razziare il Tempio nel presente.</p></div></div>
+                <div class="card master outmap" onclick="window.poe1Encyclopedia.openModal('poe1-encyclopedia-modal-niko')"><img alt="Niko" class="card-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/YHSbbbSvSNTBimHT.jpg"/><div class="card-content"><h3 class="card-title">Niko (Delve) <span class="difficulty diff-med">Scalabile</span></h3><p class="card-desc">Esplora una miniera infinita alla ricerca di fossili rari.</p></div></div>
+                <div class="card master" onclick="window.poe1Encyclopedia.openModal('poe1-encyclopedia-modal-jun')"><img alt="Jun" class="card-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kEADadBJKltkHwpY.jpg"/><div class="card-content"><h3 class="card-title">Jun (Betrayal) <span class="difficulty diff-hard">Complessa</span></h3><p class="card-desc">Smantella il Sindacato Immortale e svela poteri Veiled.</p></div></div>
+                <div class="card inmap" onclick="window.poe1Encyclopedia.openModal('poe1-encyclopedia-modal-harvest')"><img alt="Harvest" class="card-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/XgZXSASNjdeWCIsU.jpg"/><div class="card-content"><h3 class="card-title">Harvest <span class="difficulty diff-easy">Bassa</span></h3><p class="card-desc">Coltiva il Bosco Sacro per il crafting deterministico.</p></div></div>
+                <!-- Altre card qui (struttura preservata) -->
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div class="modal-overlay" id="poe1-encyclopedia-modal-alva" onclick="window.poe1Encyclopedia.closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="window.poe1Encyclopedia.closeModalById('poe1-encyclopedia-modal-alva')">×</button>
+                <img alt="Alva Header" class="modal-header-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/SxTazIehGapVSPNb.jpg"/>
+                <h2>⏳ Alva: Il Tempio di Atzoatl</h2>
+                <div class="info-box"><strong>Riassunto Rapido:</strong> Modifica il passato nelle "Incursioni" per costruire il Tempio di Atzoatl.</div>
+                <div class="guide-section">
+                    <h3>📖 Guida ai Passaggi</h3>
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Incontra Alva:</strong> Apparirà 3 volte per mappa.</li>
+                        <li data-step="2"><strong>Scegli l'Architetto:</strong> Uccidi quello in alto a destra per potenziare la stanza.</li>
+                        <li data-step="3"><strong>Collega le Stanze:</strong> Usa le "Stone of Passage" per sbloccare le porte.</li>
+                    </ul>
+                </div>
+                <div class="pro-tip"><strong>🚀 Pro Tip:</strong> Punta sempre al Tier 3 delle stanze <strong>Locus of Corruption</strong> e <strong>Doryani's Institute</strong>.</div>
+            </div>
+        </div>
+        
+        <div class="modal-overlay" id="poe1-encyclopedia-modal-niko" onclick="window.poe1Encyclopedia.closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="window.poe1Encyclopedia.closeModalById('poe1-encyclopedia-modal-niko')">×</button>
+                <img alt="Niko Header" class="modal-header-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/YHSbbbSvSNTBimHT.jpg"/>
+                <h2>⛏️ Niko: La Miniera di Azurite (Delve)</h2>
+                <div class="info-box"><strong>Riassunto Rapido:</strong> Raccogli Solfito e segui il carrello nell'Oscurità.</div>
+                <div class="guide-section">
+                    <h3>📖 Guida ai Passaggi</h3>
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Fai il Pieno:</strong> Trova i depositi di Solfito Voltaxico.</li>
+                        <li data-step="2"><strong>Segui la Luce:</strong> Il carrello emette luce che ti protegge dall'Oscurità.</li>
+                        <li data-step="3"><strong>Esplora i Lati:</strong> Lancia dei Flare (razzi) per esplorare i vicoli bui.</li>
+                    </ul>
+                </div>
+                <div class="pro-tip"><strong>🚀 Pro Tip:</strong> Potenzia la <strong>Darkness Resistance</strong> e il <strong>Light Radius</strong> costantemente.</div>
+            </div>
+        </div>
+
+        <div class="modal-overlay" id="poe1-encyclopedia-modal-harvest" onclick="window.poe1Encyclopedia.closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="window.poe1Encyclopedia.closeModalById('poe1-encyclopedia-modal-harvest')">×</button>
+                <img alt="Harvest Header" class="modal-header-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/XgZXSASNjdeWCIsU.jpg"/>
+                <h2>🌱 Harvest: Il Bosco Sacro</h2>
+                <div class="info-box"><strong>Riassunto Rapido:</strong> Coltiva Forza Vitale per il crafting deterministico.</div>
+                <div class="guide-section">
+                    <h3>📖 Guida ai Passaggi</h3>
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Trova il Portale:</strong> Appare casualmente nelle mappe.</li>
+                        <li data-step="2"><strong>Scegli il Colore:</strong> Giallo (Vivid), Blu (Primal), Viola (Wild).</li>
+                        <li data-step="3"><strong>Crafting:</strong> Usa la Horticrafting Station nell'hideout.</li>
+                    </ul>
+                </div>
+                <div class="pro-tip"><strong>🚀 Pro Tip:</strong> La Forza Vitale Gialla è solitamente la più preziosa.</div>
+            </div>
+        </div>
+        
+        <div class="modal-overlay" id="poe1-encyclopedia-modal-jun" onclick="window.poe1Encyclopedia.closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="window.poe1Encyclopedia.closeModalById('poe1-encyclopedia-modal-jun')">×</button>
+                <img alt="Jun Header" class="modal-header-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663812000972/kEADadBJKltkHwpY.jpg"/>
+                <h2>🕵️ Jun: Betrayal (Il Sindacato)</h2>
+                <div class="info-box"><strong>Riassunto Rapido:</strong> Smantella il Sindacato e ottieni i modificatori Veiled.</div>
+                <div class="guide-section">
+                    <h3>📖 Guida ai Passaggi</h3>
+                    <ul class="step-list">
+                        <li data-step="1"><strong>Sconfiggi i Membri:</strong> Interroga per info o Esegui per aumentare il loro grado.</li>
+                        <li data-step="2"><strong>Unveiling:</strong> Porta oggetti Veiled a Jun per sbloccare craft speciali.</li>
+                        <li data-step="3"><strong>Assalto Safehouse:</strong> Riempi la barra per razziare il dipartimento.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="poe1-defense" class="sub-tab-content guide-theme--poe1 poe1-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Path of Exile 1 · Build Stability</span><h1 class="guide-title">Difese &amp; Progressione Endgame</h1></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Area</th><th>Domanda da farsi</th><th>Azione se manca</th></tr></thead><tbody><tr><td>Resistenze</td><td>Sono adeguate contro maledizioni?</td><td>Rivedi affissi e flask.</td></tr><tr><td>Mitigazione</td><td>Ho una difesa primaria coerente?</td><td>Consolida armour, evasion o block.</td></tr><tr><td>Recupero</td><td>Recupero vita dopo un colpo?</td><td>Valuta leech, rigenerazione, flask.</td></tr></tbody></table></div>
+</div>
+
+<div id="poe1-atlas" class="sub-tab-content guide-theme--poe1 poe1-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/poe1-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Path of Exile 1 · Endgame Compass</span><h1 class="guide-title">Atlas, Farming &amp; Boss</h1></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Obiettivo</th><th>Profilo utile</th><th>Prima priorità</th></tr></thead><tbody><tr><td>Mapping veloce</td><td>Mobilità e copertura</td><td>Completare mappe ripetibili.</td></tr><tr><td>Boss</td><td>Danno e sopravvivenza</td><td>Imparare meccaniche.</td></tr></tbody></table></div>
 </div>

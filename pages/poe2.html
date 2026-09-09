@@ -1,12 +1,15 @@
-<div class="poe2-sub-nav sub-tabs-container">
-    <button class="poe2-sub-btn sub-tab-btn active-sub" onclick="openSubTab(event, 'poe2-dash', 'poe2')">📊 Dashboard</button>
-    <button class="poe2-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe2-tools', 'poe2')">🧰 Strumenti</button>
-    <button class="poe2-sub-btn sub-tab-btn" onclick="openSubTab(event, 'poe2-builds', 'poe2')">💾 Le Mie Build</button>
+<div class="poe2-sub-nav sub-tabs-container" style="display:flex; flex-wrap:wrap; gap:5px; margin-bottom:20px;">
+    <button class="poe2-sub-btn sub-tab-btn active-sub" onclick="window.openSubTab(event, 'poe2-dash', 'poe2')">📊 Dashboard</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-tools', 'poe2')">🧰 Strumenti & Ricerca</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-builds', 'poe2')">💾 Le Mie Build</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-guide', 'poe2')">🛡️ Unici Leveling</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-mechanics', 'poe2')">⚙️ Meccaniche Base</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-roadmap', 'poe2')">🗺️ Roadmap</button>
+    <button class="poe2-sub-btn sub-tab-btn" onclick="window.openSubTab(event, 'poe2-defense', 'poe2')">🛡️ Gemme & Difese</button>
 </div>
 
 <div id="poe2-dash" class="poe2-sub-content active-sub-content">
     <div id="build-meta-poe2" class="build-meta-panel"></div>
-    
     <div class="dash-grid">
         <div class="dash-card">
             <h3>🛡️ Top Build Endgame <span class="tag season-highlight">Caricamento...</span></h3>
@@ -21,31 +24,86 @@
             </ul>
         </div>
     </div>
-    
     <div id="build-discovery-poe2" class="build-discovery-panel"></div>
 </div>
 
 <div id="poe2-tools" class="poe2-sub-content" style="display:none;">
-    <div class="tools-grid">
-        <button class="tool-card" onclick="openOverlay('https://poe2db.tw', 'PoE 2 DB')">🌐 PoE 2 DB</button>
-        <button class="tool-card" onclick="openOverlay('https://maxroll.gg/poe2', 'Maxroll PoE 2')">📖 Maxroll PoE 2</button>
+    <div class="action-bar">
+        <form onsubmit="window.multiSearch(event, 'search-input-poe2', 'search-site-poe2')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
+            <input id="search-input-poe2" placeholder="Cerca su PoE2DB..." required style="flex-grow:1;" type="text"/>
+            <select id="search-site-poe2">
+                <option value="all">🔍 Cerca in Tutti i Siti</option>
+                <option value="poe2db.tw">PoE2DB Wiki</option>
+                <option value="mobalytics.gg/poe2">Mobalytics PoE 2</option>
+                <option value="maxroll.gg/poe2">Maxroll PoE 2</option>
+            </select>
+            <button class="action-btn" type="submit">Cerca</button>
+        </form>
+    </div>
+    <div class="section" style="background: transparent; border: none; padding: 0;">
+        <a class="tool-link" href="https://poe2db.tw" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🛠️ PoE2DB</a>
+        <a class="tool-link" href="https://poe.ninja" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">📈 PoE Ninja</a>
+        <a class="tool-link" href="https://pob.cool/" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">🖥️ PoB (Cool)</a>
+        <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
+        <a class="tool-link" href="https://www.pathofexile.com/trade2" rel="noopener noreferrer" style="background: var(--accent-secondary);" target="_blank">⚖️ Trade Ufficiale</a>
     </div>
 </div>
 
 <div id="poe2-builds" class="poe2-sub-content" style="display:none;">
-    <div class="my-builds-container">
-        <h3>💾 Salva la tua Build PoE 2</h3>
-        <form id="form-poe2" onsubmit="saveBuild(event, 'poe2')" class="build-form">
-            <input type="text" id="name-poe2" placeholder="Nome Build" required>
-            <input type="url" id="link-poe2" placeholder="Link Guida" required>
-            <input type="text" id="version-poe2" placeholder="Versione">
-            <input type="text" id="note-poe2" placeholder="Note">
-            <div class="form-actions">
-                <button type="submit" id="submit-btn-poe2" class="submit-btn">Salva</button>
-                <button type="button" id="cancel-btn-poe2" class="cancel-btn" style="display:none;" onclick="cancelEdit('poe2')">Annulla</button>
-            </div>
+    <div class="section">
+        <h3>
+            <div>💾 Le Mie Build Personali</div>
+            <input class="filter-saved-input" id="filter-saved-poe2" onkeyup="window.filterSavedBuilds('poe2')" placeholder="🔍 Filtra le tue build..." type="text"/>
+        </h3>
+        <form class="save-form" id="form-poe2" onsubmit="window.saveBuild(event, 'poe2')">
+            <input id="name-poe2" placeholder="Nome Build" required type="text"/>
+            <input id="link-poe2" placeholder="Incolla URL" required type="url"/>
+            <input class="input-small" id="version-poe2" placeholder="Versione" required type="text"/>
+            <input id="note-poe2" placeholder="Note" type="text"/>
+            <button class="action-btn" id="submit-btn-poe2" type="submit">Salva</button>
+            <button class="cancel-btn" id="cancel-btn-poe2" onclick="window.cancelEdit('poe2')" type="button">Annulla</button>
         </form>
-        <input type="text" id="filter-saved-poe2" placeholder="🔍 Cerca tra le mie build..." onkeyup="filterSavedBuilds('poe2')" class="search-input">
-        <ul id="my-builds-poe2" class="dash-list my-builds-list"></ul>
+        <ul class="dash-list saved-builds-list" id="my-builds-poe2"></ul>
     </div>
+</div>
+
+<div id="poe2-guide" class="sub-tab-content poe2-sub-content guide-section guide-theme--poe2 legacy-database" data-legacy-redesign="legacy-database" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 2 · Leveling Library</span><h1 class="legacy-title">Guida PoE 2: Oggetti Unici Leveling</h1></div></div>
+    <div class="filter-container">
+        <label for="class-filter-poe2">Filtra per Classe:</label>
+        <select id="class-filter-poe2" onchange="window.filterItemsStatic('poe2-guide', 'class-filter-poe2', 'data-class')">
+            <option value="all">Mostra Tutti (Inclusi Universali)</option><option value="warrior">Warrior</option><option value="ranger">Ranger</option><option value="huntress">Huntress</option><option value="sorceress">Sorceress</option><option value="mercenary">Mercenary</option><option value="monk">Monk</option><option value="druid">Druid</option><option value="witch">Witch</option>
+        </select>
+    </div>
+    
+    <h2 class="guide-title category-title">🛡️ Elmi (Helmets)</h2>
+    <ul class="guide-list">
+        <li data-class="all"><div class="item-image-container"><img alt="Goldrim" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Goldrim_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Goldrim</a><div class="badges"><span class="level-req">📈 Liv: Basso</span></div><span class="desc">Rimane uno dei migliori elmi da leveling per sistemare le difese.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">+25-35% a tutte le Resistenze Elementali</div></div></li>
+        <li data-class="all"><div class="item-image-container"><img alt="Crown of the Victor" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Crown_of_Thorns_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Crown of the Victor</a><div class="badges"><span class="level-req">📈 Liv: Variabile</span></div><span class="desc">Fornisce enormi danni generici.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">+1 al Livello di tutte le Abilità</div></div></li>
+    </ul>
+
+    <h2 class="guide-title category-title">🥾 Stivali (Boots)</h2>
+    <ul class="guide-list">
+        <li data-class="all"><div class="item-image-container"><img alt="Wanderlust" loading="lazy" src="https://pathofexile.fandom.com/wiki/Special:FilePath/Wanderlust_inventory_icon.png"/></div><div class="item-details"><a class="unique-item" href="#" target="_blank">Wanderlust</a><div class="badges"><span class="level-req">📈 Liv: 11</span></div><span class="desc">Offre protezione vitale e velocità.</span><span class="class-rec">🎯 Tutte le classi.</span></div><div class="item-stats"><strong>Statistiche dell'Oggetto</strong><div class="stat-line">20% Velocità di Movimento</div><div class="stat-line">Immunità ai Rallentamenti</div></div></li>
+    </ul>
+</div>
+
+<div id="poe2-mechanics" class="sub-tab-content poe2-sub-content guide-section guide-theme--poe2 legacy-editorial" data-legacy-redesign="legacy-editorial" style="display:none;">
+    <div class="legacy-hero"><img alt="" class="legacy-hero-media" decoding="async" loading="lazy" src="assets/guides/poe2-guide-hero.jpg"/><div class="legacy-hero-content"><span class="legacy-kicker">Path of Exile 2 · Fundamentals</span><h1 class="legacy-title">Meccaniche Base (PoE 2)</h1><p class="legacy-tagline">I sistemi essenziali spiegati in blocchi brevi per prendere decisioni migliori durante la progressione.</p></div></div>
+    <h2 class="guide-title category-title">🤸 Dodge Roll (Schivata)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line"><strong>Nessun Cooldown:</strong> Puoi usarlo a ripetizione (tasto Spazio).</div><div class="stat-line"><strong>Invincibilità Melee:</strong> Durante l'animazione di rotolata evadi attacchi mischia.</div><div class="stat-line"><strong>Annullamento (Cancel):</strong> Il Dodge Roll può cancellare le animazioni delle abilità.</div></li></ul>
+    <h2 class="guide-title category-title">👻 Lo Spirito (Spirit)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line">Ogni Aura o Buff Permanente non riserva più Mana, ma <strong>consuma stabilmente</strong> Spirito.</div><div class="stat-line">Le Evocazioni permanenti richiedono anch'esse Spirito.</div></li></ul>
+    <h2 class="guide-title category-title">⚔️ Dual Specialization (Cambio Arma Perfetto)</h2>
+    <ul class="guide-list"><li class="text-only"><div class="stat-line">Usare un'abilità con l'arma del secondo set cambierà armi in modo fluido.</div><div class="stat-line"><strong>L'albero delle abilità passive si divide in base all'arma:</strong> Permette build ibride eccezionali.</div></li></ul>
+</div>
+
+<div id="poe2-roadmap" class="sub-tab-content guide-theme--poe2 poe2-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/poe2-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Path of Exile 2 · Endgame Route</span><h1 class="guide-title">Roadmap Endgame</h1></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Fase</th><th>Focus</th><th>Segnale di avanzamento</th></tr></thead><tbody><tr><td>Avvio</td><td>Mappe sicure e primi upgrade</td><td>Il livello corrente è rapido e senza morti.</td></tr><tr><td>Progresso</td><td>Obiettivi Atlas</td><td>Gli upgrade arrivano con regolarità.</td></tr></tbody></table></div>
+</div>
+
+<div id="poe2-defense" class="sub-tab-content guide-theme--poe2 poe2-sub-content guide-section" style="display:none;">
+    <div class="guide-hero"><img alt="" class="guide-hero-media" decoding="async" loading="lazy" src="assets/guides/poe2-guide-hero.jpg"/><div class="guide-hero-content"><span class="guide-kicker">Path of Exile 2 · Upgrade Discipline</span><h1 class="guide-title">Gemme, Difese &amp; Upgrade</h1></div></div>
+    <div class="guide-table-wrap"><table><thead><tr><th>Problema</th><th>Controllo iniziale</th><th>Intervento prioritario</th></tr></thead><tbody><tr><td>Muori in pochi colpi</td><td>Resistenze, pool difensivo</td><td>Correggi difese prima del danno.</td></tr><tr><td>Finiscono mana o risorse</td><td>Costo gemme, recovery</td><td>Semplifica i supporti o migliora sustain.</td></tr></tbody></table></div>
 </div>
