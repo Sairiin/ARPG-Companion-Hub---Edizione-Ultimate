@@ -1146,3 +1146,22 @@ body.hub-reduce-motion *, body.hub-reduce-motion *::before, body.hub-reduce-moti
     .hub-search-result { grid-template-columns: 1fr auto; }
     .hub-accessibility-row { grid-template-columns: 1fr; }
 }
+/* Google Translate Elegante & Header Pulito */
+.essential-utilities { display: flex; align-items: center; justify-content: flex-end; gap: 12px; }
+.utility-language { display: flex; align-items: center; }
+.utility-language #google_translate_element { overflow: hidden; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); background: var(--bg-card); }
+.utility-language .goog-te-combo {
+    appearance: none; -webkit-appearance: none;
+    background: var(--bg-card) url('data:image/svg+xml;utf8,<svg fill="gray" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 8px center;
+    background-size: 18px; color: var(--text-main); border: 1px solid var(--border-color);
+    padding: 8px 30px 8px 12px; margin: 0 !important;
+    border-radius: 8px; font-weight: bold; cursor: pointer;
+    font-family: var(--font-main); font-size: 0.85em; outline: none; transition: 0.2s;
+}
+.utility-language .goog-te-combo:hover { border-color: var(--accent-primary); }
+.goog-te-gadget { color: transparent !important; font-size: 0px !important; }
+.goog-logo-link, .goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+
+/* Stile bottone Discord nella Toolbelt */
+.discord-tool-btn { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 6px; }
