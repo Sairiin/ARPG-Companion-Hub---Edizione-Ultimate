@@ -7,27 +7,27 @@
     },
     {
       "name": "Path of Exile 1",
-      "players": 6160,
+      "players": 6254,
       "color": "#4caf50"
     },
     {
       "name": "Grim Dawn",
-      "players": 5207,
+      "players": 5280,
       "color": "#a1887f"
     },
     {
       "name": "Diablo 4 (Steam)",
-      "players": 2192,
+      "players": 2250,
       "color": "#f44336"
     },
     {
       "name": "Diablo 2: Res (Stima BNet)",
-      "players": 986,
+      "players": 1012,
       "color": "#607d8b"
     },
     {
       "name": "Last Epoch",
-      "players": 553,
+      "players": 552,
       "color": "#9c27b0"
     }
   ]

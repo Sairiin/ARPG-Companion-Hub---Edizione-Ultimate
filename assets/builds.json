@@ -17,20 +17,29 @@
             "https://maxroll.gg/poe1"
           ],
           [
+            "Icy Veins",
+            "https://www.icy-veins.com/poe1"
+          ],
+          [
             "Mobalytics",
             "https://mobalytics.gg/poe1"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Punti di partenza.",
-            "poe1 leveling"
+            "Starter / Leveling",
+            "Punti di partenza per la progressione.",
+            "poe1 leveling build"
           ],
           [
-            "Endgame",
-            "Build avanzate.",
-            "poe1 endgame"
+            "Endgame & Boss",
+            "Build per i contenuti più difficili.",
+            "poe1 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "poe1 speedfarm build"
           ]
         ]
       },
@@ -43,6 +52,38 @@
             "tier": "S",
             "tierColor": "#ff9800",
             "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Righteous Fire",
+            "class": "Templar",
+            "specialization": "Inquisitor",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Hexblast Mines",
+            "class": "Shadow",
+            "specialization": "Saboteur",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Boneshatter",
+            "class": "Marauder",
+            "specialization": "Juggernaut",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Summon Raging Spirit",
+            "class": "Witch",
+            "specialization": "Necromancer",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/poe"
           }
         ],
         "leveling": [
@@ -50,6 +91,38 @@
             "title": "Rolling Magma",
             "class": "Templar",
             "specialization": "Inquisitor",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Poisonous Concoction",
+            "class": "Ranger",
+            "specialization": "Pathfinder",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Splitting Steel",
+            "class": "Duelist",
+            "specialization": "Champion",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "Armageddon Brand",
+            "class": "Templar",
+            "specialization": "Hierophant",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe"
+          },
+          {
+            "title": "SRS Leveling",
+            "class": "Witch",
+            "specialization": "Necromancer",
             "tier": "Start",
             "tierColor": "#2196F3",
             "sourceUrl": "https://maxroll.gg/poe"
@@ -74,47 +147,112 @@
             "https://maxroll.gg/d4"
           ],
           [
+            "Icy Veins",
+            "https://www.icy-veins.com/d4"
+          ],
+          [
             "Mobalytics",
             "https://mobalytics.gg/d4"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Punti di partenza.",
-            "d4 leveling"
+            "Starter / Leveling",
+            "Punti di partenza per la progressione.",
+            "d4 leveling build"
           ],
           [
-            "Endgame",
-            "Build avanzate.",
-            "d4 endgame"
+            "Endgame & Boss",
+            "Build per i contenuti più difficili.",
+            "d4 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "d4 speedfarm build"
           ]
         ]
       },
       "builds": {
         "endgame": [
           {
-            "title": "Tier Lists for Leveling, ...",
-            "class": "Meta Aggiornato",
-            "specialization": "Live",
-            "tier": "A",
-            "tierColor": "#4caf50",
-            "sourceUrl": "https://www.icy-veins.com/d4/guides/tier-lists/"
+            "title": "Lightning Spear",
+            "class": "Sorcerer",
+            "specialization": "Evocation",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d4"
           },
           {
-            "title": "NecromancerCold Army of t...",
-            "class": "Meta Aggiornato",
-            "specialization": "Live",
+            "title": "Bone Spirit",
+            "class": "Necromancer",
+            "specialization": "Macabre",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Rapid Fire",
+            "class": "Rogue",
+            "specialization": "Marksman",
             "tier": "A",
             "tierColor": "#4caf50",
-            "sourceUrl": "https://www.icy-veins.com/d4/guides/army-of-the-dead-necromancer-build/"
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Blood Surge",
+            "class": "Necromancer",
+            "specialization": "Blood",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Bash Cleave",
+            "class": "Barbarian",
+            "specialization": "Brawler",
+            "tier": "B",
+            "tierColor": "#607d8b",
+            "sourceUrl": "https://maxroll.gg/d4"
           }
         ],
         "leveling": [
           {
             "title": "Chain Lightning",
             "class": "Sorcerer",
-            "specialization": "Leveling",
+            "specialization": "Shock",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Blood Surge Leveling",
+            "class": "Necromancer",
+            "specialization": "Blood",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Barrage Leveling",
+            "class": "Rogue",
+            "specialization": "Marksman",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Upheaval Leveling",
+            "class": "Barbarian",
+            "specialization": "Brawler",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d4"
+          },
+          {
+            "title": "Companion Leveling",
+            "class": "Druid",
+            "specialization": "Nature",
             "tier": "Start",
             "tierColor": "#2196F3",
             "sourceUrl": "https://maxroll.gg/d4"
@@ -139,20 +277,29 @@
             "https://maxroll.gg/le"
           ],
           [
+            "Icy Veins",
+            "https://www.icy-veins.com/le"
+          ],
+          [
             "Mobalytics",
             "https://mobalytics.gg/le"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Punti di partenza.",
-            "le leveling"
+            "Starter / Leveling",
+            "Punti di partenza per la progressione.",
+            "le leveling build"
           ],
           [
-            "Endgame",
-            "Build avanzate.",
-            "le endgame"
+            "Endgame & Boss",
+            "Build per i contenuti più difficili.",
+            "le endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "le speedfarm build"
           ]
         ]
       },
@@ -164,7 +311,39 @@
             "specialization": "Falconer",
             "tier": "S",
             "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/last-epoch/build-guides/falconer"
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Torment Warlock",
+            "class": "Acolyte",
+            "specialization": "Warlock",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Blast Rain Marksman",
+            "class": "Rogue",
+            "specialization": "Marksman",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Wraithlord Necro",
+            "class": "Acolyte",
+            "specialization": "Necromancer",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Smite Paladin",
+            "class": "Sentinel",
+            "specialization": "Paladin",
+            "tier": "B",
+            "tierColor": "#607d8b",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
           }
         ],
         "leveling": [
@@ -172,7 +351,39 @@
             "title": "Hammerdin Sentinel",
             "class": "Sentinel",
             "specialization": "Paladin",
-            "tier": "Leveling",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Runemaster Glacier",
+            "class": "Mage",
+            "specialization": "Runemaster",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Warlock Fissure",
+            "class": "Acolyte",
+            "specialization": "Warlock",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Falconer Starter",
+            "class": "Rogue",
+            "specialization": "Falconer",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/last-epoch"
+          },
+          {
+            "title": "Druid Spriggan Form",
+            "class": "Primalist",
+            "specialization": "Druid",
+            "tier": "Start",
             "tierColor": "#2196F3",
             "sourceUrl": "https://maxroll.gg/last-epoch"
           }
@@ -196,20 +407,29 @@
             "https://maxroll.gg/d2"
           ],
           [
+            "Icy Veins",
+            "https://www.icy-veins.com/d2"
+          ],
+          [
             "Mobalytics",
             "https://mobalytics.gg/d2"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Punti di partenza.",
-            "d2 leveling"
+            "Starter / Leveling",
+            "Punti di partenza per la progressione.",
+            "d2 leveling build"
           ],
           [
-            "Endgame",
-            "Build avanzate.",
-            "d2 endgame"
+            "Endgame & Boss",
+            "Build per i contenuti più difficili.",
+            "d2 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "d2 speedfarm build"
           ]
         ]
       },
@@ -218,18 +438,82 @@
           {
             "title": "Hammerdin",
             "class": "Paladin",
-            "specialization": "Caster",
+            "specialization": "Combat",
             "tier": "S",
             "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/d2/guides/blessed-hammer-paladin"
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Blizzard Sorceress",
+            "class": "Sorceress",
+            "specialization": "Cold",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Lightning Sorceress",
+            "class": "Sorceress",
+            "specialization": "Lightning",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Mosaic Assassin",
+            "class": "Assassin",
+            "specialization": "Martial Arts",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Lightning Javazon",
+            "class": "Amazon",
+            "specialization": "Javelin",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/d2"
           }
         ],
         "leveling": [
           {
-            "title": "Holy Fire Paladin",
+            "title": "Holy Fire",
             "class": "Paladin",
+            "specialization": "Offensive",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Fireball Sorceress",
+            "class": "Sorceress",
             "specialization": "Fire",
-            "tier": "Leveling",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Wake of Fire",
+            "class": "Assassin",
+            "specialization": "Traps",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Fissure Druid",
+            "class": "Druid",
+            "specialization": "Elemental",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/d2"
+          },
+          {
+            "title": "Poison Javelin",
+            "class": "Amazon",
+            "specialization": "Javelin",
+            "tier": "Start",
             "tierColor": "#2196F3",
             "sourceUrl": "https://maxroll.gg/d2"
           }
@@ -253,50 +537,115 @@
             "https://maxroll.gg/poe2"
           ],
           [
+            "Icy Veins",
+            "https://www.icy-veins.com/poe2"
+          ],
+          [
             "Mobalytics",
             "https://mobalytics.gg/poe2"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Punti di partenza.",
-            "poe2 leveling"
+            "Starter / Leveling",
+            "Punti di partenza per la progressione.",
+            "poe2 leveling build"
           ],
           [
-            "Endgame",
-            "Build avanzate.",
-            "poe2 endgame"
+            "Endgame & Boss",
+            "Build per i contenuti più difficili.",
+            "poe2 endgame boss build"
+          ],
+          [
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "poe2 speedfarm build"
           ]
         ]
       },
       "builds": {
         "endgame": [
           {
-            "title": "Monk Strike",
+            "title": "Monk Invoker Palm",
             "class": "Monk",
             "specialization": "Invoker",
-            "tier": "A",
-            "tierColor": "#4caf50",
-            "sourceUrl": "https://poe2db.tw"
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe2"
           },
           {
-            "title": "Warrior Heavy Slash",
-            "class": "Warrior",
-            "specialization": "Titan",
+            "title": "Druid Bear Slam",
+            "class": "Druid",
+            "specialization": "Shapeshifter",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Mercenary Crossbow",
+            "class": "Mercenary",
+            "specialization": "Witchhunter",
             "tier": "A",
             "tierColor": "#4caf50",
-            "sourceUrl": "https://poe2db.tw"
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Sorceress Spark",
+            "class": "Sorceress",
+            "specialization": "Elementalist",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Warrior Heavy Strike",
+            "class": "Warrior",
+            "specialization": "Titan",
+            "tier": "B",
+            "tierColor": "#607d8b",
+            "sourceUrl": "https://maxroll.gg/poe2"
           }
         ],
         "leveling": [
           {
-            "title": "Ranger Bow Starter",
+            "title": "Ranger Lightning Arrow",
             "class": "Ranger",
             "specialization": "Deadeye",
-            "tier": "Leveling",
+            "tier": "Start",
             "tierColor": "#2196F3",
-            "sourceUrl": "https://poe2db.tw"
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Warrior Sunder",
+            "class": "Warrior",
+            "specialization": "Titan",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Witch Minion",
+            "class": "Witch",
+            "specialization": "Necromancer",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Monk Wind Slash",
+            "class": "Monk",
+            "specialization": "Invoker",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Mercenary Rapid Fire",
+            "class": "Mercenary",
+            "specialization": "Witchhunter",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
           }
         ]
       }
