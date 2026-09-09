@@ -28,12 +28,12 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione.",
+            "Punti di partenza.",
             "poe1 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build per i contenuti più difficili.",
+            "Build avanzate.",
             "poe1 endgame boss build"
           ],
           [
@@ -158,12 +158,12 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione.",
+            "Punti di partenza.",
             "d4 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build per i contenuti più difficili.",
+            "Build avanzate.",
             "d4 endgame boss build"
           ],
           [
@@ -288,12 +288,12 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione.",
+            "Punti di partenza.",
             "le leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build per i contenuti più difficili.",
+            "Build avanzate.",
             "le endgame boss build"
           ],
           [
@@ -418,12 +418,12 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione.",
+            "Punti di partenza.",
             "d2 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build per i contenuti più difficili.",
+            "Build avanzate.",
             "d2 endgame boss build"
           ],
           [
@@ -548,12 +548,12 @@
         "prompts": [
           [
             "Starter / Leveling",
-            "Punti di partenza per la progressione.",
+            "Punti di partenza.",
             "poe2 leveling build"
           ],
           [
             "Endgame & Boss",
-            "Build per i contenuti più difficili.",
+            "Build avanzate.",
             "poe2 endgame boss build"
           ],
           [

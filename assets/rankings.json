@@ -7,13 +7,18 @@
     },
     {
       "name": "Path of Exile 1",
-      "players": 6254,
+      "players": 6337,
       "color": "#4caf50"
     },
     {
       "name": "Grim Dawn",
-      "players": 5280,
-      "color": "#a1887f"
+      "players": 5276,
+      "color": "#2196f3"
+    },
+    {
+      "name": "Hero Siege",
+      "players": 5071,
+      "color": "#607d8b"
     },
     {
       "name": "Diablo 4 (Steam)",
@@ -27,8 +32,48 @@
     },
     {
       "name": "Last Epoch",
-      "players": 552,
+      "players": 568,
       "color": "#9c27b0"
+    },
+    {
+      "name": "Titan Quest",
+      "players": 463,
+      "color": "#ff9800"
+    },
+    {
+      "name": "Torchlight 2",
+      "players": 176,
+      "color": "#00bcd4"
+    },
+    {
+      "name": "Inquisitor Martyr",
+      "players": 84,
+      "color": "#ffc107"
+    },
+    {
+      "name": "Chronicon",
+      "players": 51,
+      "color": "#e91e63"
+    },
+    {
+      "name": "Wolcen",
+      "players": 45,
+      "color": "#8bc34a"
+    },
+    {
+      "name": "The Slormancer",
+      "players": 44,
+      "color": "#795548"
+    },
+    {
+      "name": "Victor Vran",
+      "players": 4,
+      "color": "#9e9e9e"
+    },
+    {
+      "name": "Van Helsing",
+      "players": 3,
+      "color": "#673ab7"
     }
   ]
 }
