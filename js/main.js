@@ -830,7 +830,7 @@ window.renderD2Runewords = function() {
 };
 
 // =========================================================
-// 7. HUB EVOLUTO (Season, Search, Patch, Compare)
+// 7. HUB EVOLUTO (Season, Search, Patch, Compare, Rankings)
 // =========================================================
 const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
 const HUB_FAVORITES_KEY = 'arpgHubFavoritesV1';
@@ -838,6 +838,7 @@ const HUB_SEASON_KEY = 'arpgHubSeasonV1';
 const HUB_A11Y_KEY = 'arpgHubAccessibilityV1';
 let hubBuildCatalog = null;
 let hubPatchRegistry = null;
+let hubRankingData = null;
 let hubSearchEntries = [];
 let hubInstallPrompt = null;
 let hubToastTimer = null;
@@ -854,9 +855,7 @@ const tabBuildTargets = {
 window.initializeTabContent = function(gameId) {
     if (initializedTabs.has(gameId)) return;
     if (tabBuildTargets[gameId]) {
-        tabBuildTargets[gameId].forEach(([listType, elementId]) => {
-            window.fetchAndDisplayBuilds(gameId, listType, elementId);
-        });
+        tabBuildTargets[gameId].forEach(([listType, elementId]) => { window.fetchAndDisplayBuilds(gameId, listType, elementId); });
     }
     window.initializeBuildDiscovery(gameId);
     if (gameId === 'd2') window.renderD2Runewords();
@@ -888,8 +887,7 @@ function hubToast(message) {
 }
 
 function hubReadJson(key, fallback) { try { const value = localStorage.getItem(key); return value ? JSON.parse(value) : fallback; } catch (error) { return fallback; } }
-function hubWriteJson(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) { hubToast('Errore nel salvataggio.'); } }
-
+function hubWriteJson(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch (error) { hubToast('Errore salvataggio locale.'); } }
 function hubCurrentGame() { return document.body.dataset.activeGame || 'poe1'; }
 function hubCurrentSection(gameId = hubCurrentGame()) {
     const active = document.querySelector(`#${gameId} .${gameId}-sub-content.active-sub-content`) || document.querySelector(`#${gameId} .${gameId}-sub-content:not([style*="display: none"])`);
@@ -929,9 +927,7 @@ function hubApplyHash() {
     const params = hubHashParams();
     const gameId = params.get('game');
     const sectionId = params.get('section');
-    if (HUB_GAMES[gameId]) {
-        hubOpenLocation(gameId, sectionId && sectionId.startsWith(`${gameId}-`) ? sectionId : null);
-    }
+    if (HUB_GAMES[gameId]) { hubOpenLocation(gameId, sectionId && sectionId.startsWith(`${gameId}-`) ? sectionId : null); }
 }
 
 function hubFavorites() { const saved = hubReadJson(HUB_FAVORITES_KEY, []); return Array.isArray(saved) ? saved : []; }
@@ -962,12 +958,17 @@ function hubBuildStaticEntries() {
 }
 
 async function hubLoadData() {
-    const [catalogResult, patchesResult] = await Promise.allSettled([
-        fetch('assets/builds.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject(new Error('Catalogo build non disponibile'))),
-        fetch('assets/patches.json', { cache: 'no-store' }).then(response => response.ok ? response.json() : Promise.reject(new Error('Registro patch non disponibile')))
+    // Scaricamento parallelo dei 3 database JSON
+    const [catalogResult, patchesResult, rankingsResult] = await Promise.allSettled([
+        fetch('assets/builds.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()),
+        fetch('assets/patches.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()),
+        fetch('assets/rankings.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject())
     ]);
+    
     hubBuildCatalog = catalogResult.status === 'fulfilled' ? catalogResult.value : null;
     hubPatchRegistry = patchesResult.status === 'fulfilled' ? patchesResult.value : null;
+    hubRankingData = rankingsResult.status === 'fulfilled' ? rankingsResult.value : null;
+    
     const buildEntries = [];
     if (hubBuildCatalog?.games) {
         Object.entries(hubBuildCatalog.games).forEach(([gameId, game]) => {
@@ -983,6 +984,7 @@ async function hubLoadData() {
     hubRenderSeason();
     hubRenderCompareOptions();
     hubRenderPatchRegistry();
+    hubRenderRanking();
 }
 
 function hubCreateDialog(id, kicker, title, subtitle) {
@@ -1006,11 +1008,7 @@ function hubOpenDialog(id, focusSelector) {
     backdrop.hidden = false;
     window.setTimeout(() => backdrop.querySelector(focusSelector || 'button, input, select')?.focus(), 0);
 }
-
-function hubCloseDialog(id) {
-    const backdrop = document.getElementById(id);
-    if (backdrop) backdrop.hidden = true;
-}
+function hubCloseDialog(id) { const backdrop = document.getElementById(id); if (backdrop) backdrop.hidden = true; }
 
 function hubRenderSearchResults(query) {
     const target = document.getElementById('hub-search-results');
@@ -1018,7 +1016,7 @@ function hubRenderSearchResults(query) {
     if (!target || !count) return;
     const normalized = String(query || '').trim().toLocaleLowerCase('it');
     const selected = normalized ? hubSearchEntries.filter(entry => `${entry.title} ${entry.meta} ${entry.kind}`.toLocaleLowerCase('it').includes(normalized)) : hubSearchEntries.slice(0, 16);
-    target.innerHTML = '';
+    target.replaceChildren();
     count.textContent = normalized ? `${selected.length} risultati` : `Cerca tra ${hubSearchEntries.length} elementi`;
     if (!selected.length) {
         target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun risultato trovato.' }));
@@ -1045,16 +1043,16 @@ function hubRenderSeason() {
     const favoritesTarget = document.getElementById('hub-season-favorites');
     if (!profile || !goals || !stats || !favoritesTarget) return;
     const state = hubSeasonState();
-    profile.innerHTML = '';
+    profile.replaceChildren();
     const gameSelect = hubElement('select', { id: 'hub-season-game' });
     Object.entries(HUB_GAMES).forEach(([id, name]) => gameSelect.appendChild(hubElement('option', { value: id, text: name, ...(id === state.gameId ? { selected: 'selected' } : {}) })));
     const classInput = hubElement('input', { id: 'hub-season-class', value: state.className || '', placeholder: 'Classe o archetipo scelto' });
     profile.append(
         hubElement('div', { className: 'hub-field' }, [hubElement('label', { htmlFor: 'hub-season-game', text: 'Gioco attivo' }), gameSelect]),
         hubElement('div', { className: 'hub-field' }, [hubElement('label', { htmlFor: 'hub-season-class', text: 'La tua build' }), classInput]),
-        hubElement('div', { className: 'hub-action-row' }, [hubElement('button', { className: 'hub-primary-btn', type: 'button', text: 'Salva stagione', onclick: () => { const next = hubSeasonState(); next.gameId = gameSelect.value; next.className = classInput.value.trim(); hubWriteJson(HUB_SEASON_KEY, next); window.hubSetGameIdentity(next.gameId); hubToast('Stagione salvata.'); hubRenderSeason(); } })])
+        hubElement('div', { className: 'hub-action-row' }, [hubElement('button', { className: 'hub-primary-btn', type: 'button', text: 'Salva stagione', onclick: () => { const next = hubSeasonState(); next.gameId = gameSelect.value; next.className = classInput.value.trim(); hubWriteJson(HUB_SEASON_KEY, next); hubSetGameIdentity(next.gameId); hubToast('Stagione salvata.'); hubRenderSeason(); } })])
     );
-    goals.innerHTML = '';
+    goals.replaceChildren();
     const labels = { build: 'Scegliere una build', defenses: 'Sistemare difese', progression: 'Progressione chiave', boss: 'Preparare il boss' };
     Object.entries(labels).forEach(([key, label]) => {
         const checkbox = hubElement('input', { type: 'checkbox', ...(state.goals?.[key] ? { checked: 'checked' } : {}) });
@@ -1063,13 +1061,12 @@ function hubRenderSeason() {
     });
     const favoriteItems = hubFavorites();
     const completed = Object.values(state.goals || {}).filter(Boolean).length;
-    stats.innerHTML = '';
-    stats.append(
+    stats.replaceChildren(
         hubElement('div', { className: 'hub-stat' }, [hubElement('b', { text: `${completed}/4` }), hubElement('span', { text: 'obiettivi completati' })]),
         hubElement('div', { className: 'hub-stat' }, [hubElement('b', { text: String(favoriteItems.length) }), hubElement('span', { text: 'preferiti salvati' })])
     );
-    favoritesTarget.innerHTML = '';
-    if (!favoriteItems.length) favoritesTarget.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun preferito.' }));
+    favoritesTarget.replaceChildren();
+    if (!favoriteItems.length) favoritesTarget.appendChild(hubElement('p', { className: 'hub-empty', text: 'Nessun preferito salvato.' }));
     else favoriteItems.slice(0, 8).forEach(item => favoritesTarget.appendChild(hubElement('div', { className: 'hub-mini-item' }, [hubElement('span', { text: `${HUB_GAMES[item.gameId] || item.gameId} · ${item.title}` }), hubElement('button', { type: 'button', text: 'Apri', onclick: () => { hubCloseDialog('hub-season-dialog'); hubOpenLocation(item.gameId, item.targetId); } })])));
 }
 
@@ -1085,8 +1082,7 @@ function hubRenderCompareOptions() {
     const builds = hubCatalogBuilds();
     [first, second].forEach(select => {
         const saved = select.value;
-        select.innerHTML = '';
-        select.appendChild(hubElement('option', { value: '', text: 'Scegli una build' }));
+        select.replaceChildren(hubElement('option', { value: '', text: 'Scegli una build' }));
         builds.forEach(build => select.appendChild(hubElement('option', { value: build.id || build.title, text: `${HUB_GAMES[build.gameId]} · ${build.title}`, ...( (build.id || build.title) === saved ? { selected: 'selected' } : {}) })));
     });
     if (builds.length >= 2 && !first.value && !second.value) { first.value = builds[0].id || builds[0].title; second.value = builds[1].id || builds[1].title; }
@@ -1100,7 +1096,7 @@ function hubRenderCompare() {
     if (!target) return;
     const builds = hubCatalogBuilds();
     const selected = [builds.find(build => (build.id || build.title) === firstId), builds.find(build => (build.id || build.title) === secondId)].filter(Boolean);
-    target.innerHTML = '';
+    target.replaceChildren();
     if (!selected.length) { target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Scegli due build da confrontare.' })); return; }
     selected.forEach(build => {
         const list = hubElement('ul', { className: 'hub-compare-list' });
@@ -1116,16 +1112,36 @@ function hubRenderCompare() {
 function hubRenderPatchRegistry() {
     const target = document.getElementById('hub-patch-grid');
     if (!target) return;
-    target.innerHTML = '';
+    target.replaceChildren();
     const games = hubPatchRegistry?.games || {};
     Object.entries(HUB_GAMES).forEach(([gameId, name]) => {
         const patch = games[gameId];
         const card = hubElement('article', { className: 'hub-patch-card' }, [hubElement('h3', { text: name }), hubElement('span', { className: 'hub-patch-patch', text: patch?.currentPatch || 'Non disponibile' })]);
         const list = hubElement('ul');
-        (patch?.changes || ['Nessuna nota.']).forEach(change => list.appendChild(hubElement('li', { text: change })));
+        (patch?.changes || ['Nessuna nota automatica.']).forEach(change => list.appendChild(hubElement('li', { text: change })));
         card.appendChild(list);
+        if (patch?.sourceUrl) card.appendChild(hubElement('a', { href: patch.sourceUrl, target: '_blank', text: 'Visita Sito Ufficiale' }));
         target.appendChild(card);
     });
+}
+
+function hubRenderRanking() {
+    const target = document.getElementById('hub-ranking-grid');
+    if (!target) return;
+    target.replaceChildren();
+    if (!hubRankingData || !hubRankingData.rankings) {
+        target.appendChild(hubElement('p', { className: 'hub-empty', text: 'Dati classifica in tempo reale non disponibili.' }));
+        return;
+    }
+    const list = hubElement('div', { className: 'arpg-stats', style: 'max-width:100%; box-shadow:none; border:none; padding:0;' });
+    hubRankingData.rankings.forEach((s, i) => {
+        const formatNum = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : n;
+        const row = hubElement('div', { style: 'display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dotted rgba(255,255,255,0.1); padding-bottom:6px;' });
+        row.appendChild(hubElement('span', { text: `${i+1}. ${s.name}`, style: 'font-size: 1.1em;' }));
+        row.appendChild(hubElement('strong', { style: `color: ${s.color}; font-size: 1.1em;`, text: `~${formatNum(s.players)} Giocatori` }));
+        list.appendChild(row);
+    });
+    target.appendChild(list);
 }
 
 function hubCopyShareLink() {
@@ -1133,15 +1149,6 @@ function hubCopyShareLink() {
     url.hash = `game=${encodeURIComponent(hubCurrentGame())}&section=${encodeURIComponent(hubCurrentSection())}`;
     if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url.href).then(() => hubToast('Link copiato.')).catch(() => window.prompt('Copia questo link:', url.href));
     else window.prompt('Copia questo link:', url.href);
-}
-
-function hubSetA11y(setting, enabled) {
-    const state = hubReadJson(HUB_A11Y_KEY, { contrast: false, reduceMotion: false });
-    state[setting] = enabled;
-    hubWriteJson(HUB_A11Y_KEY, state);
-    document.body.classList.toggle('hub-high-contrast', Boolean(state.contrast));
-    document.body.classList.toggle('hub-reduce-motion', Boolean(state.reduceMotion));
-    document.querySelector(`#hub-a11y-${setting}`)?.classList.toggle('is-active', Boolean(state[setting]));
 }
 
 function hubCreateInterface() {
@@ -1164,8 +1171,12 @@ function hubCreateInterface() {
     first.addEventListener('change', hubRenderCompare); second.addEventListener('change', hubRenderCompare);
     compareBody.append(hubElement('div', { className: 'hub-compare-controls' }, [hubElement('div', { className: 'hub-field' }, [hubElement('label', { text: 'Build A' }), first]), hubElement('div', { className: 'hub-field' }, [hubElement('label', { text: 'Build B' }), second])]), hubElement('div', { id: 'hub-compare-grid', className: 'hub-compare-grid' }));
 
-    const patchBody = hubCreateDialog('hub-patch-dialog', 'Note Patch', 'Registro patch e meta', 'Stato attuale.');
+    const patchBody = hubCreateDialog('hub-patch-dialog', 'Aggiornamenti Meta', 'Registro Stagioni', 'Gestito in automatico tramite aRPG Timeline.');
     patchBody.appendChild(hubElement('div', { id: 'hub-patch-grid', className: 'hub-patch-grid' }));
+
+    // NUOVA MODALE CLASSIFICA
+    const rankingBody = hubCreateDialog('hub-ranking-dialog', 'Trend in tempo reale', 'Classifica ARPG', 'Giocatori attivi su Steam e stime (Aggiornati quotidianamente in automatico).');
+    rankingBody.appendChild(hubElement('div', { id: 'hub-ranking-grid', className: 'hub-ranking-grid' }));
 
     document.body.appendChild(hubElement('div', { id: 'hub-toast', className: 'hub-toast', hidden: 'hidden', role: 'status', 'aria-live': 'polite' }));
     
@@ -1173,6 +1184,7 @@ function hubCreateInterface() {
     document.getElementById('hub-season-btn')?.addEventListener('click', () => { hubRenderSeason(); hubOpenDialog('hub-season-dialog'); });
     document.getElementById('hub-compare-btn')?.addEventListener('click', () => { hubRenderCompareOptions(); hubOpenDialog('hub-compare-dialog'); });
     document.getElementById('hub-patch-btn')?.addEventListener('click', () => { hubRenderPatchRegistry(); hubOpenDialog('hub-patch-dialog'); });
+    document.getElementById('hub-ranking-btn')?.addEventListener('click', () => { hubRenderRanking(); hubOpenDialog('hub-ranking-dialog'); });
     document.getElementById('hub-share-btn')?.addEventListener('click', hubCopyShareLink);
 }
 
@@ -1216,8 +1228,6 @@ document.addEventListener('DOMContentLoaded', hubInit);
 // =========================================================
 document.addEventListener("DOMContentLoaded", () => {
     window.loadMyBuildsUI();
-    window.updateARPGStats();
-    
     const firstTab = document.querySelector('.tab-btn');
     if(firstTab) firstTab.click();
 });
