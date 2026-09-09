@@ -29,17 +29,35 @@ def fetch_arpg_timeline_season(game_key, fallback_name):
         headers = {'User-Agent': 'Mozilla/5.0'}
         res = requests.get(url, headers=headers, timeout=8)
         if res.status_code == 200:
-            soup = BeautifulSoup(res.text, 'html.parser')
-            text_content = soup.get_text()
+            html = res.text
+            season_name = fallback_name
+            
+            # Estrazione Nome Stagione
             if game_key == "poe2":
-                season_match = re.search(r'(0\.5\.5\s*-\s*The Forbidden Rites Event)', text_content, re.IGNORECASE)
-                season_name = season_match.group(1) if season_match else "0.5.5 The Forbidden Rites"
-                days_left = (datetime(2026, 12, 11) - datetime.utcnow()).days
-                if days_left > 0: return f"{season_name} (Termina tra {days_left}g)"
-                return season_name
+                season_match = re.search(r'(0\.5\.5\s*-\s*The Forbidden Rites Event)', html, re.IGNORECASE)
+                if season_match: season_name = season_match.group(1)
+            else:
+                season_match = re.search(r'Current Season:\s*([^\n\r<]+)', html, re.IGNORECASE)
+                if season_match: season_name = season_match.group(1).strip()
+            
+            # Estrazione Data di Fine e Calcolo Countdown
+            time_left_str = ""
+            date_match = re.search(r'"end_date"\s*:\s*"(\d{4}-\d{2}-\d{2})T', html)
+            
+            if game_key == "poe2":
+                 days_left = (datetime(2026, 12, 11) - datetime.utcnow()).days
+                 if days_left > 0: time_left_str = f" (Termina tra {days_left}g)"
+            elif date_match:
+                try:
+                    end_date = datetime.strptime(date_match.group(1), "%Y-%m-%d")
+                    days_left = (end_date - datetime.utcnow()).days
+                    if days_left > 0:
+                        time_left_str = f" (Termina tra {days_left}g)"
+                    else:
+                        time_left_str = " (In conclusione)"
+                except: pass
 
-            season_match = re.search(r'Current Season:\s*([^\n\r]+)', text_content, re.IGNORECASE)
-            if season_match: return season_match.group(1).strip()
+            return f"{season_name}{time_left_str}"
     except: pass
     return fallback_name
 
@@ -70,18 +88,9 @@ def fetch_poe1_endgame():
     return builds
 
 def generate_discovery(game_id):
-    # RIPRISTINATO IL SET COMPLETO DI FONTI E PROMPT
     return {
-        "sources": [
-            ["Maxroll", f"https://maxroll.gg/{game_id}"],
-            ["Icy Veins", f"https://www.icy-veins.com/{game_id}"],
-            ["Mobalytics", f"https://mobalytics.gg/{game_id}"]
-        ],
-        "prompts": [
-            ["Starter / Leveling", "Punti di partenza per la progressione.", f"{game_id} leveling build"],
-            ["Endgame & Boss", "Build per i contenuti più difficili.", f"{game_id} endgame boss build"],
-            ["Speedfarming", "Per pulire le mappe a massima velocità.", f"{game_id} speedfarm build"]
-        ]
+        "sources": [["Maxroll", f"https://maxroll.gg/{game_id}"], ["Icy Veins", f"https://www.icy-veins.com/{game_id}"], ["Mobalytics", f"https://mobalytics.gg/{game_id}"]],
+        "prompts": [["Starter / Leveling", "Punti di partenza.", f"{game_id} leveling build"], ["Endgame & Boss", "Build avanzate.", f"{game_id} endgame boss build"], ["Speedfarming", "Per pulire le mappe a massima velocità.", f"{game_id} speedfarm build"]]
     }
 
 # =====================================================================
@@ -90,22 +99,28 @@ def generate_discovery(game_id):
 def main():
     os.makedirs('assets', exist_ok=True)
     
-    print("Recupero dati giocatori in tempo reale da Steam...")
-    poe1_players = fetch_steam_players(238960) or 45000
-    le_players = fetch_steam_players(899770) or 8000
-    d4_players = fetch_steam_players(2344520) or 25000
-    gd_players = fetch_steam_players(219990) or 4000
-    d2_players = int(d4_players * 0.45) if d4_players else 12000
-    poe2_players = 55000
+    print("Recupero dati 15 ARPG in tempo reale da Steam...")
+    # AppID ufficiali Steam per i 13 giochi ARPG
+    steam_games = {
+        "Path of Exile 1": 238960, "Diablo 4 (Steam)": 2344520, "Last Epoch": 899770, "Grim Dawn": 219990,
+        "Titan Quest": 475150, "Torchlight 2": 200710, "Chronicon": 375480, "Wolcen": 424370,
+        "Inquisitor Martyr": 527430, "The Slormancer": 1104280, "Hero Siege": 269210, 
+        "Victor Vran": 345180, "Van Helsing": 400170
+    }
+    
+    rankings = []
+    colors = ["#4caf50", "#f44336", "#9c27b0", "#2196f3", "#ff9800", "#00bcd4", "#e91e63", "#8bc34a", "#ffc107", "#795548", "#607d8b", "#9e9e9e", "#673ab7"]
+    
+    for i, (name, appid) in enumerate(steam_games.items()):
+        players = fetch_steam_players(appid) or (1500 - i*50) # Fallback visivo se API va giù
+        rankings.append({"name": name, "players": players, "color": colors[i % len(colors)]})
+    
+    # Aggiungi le 2 stime per arrivare a 15
+    d4_players = next((r['players'] for r in rankings if "Diablo 4" in r['name']), 25000)
+    rankings.append({"name": "Diablo 2: Res (Stima BNet)", "players": int(d4_players * 0.45) if d4_players else 12000, "color": "#607d8b"})
+    rankings.append({"name": "Path of Exile 2 (Beta)", "players": 55000, "color": "#ff9800"})
 
-    rankings = [
-        {"name": "Path of Exile 1", "players": poe1_players, "color": "#4caf50"},
-        {"name": "Diablo 4 (Steam)", "players": d4_players, "color": "#f44336"},
-        {"name": "Last Epoch", "players": le_players, "color": "#9c27b0"},
-        {"name": "Diablo 2: Res (Stima BNet)", "players": d2_players, "color": "#607d8b"},
-        {"name": "Path of Exile 2 (Beta)", "players": poe2_players, "color": "#ff9800"},
-        {"name": "Grim Dawn", "players": gd_players, "color": "#a1887f"}
-    ]
+    # Ordina per numero giocatori
     rankings.sort(key=lambda x: x['players'], reverse=True)
     
     with open(RANKINGS_FILE, 'w', encoding='utf-8') as f:
@@ -131,7 +146,6 @@ def main():
     with open(PATCHES_FILE, 'w', encoding='utf-8') as f:
         json.dump(patches_db, f, ensure_ascii=False, indent=2)
 
-    # Carica vecchio file se esiste, ma SOVRASCRIVIAMO le build per applicare l'aggiornamento
     catalog = {"games": {}}
     if os.path.exists(BUILDS_FILE):
         try:
@@ -140,7 +154,6 @@ def main():
         except: pass
 
     def update_game_data(game_id, patch_name, new_endgame, fallback_endgame, fallback_leveling):
-        # FORZA L'USO DELLE 5 BUILD (ignora il vecchio file salvato)
         final_endgame = new_endgame if new_endgame else fallback_endgame
         final_leveling = fallback_leveling
 
@@ -218,7 +231,7 @@ def main():
     with open(BUILDS_FILE, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, ensure_ascii=False, indent=2)
     
-    print("[+] File JSON salvato: 5 Build forzate per categoria per ogni gioco.")
+    print("[+] Aggiornamento Stagioni e Countdown Completato.")
 
 if __name__ == '__main__':
     main()
