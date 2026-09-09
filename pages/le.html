@@ -25,25 +25,41 @@
     </div>
 </div>
 
-<div id="le-tools" class="sub-tab-content le-sub-content guide-theme--le legacy-dashboard" data-legacy-redesign="dashboard" style="display:none;">
-    <div class="action-bar" style="border-color: var(--accent-le);">
-        <form onsubmit="window.multiSearch(event, 'search-input-le', 'search-site-le')" style="display: flex; width: 100%; gap: 10px; flex-wrap: wrap;">
-            <input id="search-input-le" placeholder="Cerca term..." required style="flex-grow:1;" type="text"/>
-            <select id="search-site-le" style="border-color: var(--accent-le);">
-                <option value="all">🔍 Cerca in Tutti i Siti</option>
+<div id="le-tools" class="sub-tab-content le-sub-content" style="display:none;">
+    <div class="action-bar" style="background: linear-gradient(135deg, #181511 0%, #0a0806 100%); border: 1px solid #000; box-shadow: inset 0 0 10px #000;">
+        <form onsubmit="window.multiSearch(event, 'search-input-le', 'search-site-le')" style="display: flex; width: 100%; gap: 15px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size:1.8em; margin-left: 10px;">🔍</span>
+            <input id="search-input-le" placeholder="Cerca item, skill o build..." required style="flex-grow:1; background: #050505; border: 1px solid #222;" type="text"/>
+            <select id="search-site-le" style="background: #050505; border: 1px solid #222;">
+                <option value="all">🌐 Cerca Ovunque</option>
                 <option value="lastepochtools.com">Last Epoch Tools</option>
                 <option value="maxroll.gg/last-epoch">Maxroll</option>
                 <option value="icy-veins.com/last-epoch">Icy Veins</option>
-                <option value="mobalytics.gg/last-epoch">Mobalytics</option>
             </select>
-            <button class="action-btn" style="background: var(--accent-le);" type="submit">Cerca</button>
+            <button type="submit" class="action-btn" style="border-top-color: var(--accent-le);">Avvia Ricerca</button>
         </form>
     </div>
-    <div class="section" style="background: transparent; border: none; padding: 0;">
-        <a class="tool-link" href="https://www.lastepochtools.com/" rel="noopener noreferrer" style="background: var(--accent-le);" target="_blank">🛠️ Last Epoch Tools</a>
-        <a class="tool-link" href="https://pob.cool/" rel="noopener noreferrer" style="background: var(--accent-le);" target="_blank">🖥️ PoB (Cool)</a>
-        <button class="overlay-btn" onclick="window.openOverlay('https://pob.cool/', 'Path of Building (Web)')">Apri in Overlay</button>
-        <a class="tool-link" href="https://www.lastepochtools.com/loot-filters/" rel="noopener noreferrer" style="background: #3f51b5;" target="_blank">🛡️ LE Loot Filters</a>
+
+    <div class="tools-grid">
+        <div class="tool-card" style="border-top-color: var(--accent-le);">
+            <div class="tool-card-icon">🛠️</div>
+            <div class="tool-card-title">Last Epoch Tools</div>
+            <div class="tool-card-desc">Build planner, database di oggetti e tutti gli strumenti essenziali.</div>
+            <a href="https://www.lastepochtools.com/" target="_blank" class="tool-card-action">Apri Strumenti</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #3f51b5;">
+            <div class="tool-card-icon">🛡️</div>
+            <div class="tool-card-title">Loot Filters Ufficiali</div>
+            <div class="tool-card-desc">Filtri pre-impostati e personalizzabili per evidenziare il loot che conta.</div>
+            <a href="https://www.lastepochtools.com/loot-filters/" target="_blank" class="tool-card-action">Cerca Filtri</a>
+        </div>
+        <div class="tool-card" style="border-top-color: #c0392b;">
+            <div class="tool-card-icon">🖥️</div>
+            <div class="tool-card-title">Path of Building Web</div>
+            <div class="tool-card-desc">Il potente strumento PoB per analizzare le build via browser.</div>
+            <a href="https://pob.cool/" target="_blank" class="tool-card-action">Avvia in Nuova Scheda</a>
+            <button class="tool-card-action" onclick="window.openOverlay('https://pob.cool/', 'Path of Building')" style="margin-top: 5px; background: transparent; border: 1px dashed var(--border-color); color: var(--text-muted);">Usa in Sovrimpressione</button>
+        </div>
     </div>
 </div>
 
