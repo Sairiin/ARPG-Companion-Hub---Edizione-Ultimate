@@ -1,45 +1,53 @@
 {
   "games": {
     "poe1": {
-      "patch": "Lega 3.29 Curse of the Allflame",
+      "patch": "Lega 3.29 Curse of the Allflame (Termina tra 75g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
-          "url": "https://maxroll.gg/poe1"
+          "url": "https://maxroll.gg/poe"
+        },
+        {
+          "label": "PoEBuilds.cc",
+          "url": "https://poebuilds.cc/"
         }
       ],
       "discovery": {
         "sources": [
           [
             "Maxroll",
-            "https://maxroll.gg/poe1"
+            "https://maxroll.gg/poe"
+          ],
+          [
+            "PoEBuilds.cc",
+            "https://poebuilds.cc/"
           ],
           [
             "Icy Veins",
-            "https://www.icy-veins.com/poe1"
+            "https://www.icy-veins.com/poe"
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/poe1"
+            "https://mobalytics.gg/poe"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza.",
-            "poe1 leveling build"
+            "Starter di Lega",
+            "Progressione iniziale.",
+            "poe league starter build"
           ],
           [
-            "Endgame & Boss",
-            "Build avanzate.",
-            "poe1 endgame boss build"
+            "Endgame",
+            "Mappe e Boss.",
+            "poe endgame build"
           ],
           [
             "Speedfarming",
             "Per pulire le mappe a massima velocità.",
-            "poe1 speedfarm build"
+            "poe speedfarm build"
           ]
         ]
       },
@@ -130,14 +138,156 @@
         ]
       }
     },
+    "poe2": {
+      "patch": "0.5.5 The Forbidden Rites (Termina tra 92g)",
+      "reviewCycleDays": 1,
+      "reviewedAt": "2026-09-09",
+      "sources": [
+        {
+          "label": "Maxroll",
+          "url": "https://maxroll.gg/poe2"
+        },
+        {
+          "label": "PoE2DB",
+          "url": "https://poe2db.tw/"
+        }
+      ],
+      "discovery": {
+        "sources": [
+          [
+            "Maxroll",
+            "https://maxroll.gg/poe2"
+          ],
+          [
+            "PoE2DB",
+            "https://poe2db.tw/"
+          ],
+          [
+            "Icy Veins",
+            "https://www.icy-veins.com/poe2"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/poe2"
+          ]
+        ],
+        "prompts": [
+          [
+            "Starter",
+            "Inizia con una classe.",
+            "poe 2 starter build"
+          ],
+          [
+            "Endgame",
+            "Fasi avanzate.",
+            "poe 2 endgame build"
+          ],
+          [
+            "Bossing",
+            "Danno a bersaglio singolo.",
+            "poe 2 boss killer"
+          ]
+        ]
+      },
+      "builds": {
+        "endgame": [
+          {
+            "title": "Monk Invoker Palm",
+            "class": "Monk",
+            "specialization": "Invoker",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Druid Bear Slam",
+            "class": "Druid",
+            "specialization": "Shapeshifter",
+            "tier": "S",
+            "tierColor": "#ff9800",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Mercenary Crossbow",
+            "class": "Mercenary",
+            "specialization": "Witchhunter",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Sorceress Spark",
+            "class": "Sorceress",
+            "specialization": "Elementalist",
+            "tier": "A",
+            "tierColor": "#4caf50",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Warrior Heavy Strike",
+            "class": "Warrior",
+            "specialization": "Titan",
+            "tier": "B",
+            "tierColor": "#607d8b",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          }
+        ],
+        "leveling": [
+          {
+            "title": "Ranger Lightning Arrow",
+            "class": "Ranger",
+            "specialization": "Deadeye",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Warrior Sunder",
+            "class": "Warrior",
+            "specialization": "Titan",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Witch Minion",
+            "class": "Witch",
+            "specialization": "Necromancer",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Monk Wind Slash",
+            "class": "Monk",
+            "specialization": "Invoker",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          },
+          {
+            "title": "Mercenary Rapid Fire",
+            "class": "Mercenary",
+            "specialization": "Witchhunter",
+            "tier": "Start",
+            "tierColor": "#2196F3",
+            "sourceUrl": "https://maxroll.gg/poe2"
+          }
+        ]
+      }
+    },
     "d4": {
-      "patch": "Stagione 7",
+      "patch": "Stagione 7 (Termina tra 40g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d4"
+        },
+        {
+          "label": "Wowhead",
+          "url": "https://www.wowhead.com/diablo-4"
         }
       ],
       "discovery": {
@@ -147,29 +297,33 @@
             "https://maxroll.gg/d4"
           ],
           [
+            "Wowhead",
+            "https://www.wowhead.com/diablo-4"
+          ],
+          [
             "Icy Veins",
             "https://www.icy-veins.com/d4"
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/d4"
+            "https://mobalytics.gg/diablo-4"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza.",
-            "d4 leveling build"
+            "Leveling",
+            "Idee di partenza.",
+            "diablo 4 leveling build"
           ],
           [
-            "Endgame & Boss",
-            "Build avanzate.",
-            "d4 endgame boss build"
+            "Endgame",
+            "Attività avanzate.",
+            "diablo 4 endgame build"
           ],
           [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "d4 speedfarm build"
+            "Boss e Pit",
+            "Alta difficoltà.",
+            "diablo 4 pit boss build"
           ]
         ]
       },
@@ -261,45 +415,49 @@
       }
     },
     "le": {
-      "patch": "Season 4",
+      "patch": "Cycle 1.1 (Termina tra 35g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
-          "url": "https://maxroll.gg/le"
+          "url": "https://maxroll.gg/last-epoch"
+        },
+        {
+          "label": "Last Epoch Tools",
+          "url": "https://www.lastepochtools.com/builds/"
         }
       ],
       "discovery": {
         "sources": [
           [
             "Maxroll",
-            "https://maxroll.gg/le"
+            "https://maxroll.gg/last-epoch"
+          ],
+          [
+            "Last Epoch Tools",
+            "https://www.lastepochtools.com/builds/"
           ],
           [
             "Icy Veins",
-            "https://www.icy-veins.com/le"
-          ],
-          [
-            "Mobalytics",
-            "https://mobalytics.gg/le"
+            "https://www.icy-veins.com/last-epoch"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
+            "Starter",
             "Punti di partenza.",
-            "le leveling build"
+            "last epoch starter build"
           ],
           [
-            "Endgame & Boss",
-            "Build avanzate.",
-            "le endgame boss build"
+            "Endgame",
+            "Echo e Corruption.",
+            "last epoch endgame build"
           ],
           [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "le speedfarm build"
+            "Boss e arena",
+            "Sopravvivenza.",
+            "last epoch boss build"
           ]
         ]
       },
@@ -391,13 +549,17 @@
       }
     },
     "d2": {
-      "patch": "Ladder Stagione 14",
+      "patch": "Ladder Stagione 14 (Termina tra 61g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d2"
+        },
+        {
+          "label": "Icy Veins",
+          "url": "https://www.icy-veins.com/d2"
         }
       ],
       "discovery": {
@@ -412,24 +574,24 @@
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/d2"
+            "https://mobalytics.gg/diablo-2"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza.",
-            "d2 leveling build"
+            "Starter",
+            "Progressione Ladder.",
+            "diablo 2 starter build"
           ],
           [
-            "Endgame & Boss",
-            "Build avanzate.",
-            "d2 endgame boss build"
+            "Farming",
+            "Ricerca oggetti e MF.",
+            "diablo 2 magic find build"
           ],
           [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "d2 speedfarm build"
+            "Uber",
+            "Incontri ad alto danno.",
+            "diablo 2 uber boss build"
           ]
         ]
       },
@@ -516,136 +678,6 @@
             "tier": "Start",
             "tierColor": "#2196F3",
             "sourceUrl": "https://maxroll.gg/d2"
-          }
-        ]
-      }
-    },
-    "poe2": {
-      "patch": "0.5.5 - The Forbidden Rites Event",
-      "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-09",
-      "sources": [
-        {
-          "label": "Maxroll",
-          "url": "https://maxroll.gg/poe2"
-        }
-      ],
-      "discovery": {
-        "sources": [
-          [
-            "Maxroll",
-            "https://maxroll.gg/poe2"
-          ],
-          [
-            "Icy Veins",
-            "https://www.icy-veins.com/poe2"
-          ],
-          [
-            "Mobalytics",
-            "https://mobalytics.gg/poe2"
-          ]
-        ],
-        "prompts": [
-          [
-            "Starter / Leveling",
-            "Punti di partenza.",
-            "poe2 leveling build"
-          ],
-          [
-            "Endgame & Boss",
-            "Build avanzate.",
-            "poe2 endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "poe2 speedfarm build"
-          ]
-        ]
-      },
-      "builds": {
-        "endgame": [
-          {
-            "title": "Monk Invoker Palm",
-            "class": "Monk",
-            "specialization": "Invoker",
-            "tier": "S",
-            "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Druid Bear Slam",
-            "class": "Druid",
-            "specialization": "Shapeshifter",
-            "tier": "S",
-            "tierColor": "#ff9800",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Mercenary Crossbow",
-            "class": "Mercenary",
-            "specialization": "Witchhunter",
-            "tier": "A",
-            "tierColor": "#4caf50",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Sorceress Spark",
-            "class": "Sorceress",
-            "specialization": "Elementalist",
-            "tier": "A",
-            "tierColor": "#4caf50",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Warrior Heavy Strike",
-            "class": "Warrior",
-            "specialization": "Titan",
-            "tier": "B",
-            "tierColor": "#607d8b",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          }
-        ],
-        "leveling": [
-          {
-            "title": "Ranger Lightning Arrow",
-            "class": "Ranger",
-            "specialization": "Deadeye",
-            "tier": "Start",
-            "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Warrior Sunder",
-            "class": "Warrior",
-            "specialization": "Titan",
-            "tier": "Start",
-            "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Witch Minion",
-            "class": "Witch",
-            "specialization": "Necromancer",
-            "tier": "Start",
-            "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Monk Wind Slash",
-            "class": "Monk",
-            "specialization": "Invoker",
-            "tier": "Start",
-            "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/poe2"
-          },
-          {
-            "title": "Mercenary Rapid Fire",
-            "class": "Mercenary",
-            "specialization": "Witchhunter",
-            "tier": "Start",
-            "tierColor": "#2196F3",
-            "sourceUrl": "https://maxroll.gg/poe2"
           }
         ]
       }
