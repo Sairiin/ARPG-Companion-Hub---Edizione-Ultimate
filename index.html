@@ -9,15 +9,12 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
-    
-    <!-- Richiama il tuo foglio di stile esterno -->
     <link rel="stylesheet" href="style.css">
-    
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="theme-color" content="#ff9800">
 </head>
 <body>
-    <!-- OVERLAY MODAL (iFrame) -->
+    <!-- OVERLAY MODAL -->
     <div class="modal" id="iframe-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,7 +25,7 @@
         </div>
     </div>
 
-    <!-- AUTH MODAL (Login/Registrazione) -->
+    <!-- AUTH MODAL -->
     <div class="modal" id="auth-modal">
         <div class="modal-content auth-box">
             <div class="modal-header">
@@ -51,15 +48,19 @@
         </div>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER (Banner centrato, Lingua e Login a destra) -->
     <header class="essential-header">
-        <div class="utility-language-floating" aria-label="Lingua del sito">
-            <div id="google_translate_element"></div>
-        </div>
         <div class="essential-header-shell">
             <div class="essential-brand">
                 <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
             </div>
+            
+            <div class="essential-utilities" aria-label="Comandi del sito">
+                <div class="utility-language" aria-label="Lingua del sito"><div id="google_translate_element"></div></div>
+                <button class="auth-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
+            </div>
+
+            <!-- Pannello Aspetto Nascosto -->
             <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel" style="z-index: 999;">
                 <div class="appearance-panel-heading"><div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione.</p></div><button aria-label="Chiudi" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button></div>
                 <div class="appearance-grid">
@@ -73,22 +74,29 @@
         </div>
     </header>
 
+    <a class="skip-link" href="#main-content">Vai ai contenuti</a>
+
     <!-- TOOLBELT COMPLETA -->
-    <div class="hub-toolbelt" aria-label="Strumenti rapidi del Companion Hub">
+    <div class="hub-toolbelt" aria-label="Strumenti rapidi">
         <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
         <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
         <button class="hub-tool-btn" id="hub-compare-btn" type="button">⇄ Confronta build</button>
         <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
         <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
         <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
+        
+        <!-- Penultimo -->
         <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
+        
+        <!-- Ultimo -->
         <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank">
-            <img alt="Discord" src="logo_animated_v2.jpg" style="width: 18px; height: 18px; border-radius: 50%; object-fit: cover; vertical-align: middle; margin-right: 4px;"/> Discord
+            <img alt="Discord" src="logo_animated_v2.jpg" style="width: 18px; height: 18px; border-radius: 50%; vertical-align: middle;"/> Discord
         </a>
-        <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
+        
+        <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
     </div>
 
-    <!-- MAIN TABS -->
+    <!-- TABS -->
     <nav class="tabs" id="main-tabs">
         <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')"><img alt="PoE 1" class="tab-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&s=10"/> Path of Exile 1</button>
         <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')"><img alt="PoE 2" class="tab-icon" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLULAvVSpii6ietytRcFICav9snB2sdbmrsuX3Y5Brw&s=10"/> Path of Exile 2</button>
@@ -97,7 +105,7 @@
         <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')"><img alt="D4" class="tab-icon d4-logo" src="assets/diablo4-logo.png"/> Diablo 4</button>
     </nav>
 
-    <!-- CONTENITORE DINAMICO DOVE VENGONO INIETTATE LE PAGINE -->
+    <!-- IL CONTENITORE: L'HTML verrà iniettato qui dentro avvolto nella sua <section> -->
     <main id="game-content-container">
         <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
     </main>
@@ -115,7 +123,7 @@
     </script>
     <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
-    <!-- Richiamo allo script principale (modulare) -->
+    <!-- Script principale -->
     <script type="module" src="js/main.js"></script>
 </body>
 </html>
