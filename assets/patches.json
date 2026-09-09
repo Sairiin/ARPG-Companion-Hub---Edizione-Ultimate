@@ -1,67 +1,49 @@
 {
-  "schemaVersion": 1,
-  "updatedAt": "2026-08-14",
-  "note": "Registro locale editoriale. Aggiorna patch, data, fonti e nota di revisione quando cambia il meta.",
   "games": {
     "poe1": {
-      "game": "Path of Exile 1",
-      "currentPatch": "Lega 3.29",
-      "status": "Da revisionare",
-      "updatedAt": null,
-      "sourceLabel": "Notizie ufficiali Path of Exile",
-      "sourceUrl": "https://www.pathofexile.com/news",
+      "currentPatch": "Lega 3.29 Curse of the Allflame",
       "changes": [
-        "Catalogo iniziale in attesa di revisione editoriale.",
-        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
-      ]
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
+        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+      ],
+      "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
+      "sourceLabel": "Consulta aRPG Timeline"
     },
     "poe2": {
-      "game": "Path of Exile 2",
-      "currentPatch": "Early Access 0.5.0",
-      "status": "Da revisionare",
-      "updatedAt": null,
-      "sourceLabel": "Notizie ufficiali Path of Exile",
-      "sourceUrl": "https://www.pathofexile.com/news",
+      "currentPatch": "0.5.5 - The Forbidden Rites Event",
       "changes": [
-        "Catalogo iniziale in attesa di revisione editoriale.",
-        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
-      ]
-    },
-    "le": {
-      "game": "Last Epoch",
-      "currentPatch": "Cycle 1.0",
-      "status": "Da revisionare",
-      "updatedAt": null,
-      "sourceLabel": "Forum ufficiale Last Epoch",
-      "sourceUrl": "https://forum.lastepoch.com/c/news/64",
-      "changes": [
-        "Catalogo iniziale in attesa di revisione editoriale.",
-        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
-      ]
-    },
-    "d2": {
-      "game": "Diablo II: Resurrected",
-      "currentPatch": "Ladder S14",
-      "status": "Da revisionare",
-      "updatedAt": null,
-      "sourceLabel": "Notizie ufficiali Blizzard",
-      "sourceUrl": "https://news.blizzard.com/it-it/diablo2",
-      "changes": [
-        "Catalogo iniziale in attesa di revisione editoriale.",
-        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
-      ]
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
+        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+      ],
+      "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
+      "sourceLabel": "Consulta aRPG Timeline"
     },
     "d4": {
-      "game": "Diablo 4",
-      "currentPatch": "Stagione corrente",
-      "status": "Da revisionare",
-      "updatedAt": null,
-      "sourceLabel": "Diablo IV — pagina stagionale ufficiale",
-      "sourceUrl": "https://diablo4.blizzard.com/season",
+      "currentPatch": "Stagione 7",
       "changes": [
-        "Catalogo iniziale in attesa di revisione editoriale.",
-        "Aggiorna le build contrassegnate dopo la verifica delle fonti."
-      ]
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
+        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+      ],
+      "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
+      "sourceLabel": "Consulta aRPG Timeline"
+    },
+    "le": {
+      "currentPatch": "Season 4",
+      "changes": [
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
+        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+      ],
+      "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
+      "sourceLabel": "Consulta aRPG Timeline"
+    },
+    "d2": {
+      "currentPatch": "Ladder Stagione 14",
+      "changes": [
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
+        "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
+      ],
+      "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
+      "sourceLabel": "Consulta aRPG Timeline"
     }
   }
 }

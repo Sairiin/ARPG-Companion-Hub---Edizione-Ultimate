@@ -8,10 +8,6 @@
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/poe1"
-        },
-        {
-          "label": "aRPG Timeline",
-          "url": "https://www.arpg-timeline.com/game/poe1"
         }
       ],
       "discovery": {
@@ -21,29 +17,20 @@
             "https://maxroll.gg/poe1"
           ],
           [
-            "Icy Veins",
-            "https://www.icy-veins.com/poe1"
-          ],
-          [
             "Mobalytics",
             "https://mobalytics.gg/poe1"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza per la progressione.",
-            "poe1 leveling build"
+            "Starter",
+            "Punti di partenza.",
+            "poe1 leveling"
           ],
           [
-            "Endgame & Boss",
-            "Build per i contenuti più difficili.",
-            "poe1 endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "poe1 speedfarm build"
+            "Endgame",
+            "Build avanzate.",
+            "poe1 endgame"
           ]
         ]
       },
@@ -71,17 +58,13 @@
       }
     },
     "d4": {
-      "patch": "Stagione 14 - Season of Death Awakening",
+      "patch": "Stagione 7",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d4"
-        },
-        {
-          "label": "aRPG Timeline",
-          "url": "https://www.arpg-timeline.com/game/d4"
         }
       ],
       "discovery": {
@@ -91,29 +74,20 @@
             "https://maxroll.gg/d4"
           ],
           [
-            "Icy Veins",
-            "https://www.icy-veins.com/d4"
-          ],
-          [
             "Mobalytics",
             "https://mobalytics.gg/d4"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza per la progressione.",
-            "d4 leveling build"
+            "Starter",
+            "Punti di partenza.",
+            "d4 leveling"
           ],
           [
-            "Endgame & Boss",
-            "Build per i contenuti più difficili.",
-            "d4 endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "d4 speedfarm build"
+            "Endgame",
+            "Build avanzate.",
+            "d4 endgame"
           ]
         ]
       },
@@ -149,17 +123,13 @@
       }
     },
     "le": {
-      "patch": "Season 4 - Shattered Omens",
+      "patch": "Season 4",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/le"
-        },
-        {
-          "label": "aRPG Timeline",
-          "url": "https://www.arpg-timeline.com/game/le"
         }
       ],
       "discovery": {
@@ -169,29 +139,20 @@
             "https://maxroll.gg/le"
           ],
           [
-            "Icy Veins",
-            "https://www.icy-veins.com/le"
-          ],
-          [
             "Mobalytics",
             "https://mobalytics.gg/le"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza per la progressione.",
-            "le leveling build"
+            "Starter",
+            "Punti di partenza.",
+            "le leveling"
           ],
           [
-            "Endgame & Boss",
-            "Build per i contenuti più difficili.",
-            "le endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "le speedfarm build"
+            "Endgame",
+            "Build avanzate.",
+            "le endgame"
           ]
         ]
       },
@@ -226,10 +187,6 @@
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d2"
-        },
-        {
-          "label": "aRPG Timeline",
-          "url": "https://www.arpg-timeline.com/game/d2"
         }
       ],
       "discovery": {
@@ -239,29 +196,20 @@
             "https://maxroll.gg/d2"
           ],
           [
-            "Icy Veins",
-            "https://www.icy-veins.com/d2"
-          ],
-          [
             "Mobalytics",
             "https://mobalytics.gg/d2"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza per la progressione.",
-            "d2 leveling build"
+            "Starter",
+            "Punti di partenza.",
+            "d2 leveling"
           ],
           [
-            "Endgame & Boss",
-            "Build per i contenuti più difficili.",
-            "d2 endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "d2 speedfarm build"
+            "Endgame",
+            "Build avanzate.",
+            "d2 endgame"
           ]
         ]
       },
@@ -296,10 +244,6 @@
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/poe2"
-        },
-        {
-          "label": "aRPG Timeline",
-          "url": "https://www.arpg-timeline.com/game/poe2"
         }
       ],
       "discovery": {
@@ -309,29 +253,20 @@
             "https://maxroll.gg/poe2"
           ],
           [
-            "Icy Veins",
-            "https://www.icy-veins.com/poe2"
-          ],
-          [
             "Mobalytics",
             "https://mobalytics.gg/poe2"
           ]
         ],
         "prompts": [
           [
-            "Starter / Leveling",
-            "Punti di partenza per la progressione.",
-            "poe2 leveling build"
+            "Starter",
+            "Punti di partenza.",
+            "poe2 leveling"
           ],
           [
-            "Endgame & Boss",
-            "Build per i contenuti più difficili.",
-            "poe2 endgame boss build"
-          ],
-          [
-            "Speedfarming",
-            "Per pulire le mappe a massima velocità.",
-            "poe2 speedfarm build"
+            "Endgame",
+            "Build avanzate.",
+            "poe2 endgame"
           ]
         ]
       },

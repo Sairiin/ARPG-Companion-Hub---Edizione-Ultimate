@@ -1,0 +1,34 @@
+{
+  "rankings": [
+    {
+      "name": "Path of Exile 2 (Beta)",
+      "players": 55000,
+      "color": "#ff9800"
+    },
+    {
+      "name": "Path of Exile 1",
+      "players": 6160,
+      "color": "#4caf50"
+    },
+    {
+      "name": "Grim Dawn",
+      "players": 5207,
+      "color": "#a1887f"
+    },
+    {
+      "name": "Diablo 4 (Steam)",
+      "players": 2192,
+      "color": "#f44336"
+    },
+    {
+      "name": "Diablo 2: Res (Stima BNet)",
+      "players": 986,
+      "color": "#607d8b"
+    },
+    {
+      "name": "Last Epoch",
+      "players": 553,
+      "color": "#9c27b0"
+    }
+  ]
+}
