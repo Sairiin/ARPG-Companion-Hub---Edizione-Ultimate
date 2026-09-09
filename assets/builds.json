@@ -1,7 +1,7 @@
 {
   "games": {
     "poe1": {
-      "patch": "Lega 3.29 Curse of the Allflame",
+      "patch": "Lega 3.29 Curse of the Allflame (Termina tra 79g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
@@ -131,7 +131,7 @@
       }
     },
     "poe2": {
-      "patch": "0.5.5 - The Forbidden Rites Event",
+      "patch": "0.5.5 - The Forbidden Rites Event (Termina tra 92g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
@@ -261,7 +261,7 @@
       }
     },
     "d4": {
-      "patch": "Stagione 7",
+      "patch": "Stagione 7 (Termina tra 40g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
@@ -391,7 +391,7 @@
       }
     },
     "le": {
-      "patch": "Season 4",
+      "patch": "Season 4 (Termina tra 35g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
@@ -521,7 +521,7 @@
       }
     },
     "d2": {
-      "patch": "Ladder Stagione 14",
+      "patch": "Ladder Stagione 14 (Termina tra 61g)",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
