@@ -12,19 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&amp;display=swap" rel="stylesheet"/>
     
-    <!-- FOGLIO DI STILE ESTERNO (Con blocco Cache) -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
     <link rel="manifest" href="manifest.webmanifest">
 </head>
 <body>
 
-<!-- MODALI DI SISTEMA -->
+<!-- MODALI -->
 <div class="modal" id="iframe-modal">
     <div class="modal-content">
         <div class="modal-header"><span class="modal-title" id="modal-title">ARPG Tools</span><span class="close-btn" onclick="window.closeOverlay()">×</span></div>
         <iframe id="modal-iframe" loading="lazy" src=""></iframe>
     </div>
 </div>
+
 <div class="modal" id="auth-modal">
     <div class="modal-content auth-box">
         <div class="modal-header"><span class="modal-title">Autenticazione Cloud</span><span class="close-btn" onclick="window.closeAuthModal()">×</span></div>
@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<!-- HEADER CENTRATO & LINGUA FLUTTUANTE -->
+<!-- HEADER CENTRATO CON SELETTORE LINGUA -->
 <header class="essential-header">
     <div class="utility-language-floating" aria-label="Lingua del sito">
         <div id="google_translate_element"></div>
@@ -52,27 +52,25 @@
             <img alt="ARPG Companion Hub" class="banner-img" fetchpriority="high" src="arpg_hub_banner_v2.jpg"/>
         </div>
         
-        <!-- PANNELLO ASPETTO (Nascosto di default) -->
         <section aria-labelledby="appearance-title" class="appearance-panel" hidden id="appearance-panel">
             <div class="appearance-panel-heading">
                 <div><h2 id="appearance-title">Aspetto</h2><p>Schema e dimensione del testo.</p></div>
                 <button aria-label="Chiudi" class="panel-close-btn" onclick="window.closeEssentialPanel('appearance-panel', 'appearance-toggle')" type="button">×</button>
             </div>
             <div class="appearance-grid">
-                <button class="theme-btn" onclick="window.setTheme('dark')" title="Tema scuro" type="button">🌙 Scuro</button>
-                <button class="theme-btn" onclick="window.setTheme('amoled')" title="Tema AMOLED" type="button">🖤 AMOLED</button>
-                <button class="theme-btn" onclick="window.setTheme('light')" title="Tema chiaro" type="button">☀️ Chiaro</button>
-                <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" title="Riduci carattere" type="button">A− Testo</button>
-                <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" title="Ingrandisci carattere" type="button">A+ Testo</button>
+                <button class="theme-btn" onclick="window.setTheme('dark')" type="button">🌙 Scuro</button>
+                <button class="theme-btn" onclick="window.setTheme('amoled')" type="button">🖤 AMOLED</button>
+                <button class="theme-btn" onclick="window.setTheme('light')" type="button">☀️ Chiaro</button>
+                <button class="theme-btn appearance-font" onclick="window.changeFontSize(-1)" type="button">A− Testo</button>
+                <button class="theme-btn appearance-font" onclick="window.changeFontSize(1)" type="button">A+ Testo</button>
             </div>
-            <p class="appearance-panel-note">Le preferenze restano salvate sul dispositivo.</p>
         </section>
     </div>
 </header>
 
 <a class="skip-link" href="#main-content">Vai ai contenuti</a>
 
-<!-- TOOLBELT CON NUOVO ORDINE PULITO -->
+<!-- TOOLBELT COMPLETA -->
 <div class="hub-toolbelt" aria-label="Strumenti rapidi">
     <button class="hub-tool-btn hub-tool-btn--accent" id="hub-search-btn" type="button">⌕ Cerca</button>
     <button class="hub-tool-btn" id="hub-season-btn" type="button">◈ La mia stagione</button>
@@ -80,18 +78,15 @@
     <button class="hub-tool-btn" id="hub-ranking-btn" type="button">📊 Classifica ARPG</button>
     <button class="hub-tool-btn" id="hub-patch-btn" type="button">▤ Registro patch</button>
     <button class="hub-tool-btn" id="hub-share-btn" type="button">↗ Condividi</button>
-    
-    <!-- Pulsanti spostati in fondo -->
     <button aria-controls="appearance-panel" aria-expanded="false" class="hub-tool-btn" id="appearance-toggle" onclick="window.toggleAppearancePanel()" type="button">⚙ Aspetto</button>
     <a class="hub-tool-btn discord-tool-btn" href="https://discord.gg/wqywvBx" rel="noopener noreferrer" target="_blank">
         <img alt="Discord" src="logo_animated_v2.jpg"/> Discord
     </a>
     <button class="hub-tool-btn" id="auth-btn" onclick="window.openAuthModal()">👤 Accedi al Cloud</button>
-    
     <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
 
-<!-- TABS PRINCIPALI -->
+<!-- TAB GIOCHI PRINCIPALI -->
 <nav class="tabs" id="main-content" tabindex="-1">
     <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">Path of Exile 1</button>
     <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">Path of Exile 2</button>
@@ -100,7 +95,7 @@
     <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">Diablo 4</button>
 </nav>
 
-<!-- CONTENITORE DINAMICO SCHEDE GIOCHI (Classe tab-content ripristinata!) -->
+<!-- CONTENITORE DINAMICO CON CLASSE TAB-CONTENT (Ripristina la scheda di sfondo) -->
 <main id="game-content-container" class="tab-content active">
     <div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>
 </main>
@@ -109,15 +104,12 @@
     © 2026 Sairiin - ARPG Companion Hub<br/><a class="footer-link" href="mailto:giordani.claudio@gmail.com" style="margin-top:10px; display:inline-block;">Contattami per supporto</a>
 </footer>
 
-<!-- SCRIPT GOOGLE TRANSLATE -->
 <script>
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
     }
 </script>
 <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<!-- SCRIPT LOGICA (Carica main.js) -->
 <script type="module" src="js/main.js"></script>
 
 </body>
