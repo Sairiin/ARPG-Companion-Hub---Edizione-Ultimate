@@ -1,45 +1,45 @@
 {
   "games": {
     "poe1": {
-      "currentPatch": "Lega 3.29 Curse of the Allflame (Termina tra 75g)",
+      "currentPatch": "Lega 3.29 Curse of the Allflame",
       "changes": [
-        "Estrazione e calcolo completati il 2026-09-09.",
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
         "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "poe2": {
-      "currentPatch": "0.5.5 The Forbidden Rites (Termina tra 92g)",
+      "currentPatch": "0.5.5 - The Forbidden Rites Event",
       "changes": [
-        "Estrazione e calcolo completati il 2026-09-09.",
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
         "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "d4": {
-      "currentPatch": "Stagione 7 (Termina tra 40g)",
+      "currentPatch": "Stagione 7",
       "changes": [
-        "Estrazione e calcolo completati il 2026-09-09.",
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
         "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "le": {
-      "currentPatch": "Cycle 1.1 (Termina tra 35g)",
+      "currentPatch": "Season 4",
       "changes": [
-        "Estrazione e calcolo completati il 2026-09-09.",
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
         "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "d2": {
-      "currentPatch": "Ladder Stagione 14 (Termina tra 61g)",
+      "currentPatch": "Ladder Stagione 14",
       "changes": [
-        "Estrazione e calcolo completati il 2026-09-09.",
+        "Estrazione automatica stagione attiva completata il 2026-09-09.",
         "Le modifiche di bilanciamento dettagliate sono disponibili sul sito ufficiale."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",

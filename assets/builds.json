@@ -1,53 +1,45 @@
 {
   "games": {
     "poe1": {
-      "patch": "Lega 3.29 Curse of the Allflame (Termina tra 75g)",
+      "patch": "Lega 3.29 Curse of the Allflame",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
-          "url": "https://maxroll.gg/poe"
-        },
-        {
-          "label": "PoEBuilds.cc",
-          "url": "https://poebuilds.cc/"
+          "url": "https://maxroll.gg/poe1"
         }
       ],
       "discovery": {
         "sources": [
           [
             "Maxroll",
-            "https://maxroll.gg/poe"
-          ],
-          [
-            "PoEBuilds.cc",
-            "https://poebuilds.cc/"
+            "https://maxroll.gg/poe1"
           ],
           [
             "Icy Veins",
-            "https://www.icy-veins.com/poe"
+            "https://www.icy-veins.com/poe1"
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/poe"
+            "https://mobalytics.gg/poe1"
           ]
         ],
         "prompts": [
           [
-            "Starter di Lega",
-            "Progressione iniziale.",
-            "poe league starter build"
+            "Starter / Leveling",
+            "Punti di partenza.",
+            "poe1 leveling build"
           ],
           [
-            "Endgame",
-            "Mappe e Boss.",
-            "poe endgame build"
+            "Endgame & Boss",
+            "Build avanzate.",
+            "poe1 endgame boss build"
           ],
           [
             "Speedfarming",
             "Per pulire le mappe a massima velocità.",
-            "poe speedfarm build"
+            "poe1 speedfarm build"
           ]
         ]
       },
@@ -139,17 +131,13 @@
       }
     },
     "poe2": {
-      "patch": "0.5.5 The Forbidden Rites (Termina tra 92g)",
+      "patch": "0.5.5 - The Forbidden Rites Event",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/poe2"
-        },
-        {
-          "label": "PoE2DB",
-          "url": "https://poe2db.tw/"
         }
       ],
       "discovery": {
@@ -157,10 +145,6 @@
           [
             "Maxroll",
             "https://maxroll.gg/poe2"
-          ],
-          [
-            "PoE2DB",
-            "https://poe2db.tw/"
           ],
           [
             "Icy Veins",
@@ -173,19 +157,19 @@
         ],
         "prompts": [
           [
-            "Starter",
-            "Inizia con una classe.",
-            "poe 2 starter build"
+            "Starter / Leveling",
+            "Punti di partenza.",
+            "poe2 leveling build"
           ],
           [
-            "Endgame",
-            "Fasi avanzate.",
-            "poe 2 endgame build"
+            "Endgame & Boss",
+            "Build avanzate.",
+            "poe2 endgame boss build"
           ],
           [
-            "Bossing",
-            "Danno a bersaglio singolo.",
-            "poe 2 boss killer"
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "poe2 speedfarm build"
           ]
         ]
       },
@@ -277,17 +261,13 @@
       }
     },
     "d4": {
-      "patch": "Stagione 7 (Termina tra 40g)",
+      "patch": "Stagione 7",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d4"
-        },
-        {
-          "label": "Wowhead",
-          "url": "https://www.wowhead.com/diablo-4"
         }
       ],
       "discovery": {
@@ -297,33 +277,29 @@
             "https://maxroll.gg/d4"
           ],
           [
-            "Wowhead",
-            "https://www.wowhead.com/diablo-4"
-          ],
-          [
             "Icy Veins",
             "https://www.icy-veins.com/d4"
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/diablo-4"
+            "https://mobalytics.gg/d4"
           ]
         ],
         "prompts": [
           [
-            "Leveling",
-            "Idee di partenza.",
-            "diablo 4 leveling build"
+            "Starter / Leveling",
+            "Punti di partenza.",
+            "d4 leveling build"
           ],
           [
-            "Endgame",
-            "Attività avanzate.",
-            "diablo 4 endgame build"
+            "Endgame & Boss",
+            "Build avanzate.",
+            "d4 endgame boss build"
           ],
           [
-            "Boss e Pit",
-            "Alta difficoltà.",
-            "diablo 4 pit boss build"
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "d4 speedfarm build"
           ]
         ]
       },
@@ -415,49 +391,45 @@
       }
     },
     "le": {
-      "patch": "Cycle 1.1 (Termina tra 35g)",
+      "patch": "Season 4",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
-          "url": "https://maxroll.gg/last-epoch"
-        },
-        {
-          "label": "Last Epoch Tools",
-          "url": "https://www.lastepochtools.com/builds/"
+          "url": "https://maxroll.gg/le"
         }
       ],
       "discovery": {
         "sources": [
           [
             "Maxroll",
-            "https://maxroll.gg/last-epoch"
-          ],
-          [
-            "Last Epoch Tools",
-            "https://www.lastepochtools.com/builds/"
+            "https://maxroll.gg/le"
           ],
           [
             "Icy Veins",
-            "https://www.icy-veins.com/last-epoch"
+            "https://www.icy-veins.com/le"
+          ],
+          [
+            "Mobalytics",
+            "https://mobalytics.gg/le"
           ]
         ],
         "prompts": [
           [
-            "Starter",
+            "Starter / Leveling",
             "Punti di partenza.",
-            "last epoch starter build"
+            "le leveling build"
           ],
           [
-            "Endgame",
-            "Echo e Corruption.",
-            "last epoch endgame build"
+            "Endgame & Boss",
+            "Build avanzate.",
+            "le endgame boss build"
           ],
           [
-            "Boss e arena",
-            "Sopravvivenza.",
-            "last epoch boss build"
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "le speedfarm build"
           ]
         ]
       },
@@ -549,17 +521,13 @@
       }
     },
     "d2": {
-      "patch": "Ladder Stagione 14 (Termina tra 61g)",
+      "patch": "Ladder Stagione 14",
       "reviewCycleDays": 1,
       "reviewedAt": "2026-09-09",
       "sources": [
         {
           "label": "Maxroll",
           "url": "https://maxroll.gg/d2"
-        },
-        {
-          "label": "Icy Veins",
-          "url": "https://www.icy-veins.com/d2"
         }
       ],
       "discovery": {
@@ -574,24 +542,24 @@
           ],
           [
             "Mobalytics",
-            "https://mobalytics.gg/diablo-2"
+            "https://mobalytics.gg/d2"
           ]
         ],
         "prompts": [
           [
-            "Starter",
-            "Progressione Ladder.",
-            "diablo 2 starter build"
+            "Starter / Leveling",
+            "Punti di partenza.",
+            "d2 leveling build"
           ],
           [
-            "Farming",
-            "Ricerca oggetti e MF.",
-            "diablo 2 magic find build"
+            "Endgame & Boss",
+            "Build avanzate.",
+            "d2 endgame boss build"
           ],
           [
-            "Uber",
-            "Incontri ad alto danno.",
-            "diablo 2 uber boss build"
+            "Speedfarming",
+            "Per pulire le mappe a massima velocità.",
+            "d2 speedfarm build"
           ]
         ]
       },
