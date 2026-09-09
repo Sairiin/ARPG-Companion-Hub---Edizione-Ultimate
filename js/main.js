@@ -1,29 +1,11 @@
-// =========================================================
-// 1. CONFIGURAZIONE FIREBASE E AUTENTICAZIONE
-// =========================================================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyBBb-T8EEAGk203ANzajLkNvyoo17STTus",
-    authDomain: "arpg-companion-hub.firebaseapp.com",
-    projectId: "arpg-companion-hub",
-    storageBucket: "arpg-companion-hub.firebasestorage.app",
-    messagingSenderId: "992359528045",
-    appId: "1:992359528045:web:f1776114a695399237b164",
-    measurementId: "G-R7EDZCSZN2"
-};
+const firebaseConfig = { apiKey: "AIzaSyBBb-T8EEAGk203ANzajLkNvyoo17STTus", authDomain: "arpg-companion-hub.firebaseapp.com", projectId: "arpg-companion-hub", storageBucket: "arpg-companion-hub.firebasestorage.app", messagingSenderId: "992359528045", appId: "1:992359528045:web:f1776114a695399237b164", measurementId: "G-R7EDZCSZN2" };
 
 let app, auth, db;
-try {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    console.log("Firebase Inizializzato con successo!");
-} catch(e) {
-    console.warn("Firebase non configurato o offline. L'app funzionerà in modalità Solo Locale.", e);
-}
+try { app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app); } catch(e) { console.warn("Firebase offline.", e); }
 
 let currentUser = null;
 let userBuilds = { poe1: [], poe2: [], d2: [], le: [], d4: [] }; 
@@ -31,27 +13,9 @@ window.editingIndex = { poe1: null, poe2: null, d2: null, le: null, d4: null };
 
 window.openAuthModal = () => document.getElementById('auth-modal').style.display = 'flex';
 window.closeAuthModal = () => document.getElementById('auth-modal').style.display = 'none';
-
-window.loginWithGoogle = async () => {
-    if(!auth) return alert("Firebase non configurato.");
-    const provider = new GoogleAuthProvider();
-    try { await signInWithPopup(auth, provider); } catch(e) { console.error("Errore Login", e); }
-};
-
-window.registerWithEmail = async () => {
-    if(!auth) return alert("Firebase non configurato.");
-    const email = document.getElementById('auth-email').value;
-    const pass = document.getElementById('auth-password').value;
-    try { await createUserWithEmailAndPassword(auth, email, pass); window.closeAuthModal(); } catch(e) { alert(e.message); }
-};
-
-window.loginWithEmail = async () => {
-    if(!auth) return alert("Firebase non configurato.");
-    const email = document.getElementById('auth-email').value;
-    const pass = document.getElementById('auth-password').value;
-    try { await signInWithEmailAndPassword(auth, email, pass); window.closeAuthModal(); } catch(e) { alert(e.message); }
-};
-
+window.loginWithGoogle = async () => { try { await signInWithPopup(auth, new GoogleAuthProvider()); } catch(e) {} };
+window.registerWithEmail = async () => { try { await createUserWithEmailAndPassword(auth, document.getElementById('auth-email').value, document.getElementById('auth-password').value); window.closeAuthModal(); } catch(e){ alert(e.message); } };
+window.loginWithEmail = async () => { try { await signInWithEmailAndPassword(auth, document.getElementById('auth-email').value, document.getElementById('auth-password').value); window.closeAuthModal(); } catch(e){ alert(e.message); } };
 window.logoutFirebase = async () => { if(auth) await signOut(auth); };
 
 if(auth) {
@@ -80,7 +44,7 @@ async function syncFromFirebase() {
         if (docSnap.exists()) { userBuilds = docSnap.data().builds || { poe1: [], poe2: [], d2: [], le: [], d4: [] }; }
         else { await setDoc(doc(db, "users", currentUser.uid), { builds: userBuilds }); }
         window.loadMyBuildsUI();
-    } catch(e) { console.error(e); }
+    } catch(e) {}
 }
 
 async function syncToFirebase() {
@@ -89,31 +53,14 @@ async function syncToFirebase() {
     window.loadMyBuildsUI();
 }
 
-// =========================================================
-// 2. FUNZIONI PER "LE MIE BUILD" (CRUD Locale/Cloud)
-// =========================================================
 window.loadMyBuildsUI = function() {
     ['poe1', 'poe2', 'd2', 'le', 'd4'].forEach(game => {
         const ul = document.getElementById(`my-builds-${game}`);
         if(!ul) return;
         ul.innerHTML = '';
-        if (!userBuilds[game] || userBuilds[game].length === 0) { 
-            ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic;">Nessuna build salvata.</span></li>'; 
-            return; 
-        }
+        if (!userBuilds[game] || userBuilds[game].length === 0) { ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic;">Nessuna build salvata.</span></li>'; return; }
         userBuilds[game].forEach((build, index) => {
-            ul.innerHTML += `
-                <li>
-                    <div class="dash-list-item-content">
-                        <a href="${build.link}" class="saved-link" target="_blank">${build.name}</a>
-                        <span class="build-version">v. ${build.version || 'N/A'}</span>
-                        <span class="build-note">- ${build.note || ''}</span>
-                    </div>
-                    <div class="dash-list-actions">
-                        <button class="edit-btn" onclick="window.editBuild('${game}', ${index})">✏️</button>
-                        <button class="delete-btn" onclick="window.deleteBuild('${game}', ${index})">❌</button>
-                    </div>
-                </li>`;
+            ul.innerHTML += `<li><div class="dash-list-item-content"><a href="${build.link}" class="saved-link" target="_blank">${build.name}</a><span class="build-version">v. ${build.version || 'N/A'}</span><span class="build-note">- ${build.note || ''}</span></div><div class="dash-list-actions"><button class="edit-btn" onclick="window.editBuild('${game}', ${index})">✏️</button><button class="delete-btn" onclick="window.deleteBuild('${game}', ${index})">❌</button></div></li>`;
         });
     });
 };
@@ -122,187 +69,105 @@ window.filterSavedBuilds = function(game) {
     let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
     let li = document.getElementById(`my-builds-${game}`)?.getElementsByTagName("li");
     if(!li) return;
-    for (let i=0; i<li.length; i++) { 
-        if(!li[i].innerText.includes("Nessuna build")) li[i].style.display = (li[i].innerText.toLowerCase().indexOf(filter) > -1) ? "" : "none"; 
-    }
+    for (let i=0; i<li.length; i++) { if(!li[i].innerText.includes("Nessuna build")) li[i].style.display = (li[i].innerText.toLowerCase().indexOf(filter) > -1) ? "" : "none"; }
 };
 
 window.editBuild = function(game, index) {
     const build = userBuilds[game][index];
-    document.getElementById(`name-${game}`).value = build.name; 
-    document.getElementById(`link-${game}`).value = build.link; 
-    document.getElementById(`version-${game}`).value = build.version; 
-    document.getElementById(`note-${game}`).value = build.note;
+    document.getElementById(`name-${game}`).value = build.name; document.getElementById(`link-${game}`).value = build.link; document.getElementById(`version-${game}`).value = build.version; document.getElementById(`note-${game}`).value = build.note;
     window.editingIndex[game] = index;
-    document.getElementById(`submit-btn-${game}`).textContent = "Aggiorna"; 
-    document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
+    document.getElementById(`submit-btn-${game}`).textContent = "Aggiorna"; document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
 };
 
 window.cancelEdit = function(game) {
-    window.editingIndex[game] = null; 
-    document.getElementById(`form-${game}`).reset();
-    document.getElementById(`submit-btn-${game}`).textContent = "Salva"; 
-    document.getElementById(`cancel-btn-${game}`).style.display = "none";
+    window.editingIndex[game] = null; document.getElementById(`form-${game}`).reset();
+    document.getElementById(`submit-btn-${game}`).textContent = "Salva"; document.getElementById(`cancel-btn-${game}`).style.display = "none";
 };
 
 window.saveBuild = async function(event, game) {
     event.preventDefault();
-    const b = { 
-        name: document.getElementById(`name-${game}`).value, 
-        link: document.getElementById(`link-${game}`).value, 
-        version: document.getElementById(`version-${game}`).value, 
-        note: document.getElementById(`note-${game}`).value 
-    };
+    const b = { name: document.getElementById(`name-${game}`).value, link: document.getElementById(`link-${game}`).value, version: document.getElementById(`version-${game}`).value, note: document.getElementById(`note-${game}`).value };
     if (!userBuilds[game]) userBuilds[game] = [];
-    if (window.editingIndex[game] !== null) userBuilds[game][window.editingIndex[game]] = b; 
-    else userBuilds[game].push(b);
-    await syncToFirebase(); 
-    window.cancelEdit(game);
+    if (window.editingIndex[game] !== null) userBuilds[game][window.editingIndex[game]] = b; else userBuilds[game].push(b);
+    await syncToFirebase(); window.cancelEdit(game);
 };
 
-window.deleteBuild = async function(game, index) { 
-    if(!confirm("Eliminare?")) return; 
-    userBuilds[game].splice(index, 1); 
-    await syncToFirebase(); 
-};
+window.deleteBuild = async function(game, index) { if(!confirm("Eliminare?")) return; userBuilds[game].splice(index, 1); await syncToFirebase(); };
+window.quickSave = async function(game, name, version, link) { if(!userBuilds[game]) userBuilds[game]=[]; userBuilds[game].push({name, link, version, note:"Dal Catalogo"}); await syncToFirebase(); alert("Build Salvata!"); };
 
-window.quickSave = async function(game, name, version, link) { 
-    if(!userBuilds[game]) userBuilds[game]=[]; 
-    userBuilds[game].push({name, link, version, note:"Salvata dal Catalogo"}); 
-    await syncToFirebase(); 
-    alert("Build Salvata in 'Le Mie Build'!"); 
-};
-
-// =========================================================
-// 3. UI, TEMI E NAVIGAZIONE TABS
-// =========================================================
-window.setTheme = function(themeName) { 
-    document.documentElement.setAttribute('data-theme', themeName); 
-    localStorage.setItem('arpgTheme', themeName); 
-};
+window.setTheme = function(themeName) { document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('arpgTheme', themeName); };
 window.setTheme(localStorage.getItem('arpgTheme') || 'dark');
-
 let currentFontSize = parseInt(localStorage.getItem('arpgFontSize')) || 16;
-window.setFontSize = function(size) { 
-    currentFontSize = size; 
-    document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px'); 
-    localStorage.setItem('arpgFontSize', currentFontSize); 
-};
-window.changeFontSize = function(step) { 
-    let newSize = currentFontSize + (step * 2); 
-    if(newSize >= 12 && newSize <= 24) window.setFontSize(newSize); 
-};
+window.setFontSize = function(size) { currentFontSize = size; document.documentElement.style.setProperty('--base-font-size', currentFontSize + 'px'); localStorage.setItem('arpgFontSize', currentFontSize); };
+window.changeFontSize = function(step) { let newSize = currentFontSize + (step * 2); if(newSize >= 12 && newSize <= 24) window.setFontSize(newSize); };
 window.setFontSize(currentFontSize);
 
-window.openOverlay = function(url, title) { 
-    document.getElementById('modal-iframe').src = url; 
-    document.getElementById('modal-title').innerText = title; 
-    document.getElementById('iframe-modal').style.display = 'flex'; 
-};
-window.closeOverlay = function() { 
-    document.getElementById('modal-iframe').src = ''; 
-    document.getElementById('iframe-modal').style.display = 'none'; 
-};
-
+window.openOverlay = function(url, title) { document.getElementById('modal-iframe').src = url; document.getElementById('modal-title').innerText = title; document.getElementById('iframe-modal').style.display = 'flex'; };
+window.closeOverlay = function() { document.getElementById('modal-iframe').src = ''; document.getElementById('iframe-modal').style.display = 'none'; };
 window.closeEssentialPanel = function(panelId, triggerId) { document.getElementById(panelId).hidden = true; };
 window.toggleAppearancePanel = function() { const p = document.getElementById('appearance-panel'); p.hidden = !p.hidden; };
 
-window.toggleTabs = function(evt, containerClass, btnClass, activeBtnClass, activeContentClass) {
-    document.querySelectorAll('.' + containerClass).forEach(el => { el.style.display = "none"; el.classList.remove(activeContentClass); });
-    document.querySelectorAll('.' + btnClass).forEach(btn => btn.classList.remove(activeBtnClass));
-    evt.currentTarget.classList.add(activeBtnClass);
-};
-
+// GESTIONE CAMBIO TAB PRINCIPALE
 window.openMainTab = async function(evt, gameId, accentColor) {
-    document.querySelectorAll('.tab-btn').forEach(btn => { 
-        btn.classList.remove('active-btn'); 
-        btn.style.borderBottomColor = "transparent"; 
-        btn.style.color = "var(--text-main)"; 
-    });
-    evt.currentTarget.classList.add('active-btn');
-    if (accentColor) { 
-        evt.currentTarget.style.borderBottomColor = accentColor; 
-        evt.currentTarget.style.color = accentColor; 
+    document.querySelectorAll('.tab-btn').forEach(btn => { btn.classList.remove('active-btn'); btn.style.borderBottomColor = "transparent"; btn.style.color = "var(--text-main)"; });
+    if(evt && evt.currentTarget) {
+        evt.currentTarget.classList.add('active-btn');
+        if (accentColor) { evt.currentTarget.style.borderBottomColor = accentColor; evt.currentTarget.style.color = accentColor; }
     }
-    
     const container = document.getElementById('game-content-container');
     container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>`;
-    
     try {
-        const res = await fetch(`pages/${gameId}.html`);
+        const res = await fetch(`pages/${gameId}.html?v=4`);
         if (!res.ok) throw new Error("File non trovato");
         container.innerHTML = await res.text();
-        
         document.body.dataset.activeGame = gameId;
-        window.initializeTabContent(gameId);
         
-        const firstSubBtn = container.querySelector(`.${gameId}-sub-btn`);
+        await window.initializeTabContent(gameId);
+        
+        // Attiva automaticamente la prima sottoscheda
+        const firstSubBtn = container.querySelector(`.sub-tab-btn`);
         if(firstSubBtn) firstSubBtn.click();
     } catch (error) { 
-        container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento della pagina. Assicurati che il file pages/${gameId}.html esista.</div>`; 
+        container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento. Assicurati che il file pages/${gameId}.html esista su GitHub.</div>`; 
     }
 };
 
 window.openSubTab = function(evt, subTabId, gamePrefix) {
-    window.toggleTabs(evt, `${gamePrefix}-sub-content`, `${gamePrefix}-sub-btn`, 'active-sub', 'active-sub-content');
-    document.getElementById(subTabId).style.display = "block";
-    if (subTabId === 'poe1-encyclopedia' && window.poe1Encyclopedia) {
-        window.poe1Encyclopedia.filterSelection(null, 'all');
+    document.querySelectorAll(`.${gamePrefix}-sub-content`).forEach(el => { el.style.display = "none"; el.classList.remove('active-sub-content'); });
+    document.querySelectorAll(`.${gamePrefix}-sub-btn`).forEach(btn => btn.classList.remove('active-sub'));
+    if(evt && evt.currentTarget) evt.currentTarget.classList.add('active-sub');
+    
+    const target = document.getElementById(subTabId);
+    if(target) {
+        target.style.display = "block";
+        target.classList.add('active-sub-content');
     }
+    if (subTabId === 'poe1-encyclopedia' && window.initializePoe1Encyclopedia) window.initializePoe1Encyclopedia();
 };
 
 window.multiSearch = function(event, inputId, selectId) {
-    event.preventDefault(); 
-    let input = document.getElementById(inputId).value; 
-    let site = document.getElementById(selectId).value;
+    event.preventDefault(); let input = document.getElementById(inputId).value; let site = document.getElementById(selectId).value;
     if(input.trim() !== "") {
-        if (site === 'all') { 
-            let allSites = Array.from(document.getElementById(selectId).options).map(opt => opt.value).filter(val => val !== 'all').map(val => `site:${val}`).join(' OR '); 
-            window.open(`https://www.google.com/search?q=${encodeURIComponent(input)}+(${allSites})`, '_blank'); 
-        }
+        if (site === 'all') { let allSites = Array.from(document.getElementById(selectId).options).map(opt => opt.value).filter(val => val !== 'all').map(val => `site:${val}`).join(' OR '); window.open(`https://www.google.com/search?q=${encodeURIComponent(input)}+(${allSites})`, '_blank'); }
         else { window.open(`https://www.google.com/search?q=site:${site}+${encodeURIComponent(input)}`, '_blank'); }
     }
 };
 
-// =========================================================
-// 4. GESTIONE JSON E RENDERING DINAMICO (Builds, Ranking)
-// =========================================================
+// JSON CARICAMENTO E RENDERING
 const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
-let hubBuildCatalog = null; 
-let hubPatchRegistry = null; 
-let hubRankingData = null; 
-let hubSearchEntries = [];
-
-function buildElement(tag, className, text) { 
-    const el = document.createElement(tag); 
-    if (className) el.className = className; 
-    if (text !== undefined) el.textContent = text; 
-    return el; 
-}
+let hubBuildCatalog = null, hubPatchRegistry = null, hubRankingData = null, hubSearchEntries = [];
 
 async function loadAllJSON() {
     try {
         const [cat, pat, rank] = await Promise.allSettled([
-            fetch('./assets/builds.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
-            fetch('./assets/patches.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
-            fetch('./assets/rankings.json', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject())
+            fetch('assets/builds.json?v=4', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
+            fetch('assets/patches.json?v=4', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject()),
+            fetch('assets/rankings.json?v=4', {cache:'no-store'}).then(r => r.ok?r.json():Promise.reject())
         ]);
-        
         hubBuildCatalog = cat.status === 'fulfilled' ? cat.value : null;
         hubPatchRegistry = pat.status === 'fulfilled' ? pat.value : null;
         hubRankingData = rank.status === 'fulfilled' ? rank.value : null;
-        
-        hubSearchEntries = [];
-        if (hubBuildCatalog?.games) {
-            Object.entries(hubBuildCatalog.games).forEach(([gameId, game]) => {
-                Object.entries(game.builds || {}).forEach(([category, builds]) => {
-                    (builds || []).forEach(b => hubSearchEntries.push({ title: b.title, kind: 'Build', gameId, meta: `${b.class} ${b.specialization}`, url: b.sourceUrl }));
-                });
-            });
-        }
-    } catch (e) {
-        console.warn("Errore caricamento database JSON. Assicurati di aver eseguito le GitHub Actions.");
-    }
+    } catch (e) {}
 }
 
 window.initializeTabContent = async function(gameId) {
@@ -310,51 +175,31 @@ window.initializeTabContent = async function(gameId) {
     const gameData = hubBuildCatalog?.games[gameId];
     if (!gameData) return;
 
-    // Rendering Meta Badge (Stagioni e Timer)
     const metaTarget = document.getElementById(`build-meta-${gameId}`);
     if(metaTarget) {
-        metaTarget.innerHTML = `
-            <div class="build-meta-heading">
-                <span class="build-meta-eyebrow">Aggiornamento meta</span>
-                <strong class="build-meta-title">${HUB_GAMES[gameId]}</strong>
-                <span class="build-meta-status">Sincronizzato</span>
-            </div>
-            <div class="build-meta-details">
-                <div class="build-meta-detail">
-                    <span class="build-meta-label">Patch / Stagione / Timer</span>
-                    <strong class="build-meta-value">${gameData.patch}</strong>
-                </div>
-            </div>`;
+        metaTarget.innerHTML = `<div class="build-meta-heading"><span class="build-meta-eyebrow">Aggiornamento meta</span><strong class="build-meta-title">${HUB_GAMES[gameId]}</strong><span class="build-meta-status">Verificato</span></div>
+        <div class="build-meta-details"><div class="build-meta-detail"><span class="build-meta-label">Patch / Stagione</span><strong class="build-meta-value">${gameData.patch}</strong></div></div>`;
     }
 
-    // Sostituisci tutte le scritte "Caricamento..." generiche
-    document.querySelectorAll(`#${gameId} .season-highlight`).forEach(el => {
-        el.textContent = gameData.patch || "Stagione Corrente";
-    });
-
-    // Rendering Discovery Community
     const discTarget = document.getElementById(`build-discovery-${gameId}`);
     if(discTarget && gameData.discovery) {
         let html = `<div class="build-discovery-heading"><span class="build-discovery-eyebrow">Community discovery</span><strong class="build-discovery-title">Build da esplorare</strong></div><div class="build-discovery-sources">`;
         gameData.discovery.sources.forEach(s => html += `<a href="${s[1]}" target="_blank" class="tool-link" style="background:#555;">↗ ${s[0]}</a>`);
         html += `</div><div class="build-discovery-grid">`;
         gameData.discovery.prompts.forEach(p => {
-            let cleanPatch = gameData.patch.split('(')[0].trim(); // Rimuove il timer dalla query
-            let q = encodeURIComponent(`${HUB_GAMES[gameId]} ${cleanPatch} ${p[2]}`);
+            let q = encodeURIComponent(`${HUB_GAMES[gameId]} ${gameData.patch.split('(')[0]} ${p[2]}`);
             html += `<article class="build-discovery-card"><h4>${p[0]}</h4><p>${p[1]}</p><div class="build-discovery-actions"><a href="https://www.youtube.com/results?search_query=${q}" target="_blank" class="tool-link" style="background:var(--color-yt);">📺 YouTube</a></div></article>`;
         });
         html += `</div>`;
         discTarget.innerHTML = html;
     }
 
-    // Render Lists
     const renderList = (type, targetId) => {
         const ul = document.getElementById(targetId);
         if(!ul) return;
         ul.innerHTML = '';
         const builds = gameData.builds[type] || [];
         if(!builds.length) { ul.innerHTML = '<li><span style="color:var(--text-muted); font-style:italic;">Nessuna build registrata.</span></li>'; return; }
-        
         builds.forEach(b => {
             ul.innerHTML += `<li>
                 <div class="dash-list-item-content">
@@ -362,37 +207,29 @@ window.initializeTabContent = async function(gameId) {
                     <div class="build-class-info">(${b.class} - ${b.specialization})</div>
                     <div class="smart-links-container"><a href="${b.sourceUrl}" target="_blank" class="tool-link" style="background:#555;">🔗 Guida</a></div>
                 </div>
-                <div class="dash-list-actions">
-                    <button type="button" class="quick-save-btn" title="Salva nelle Mie Build" onclick="window.quickSave('${gameId}', '${b.title} (${b.specialization})', '${gameData.patch}', '${b.sourceUrl}')">💾</button>
-                </div>
+                <div class="dash-list-actions"><button type="button" class="quick-save-btn" onclick="window.quickSave('${gameId}', '${b.title} (${b.specialization})', '${gameData.patch}', '${b.sourceUrl}')">💾</button></div>
             </li>`;
         });
     };
     renderList('endgame', `top-builds-${gameId}`);
     renderList('leveling', `top-leveling-${gameId}`);
     
-    // Inizializzazioni specifiche di gioco
     if (gameId === 'd2' && window.renderD2Runewords) window.renderD2Runewords();
-    if (gameId === 'poe1' && window.initializePoe1Encyclopedia) window.initializePoe1Encyclopedia();
-    
     window.loadMyBuildsUI();
 };
 
-// =========================================================
-// 5. HUB TOOLBELT DIALOGS E CLASSIFICA ARPG
-// =========================================================
+// BOTTONI TOOLBELT
 document.getElementById('hub-ranking-btn').onclick = () => {
-    const body = document.getElementById('hub-ranking-grid');
-    if(!body) {
-        const m = buildElement('div', 'modal'); m.id = 'hub-ranking-dialog'; m.style.display = 'flex';
-        m.innerHTML = `<div class="modal-content auth-box"><div class="modal-header"><span class="modal-title">Classifica ARPG</span><span class="close-btn" onclick="document.getElementById('hub-ranking-dialog').style.display='none'">×</span></div><div id="hub-ranking-grid" style="padding:20px; overflow-y:auto; color:var(--text-main);"></div></div>`;
+    let m = document.getElementById('hub-ranking-dialog');
+    if(!m) {
+        m = document.createElement('div'); m.className = 'modal'; m.id = 'hub-ranking-dialog';
+        m.innerHTML = `<div class="modal-content auth-box"><div class="modal-header"><span class="modal-title">Classifica ARPG</span><span class="close-btn" onclick="document.getElementById('hub-ranking-dialog').style.display='none'">×</span></div><div id="hub-ranking-grid" style="padding:20px; overflow-y:auto;"></div></div>`;
         document.body.appendChild(m);
-    } else { document.getElementById('hub-ranking-dialog').style.display = 'flex'; }
-    
+    }
+    m.style.display = 'flex';
     const target = document.getElementById('hub-ranking-grid');
     target.innerHTML = '';
-    if(!hubRankingData?.rankings) { target.innerHTML = '<p>Dati Steam in tempo reale non disponibili. Aggiorna lo script.</p>'; return; }
-    
+    if(!hubRankingData?.rankings) { target.innerHTML = '<p>Dati non disponibili.</p>'; return; }
     hubRankingData.rankings.forEach((s, i) => {
         const formatNum = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : n;
         target.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:10px; border-bottom:1px solid var(--border-color); padding-bottom:5px;"><span>${i+1}. ${s.name}</span> <strong style="color:${s.color};">~${formatNum(s.players)}</strong></div>`;
@@ -400,170 +237,30 @@ document.getElementById('hub-ranking-btn').onclick = () => {
 };
 
 document.getElementById('hub-patch-btn').onclick = () => {
-    const body = document.getElementById('hub-patch-grid');
-    if(!body) {
-        const m = buildElement('div', 'modal'); m.id = 'hub-patch-dialog'; m.style.display = 'flex';
-        m.innerHTML = `<div class="modal-content auth-box" style="width:600px;"><div class="modal-header"><span class="modal-title">Registro Patch & Stagioni</span><span class="close-btn" onclick="document.getElementById('hub-patch-dialog').style.display='none'">×</span></div><div id="hub-patch-grid" style="padding:20px; overflow-y:auto; display:grid; grid-template-columns:1fr; gap:15px; color:var(--text-main);"></div></div>`;
+    let m = document.getElementById('hub-patch-dialog');
+    if(!m) {
+        m = document.createElement('div'); m.className = 'modal'; m.id = 'hub-patch-dialog';
+        m.innerHTML = `<div class="modal-content auth-box" style="width:600px;"><div class="modal-header"><span class="modal-title">Registro Patch & Stagioni</span><span class="close-btn" onclick="document.getElementById('hub-patch-dialog').style.display='none'">×</span></div><div id="hub-patch-grid" style="padding:20px; overflow-y:auto; display:grid; grid-template-columns:1fr; gap:15px;"></div></div>`;
         document.body.appendChild(m);
-    } else { document.getElementById('hub-patch-dialog').style.display = 'flex'; }
-    
+    }
+    m.style.display = 'flex';
     const target = document.getElementById('hub-patch-grid');
     target.innerHTML = '';
     if(!hubPatchRegistry?.games) return;
-    
     Object.entries(HUB_GAMES).forEach(([id, name]) => {
         const p = hubPatchRegistry.games[id];
-        target.innerHTML += `<div style="border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-card);">
-            <h3 style="margin-top:0; color:var(--accent-primary);">${name}</h3>
-            <div class="season-highlight" style="margin-bottom:10px;">${p?.currentPatch || 'N/D'}</div><br>
-            <a href="${p?.sourceUrl}" target="_blank" style="color:var(--accent-tertiary); text-decoration:underline;">Consulta Fonte</a>
-        </div>`;
+        target.innerHTML += `<div style="border:1px solid var(--border-color); padding:10px; border-radius:8px; background:var(--bg-card);"><h3>${name}</h3><div class="season-highlight" style="margin-bottom:10px;">${p?.currentPatch || 'N/D'}</div><br><a href="${p?.sourceUrl}" target="_blank" style="color:var(--accent-primary);">Consulta Fonte</a></div>`;
     });
 };
-
-// Ricerca Rapida Toolbelt
-document.getElementById('hub-search-btn').onclick = () => {
-    const p = prompt("Cerca Build nel Database (es. 'Lightning', 'Paladin'):");
-    if(p && p.trim()) {
-        const res = hubSearchEntries.filter(x => x.title.toLowerCase().includes(p.toLowerCase()) || x.meta.toLowerCase().includes(p.toLowerCase()));
-        if(res.length) { 
-            alert(`Trovati ${res.length} risultati! Ti porto alla prima scheda trovata: ${HUB_GAMES[res[0].gameId]}`); 
-            document.querySelector(`.tab-btn[onclick*="'${res[0].gameId}'"]`).click(); 
-        }
-        else alert("Nessun risultato trovato nel catalogo. Assicurati che le build siano scritte correttamente.");
-    }
-};
-
-// Toolbelt Temporanei non implementati completamente per brevità UI
-['hub-season-btn', 'hub-compare-btn'].forEach(id => {
-    document.getElementById(id).onclick = () => alert("Funzionalità in fase di restyling!");
-});
 
 document.getElementById('hub-share-btn').onclick = () => {
-    const url = new URL(window.location.href);
-    if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(url.href).then(() => alert('Link copiato nella clipboard!')); }
-    else window.prompt('Copia questo link:', url.href);
+    if (navigator.clipboard?.writeText) { navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiato!')); }
+    else window.prompt('Copia questo link:', window.location.href);
 };
 
-// =========================================================
-// 6. ENCICLOPEDIA E RUNEWORDS GLOBALI
-// =========================================================
-window.initializePoe1Encyclopedia = function() {
-    const root = document.getElementById('poe1-encyclopedia');
-    if (!root || root.dataset.initialized === 'true') return;
-
-    window.poe1Encyclopedia = {
-        openLightbox(imgSrc) {
-            const lightbox = root.querySelector('#poe1-encyclopedia-lightbox');
-            const image = root.querySelector('#poe1-encyclopedia-lightbox-img');
-            lightbox.classList.add('active'); image.src = imgSrc; document.body.style.overflow = 'hidden';
-        },
-        closeLightbox(event) {
-            const lightbox = root.querySelector('#poe1-encyclopedia-lightbox');
-            if (event && event.target !== lightbox) return;
-            lightbox.classList.remove('active'); document.body.style.overflow = 'auto';
-        },
-        filterSelection(event, category) {
-            const cards = root.querySelectorAll('.card');
-            const buttons = root.querySelectorAll('.filter-btn');
-            buttons.forEach(button => button.classList.remove('active'));
-            if (event && event.currentTarget) event.currentTarget.classList.add('active');
-            const classToMatch = category === 'all' ? '' : category;
-            cards.forEach(card => { card.style.display = card.className.includes(classToMatch) ? 'flex' : 'none'; });
-        },
-        openModal(id) {
-            const modal = root.querySelector(`#${id}`);
-            if (!modal) return; modal.style.display = 'flex'; document.body.style.overflow = 'hidden';
-        },
-        closeModalById(id) {
-            const modal = root.querySelector(`#${id}`);
-            if (!modal) return; modal.style.display = 'none'; document.body.style.overflow = 'auto';
-        },
-        closeModal(event) {
-            if (event.target.classList.contains('modal-overlay')) { event.target.style.display = 'none'; document.body.style.overflow = 'auto'; }
-        }
-    };
-    root.dataset.initialized = 'true';
-    window.poe1Encyclopedia.filterSelection(null, 'all');
-};
-
-window.filterItemsStatic = function(sectionId, filterId, dataAttr) {
-    const selectedClass = document.getElementById(filterId).value;
-    const section = document.getElementById(sectionId);
-    if(!section) return;
-    const items = section.querySelectorAll(`li[${dataAttr}]`);
-    items.forEach(item => {
-        const itemClasses = item.getAttribute(dataAttr).split(',');
-        item.style.display = (selectedClass === 'all' || itemClasses.includes('all') || itemClasses.includes(selectedClass)) ? '' : 'none';
-    });
-};
-
-const RUNE_IMG_BASE_URL = "https://d2runewizard.com/assets/runes/";
-const RUNE_IMG_EXT = ".webp";
-const runewordsData = [
-    { name: "Stealth (Furtività)", type: "armatura", emoji: "👕", level: 17, sockets: 2, runes: ["Tal", "Eth"], base: "Armatura Torso", desc: "Velocità di movimento e lancio. Eccellente per il leveling.", stats: ["+25% Velocità di Lancio", "+25% Velocità di Movimento", "+25% Recupero dai Colpi", "Rigenerazione Mana +15%"] },
-    { name: "Spirit (Spirito - Arma)", type: "arma", emoji: "🗡️", level: 25, sockets: 4, runes: ["Tal", "Thul", "Ort", "Amn"], base: "Spade (es. Crystal Sword)", desc: "Il miglior oggetto per Incantatori a basso costo.", stats: ["+2 a Tutte le Abilità", "+25-35% Velocità di Lancio", "+55% Recupero dai Colpi", "+22 Vitalità"] },
-    { name: "Insight (Intuizione)", type: "arma", emoji: "🔱", level: 27, sockets: 4, runes: ["Ral", "Tir", "Tal", "Sol"], base: "Armi Inastate / Archi", desc: "Risolve i problemi di Mana per il tuo personaggio se data al Mercenario.", stats: ["Aura di Meditazione liv. 12-17 attiva", "+200-260% Danno", "+35% Velocità di Lancio"] },
-    { name: "Lore (Conoscenza)", type: "elmo", emoji: "🪖", level: 27, sockets: 2, runes: ["Ort", "Sol"], base: "Qualsiasi Elmo a 2 incavi", desc: "Fornisce +1 Alle abilità. Ideale per terminare Normale.", stats: ["+1 a Tutte le Abilità", "+30% Resistenza al Fulmine", "+2 al Mana per uccisione"] },
-    { name: "Ancient's Pledge (Promessa)", type: "scudo", emoji: "🛡️", level: 21, sockets: 3, runes: ["Ral", "Ort", "Tal"], base: "Kite Shield, Large Shield", desc: "Fixa le resistenze all'istante con le rune regalate nell'Atto 5.", stats: ["+48% Res Freddo", "+48% Res Fuoco", "+48% Res Fulmine", "+48% Res Veleno"] },
-    { name: "Enigma", type: "armatura", emoji: "👕", level: 65, sockets: 3, runes: ["Jah", "Ith", "Ber"], base: "Mage Plate, Archon Plate", desc: "L'armatura endgame definitiva. Dona Teletrasporto.", stats: ["+1 a Teletrasporto", "+2 a Tutte le Abilità", "+ (0.75 per Livello) Forza"] }
-];
-
-window.renderD2Runewords = function() {
-    const selectedType = document.getElementById('type-filter-d2') ? document.getElementById('type-filter-d2').value : 'all';
-    const container = document.getElementById('runewords-container');
-    if(!container) return;
-    container.innerHTML = ''; 
-    let typesToRender = selectedType === 'all' ? [...new Set(runewordsData.map(rw => rw.type))] : [selectedType];
-    
-    typesToRender.forEach(type => {
-        const items = runewordsData.filter(rw => rw.type === type);
-        if (items.length === 0) return;
-        const h2 = document.createElement('h2');
-        h2.className = 'guide-title category-title';
-        h2.textContent = type === 'armatura' ? '👕 Armature' : type === 'arma' ? '⚔️ Armi' : type === 'scudo' ? '🛡️ Scudi' : '🪖 Elmi';
-        container.appendChild(h2);
-        
-        const ul = document.createElement('ul');
-        ul.className = 'guide-list';
-        
-        items.forEach(item => {
-            const li = document.createElement('li');
-            li.className = 'runeword-card';
-            const statsHtml = item.stats.map(stat => `<div class="stat-line">${stat}</div>`).join('');
-            let runeImagesHtml = '<div class="rune-images-container">';
-            item.runes.forEach(rune => {
-                let imgUrl = `${RUNE_IMG_BASE_URL}${rune.trim().toLowerCase()}${RUNE_IMG_EXT}`;
-                runeImagesHtml += `<div class="rune-block"><img src="${imgUrl}" alt="${rune}" width="28"><span>${rune}</span></div>`;
-            });
-            runeImagesHtml += '</div>';
-
-            li.innerHTML = `
-                <div class="item-image-container">${item.emoji}</div>
-                <div class="item-details">
-                    <span class="unique-item">${item.name}</span>
-                    <div class="badges">
-                        <span class="level-req">📈 Liv. Req: ${item.level}</span>
-                        <span class="item-sockets">🕳️ ${item.sockets} Incavi</span>
-                        <span class="item-runes">🪨 ${item.runes.join(' + ')}</span>
-                    </div>
-                    ${runeImagesHtml}
-                    <span class="desc">${item.desc}</span>
-                    <span class="class-rec">🎯 Base Ideale: ${item.base}</span>
-                </div>
-                <div class="item-stats"><strong>Bonus e Statistiche</strong>${statsHtml}</div>
-            `;
-            ul.appendChild(li);
-        });
-        container.appendChild(ul);
-    });
-};
-
-// =========================================================
-// 7. AVVIO AL CARICAMENTO DELLA PAGINA
-// =========================================================
+// AVVIO
 document.addEventListener("DOMContentLoaded", async () => {
-    window.loadMyBuildsUI();
+    await loadAllJSON();
     const firstTab = document.querySelector('.tab-btn');
     if(firstTab) firstTab.click();
 });
