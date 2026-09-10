@@ -228,35 +228,47 @@ window.initializeTabContent = async function(gameId) {
     // 3. RENDERING LISTE BUILD (Aggiunto YouTube Dinamico)
     const renderList = (type, targetId) => {
         const ul = document.getElementById(targetId);
-        if(!ul) return;
+        if (!ul) return;
         ul.innerHTML = '';
         const builds = gameData.builds[type] || [];
-        if(!builds.length) { ul.innerHTML = '<li><span style="color:var(--text-muted); font-style:italic;">Nessuna build registrata.</span></li>'; return; }
-        
+        if (!builds.length) {
+            ul.innerHTML = '<li><span style="color:var(--text-muted); font-style:italic;">Nessuna build registrata.</span></li>';
+            return;
+        }
+
         builds.forEach(b => {
             let cleanPatch = gameData.patch.split('(')[0].trim();
             let ytQuery = encodeURIComponent(`${HUB_GAMES[gameId]} ${cleanPatch} ${b.title} ${b.specialization} build`);
-            
+
+            // Mappa tier → colore e bordo
+            const tierColors = {
+                'S': '#e6b46d', // Oro
+                'A': '#6c82d4', // Blu
+                'B': '#9b4fd4', // Viola
+                'C': '#a81818', // Rosso
+            };
+            const tierColor = tierColors[b.tier] || b.tierColor || '#848484';
+            const tierBorder = `border-left: 3px solid ${tierColor};`;
+
             ul.innerHTML += `
-            <li>
-                <div class="dash-list-item-content">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <span class="build-catalog-title" style="font-size:1.1em; color:var(--accent-primary);">${b.title}</span> 
-                        <span class="tag" style="background:${b.tierColor};">${b.tier}</span>
-                    </div>
-                    <div class="build-class-info" style="color:var(--text-muted); margin: 5px 0;">(${b.class} - ${b.specialization})</div>
-                    <div class="smart-links-container" style="display:flex; gap:5px; margin-top:5px;">
-                        <a href="${b.sourceUrl}" target="_blank" class="tool-link" style="background:var(--bg-hover); border:1px solid var(--border-color);">🔗 Guida Scritta</a>
-                        <a href="https://www.youtube.com/results?search_query=${ytQuery}" target="_blank" class="tool-link" style="background:var(--color-yt); border:1px solid #aa0000;">📺 YouTube</a>
-                    </div>
+            <li class="build-card-revamp" style="${tierBorder}">
+                <div class="build-card-header">
+                    <span class="build-catalog-title">${b.title}</span>
+                    <span class="build-tier-badge" style="background:${tierColor}; color:#000; font-weight:700;">${b.tier}</span>
                 </div>
-                <div class="dash-list-actions">
-                    <button type="button" class="quick-save-btn" title="Salva nelle Mie Build" onclick="window.quickSave('${gameId}', '${b.title.replace(/'/g,"\\'")}', '${gameData.patch.split('(')[0].trim()}', '${b.sourceUrl}')">💾</button>
+                <div class="build-card-meta">
+                    <span class="build-class-badge">⚔️ ${b.class}</span>
+                    <span class="build-spec-badge">🔮 ${b.specialization}</span>
+                </div>
+                <div class="build-card-actions">
+                    <a href="${b.sourceUrl}" target="_blank" class="tool-link tool-link-guide">🔗 Guida</a>
+                    <a href="https://www.youtube.com/results?search_query=${ytQuery}" target="_blank" class="tool-link tool-link-yt">📺 Video</a>
+                    <button type="button" class="quick-save-btn-revamp" title="Salva nelle Mie Build" onclick="window.quickSave('${gameId}', '${b.title.replace(/'/g, "\\'")}', '${cleanPatch}', '${b.sourceUrl}')">💾</button>
                 </div>
             </li>`;
         });
     };
-    
+
     renderList('endgame', `top-builds-${gameId}`);
     renderList('leveling', `top-leveling-${gameId}`);
     

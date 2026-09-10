@@ -540,3 +540,110 @@ button.action-btn:hover { background: linear-gradient(to bottom, #3a2e24, #1a110
   .game-card-title { font-size: 1.2rem; }
   .game-card-desc { font-size: 0.95rem; }
 }
+/* =========================================================
+   BUILD CARD REVAMP (ARPG STYLE)
+   ========================================================= */
+.build-card-revamp {
+  background: linear-gradient(to bottom, #16161d, #0c0c10);
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  position: relative;
+  overflow: hidden;
+}
+
+.build-card-revamp:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.9), var(--glow-gold);
+  border-color: var(--accent-primary);
+}
+
+.build-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.build-catalog-title {
+  font-family: var(--font-epic);
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+.build-tier-badge {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+
+.build-card-meta {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.build-class-badge,
+.build-spec-badge {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
+
+.build-card-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.tool-link-guide {
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+}
+
+.tool-link-yt {
+  background: #cc0000;
+  border: 1px solid #880000;
+  color: #fff;
+}
+
+.quick-save-btn-revamp {
+  background: linear-gradient(to bottom, #2a2a32, #1a1a20);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 6px 10px;
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.quick-save-btn-revamp:hover {
+  background: linear-gradient(to bottom, #32323a, #202028);
+  box-shadow: 0 0 10px rgba(230,180,109,0.3);
+}
+
+@media (max-width: 600px) {
+  .build-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .build-card-actions {
+    flex-wrap: wrap;
+  }
+}
