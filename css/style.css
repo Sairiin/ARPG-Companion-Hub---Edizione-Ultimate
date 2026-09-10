@@ -1,35 +1,53 @@
 /* =========================================================
-   1. VARIABILI ARPG (DARK FANTASY, ORO, SANGUE)
+   1. VARIABILI ARPG (DARK FANTASY, ORO, SANGUE) - REVAMP
    ========================================================= */
-:root { 
-    --accent-primary: #d4a35c; /* Oro Unique / Leggendario */
-    --accent-secondary: #5c72b5; /* Blu Magico */
-    --accent-tertiary: #a89f91; /* Grigio Base */
-    --accent-le: #8a3eb8; /* Viola Epico */
-    --danger: #8a1313; /* Rosso Sangue */
-    
-    --bg-main: #08080a; /* Ossidiana Profonda */
-    --bg-secondary: #0f0f13; /* Pietra Scura */
-    --bg-card: #141418; /* Sfondo Pannelli */
-    --bg-hover: #1e1e24; 
-    
-    --border-color: #2c251d; /* Bronzo scuro */
-    --border-highlight: #4a3e31; /* Bronzo chiaro */
-    
-    --text-main: #d3ccc3; /* Pergamena / Cenere */
-    --text-muted: #847d75;
-    
-    --item-unique: #d4a35c;
-    --item-set: #00ff00;
-    --item-rare: #ffff00;
-    
-    --font-epic: 'Cinzel', Georgia, serif;
-    --font-text: 'Crimson Text', serif;
-    --font-ui: 'Inter', sans-serif;
-    
-    --base-font-size: 16px; 
-    --shadow-heavy: 0 10px 30px rgba(0,0,0,0.9);
+:root {
+  /* Accenti globali */
+  --accent-primary: #e6b46d; /* Oro Unique più luminoso */
+  --accent-secondary: #6c82d4; /* Blu Magico più saturo */
+  --accent-tertiary: #b8afa3; /* Grigio Base più chiaro */
+  --accent-le: #9b4fd4; /* Viola Epico più vivo */
+  --danger: #a81818; /* Rosso Sangue più intenso */
+
+  /* Accenti per gioco */
+  --poe1-accent: #a33131; /* Rosso sangue */
+  --poe2-accent: #d4a35c; /* Oro */
+  --d2-accent: #8a1313; /* Rosso scuro */
+  --d4-accent: #c41e1e; /* Rosso vivo */
+  --le-accent: #6c5ce7; /* Blu/arcano */
+
+  /* Sfondi */
+  --bg-main: #050507; /* Ossidiana ancora più scura */
+  --bg-secondary: #0b0b10; /* Pietra Scura */
+  --bg-card: #121218; /* Sfondo Pannelli */
+  --bg-hover: #1a1a22;
+
+  /* Bordi */
+  --border-color: #2b231a; /* Bronzo scuro */
+  --border-highlight: #4a3e31; /* Bronzo chiaro */
+
+  /* Testi */
+  --text-main: #e6dfd6; /* Pergamena più chiara */
+  --text-muted: #9a9289;
+
+  /* Item rarity */
+  --item-unique: #e6b46d;
+  --item-set: #00ff99;
+  --item-rare: #ffeb3b;
+
+  /* Font */
+  --font-epic: 'Cinzel', Georgia, serif;
+  --font-text: 'Crimson Text', serif;
+  --font-ui: 'Inter', sans-serif;
+
+  /* UI */
+  --base-font-size: 16px;
+  --shadow-heavy: 0 10px 30px rgba(0,0,0,0.95);
+  --glow-gold: 0 0 12px rgba(230, 180, 109, 0.35);
+  --glow-red: 0 0 12px rgba(168, 24, 24, 0.35);
+  --glow-blue: 0 0 12px rgba(108, 130, 212, 0.35);
 }
+
 
 /* Base Body (Sfondo Pietra/Oscurità) */
 body { 
@@ -373,3 +391,152 @@ button.action-btn:hover { background: linear-gradient(to bottom, #3a2e24, #1a110
 .main-footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); margin-top: 50px; font-family: var(--font-epic); color: var(--text-muted); font-size: 0.9em; background: #050505;}
 .footer-link { color: var(--item-unique); text-decoration: none; font-weight: bold; transition: 0.2s;}
 .footer-link:hover { color: #fff; }
+/* =========================================================
+   HERO SECTION (ARPG STYLE)
+   ========================================================= */
+.hero-arpg {
+  text-align: center;
+  padding: 60px 20px;
+  background: radial-gradient(circle at 50% 0%, rgba(230,180,109,0.08) 0%, transparent 60%),
+              linear-gradient(to bottom, #0a0a0f, #050507);
+  border: 1px solid #000;
+  border-radius: 6px;
+  margin-bottom: 40px;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-arpg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/black-scales.png');
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-family: var(--font-epic);
+  font-size: 2.5rem;
+  color: var(--accent-primary);
+  margin: 0 0 10px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.9), var(--glow-gold);
+  letter-spacing: 1px;
+}
+
+.hero-subtitle {
+  font-family: var(--font-text);
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .hero-title { font-size: 3rem; }
+  .hero-subtitle { font-size: 1.2rem; }
+}
+/* =========================================================
+   GAMES GRID (HOME PAGE)
+   ========================================================= */
+.games-grid-section {
+  margin-bottom: 50px;
+}
+
+.section-epic-title {
+  font-family: var(--font-epic);
+  font-size: 1.8rem;
+  color: var(--accent-primary);
+  text-align: center;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.9), var(--glow-gold);
+  letter-spacing: 1px;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.game-card {
+  background: linear-gradient(to bottom, #16161d, #0c0c10);
+  border: 1px solid #000;
+  border-top: 2px solid var(--border-highlight);
+  border-radius: 6px;
+  padding: 20px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+  color: var(--text-main);
+  font-family: var(--font-text);
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.95), var(--glow-gold);
+  border-top-color: var(--accent-primary);
+}
+
+.game-card-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #000;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.7);
+}
+.game-card-icon img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.95));
+}
+/* Nascondi il testo se c'è un'immagine dentro l'icona */
+.game-card-icon img + .game-card-initial,
+.game-card-icon:has(img) .game-card-initial {
+  display: none;
+}
+.game-card-initial {
+  font-family: var(--font-epic);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.95);
+}
+
+.game-card-title {
+  font-family: var(--font-epic);
+  font-size: 1.1rem;
+  color: var(--accent-primary);
+  margin: 0 0 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+.game-card-desc {
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .games-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .game-card-title { font-size: 1.2rem; }
+  .game-card-desc { font-size: 0.95rem; }
+}

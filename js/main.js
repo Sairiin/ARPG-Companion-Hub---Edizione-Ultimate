@@ -1,95 +1,62 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+// js/main.js
 
-const firebaseConfig = { apiKey: "AIzaSyBBb-T8EEAGk203ANzajLkNvyoo17STTus", authDomain: "arpg-companion-hub.firebaseapp.com", projectId: "arpg-companion-hub", storageBucket: "arpg-companion-hub.firebasestorage.app", messagingSenderId: "992359528045", appId: "1:992359528045:web:f1776114a695399237b164", measurementId: "G-R7EDZCSZN2" };
+import { auth, db, currentUser, syncFromFirebase, syncToFirebase, getAuthModules, setOnAuthStateChangeCallback } from './firebase.js';
+import { buildElement, HUB_GAMES } from './utils.js';
+import { userBuilds, editingIndex, loadMyBuildsUI, filterSavedBuilds, editBuild, cancelEdit, saveBuild, deleteBuild, quickSave } from './builds.js';
 
-let app, auth, db;
-try { app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app); } catch(e) { console.warn("Firebase offline.", e); }
-
-let currentUser = null;
-let userBuilds = { poe1: [], poe2: [], d2: [], le: [], d4: [] }; 
-window.editingIndex = { poe1: null, poe2: null, d2: null, le: null, d4: null };
 
 window.openAuthModal = () => document.getElementById('auth-modal').style.display = 'flex';
 window.closeAuthModal = () => document.getElementById('auth-modal').style.display = 'none';
-window.loginWithGoogle = async () => { const provider = new GoogleAuthProvider(); try { await signInWithPopup(auth, provider); } catch(e) {} };
-window.registerWithEmail = async () => { const e=document.getElementById('auth-email').value; const p=document.getElementById('auth-password').value; try { await createUserWithEmailAndPassword(auth,e,p); window.closeAuthModal(); } catch(e){ alert(e.message); } };
-window.loginWithEmail = async () => { const e=document.getElementById('auth-email').value; const p=document.getElementById('auth-password').value; try { await signInWithEmailAndPassword(auth,e,p); window.closeAuthModal(); } catch(e){ alert(e.message); } };
-window.logoutFirebase = async () => { if(auth) await signOut(auth); };
 
-if(auth) {
-    onAuthStateChanged(auth, async (user) => {
-        const authBtn = document.getElementById('auth-btn');
-        if (user) {
-            currentUser = user;
-            authBtn.innerHTML = `Esci (${user.displayName || user.email})`;
-            authBtn.onclick = window.logoutFirebase;
-            window.closeAuthModal();
-            await syncFromFirebase();
-        } else {
-            currentUser = null;
-            authBtn.innerHTML = `👤 Accedi al Cloud`;
-            authBtn.onclick = window.openAuthModal;
-            userBuilds = JSON.parse(localStorage.getItem('arpgBuildHub')) || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
-            window.loadMyBuildsUI();
-        }
-    });
-}
+const { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } = getAuthModules();
 
-async function syncFromFirebase() {
-    if (!currentUser || !db) return;
-    try {
-        const docSnap = await getDoc(doc(db, "users", currentUser.uid));
-        if (docSnap.exists()) { userBuilds = docSnap.data().builds || { poe1: [], poe2: [], d2: [], le: [], d4: [] }; }
-        else { await setDoc(doc(db, "users", currentUser.uid), { builds: userBuilds }); }
-        window.loadMyBuildsUI();
-    } catch(e) { console.error(e); }
-}
-async function syncToFirebase() {
-    if (currentUser && db) { try { await setDoc(doc(db, "users", currentUser.uid), { builds: userBuilds }, { merge: true }); } catch(e) {} }
-    else { localStorage.setItem('arpgBuildHub', JSON.stringify(userBuilds)); }
+window.loginWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  try { await signInWithPopup(auth, provider); } catch(e) {}
+};
+
+window.registerWithEmail = async () => {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  try { await createUserWithEmailAndPassword(auth, e, p); window.closeAuthModal(); } catch(e) { alert(e.message); }
+};
+
+window.loginWithEmail = async () => {
+  const e = document.getElementById('auth-email').value;
+  const p = document.getElementById('auth-password').value;
+  try { await signInWithEmailAndPassword(auth, e, p); window.closeAuthModal(); } catch(e) { alert(e.message); }
+};
+
+window.logoutFirebase = async () => {
+  if (auth) await signOut(auth);
+};
+setOnAuthStateChangeCallback(async (user) => {
+  const authBtn = document.getElementById('auth-btn');
+  if (user) {
+    authBtn.innerHTML = `Esci (${user.displayName || user.email})`;
+    authBtn.onclick = window.logoutFirebase;
+    window.closeAuthModal();
+    await syncFromFirebase(userBuilds);
     window.loadMyBuildsUI();
+  } else {
+    authBtn.innerHTML = `👤 Accedi al Cloud`;
+    authBtn.onclick = window.openAuthModal;
+    userBuilds = JSON.parse(localStorage.getItem('arpgBuildHub')) || { poe1: [], poe2: [], d2: [], le: [], d4: [] };
+    window.loadMyBuildsUI();
+  }
+});
+
+// Queste funzioni ora usano quelle esportate da firebase.js
+// e passano userBuilds come riferimento.
+async function syncFromFirebaseLocal() {
+  await syncFromFirebase(userBuilds);
+  window.loadMyBuildsUI();
 }
 
-window.loadMyBuildsUI = function() {
-    ['poe1', 'poe2', 'd2', 'le', 'd4'].forEach(game => {
-        const ul = document.getElementById(`my-builds-${game}`);
-        if(!ul) return;
-        ul.innerHTML = '';
-        if (!userBuilds[game] || userBuilds[game].length === 0) { ul.innerHTML = '<li><span style="color: var(--text-muted); font-style:italic;">Nessuna build salvata.</span></li>'; return; }
-        userBuilds[game].forEach((build, index) => {
-            ul.innerHTML += `<li><div class="dash-list-item-content"><a href="${build.link}" class="saved-link" target="_blank">${build.name}</a><span class="build-version">v. ${build.version || 'N/A'}</span><span class="build-note">- ${build.note || ''}</span></div><div class="dash-list-actions"><button class="edit-btn" onclick="window.editBuild('${game}', ${index})">✏️</button><button class="delete-btn" onclick="window.deleteBuild('${game}', ${index})">❌</button></div></li>`;
-        });
-    });
-};
-
-window.filterSavedBuilds = function(game) {
-    let filter = document.getElementById(`filter-saved-${game}`).value.toLowerCase();
-    let li = document.getElementById(`my-builds-${game}`)?.getElementsByTagName("li");
-    if(!li) return;
-    for (let i=0; i<li.length; i++) { if(!li[i].innerText.includes("Nessuna build")) li[i].style.display = (li[i].innerText.toLowerCase().indexOf(filter) > -1) ? "" : "none"; }
-};
-window.editBuild = function(game, index) {
-    const build = userBuilds[game][index];
-    document.getElementById(`name-${game}`).value = build.name; document.getElementById(`link-${game}`).value = build.link; document.getElementById(`version-${game}`).value = build.version; document.getElementById(`note-${game}`).value = build.note;
-    window.editingIndex[game] = index;
-    document.getElementById(`submit-btn-${game}`).textContent = "Aggiorna"; document.getElementById(`cancel-btn-${game}`).style.display = "inline-block";
-};
-window.cancelEdit = function(game) {
-    window.editingIndex[game] = null; document.getElementById(`form-${game}`).reset();
-    document.getElementById(`submit-btn-${game}`).textContent = "Salva"; document.getElementById(`cancel-btn-${game}`).style.display = "none";
-};
-window.saveBuild = async function(event, game) {
-    event.preventDefault();
-    const b = { name: document.getElementById(`name-${game}`).value, link: document.getElementById(`link-${game}`).value, version: document.getElementById(`version-${game}`).value, note: document.getElementById(`note-${game}`).value };
-    if (!userBuilds[game]) userBuilds[game] = [];
-    if (window.editingIndex[game] !== null) userBuilds[game][window.editingIndex[game]] = b; else userBuilds[game].push(b);
-    await syncToFirebase(); window.cancelEdit(game);
-};
-window.deleteBuild = async function(game, index) { if(!confirm("Eliminare?")) return; userBuilds[game].splice(index, 1); await syncToFirebase(); };
-window.quickSave = async function(game, name, version, link) { if(!userBuilds[game]) userBuilds[game]=[]; userBuilds[game].push({name, link, version, note:"Dal Catalogo"}); await syncToFirebase(); alert("Build Salvata!"); };
-
+async function syncToFirebaseLocal() {
+  await syncToFirebase(userBuilds);
+  window.loadMyBuildsUI();
+}
 window.setTheme = function(themeName) { document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('arpgTheme', themeName); };
 window.setTheme(localStorage.getItem('arpgTheme') || 'dark');
 let currentFontSize = parseInt(localStorage.getItem('arpgFontSize')) || 16;
@@ -125,6 +92,27 @@ window.openMainTab = async function(evt, gameId, accentColor) {
         if(firstSubBtn) firstSubBtn.click();
     } catch (error) { container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento. Assicurati che i file in pages/ esistano.</div>`; }
 };
+// Apre un gioco partendo dalla card (senza evento click sul tab)
+window.openMainTabFromCard = async function(gameId) {
+  const container = document.getElementById('game-content-container');
+  if (!container) return;
+
+  container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--text-muted);">Caricamento dati in corso...</div>`;
+
+  try {
+    const res = await fetch(`pages/${gameId}.html`);
+    if (!res.ok) throw new Error("File non trovato");
+    container.innerHTML = await res.text();
+    window.initializeTabContent(gameId);
+    document.body.dataset.activeGame = gameId;
+
+    // Attiva il primo sub-tab
+    const firstSubBtn = container.querySelector(`.${gameId}-sub-btn`);
+    if (firstSubBtn) firstSubBtn.click();
+  } catch (error) {
+    container.innerHTML = `<div style="text-align:center; padding: 50px; color: var(--danger);">Errore nel caricamento. Assicurati che i file in pages/ esistano.</div>`;
+  }
+};
 
 window.openSubTab = function(evt, subTabId, gamePrefix) {
     window.toggleTabs(evt, `${gamePrefix}-sub-content`, `${gamePrefix}-sub-btn`, 'active-sub', 'active-sub-content');
@@ -140,10 +128,8 @@ window.multiSearch = function(event, inputId, selectId) {
     }
 };
 
-const HUB_GAMES = { poe1: 'Path of Exile 1', poe2: 'Path of Exile 2', le: 'Last Epoch', d2: 'Diablo II: Resurrected', d4: 'Diablo 4' };
-let hubBuildCatalog = null; let hubPatchRegistry = null; let hubRankingData = null; let hubSearchEntries = [];
 
-function buildElement(tag, className, text) { const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el; }
+let hubBuildCatalog = null; let hubPatchRegistry = null; let hubRankingData = null; let hubSearchEntries = [];
 
 async function loadAllJSON() {
     try {
@@ -488,8 +474,11 @@ window.renderD2Runewords = function() {
     });
 };
 
-document.addEventListener("DOMContentLoaded", async () => {
-    window.loadMyBuildsUI();
-    const firstTab = document.querySelector('.tab-btn');
-    if(firstTab) firstTab.click();
-});
+// Esponi le funzioni builds su window per gli onclick inline
+window.loadMyBuildsUI = loadMyBuildsUI;
+window.filterSavedBuilds = filterSavedBuilds;
+window.editBuild = editBuild;
+window.cancelEdit = cancelEdit;
+window.saveBuild = saveBuild;
+window.deleteBuild = deleteBuild;
+window.quickSave = quickSave;

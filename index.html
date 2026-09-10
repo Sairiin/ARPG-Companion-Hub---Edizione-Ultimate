@@ -71,25 +71,72 @@
     <!-- Tasto per installare PWA su PC/Android -->
     <button class="hub-tool-btn hub-install-btn" id="hub-install-btn" type="button" hidden>⇩ Installa app</button>
 </div>
+<!-- HERO SECTION -->
+<section class="hero-arpg">
+  <div class="hero-content">
+    <h1 class="hero-title">ARPG Companion Hub</h1>
+    <p class="hero-subtitle">Build, guide e tool per i tuoi giochi ARPG preferiti</p>
+  </div>
+</section>
+<!-- / HERO SECTION -->
+<!-- GIOCHI GRID -->
+<!-- GIOCHI GRID -->
+<section class="games-grid-section">
+  <h2 class="section-epic-title">Scegli il tuo mondo</h2>
+  <div class="games-grid">
+    <!-- PoE1 -->
+    <button class="game-card" data-game="poe1"
+      onclick="window.openMainTabFromCard('poe1')">
+      <div class="game-card-icon poe1-icon">
+        <img src="assets/poe1-logo.png" alt="Path of Exile 1">
+      </div>
+      <h3 class="game-card-title">Path of Exile 1</h3>
+      <p class="game-card-desc">Build, tier list e meta per l'ARPG dark fantasy definitivo.</p>
+    </button>
 
-<!-- TABS PRINCIPALI (ICONE CORRETTE) -->
-<nav class="tabs" id="main-content" tabindex="-1">
-    <button class="tab-btn active-btn" onclick="window.openMainTab(event, 'poe1', 'var(--accent-primary)')">
-        <img alt="PoE 1" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8hRJa3xGY_3AGhoIi0UWV1M0R2pR_Z7ikkRTdnCiSpw&amp;s=10" width="26"/> Path of Exile 1
+    <!-- PoE2 -->
+    <button class="game-card" data-game="poe2"
+      onclick="window.openMainTabFromCard('poe2')">
+      <div class="game-card-icon poe2-icon">
+        <img src="assets/poe2-logo.png" alt="Path of Exile 2">
+      </div>
+      <h3 class="game-card-title">Path of Exile 2</h3>
+      <p class="game-card-desc">Nuovo capitolo: build, meccaniche e guide per dominare Wraeclast.</p>
     </button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'poe2', 'var(--accent-primary)')">
-        <img alt="PoE 2" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlLULAvVSpii6ietytRcFICav9snB2sdbmrsuX3Y5Brw&amp;s=10" width="26"/> Path of Exile 2
+
+    <!-- D2 -->
+    <button class="game-card" data-game="d2"
+      onclick="window.openMainTabFromCard('d2')">
+      <div class="game-card-icon d2-icon">
+        <img src="assets/d2-logo.png" alt="Diablo II: Resurrected">
+      </div>
+      <h3 class="game-card-title">Diablo II: Resurrected</h3>
+      <p class="game-card-desc">I classici intramontabili: build, rune e farming per Sanctuary.</p>
     </button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'le', 'var(--accent-le)')">
-        <img alt="Last Epoch" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://cdn2.steamgriddb.com/icon_thumb/1e8d0b1e07841cd90a347a8f26b41505.png" style="border-radius: 50%;" width="26"/> Last Epoch
+
+    <!-- D4 -->
+    <button class="game-card" data-game="d4"
+      onclick="window.openMainTabFromCard('d4')">
+      <div class="game-card-icon d4-icon">
+        <img src="assets/diablo4-logo.png" alt="Diablo IV">
+      </div>
+      <h3 class="game-card-title">Diablo IV</h3>
+      <p class="game-card-desc">Darkness reborn: build, endgame e ottimizzazioni per Sanctuary.</p>
     </button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'd2', 'var(--danger)')">
-        <img alt="D2R" class="tab-icon" decoding="async" height="26" loading="lazy" src="https://diablo2.io/favicon.ico" width="26"/> Diablo 2: Resurrected
+
+    <!-- LE -->
+    <button class="game-card" data-game="le"
+      onclick="window.openMainTabFromCard('le')">
+      <div class="game-card-icon le-icon">
+        <img src="assets/le-logo.png" alt="Last Epoch">
+      </div>
+      <h3 class="game-card-title">Last Epoch</h3>
+      <p class="game-card-desc">Viaggia nel tempo e forgia il destino con build uniche.</p>
     </button>
-    <button class="tab-btn" onclick="window.openMainTab(event, 'd4', '#c0392b')">
-        <img alt="Logo Diablo 4" class="tab-icon d4-logo" decoding="async" height="26" loading="eager" src="./assets/diablo4-logo.png" width="26"/> Diablo 4
-    </button>
-</nav>
+  </div>
+</section>
+<!-- / GIOCHI GRID -->
+
 
 <!-- CONTENITORE DINAMICO -->
 <main id="game-content-container">
