@@ -311,22 +311,17 @@ if (searchInput && searchResults) {
 
     searchResults.classList.add('active');
 
-    // Click su un risultato
+       // Click su un risultato
     searchResults.querySelectorAll('.search-result-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const gameId = item.dataset.game;
-        const url = item.dataset.url;
+item.addEventListener('click', () => {
+  const url = item.dataset.url;
 
-        // Apri il gioco e poi la build in un overlay
-        window.openMainTabFromCard(gameId).then(() => {
-          setTimeout(() => {
-            window.openOverlay(url, entry.title);
-          }, 600);
-        });
+  // Apri direttamente la build in una nuova scheda
+  window.open(url, '_blank');
 
-        searchResults.classList.remove('active');
-        searchInput.value = '';
-      });
+  searchResults.classList.remove('active');
+  searchInput.value = '';
+});
     });
   });
 
@@ -339,6 +334,76 @@ if (searchInput && searchResults) {
 
   const searchBox = document.querySelector('.search-box');
 }
+// Filtri avanzati
+function initAdvancedFilters(gameId) {
+  const classSelect = document.getElementById(`filter-class-${gameId}`);
+  const tierSelect = document.getElementById(`filter-tier-${gameId}`);
+  const typeSelect = document.getElementById(`filter-type-${gameId}`);
+
+  if (!classSelect || !tierSelect || !typeSelect) return;
+
+  // Popola classi dinamicamente
+  const gameData = hubBuildCatalog?.games[gameId];
+  if (gameData) {
+    const classes = new Set();
+    ['endgame', 'leveling'].forEach(type => {
+      (gameData.builds[type] || []).forEach(b => {
+        if (b.class) classes.add(b.class);
+      });
+    });
+    Array.from(classes).sort().forEach(cls => {
+      const opt = document.createElement('option');
+      opt.value = cls;
+      opt.textContent = cls;
+      classSelect.appendChild(opt);
+    });
+  }
+
+  function applyFilters() {
+    const selectedClass = classSelect.value;
+    const selectedTier = tierSelect.value;
+    const selectedType = typeSelect.value;
+
+    ['endgame', 'leveling'].forEach(type => {
+      if (selectedType !== 'all' && selectedType !== type) return;
+
+      const ul = document.getElementById(`top-${type}-${gameId}`);
+      if (!ul) return;
+
+      const builds = gameData?.builds[type] || [];
+      const filtered = builds.filter(b => {
+        const classMatch = selectedClass === 'all' || b.class === selectedClass;
+        const tierMatch = selectedTier === 'all' || b.tier === selectedTier;
+        return classMatch && tierMatch;
+      });
+
+      // Renderizza solo i build filtrati (logica simile a renderList)
+      // Per ora nascondiamo/mostriamo i li esistenti
+      Array.from(ul.querySelectorAll('li.build-card-revamp')).forEach(li => {
+        const title = li.querySelector('.build-catalog-title')?.textContent || '';
+        const tier = li.querySelector('.build-tier-badge')?.textContent || '';
+        const cls = li.querySelector('.build-class-badge')?.textContent?.replace('⚔️ ', '') || '';
+
+        const classMatch = selectedClass === 'all' || cls === selectedClass;
+        const tierMatch = selectedTier === 'all' || tier === selectedTier;
+
+        li.style.display = (classMatch && tierMatch) ? '' : 'none';
+      });
+    });
+  }
+
+  classSelect.addEventListener('change', applyFilters);
+  tierSelect.addEventListener('change', applyFilters);
+  typeSelect.addEventListener('change', applyFilters);
+}
+
+// Inizializza filtri per ogni gioco quando viene caricato
+const originalInitializeTabContent = window.initializeTabContent;
+window.initializeTabContent = async function(gameId) {
+  await originalInitializeTabContent(gameId);
+  initAdvancedFilters(gameId);
+};
+
 // =========================================================
 // 5. HUB TOOLBELT DIALOGS (Modali di Sistema)
 // =========================================================

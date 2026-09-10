@@ -7,7 +7,33 @@
     <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-roadmap', 'poe2')">🗺️ Roadmap Endgame</button>
     <button class="sub-tab-btn poe2-sub-btn" onclick="window.openSubTab(event, 'poe2-defense', 'poe2')">🛡️ Gemme & Difese</button>
 </nav>
+<!-- FILTRI AVANZATI -->
+<div class="advanced-filters" data-game="poe2">
+  <div class="filter-row">
+    <label class="filter-label">Classe:</label>
+    <select id="filter-class-poe2" class="filter-select">
+      <option value="all">Tutte</option>
+      <!-- Opzioni dinamiche via JS -->
+    </select>
 
+    <label class="filter-label">Tier:</label>
+    <select id="filter-tier-poe2" class="filter-select">
+      <option value="all">Tutti</option>
+      <option value="S">S</option>
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+    </select>
+
+    <label class="filter-label">Tipo:</label>
+    <select id="filter-type-poe2" class="filter-select">
+      <option value="all">Tutti</option>
+      <option value="endgame">Endgame</option>
+      <option value="leveling">Leveling</option>
+    </select>
+  </div>
+</div>
+<!-- / FILTRI AVANZATI -->
 <div id="poe2-dash" class="sub-tab-content poe2-sub-content active-sub-content">
     <div id="build-meta-poe2" class="build-meta-panel" role="status" aria-live="polite"></div>
     <section id="build-discovery-poe2" class="build-discovery"></section>

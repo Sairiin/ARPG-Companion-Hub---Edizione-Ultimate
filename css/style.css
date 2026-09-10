@@ -741,3 +741,58 @@ button.action-btn:hover { background: linear-gradient(to bottom, #3a2e24, #1a110
   color: var(--text-muted);
   font-style: italic;
 }
+/* =========================================================
+   ADVANCED FILTERS (ARPG STYLE)
+   ========================================================= */
+.advanced-filters {
+  background: linear-gradient(to bottom, #16161d, #0c0c10);
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.7);
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.filter-label {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.filter-select {
+  background: #0f0f14;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 8px rgba(230,180,109,0.25);
+}
+
+@media (max-width: 600px) {
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-label,
+  .filter-select {
+    width: 100%;
+  }
+}
