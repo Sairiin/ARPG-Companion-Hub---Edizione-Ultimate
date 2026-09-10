@@ -647,3 +647,97 @@ button.action-btn:hover { background: linear-gradient(to bottom, #3a2e24, #1a110
     flex-wrap: wrap;
   }
 }
+/* =========================================================
+   GLOBAL SEARCH (ARPG STYLE)
+   ========================================================= */
+.global-search-section {
+  margin-bottom: 50px;
+}
+
+.search-box {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.global-search-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: linear-gradient(to bottom, #16161d, #0c0c10);
+  border: 1px solid #000;
+  border-radius: 6px;
+  color: var(--text-main);
+  font-family: var(--font-text);
+  font-size: 1rem;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 4px 12px rgba(0,0,0,0.7);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.global-search-input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.8), 0 0 15px rgba(230,180,109,0.25);
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.9);
+  z-index: 200;
+  display: none;
+}
+
+.search-results.active {
+  display: block;
+}
+
+.search-result-item {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover {
+  background: var(--bg-hover);
+}
+
+.search-result-title {
+  font-family: var(--font-epic);
+  color: var(--accent-primary);
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.search-result-meta {
+  font-family: var(--font-ui);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.search-result-game {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent-secondary);
+  margin-top: 4px;
+}
+
+.no-results {
+  padding: 16px;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}

@@ -276,7 +276,69 @@ window.initializeTabContent = async function(gameId) {
     if (gameId === 'poe1' && window.initializePoe1Encyclopedia) window.initializePoe1Encyclopedia();
     window.loadMyBuildsUI();
 };
+// Ricerca globale
+const searchInput = document.getElementById('global-search-input');
+const searchResults = document.getElementById('global-search-results');
 
+if (searchInput && searchResults) {
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.trim().toLowerCase();
+    if (!query) {
+      searchResults.classList.remove('active');
+      searchResults.innerHTML = '';
+      return;
+    }
+
+    const results = hubSearchEntries.filter(entry =>
+      entry.title.toLowerCase().includes(query) ||
+      entry.meta.toLowerCase().includes(query) ||
+      entry.kind.toLowerCase().includes(query)
+    ).slice(0, 10); // Max 10 risultati
+
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="no-results">Nessun risultato trovato.</div>';
+      searchResults.classList.add('active');
+      return;
+    }
+
+    searchResults.innerHTML = results.map(entry => `
+      <div class="search-result-item" data-game="${entry.gameId}" data-url="${entry.url}">
+        <div class="search-result-title">${entry.title}</div>
+        <div class="search-result-meta">${entry.meta}</div>
+        <div class="search-result-game">${HUB_GAMES[entry.gameId]}</div>
+      </div>
+    `).join('');
+
+    searchResults.classList.add('active');
+
+    // Click su un risultato
+    searchResults.querySelectorAll('.search-result-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const gameId = item.dataset.game;
+        const url = item.dataset.url;
+
+        // Apri il gioco e poi la build in un overlay
+        window.openMainTabFromCard(gameId).then(() => {
+          setTimeout(() => {
+            window.openOverlay(url, entry.title);
+          }, 600);
+        });
+
+        searchResults.classList.remove('active');
+        searchInput.value = '';
+      });
+    });
+  });
+
+  // Chiudi risultati cliccando fuori
+  document.addEventListener('click', (e) => {
+    if (!searchBox.contains(e.target)) {
+      searchResults.classList.remove('active');
+    }
+  });
+
+  const searchBox = document.querySelector('.search-box');
+}
 // =========================================================
 // 5. HUB TOOLBELT DIALOGS (Modali di Sistema)
 // =========================================================
