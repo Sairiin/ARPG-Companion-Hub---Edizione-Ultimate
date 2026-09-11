@@ -1,45 +1,45 @@
 {
   "games": {
     "poe1": {
-      "currentPatch": "Lega 3.29 Curse of the Allflame (Termina tra 78g)",
+      "currentPatch": "Lega 3.29 Curse of the Allflame (Termina tra 77g)",
       "changes": [
-        "Dati sincronizzati tramite API il 2026-09-10.",
+        "Dati sincronizzati tramite API il 2026-09-11.",
         "Consulta il sito ufficiale per i dettagli di bilanciamento."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "poe2": {
-      "currentPatch": "0.5.5 - The Forbidden Rites Event (Termina tra 91g)",
+      "currentPatch": "0.5.5 - The Forbidden Rites Event (Termina tra 90g)",
       "changes": [
-        "Dati sincronizzati tramite API il 2026-09-10.",
+        "Dati sincronizzati tramite API il 2026-09-11.",
         "Consulta il sito ufficiale per i dettagli di bilanciamento."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/path-of-exile",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "d4": {
-      "currentPatch": "Stagione 7 (Termina tra 39g)",
+      "currentPatch": "Stagione 7 (Termina tra 38g)",
       "changes": [
-        "Dati sincronizzati tramite API il 2026-09-10.",
+        "Dati sincronizzati tramite API il 2026-09-11.",
         "Consulta il sito ufficiale per i dettagli di bilanciamento."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "le": {
-      "currentPatch": "Season 4 (Termina tra 34g)",
+      "currentPatch": "Season 4 (Termina tra 33g)",
       "changes": [
-        "Dati sincronizzati tramite API il 2026-09-10.",
+        "Dati sincronizzati tramite API il 2026-09-11.",
         "Consulta il sito ufficiale per i dettagli di bilanciamento."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
       "sourceLabel": "Consulta aRPG Timeline"
     },
     "d2": {
-      "currentPatch": "Ladder Stagione 14 (Termina tra 60g)",
+      "currentPatch": "Ladder Stagione 14 (Termina tra 59g)",
       "changes": [
-        "Dati sincronizzati tramite API il 2026-09-10.",
+        "Dati sincronizzati tramite API il 2026-09-11.",
         "Consulta il sito ufficiale per i dettagli di bilanciamento."
       ],
       "sourceUrl": "https://www.arpg-timeline.com/game/diablo-iv",
