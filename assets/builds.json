@@ -1,9 +1,9 @@
 {
   "games": {
     "poe1": {
-      "patch": "Lega 3.29 Curse of the Allflame (Termina tra 77g)",
+      "patch": "Lega 3.29 Curse of the Allflame (Termina tra 76g)",
       "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-11",
+      "reviewedAt": "2026-09-12",
       "sources": [
         {
           "label": "Maxroll",
@@ -131,9 +131,9 @@
       }
     },
     "poe2": {
-      "patch": "0.5.5 - The Forbidden Rites Event (Termina tra 90g)",
+      "patch": "0.5.5 - The Forbidden Rites Event (Termina tra 89g)",
       "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-11",
+      "reviewedAt": "2026-09-12",
       "sources": [
         {
           "label": "Maxroll",
@@ -261,9 +261,9 @@
       }
     },
     "d4": {
-      "patch": "Stagione 7 (Termina tra 38g)",
+      "patch": "Stagione 7 (Termina tra 37g)",
       "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-11",
+      "reviewedAt": "2026-09-12",
       "sources": [
         {
           "label": "Maxroll",
@@ -391,9 +391,9 @@
       }
     },
     "le": {
-      "patch": "Season 4 (Termina tra 33g)",
+      "patch": "Season 4 (Termina tra 32g)",
       "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-11",
+      "reviewedAt": "2026-09-12",
       "sources": [
         {
           "label": "Maxroll",
@@ -521,9 +521,9 @@
       }
     },
     "d2": {
-      "patch": "Ladder Stagione 14 (Termina tra 59g)",
+      "patch": "Ladder Stagione 14 (Termina tra 58g)",
       "reviewCycleDays": 1,
-      "reviewedAt": "2026-09-11",
+      "reviewedAt": "2026-09-12",
       "sources": [
         {
           "label": "Maxroll",
